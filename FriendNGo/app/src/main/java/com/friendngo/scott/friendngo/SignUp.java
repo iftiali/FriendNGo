@@ -54,15 +54,17 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View v){
 
                 AsyncHttpClient client = new AsyncHttpClient();
-                client.setBasicAuth(emailEditTextValue.getText().toString(),passwordEditTextValue.getText().toString());
+//                client.setBasicAuth(emailEditTextValue.getText().toString(),passwordEditTextValue.getText().toString());
 
                 RequestParams params = new RequestParams();
-                params.setUseJsonStreamer(true);
-                params.put("email", emailEditTextValue.getText().toString());
+//                params.setUseJsonStreamer(true);
+                params.put("username", emailEditTextValue.getText().toString());
                 params.put("password", passwordEditTextValue.getText().toString());
 
 
-                client.post("http://54.175.1.158:8000/", params, new AsyncHttpResponseHandler() {
+//                client.post("http://requestb.in/s3zx6as4", params, new AsyncHttpResponseHandler() {
+
+                client.post("http://54.175.1.158:8000/users/register/", params, new AsyncHttpResponseHandler() {
 
                     @Override
                     public void onStart() {

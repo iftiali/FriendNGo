@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -56,14 +57,14 @@ public class SignIn extends AppCompatActivity {
             public void onClick(View v){
 
                 AsyncHttpClient client = new AsyncHttpClient();
-                client.setBasicAuth(emailEditTextValue.getText().toString(),passwordEditTextValue.getText().toString());
+//                client.setBasicAuth(emailEditTextValue.getText().toString(),passwordEditTextValue.getText().toString());
 
                 RequestParams params = new RequestParams();
-                params.setUseJsonStreamer(true);
-                params.put("email", emailEditTextValue.getText().toString());
+//                params.setUseJsonStreamer(true);
+                params.put("username", emailEditTextValue.getText().toString());
                 params.put("password", passwordEditTextValue.getText().toString());
 
-                client.post("http://requestb.in/s3zx6as4", params, new AsyncHttpResponseHandler() {
+                client.post("http://54.175.1.158:8000/users/signin/", params, new AsyncHttpResponseHandler() {
 
                     @Override
                     public void onStart() {
@@ -73,13 +74,20 @@ public class SignIn extends AppCompatActivity {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                         // called when response HTTP status is "200 OK"
-                        Log.w("HTTP SUCCESS: ", response.toString());
+                        Log.w("HTTP SUCCESS: ", statusCode + ": " + response.toString() + " headers:" + headers.toString());
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                        //TODO: Handle errors such as 1. E-mail already taken 2. Invalid e-mail input, 2. Invalid password, etc. etc. etc.
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                        Log.w("HTTP FAIL: ", ""+statusCode);
+                        if(statusCode == 400){
+                            Toast.makeText(getApplicationContext(),"Please Type a valid e-mail and password", Toast.LENGTH_LONG).show();
+                        } else if(statusCode == 401){
+                            Toast.makeText(getApplicationContext(),"Invalid Email or Password", Toast.LENGTH_LONG).show();
+                        } else {
+                            Log.w("HTTP FAIL: ", ""+statusCode);
+                        }
                     }
 
                     @Override
