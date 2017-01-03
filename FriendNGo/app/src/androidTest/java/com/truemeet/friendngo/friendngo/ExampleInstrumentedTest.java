@@ -1,4 +1,4 @@
-package com.friendngo.scott.friendngo;
+package com.truemeet.friendngo.friendngo;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

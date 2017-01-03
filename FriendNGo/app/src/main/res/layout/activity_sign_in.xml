@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/whiteish"
-    tools:context="com.friendngo.scott.friendngo.SignIn">
+    tools:context="com.truemeet.friendngo.friendngo.SignIn">
 
     <EditText
         android:layout_width="wrap_content"

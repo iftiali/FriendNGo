@@ -1,4 +1,4 @@
-package com.friendngo.scott.friendngo;
+package com.truemeet.friendngo.friendngo;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
+
 import com.loopj.android.http.*;
 
 import cz.msebera.android.httpclient.Header;
