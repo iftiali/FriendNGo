@@ -45,9 +45,10 @@ public class NewCity extends AppCompatActivity {
         //Sets the top bar text
         getSupportActionBar().setTitle("New City");
 
-
-        String token = SignIn.static_token;
-        Log.w("TOKEN TEST", token);
+        if(SignIn.static_token != null) {
+            String token = SignIn.static_token;
+            Log.w("TOKEN TEST", token);
+        }
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.setBasicAuth(SignIn.static_username,SignIn.static_token);
