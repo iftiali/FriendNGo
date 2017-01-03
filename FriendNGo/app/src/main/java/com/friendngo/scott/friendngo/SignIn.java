@@ -33,7 +33,8 @@ public class SignIn extends AppCompatActivity {
 
     private EditText emailEditTextValue;
     private EditText passwordEditTextValue;
-    public static String token;
+    public static String static_token;
+    public static String static_username;
     private SharedPreferences sharedPref;
 
     @Override
@@ -41,7 +42,8 @@ public class SignIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        token = "";
+        static_token = "";
+        static_username = "";
         //Sets the top heading value
         getSupportActionBar().setTitle("Sign In");
 
@@ -74,7 +76,7 @@ public class SignIn extends AppCompatActivity {
                 params.put("username", emailEditTextValue.getText().toString());
                 params.put("password", passwordEditTextValue.getText().toString());
 
-                client.post("http://54.175.1.158:8000/api-token-auth/", params, new JsonHttpResponseHandler() {
+                client.post(MainActivity.base_host_url + "api-token-auth/", params, new JsonHttpResponseHandler() {
 
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -82,8 +84,8 @@ public class SignIn extends AppCompatActivity {
                             //TODO: Test and implement statusCode handlers for developers and graceful degradation
                             Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
                             try{
-                                token = response.get("token").toString();
-                                Log.w("HTTP SUCCESS: ", token);
+                                static_token = response.get("token").toString();
+                                Log.w("HTTP SUCCESS: ", static_token);
 
                                 Intent intent = new Intent(SignIn.this,NewCity.class);
                                 SignIn.this.startActivity(intent);
@@ -94,12 +96,14 @@ public class SignIn extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                            Log.w("HTTP SUCCESS: ", statusCode + ": " + timeline.toString());
+                        public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                            Log.w("HTTP SUCCESS: ", statusCode + ": " + response.toString());
                             try {
-                                JSONObject firstEvent = timeline.getJSONObject(0);
-                                token = firstEvent.getString("token");
-                                Log.w("HTTP SUCCESS: ", token.toString());
+                                JSONObject firstEvent = response.getJSONObject(0);
+
+                                static_username = emailEditTextValue.getText().toString();
+                                static_token = firstEvent.getString("token");
+                                Log.w("HTTP SUCCESS: ", static_token.toString());
 
                                 Intent intent = new Intent(SignIn.this,NewCity.class);
                                 SignIn.this.startActivity(intent);

@@ -72,7 +72,7 @@ public class SignUp extends AppCompatActivity {
 
 //                client.post("http://requestb.in/s3zx6as4", params, new AsyncHttpResponseHandler() {
 
-                client.post("http://54.175.1.158:8000/users/register/", params, new JsonHttpResponseHandler() {
+                client.post(MainActivity.base_host_url + "users/register/", params, new JsonHttpResponseHandler() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -82,9 +82,8 @@ public class SignUp extends AppCompatActivity {
                         try{
                             Log.w("HTTP SUCCESS: ", response.get("token").toString());
 
-                            SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putString("token",response.get("token").toString());
-                            editor.commit();
+                            SignIn.static_username = emailEditTextValue.getText().toString();
+                            SignIn.static_token = response.get("token").toString();
 
                             Intent intent = new Intent(SignUp.this,NewCity.class);
                             SignUp.this.startActivity(intent);
@@ -95,10 +94,10 @@ public class SignUp extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                        Log.w("HTTP SUCCESS: ", statusCode + ": " + timeline.toString());
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                        Log.w("HTTP SUCCESS: ", statusCode + ": " + response.toString());
                         try {
-                            JSONObject firstEvent = timeline.getJSONObject(0);
+                            JSONObject firstEvent = response.getJSONObject(0);
                             String token = firstEvent.getString("token");
                             Log.w("HTTP SUCCESS: ", token.toString());
 

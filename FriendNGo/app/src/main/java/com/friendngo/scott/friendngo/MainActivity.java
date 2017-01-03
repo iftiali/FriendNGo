@@ -12,6 +12,7 @@ import android.view.WindowManager;
 public class MainActivity extends Activity {
 
     private final int SPLASH_DISPLAY_LENGTH = 2000;
+    public static String base_host_url = "http://54.175.1.158:8000/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
