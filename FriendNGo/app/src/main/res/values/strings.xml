@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FriendNGo</string>
+    <string name="preference_file_key">com.friendngo.scott.friendngo.KEY_FILE</string>token_string
+    <string name="token">token</string>
 </resources>

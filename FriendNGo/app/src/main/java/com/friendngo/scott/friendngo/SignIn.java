@@ -1,6 +1,8 @@
 package com.friendngo.scott.friendngo;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,10 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import org.json.*;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
+
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -21,7 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.nio.charset.StandardCharsets;
+
 
 import cz.msebera.android.httpclient.Header;
 
@@ -32,12 +33,15 @@ public class SignIn extends AppCompatActivity {
 
     private EditText emailEditTextValue;
     private EditText passwordEditTextValue;
+    public static String token;
+    private SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        token = "";
         //Sets the top heading value
         getSupportActionBar().setTitle("Sign In");
 
@@ -74,9 +78,16 @@ public class SignIn extends AppCompatActivity {
 
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                            //TODO: Test and implement statusCode handlers for developers and graceful degradation
                             Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
                             try{
-                                Log.w("HTTP SUCCESS: ", response.get("token").toString());
+                                token = response.get("token").toString();
+                                Log.w("HTTP SUCCESS: ", token);
+
+                                Intent intent = new Intent(SignIn.this,NewCity.class);
+                                SignIn.this.startActivity(intent);
+
                             }catch (JSONException e){
                                 Log.w("HTTP FAIL: ",e.getMessage().toString());
                             }
@@ -87,12 +98,16 @@ public class SignIn extends AppCompatActivity {
                             Log.w("HTTP SUCCESS: ", statusCode + ": " + timeline.toString());
                             try {
                                 JSONObject firstEvent = timeline.getJSONObject(0);
-                                String token = firstEvent.getString("token");
+                                token = firstEvent.getString("token");
                                 Log.w("HTTP SUCCESS: ", token.toString());
+
+                                Intent intent = new Intent(SignIn.this,NewCity.class);
+                                SignIn.this.startActivity(intent);
+                                SignIn.this.finish();
+
                             } catch (JSONException e) {
                                 Log.w("HTTP FAIL: ", e.getMessage().toString());
                             }
-
                         }
 
                     @Override
@@ -101,6 +116,6 @@ public class SignIn extends AppCompatActivity {
                     }
                     });
                 }
-            });
+        });
         }
     }

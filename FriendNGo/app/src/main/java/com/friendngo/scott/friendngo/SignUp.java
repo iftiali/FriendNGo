@@ -1,6 +1,8 @@
 package com.friendngo.scott.friendngo;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 import com.loopj.android.http.*;
 
@@ -24,11 +29,14 @@ public class SignUp extends AppCompatActivity {
     private EditText emailEditTextValue;
     private EditText passwordEditTextValue;
 
+    private SharedPreferences sharedPref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         //Sets the top bar text
         getSupportActionBar().setTitle("Create an account");
 
@@ -64,23 +72,47 @@ public class SignUp extends AppCompatActivity {
 
 //                client.post("http://requestb.in/s3zx6as4", params, new AsyncHttpResponseHandler() {
 
-                client.post("http://54.175.1.158:8000/users/register/", params, new AsyncHttpResponseHandler() {
+                client.post("http://54.175.1.158:8000/users/register/", params, new JsonHttpResponseHandler() {
 
                     @Override
-                    public void onStart() {
-                        // called before request is started
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                        //TODO: Test and implement statusCode handler for developers and graceful degradation
+                        Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
+                        try{
+                            Log.w("HTTP SUCCESS: ", response.get("token").toString());
+
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("token",response.get("token").toString());
+                            editor.commit();
+
+                            Intent intent = new Intent(SignUp.this,NewCity.class);
+                            SignUp.this.startActivity(intent);
+                            SignUp.this.finish();
+                        }catch (JSONException e){
+                            Log.w("HTTP FAIL: ",e.getMessage().toString());
+                        }
                     }
 
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                        // called when response HTTP status is "200 OK"
-                        Log.w("HTTP SUCCESS: ", response.toString());
-                    }
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                        Log.w("HTTP SUCCESS: ", statusCode + ": " + timeline.toString());
+                        try {
+                            JSONObject firstEvent = timeline.getJSONObject(0);
+                            String token = firstEvent.getString("token");
+                            Log.w("HTTP SUCCESS: ", token.toString());
 
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                        Log.w("HTTP FAIL: ", ""+statusCode);
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("token",token.toString());
+                            editor.commit();
+
+                            Intent intent = new Intent(SignUp.this,NewCity.class);
+                            SignUp.this.startActivity(intent);
+                            SignUp.this.finish();
+
+                        } catch (JSONException e) {
+                            Log.w("HTTP FAIL: ", e.getMessage().toString());
+                        }
                     }
 
                     @Override
