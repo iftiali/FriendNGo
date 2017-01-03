@@ -10,12 +10,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.json.*;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.nio.charset.StandardCharsets;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -45,7 +51,7 @@ public class SignIn extends AppCompatActivity {
         textView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                Intent mainIntent = new Intent(SignIn.this,SignUp.class);
+                Intent mainIntent = new Intent(SignIn.this, SignUp.class);
                 SignIn.this.startActivity(mainIntent);
                 SignIn.this.finish();
                 return false;
@@ -53,49 +59,48 @@ public class SignIn extends AppCompatActivity {
         });
 
         //Sets the callback for when a user submits the username and password form
-        signinButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        signinButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
 
                 AsyncHttpClient client = new AsyncHttpClient();
-//                client.setBasicAuth(emailEditTextValue.getText().toString(),passwordEditTextValue.getText().toString());
+                client.setBasicAuth(emailEditTextValue.getText().toString(), passwordEditTextValue.getText().toString());
 
                 RequestParams params = new RequestParams();
 //                params.setUseJsonStreamer(true);
                 params.put("username", emailEditTextValue.getText().toString());
                 params.put("password", passwordEditTextValue.getText().toString());
 
-                client.post("http://54.175.1.158:8000/users/signin/", params, new AsyncHttpResponseHandler() {
+                client.post("http://54.175.1.158:8000/api-token-auth/", params, new JsonHttpResponseHandler() {
 
-                    @Override
-                    public void onStart() {
-                        // called before request is started
-                    }
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
-                        // called when response HTTP status is "200 OK"
-                        Log.w("HTTP SUCCESS: ", statusCode + ": " + response.toString() + " headers:" + headers.toString());
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                        //TODO: Handle errors such as 1. E-mail already taken 2. Invalid e-mail input, 2. Invalid password, etc. etc. etc.
-                        // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                        if(statusCode == 400){
-                            Toast.makeText(getApplicationContext(),"Please Type a valid e-mail and password", Toast.LENGTH_LONG).show();
-                        } else if(statusCode == 401){
-                            Toast.makeText(getApplicationContext(),"Invalid Email or Password", Toast.LENGTH_LONG).show();
-                        } else {
-                            Log.w("HTTP FAIL: ", ""+statusCode);
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
+                            try{
+                                Log.w("HTTP SUCCESS: ", response.get("token").toString());
+                            }catch (JSONException e){
+                                Log.w("HTTP FAIL: ",e.getMessage().toString());
+                            }
                         }
-                    }
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                            Log.w("HTTP SUCCESS: ", statusCode + ": " + timeline.toString());
+                            try {
+                                JSONObject firstEvent = timeline.getJSONObject(0);
+                                String token = firstEvent.getString("token");
+                                Log.w("HTTP SUCCESS: ", token.toString());
+                            } catch (JSONException e) {
+                                Log.w("HTTP FAIL: ", e.getMessage().toString());
+                            }
+
+                        }
 
                     @Override
                     public void onRetry(int retryNo) {
                         // called when request is retried
                     }
-                });
-            }
-        });
+                    });
+                }
+            });
+        }
     }
-}
