@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/general_connection_option01"
-    tools:context="com.truemeet.friendngo.friendngo.FacebookLogin">
+    tools:context="com.friendngo.friendngo.friendngo.FacebookLogin">
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"

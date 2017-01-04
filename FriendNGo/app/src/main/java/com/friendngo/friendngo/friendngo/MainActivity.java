@@ -1,4 +1,4 @@
-package com.truemeet.friendngo.friendngo;
+package com.friendngo.friendngo.friendngo;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package com.truemeet.friendngo.friendngo;
+package com.friendngo.friendngo.friendngo;
 
 import android.content.Context;
 import android.content.Intent;
@@ -117,6 +117,11 @@ public class SignUp extends AppCompatActivity {
                     @Override
                     public void onRetry(int retryNo) {
                         // called when request is retried
+                    }
+
+                    @Override
+                    public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
+                        Log.w("HTTP FAILURE:", "Error Code: " + error_code);
                     }
                 });
             }
