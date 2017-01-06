@@ -21,5 +21,11 @@
 
     <string name="django_client_id">FacPJkd54FAsgQv0G7H9pmjkJXkeQzo8c3EQDKah</string>
     <string name="django_client_secret">NQHJ98PPsbNQHdqHNnHuAtbNCcf26akcnZhRdEMyl57opYyrzUDl6P1FRDgoJcNU33Qx3Ka4pHJOMXdMRuOBIfw2hn7m5YfjAsHZEc0KGK2qPg1x30ympyrIGkEM1WJi</string>
+    <string name="title_activity_map">MapActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 
 </resources>

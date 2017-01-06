@@ -61,6 +61,7 @@ public class SignUp extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
 
+                //Make a call to register the user
                 AsyncHttpClient client = new AsyncHttpClient();
 //                client.setBasicAuth(emailEditTextValue.getText().toString(),passwordEditTextValue.getText().toString());
 
@@ -69,9 +70,6 @@ public class SignUp extends AppCompatActivity {
                 params.put("username", emailEditTextValue.getText().toString());
                 params.put("password", passwordEditTextValue.getText().toString());
 
-
-//                client.post("http://requestb.in/s3zx6as4", params, new AsyncHttpResponseHandler() {
-
                 client.post(MainActivity.base_host_url + "users/register/", params, new JsonHttpResponseHandler() {
 
                     @Override
@@ -79,18 +77,69 @@ public class SignUp extends AppCompatActivity {
 
                         //TODO: Test and implement statusCode handler for developers and graceful degradation
                         Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
-                        try{
-                            Log.w("HTTP SUCCESS: ", response.get("token").toString());
 
-                            SignIn.static_username = emailEditTextValue.getText().toString();
-                            SignIn.static_token = response.get("token").toString();
+                            //Now that you are registered, call the authenticate class
+                            AsyncHttpClient client = new AsyncHttpClient();
+                            client.setBasicAuth(emailEditTextValue.getText().toString(), passwordEditTextValue.getText().toString());
 
-                            Intent intent = new Intent(SignUp.this,NewCity.class);
-                            SignUp.this.startActivity(intent);
-                            SignUp.this.finish();
-                        }catch (JSONException e){
-                            Log.w("HTTP FAIL: ",e.getMessage().toString());
-                        }
+                            RequestParams params = new RequestParams();
+//                          params.setUseJsonStreamer(true);
+                            params.put("username", emailEditTextValue.getText().toString());
+                            params.put("password", passwordEditTextValue.getText().toString());
+
+                            client.post(MainActivity.base_host_url + "api-token-auth/", params, new JsonHttpResponseHandler() {
+
+                                @Override
+                                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                                    //TODO: Test and implement statusCode handlers for developers and graceful degradation
+                                    Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
+                                    try{
+                                        SignIn.static_username = emailEditTextValue.getText().toString();
+                                        SignIn.static_token = response.get("token").toString();
+                                        Log.w("HTTP SUCCESS: ", SignIn.static_token.toString());
+
+                                        Intent intent = new Intent(SignUp.this,NewCity.class);
+                                        SignUp.this.startActivity(intent);
+                                        SignUp.this.finish();
+
+                                    }catch (JSONException e){
+                                        Log.w("HTTP FAIL: ",e.getMessage().toString());
+                                    }
+                                }
+
+                                @Override
+                                public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                                    Log.w("HTTP SUCCESS: ", statusCode + ": " + response.toString());
+                                    try {
+                                        JSONObject firstEvent = response.getJSONObject(0);
+
+                                        SignIn.static_username = emailEditTextValue.getText().toString();
+                                        SignIn.static_token = firstEvent.getString("token");
+                                        Log.w("HTTP SUCCESS: ", SignIn.static_token.toString());
+
+                                        Intent intent = new Intent(SignUp.this,NewCity.class);
+                                        SignUp.this.startActivity(intent);
+                                        SignUp.this.finish();
+
+                                    } catch (JSONException e) {
+                                        Log.w("HTTP FAIL: ", e.getMessage().toString());
+                                    }
+                                }
+
+                                @Override
+                                public void onRetry(int retryNo) {
+                                    // called when request is retried
+                                }
+
+                                @Override
+                                public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
+                                    Log.w("HTTP FAILURE:", "Error Code: " + error_code);
+                                }
+                            });
+//                        }catch (JSONException e){
+//                            Log.w("HTTP JSON ERROR: ",e.getMessage().toString());
+//                        }
                     }
 
                     @Override
@@ -98,19 +147,13 @@ public class SignUp extends AppCompatActivity {
                         Log.w("HTTP SUCCESS: ", statusCode + ": " + response.toString());
                         try {
                             JSONObject firstEvent = response.getJSONObject(0);
-                            String token = firstEvent.getString("token");
-                            Log.w("HTTP SUCCESS: ", token.toString());
-
-                            SharedPreferences.Editor editor = sharedPref.edit();
-                            editor.putString("token",token.toString());
-                            editor.commit();
 
                             Intent intent = new Intent(SignUp.this,NewCity.class);
                             SignUp.this.startActivity(intent);
                             SignUp.this.finish();
 
                         } catch (JSONException e) {
-                            Log.w("HTTP FAIL: ", e.getMessage().toString());
+                            Log.w("HTTP JSON ERROR: ", e.getMessage().toString());
                         }
                     }
 

@@ -31,9 +31,12 @@ public class SignIn extends AppCompatActivity {
 
     private EditText emailEditTextValue;
     private EditText passwordEditTextValue;
+
+    //TODO: Migrate these simple static variables to shared Prefs
+//    private SharedPreferences sharedPref;
     public static String static_token;
     public static String static_username;
-    private SharedPreferences sharedPref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,11 +85,14 @@ public class SignIn extends AppCompatActivity {
                             //TODO: Test and implement statusCode handlers for developers and graceful degradation
                             Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
                             try{
+                                static_username = emailEditTextValue.getText().toString();
                                 static_token = response.get("token").toString();
                                 Log.w("HTTP SUCCESS: ", static_token);
 
                                 Intent intent = new Intent(SignIn.this,NewCity.class);
                                 SignIn.this.startActivity(intent);
+                                SignIn.this.finish();
+
 
                             }catch (JSONException e){
                                 Log.w("HTTP FAIL: ",e.getMessage().toString());

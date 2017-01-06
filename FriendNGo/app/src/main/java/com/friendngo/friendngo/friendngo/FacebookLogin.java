@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -23,12 +25,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
+
 import cz.msebera.android.httpclient.Header;
 
 public class FacebookLogin extends AppCompatActivity {
 
     CallbackManager callbackManager;
     public static boolean using_facebook = false;
+    private Button useEmailButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,40 +48,65 @@ public class FacebookLogin extends AppCompatActivity {
 
         //Creates fullscreen effect for newer phones
         if (Build.VERSION.SDK_INT >= 16) {
+
             View decorView = getWindow().getDecorView();
             // Hide the status bar.
             int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
             decorView.setSystemUiVisibility(uiOptions);
-            // Remember that you should never show the action bar if the
-            // status bar is hidden, so hide that too if necessary.
             getSupportActionBar().hide();
         }
 
-        //Sets up the callback to the Facebook API for the facebook button
-        callbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email");
-//        loginButton.setReadPermissions(Arrays.asList(
+        //If the user is logged in then go straight to the New City Activity
+        if(isLoggedIn()) {
+            Intent mainIntent = new Intent(FacebookLogin.this,NewCity.class);
+            FacebookLogin.this.startActivity(mainIntent);
+            FacebookLogin.this.finish();
+
+        }else{
+
+            //Handler for the button to go to e-mail login
+            useEmailButton = (Button) findViewById(R.id.use_email_button);
+            useEmailButton.setOnClickListener(new View.OnClickListener() {
+
+                public void onClick(View v) {
+                    Intent mainIntent = new Intent(FacebookLogin.this,SignIn.class);
+                    FacebookLogin.this.startActivity(mainIntent);
+                    FacebookLogin.this.finish();
+                }
+            });
+
+            //Sets up the callback to the Facebook API for the facebook button
+            callbackManager = CallbackManager.Factory.create();
+            LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+
+            //Set the permissions that the user should have with the login
+//            loginButton.setReadPermissions("email");
+            loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
 //                "public_profile", "email", "user_birthday", "user_friends"));
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(final LoginResult loginResult) {
+            loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(final LoginResult loginResult) {
                 /* Create an Intent that will start the Menu-Activity. */
-                Log.w("FACEBOOK LOGIN: ", "Success! Token: " + loginResult.getAccessToken().getToken());
+                    Log.w("FACEBOOK LOGIN: ", "Success! Token: " + loginResult.getAccessToken().getToken());
 
-                // Now Let's Call the Facebook API to get the user's e-mail, birthday, picture, etc.
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject object, GraphResponse response) {
-                                Log.w("FACEBOOK RESPONSE: ", response.toString());
+                    Intent mainIntent = new Intent(FacebookLogin.this, NewCity.class);
+                    FacebookLogin.this.startActivity(mainIntent);
+                    FacebookLogin.this.finish();
 
-                                try {
-                                    // Application code
-                                    String email = object.getString("email");
-                                    String birthday = object.getString("birthday"); // 01/31/1980 format
-                                } catch (JSONException e){}
+                    // Now Let's Call the Facebook API to get the user's e-mail, birthday, picture, etc.
+                    GraphRequest request = GraphRequest.newMeRequest(
+                            loginResult.getAccessToken(),
+                            new GraphRequest.GraphJSONObjectCallback() {
+                                @Override
+                                public void onCompleted(JSONObject object, GraphResponse response) {
+                                    Log.w("FACEBOOK RESPONSE: ", response.toString());
+
+                                    try {
+                                        // Application code
+                                        String email = object.getString("email");
+                                        String birthday = object.getString("birthday"); // 01/31/1980 format
+                                    } catch (JSONException e) {
+                                    }
 
                                     //Now Finally Call the Django Backend to get convert the Facebook token to a Django Token
                                     //HTTP ASYNC CODE to authenticate with the backend server
@@ -95,21 +125,20 @@ public class FacebookLogin extends AppCompatActivity {
 //                                client.post("http://requestb.in/1ni37eo1", params, new JsonHttpResponseHandler() {
 
 
-
                                         @Override
                                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
                                             Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
-                                            try{
+                                            try {
                                                 String fb_token = response.get("token").toString();
                                                 Log.w("HTTP SUCCESS: ", fb_token);
 
-                                                Intent mainIntent = new Intent(FacebookLogin.this,NewCity.class);
+                                                Intent mainIntent = new Intent(FacebookLogin.this, NewCity.class);
                                                 FacebookLogin.this.startActivity(mainIntent);
                                                 FacebookLogin.this.finish();
 
-                                            }catch (JSONException e){
-                                                Log.w("HTTP FAIL: ",e.getMessage().toString());
+                                            } catch (JSONException e) {
+                                                Log.w("HTTP FAIL: ", e.getMessage().toString());
                                             }
                                         }
 
@@ -134,34 +163,37 @@ public class FacebookLogin extends AppCompatActivity {
                                             // called when request is retried
                                         }
 
+                                        @Override
+                                        public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
+                                            Log.w("HTTP FAILURE:", "Error Code: " + error_code);
+                                        }
+
                                     });
 
                                     using_facebook = true;
 
 
+                                }
+                            });
+                    Bundle parameters = new Bundle();
+                    parameters.putString("fields", "id,name,email,gender,birthday");
+                    request.setParameters(parameters);
+                    request.executeAsync();
+                }
 
+                @Override
+                public void onCancel() {
+                    Log.w("FACEBOOK LOGIN: ", "Cancelled");
+                    // App code
+                }
 
-
-                            }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email,gender,birthday");
-                request.setParameters(parameters);
-                request.executeAsync();
-            }
-
-            @Override
-            public void onCancel() {
-                Log.w("FACEBOOK LOGIN: ", "Cancelled");
-                // App code
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                Log.w("FACEBOOK LOGIN: ", "Error");
-                // App code
-            }
-        });
+                @Override
+                public void onError(FacebookException exception) {
+                    Log.w("FACEBOOK LOGIN: ", "Error");
+                    // App code
+                }
+            });
+        }
 
     }
 
@@ -169,6 +201,12 @@ public class FacebookLogin extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    //Helper method to check if the user is logged in or not
+    public boolean isLoggedIn() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        return accessToken != null;
     }
 
 

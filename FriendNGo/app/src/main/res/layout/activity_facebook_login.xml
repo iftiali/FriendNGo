@@ -32,7 +32,7 @@
         android:text="Connect with my email address"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:id="@+id/button3"
+        android:id="@+id/use_email_button"
         android:background="@color/colorAccent"
         android:textColor="@android:color/white"
         android:layout_above="@+id/login_button"
