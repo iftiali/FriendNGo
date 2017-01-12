@@ -32,7 +32,7 @@ public class SignIn extends AppCompatActivity {
     private EditText emailEditTextValue;
     private EditText passwordEditTextValue;
 
-    //TODO: Migrate these simple static variables to shared Prefs
+    //TODO: Migrate these simple staticpage variables to shared Prefs
 //    private SharedPreferences sharedPref;
     public static String static_token;
     public static String static_username;
@@ -89,7 +89,7 @@ public class SignIn extends AppCompatActivity {
                                 static_token = response.get("token").toString();
                                 Log.w("HTTP SUCCESS: ", static_token);
 
-                                Intent intent = new Intent(SignIn.this,NewCity.class);
+                                Intent intent = new Intent(SignIn.this,Popular.class);
                                 SignIn.this.startActivity(intent);
                                 SignIn.this.finish();
 
@@ -109,7 +109,7 @@ public class SignIn extends AppCompatActivity {
                                 static_token = firstEvent.getString("token");
                                 Log.w("HTTP SUCCESS: ", static_token.toString());
 
-                                Intent intent = new Intent(SignIn.this,NewCity.class);
+                                Intent intent = new Intent(SignIn.this,Popular.class);
                                 SignIn.this.startActivity(intent);
                                 SignIn.this.finish();
 

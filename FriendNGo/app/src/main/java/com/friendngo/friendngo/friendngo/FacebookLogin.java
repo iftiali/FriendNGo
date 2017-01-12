@@ -58,7 +58,7 @@ public class FacebookLogin extends AppCompatActivity {
 
         //If the user is logged in then go straight to the New City Activity
         if(isLoggedIn()) {
-            Intent mainIntent = new Intent(FacebookLogin.this,NewCity.class);
+            Intent mainIntent = new Intent(FacebookLogin.this,Popular.class);
             FacebookLogin.this.startActivity(mainIntent);
             FacebookLogin.this.finish();
 
@@ -89,7 +89,7 @@ public class FacebookLogin extends AppCompatActivity {
                 /* Create an Intent that will start the Menu-Activity. */
                     Log.w("FACEBOOK LOGIN: ", "Success! Token: " + loginResult.getAccessToken().getToken());
 
-                    Intent mainIntent = new Intent(FacebookLogin.this, NewCity.class);
+                    Intent mainIntent = new Intent(FacebookLogin.this, Popular.class);
                     FacebookLogin.this.startActivity(mainIntent);
                     FacebookLogin.this.finish();
 
@@ -133,7 +133,7 @@ public class FacebookLogin extends AppCompatActivity {
                                                 String fb_token = response.get("token").toString();
                                                 Log.w("HTTP SUCCESS: ", fb_token);
 
-                                                Intent mainIntent = new Intent(FacebookLogin.this, NewCity.class);
+                                                Intent mainIntent = new Intent(FacebookLogin.this, Popular.class);
                                                 FacebookLogin.this.startActivity(mainIntent);
                                                 FacebookLogin.this.finish();
 

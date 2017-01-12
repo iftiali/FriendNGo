@@ -99,7 +99,7 @@ public class SignUp extends AppCompatActivity {
                                         SignIn.static_token = response.get("token").toString();
                                         Log.w("HTTP SUCCESS: ", SignIn.static_token.toString());
 
-                                        Intent intent = new Intent(SignUp.this,NewCity.class);
+                                        Intent intent = new Intent(SignUp.this,Popular.class);
                                         SignUp.this.startActivity(intent);
                                         SignUp.this.finish();
 
@@ -118,7 +118,7 @@ public class SignUp extends AppCompatActivity {
                                         SignIn.static_token = firstEvent.getString("token");
                                         Log.w("HTTP SUCCESS: ", SignIn.static_token.toString());
 
-                                        Intent intent = new Intent(SignUp.this,NewCity.class);
+                                        Intent intent = new Intent(SignUp.this,Popular.class);
                                         SignUp.this.startActivity(intent);
                                         SignUp.this.finish();
 
@@ -148,7 +148,7 @@ public class SignUp extends AppCompatActivity {
                         try {
                             JSONObject firstEvent = response.getJSONObject(0);
 
-                            Intent intent = new Intent(SignUp.this,NewCity.class);
+                            Intent intent = new Intent(SignUp.this,Popular.class);
                             SignUp.this.startActivity(intent);
                             SignUp.this.finish();
 
