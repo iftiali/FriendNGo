@@ -13,9 +13,11 @@
 
     <ImageButton
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:srcCompat="@drawable/staticpage"
         android:layout_centerHorizontal="true"
         android:id="@+id/staticImage"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:paddingTop="100dp"
+        android:paddingBottom="25dp" />
 </RelativeLayout>

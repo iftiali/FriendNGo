@@ -6,5 +6,6 @@
     <color name="gradientStart">#FFBA3A</color>
     <color name="gradientEnd">#FF7500</color>
     <color name="whiteish">#F2F2F2</color>
+    <color name="greyish">#BABECD</color>
     <color name="textInput">#777E9D</color>
 </resources>

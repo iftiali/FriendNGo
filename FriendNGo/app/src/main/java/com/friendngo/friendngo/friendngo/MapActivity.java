@@ -42,6 +42,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -53,18 +57,20 @@ public class MapActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private String apiKey = "AIzaSyBsrd4IbitFz96ey3GTh-p0-9GyrybN1Ac";
+//    private String apiKey = "AIzaSyBsrd4IbitFz96ey3GTh-p0-9GyrybN1Ac";
     private String last_city;
-    private double last_latitude;
-    private double last_longitude;
-    private boolean current_location_ready = false;
-    private int distance_trigger_km = 30;
+    private String current_city;
 
-    private boolean last_location_ready = false;
+    private boolean current_location_ready = false;
     private double current_gps_latitude;
     private double current_gps_longitude;
+
+    private boolean last_location_ready = false;
+
     private boolean runOnce = true;
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 2;
+
+    public static List activitiesList = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,23 +80,27 @@ public class MapActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("FriendNGo");
 
+//        listView = (ListView)findViewById(R.id.list)
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        //HTTP Request to get the last known location of the user
+        //HTTP GET Request to get the last known location of the user
         AsyncHttpClient client = new AsyncHttpClient();
         if(SignIn.static_token != null) {
             client.addHeader("Authorization","Token "+SignIn.static_token);
         }
+
+        //GET Last Location callbacks
         client.get(MainActivity.base_host_url + "api/getLastLocation/", new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
+                Log.w("HTTP SUCCESS1: ", statusCode + ": " + "Response = " + response.toString());
 
                 try{
-                    Log.w("LOCATION SUCCESS: ", response.getString("last_city"));
+                    Log.w("GET LOCATION: ", statusCode + ", " + response.getString("last_city"));
                     last_city = response.getString("last_city");
                     last_location_ready = true;
 
@@ -108,7 +118,7 @@ public class MapActivity extends AppCompatActivity
                 try {
                     JSONObject firstEvent = timeline.getJSONObject(0);
                     String token = firstEvent.getString("token");
-                    Log.w("HTTP SUCCESS: ", token.toString());
+                    Log.w("HTTP SUCCESS2: ", token.toString());
 
 
                 } catch (JSONException e) {
@@ -128,7 +138,7 @@ public class MapActivity extends AppCompatActivity
         });
 
 
-        //TODO: Decide if there is any use for a floating action button or a snackbar code
+        //REMOVE THIS BUTTON ONCE WE HAVE A FACEBOOK LOGOUT BUTTON
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +151,7 @@ public class MapActivity extends AppCompatActivity
             }
         });
 
+        //Creates the drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -187,21 +198,21 @@ public class MapActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+//        int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
+//        if (id == R.id.nav_camera) {
+//            // Handle the camera action
+//        } else if (id == R.id.nav_gallery) {
+//
+//        } else if (id == R.id.nav_slideshow) {
+//
+//        } else if (id == R.id.nav_manage) {
+//
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -258,7 +269,7 @@ public class MapActivity extends AppCompatActivity
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.w("GPS CHECK SUCCESS: ", "AWESOME!");
+                    Log.w("GPS CHECK SUCCESS4: ", "AWESOME!");
                     getGPSLocation();
                 } else {
 
@@ -287,10 +298,7 @@ public class MapActivity extends AppCompatActivity
             if (location != null) {
                 current_gps_latitude = location.getLatitude();
                 current_gps_longitude = location.getLongitude();
-                current_location_ready = true;
-                if (last_location_ready == true) {
-                    update_city();
-                }
+//                current_location_ready = true;
             }
 
             LocationListener locationListener = new LocationListener() {
@@ -310,78 +318,6 @@ public class MapActivity extends AppCompatActivity
                         if (last_location_ready == true) {
                             update_city();
                         }
-
-
-                        //UPDATE the database with the newest location
-                        AsyncHttpClient client = new AsyncHttpClient();
-                        if (SignIn.static_token != null) {
-                            client.addHeader("Authorization", "Token " + SignIn.static_token);
-                        }
-
-                        RequestParams params = new RequestParams();
-                        params.put("last_city", "montreal");
-                        client.post(MainActivity.base_host_url + "api/postLocation/", params, new JsonHttpResponseHandler() {
-
-                            @Override
-                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-                                Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
-
-                                    //GET the activities list
-                                    AsyncHttpClient client = new AsyncHttpClient();
-                                    if (SignIn.static_token != null) {
-                                        client.addHeader("Authorization", "Token " + SignIn.static_token);
-                                    }
-
-                                    RequestParams params = new RequestParams();
-                                    params.put("last_city", "montreal");
-                                    client.get(MainActivity.base_host_url + "api/getActivities/", new JsonHttpResponseHandler() {
-
-                                        @Override
-                                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-                                            Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
-                                            try {
-                                                Log.w("ACTIVITIES SUCCESS: ", response.getString("lastCity"));
-                                            } catch (JSONException e) {
-                                                Log.w("HTTP LOCATION FAIL: ", e.getMessage().toString());
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                                            Log.w("JSON ARRAY???: ", statusCode + ": " + timeline.toString());
-                                            //TODO: Respoonse to activity GET -> Parse the list
-                                            //TODO: If there are any items, go through each item in the list and add parse them into a Java List
-                                        }
-
-                                        @Override
-                                        public void onRetry(int retryNo) {
-                                            // called when request is retried
-                                        }
-
-                                        @Override
-                                        public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                                            Log.w("HTTP FAILURE3:", "Error Code: " + error_code);
-                                        }
-                                    });
-                            }
-
-                            @Override
-                            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                                Log.w("JSON ARRAY???: ", statusCode + ": " + timeline.toString());
-                            }
-
-                            @Override
-                            public void onRetry(int retryNo) {
-                                // called when request is retried
-                            }
-
-                            @Override
-                            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                                Log.w("HTTP FAILURE4:", "Error Code: " + error_code);
-                            }
-                        });
 
                     }
                 }
@@ -408,12 +344,129 @@ public class MapActivity extends AppCompatActivity
         try {
             List<Address> addresses = gcd.getFromLocation(current_gps_latitude, current_gps_longitude, 1);
             if (addresses.size() > 0) {
-                Log.w("LOCATION RESULT", addresses.get(0).getLocality());
+                current_city = addresses.get(0).getLocality();
+
+                Log.w("GPS CITY RESULT", current_city);
+                if(last_city.equalsIgnoreCase(current_city) != true){
+
+                        //POST Location
+                        AsyncHttpClient client = new AsyncHttpClient();
+                        if (SignIn.static_token != null) {
+                            client.addHeader("Authorization", "Token " + SignIn.static_token);
+                        }
+
+                        RequestParams params = new RequestParams();
+                        params.put("last_city", "montreal");
+                        client.post(MainActivity.base_host_url + "api/postLocation/", params, new JsonHttpResponseHandler() {
+
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                                Log.w("HTTP SUCCESS5", statusCode + ": " + "Response = " + response.toString());
+                            }
+
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                                Log.w("JSON ARRAY???: ", statusCode + ": " + timeline.toString());
+                            }
+
+                            @Override
+                            public void onRetry(int retryNo) {
+                                // called when request is retried
+                            }
+
+                            @Override
+                            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                                Log.w("HTTP FAILURE4:", "Error Code: " + error_code);
+                            }
+                        });
+
+                        Log.w("GPS CITY RESULT", "New City Detected");
+                        Intent intent = new Intent(MapActivity.this,NewCity.class);
+                        MapActivity.this.startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(),current_city, Toast.LENGTH_LONG).show();
+                    Log.w("GPS CITY RESULT", "Not in a new city");
+                }
+
+                //GET the activities list
+                AsyncHttpClient client = new AsyncHttpClient();
+                if (SignIn.static_token != null) {
+                    client.addHeader("Authorization", "Token " + SignIn.static_token);
+                }
+
+                RequestParams params = new RequestParams();
+                params.put("last_city", "montreal");
+                client.get(MainActivity.base_host_url + "api/getActivities/", new JsonHttpResponseHandler() {
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                        Log.w("HTTP SUCCESS6: ", statusCode + ": " + "Response = " + response.toString());
+                        try {
+                            Log.w("ACTIVITIES SUCCESS7: ", response.getString("lastCity"));
+                        } catch (JSONException e) {
+                            Log.w("HTTP LOCATION FAIL: ", e.getMessage().toString());
+                        }
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray responseArray) {
+                        Log.w("HTTP SUCCESS10", statusCode + "- JSON ARRAY: " + responseArray.toString());
+
+                        //Cycle through the list of activities
+                        for (int i=0; i<responseArray.length(); i++){
+                            try {
+                                JSONObject activity = responseArray.getJSONObject(i);
+                                String name = activity.getString("activity_name");
+                                int creator = activity.getInt("creator");
+                                int maxUsers = activity.getInt("max_users");
+                                String activityTimeString = activity.getString("activity_time");
+                                SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
+                                Date activityTime = new Date();
+                                try {
+                                    activityTime = activityTimeFormat.parse(activityTimeString);
+                                }catch (ParseException p){
+                                    Log.w("PARSE EXCEPTION","Something went wrong with DATE parsing");
+                                }
+                                String type = activity.getString("activity_type");
+                                double latitude = activity.getDouble("activity_lat");
+                                double longitude = activity.getDouble("activity_lon");
+
+                                UserActivity userActivity = new UserActivity(name,
+                                        creator,
+                                        maxUsers,
+                                        activityTime,
+                                        type,
+                                        latitude,
+                                        longitude );
+
+                                activitiesList.add(userActivity);
+                            } catch (JSONException e){
+                                Log.w("JSON EXCEPTION:", "Error parsing the getActivities response");
+                            }
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onRetry(int retryNo) {
+                        // called when request is retried
+                        Log.w("HTTP RETRY", "TRYING AGAIN");
+                    }
+
+                    @Override
+                    public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                        Log.w("HTTP FAILURE3", "Error Code: " + error_code);
+                    }
+                });
+
             } else {
-                Log.w("LOCATION FAIL", "FAIL");
+                Log.w("GPS LOCATION FAIL", "FAIL");
             }
         } catch (IOException e){
-            Log.w("LOCATION RESULT", "FAIL");
+            Log.w("GPS CITY RESULT: ", "FAIL");
         }
     }
 }
