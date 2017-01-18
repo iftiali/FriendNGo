@@ -8,18 +8,39 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
+    <!--This is the actual map layout-->
     <include
         layout="@layout/app_bar_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <!--This defines the drawer-->
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_map"
-        app:menu="@menu/activity_map_drawer" />
+        android:layout_gravity="start">
+
+        <!--android:fitsSystemWindows="true"-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/navigation_drawer_header_include"
+                layout="@layout/nav_header_map" />
+
+            <ListView
+            android:id="@+id/activity_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:layout_below="@id/navigation_drawer_header_include"
+
+            />
+        </RelativeLayout>
+    </android.support.design.widget.NavigationView>
+
 
 </android.support.v4.widget.DrawerLayout>

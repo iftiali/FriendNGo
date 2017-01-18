@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -11,10 +13,13 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,6 +29,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
@@ -31,7 +40,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -54,7 +65,7 @@ import cz.msebera.android.httpclient.Header;
 import static android.location.LocationManager.GPS_PROVIDER;
 
 public class MapActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
 //    private String apiKey = "AIzaSyBsrd4IbitFz96ey3GTh-p0-9GyrybN1Ac";
@@ -70,29 +81,31 @@ public class MapActivity extends AppCompatActivity
     private boolean runOnce = true;
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 2;
 
-    public static List activitiesList = new ArrayList();
+    public ListView listView;
+    public static List activitiesList = new ArrayList<UserActivity>();
+    private static ActivityListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.activity_map); //NOTE: Drawer View is setup later
+
+        //Set top bar and toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("FriendNGo");
 
-//        listView = (ListView)findViewById(R.id.list)
-
+        //Setup the Map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        //HTTP GET Request to get the last known location of the user
+        //GET last known location setup
         AsyncHttpClient client = new AsyncHttpClient();
         if(SignIn.static_token != null) {
             client.addHeader("Authorization","Token "+SignIn.static_token);
         }
-
-        //GET Last Location callbacks
+        //GET last known location
         client.get(MainActivity.base_host_url + "api/getLastLocation/", new JsonHttpResponseHandler() {
 
             @Override
@@ -137,7 +150,6 @@ public class MapActivity extends AppCompatActivity
             }
         });
 
-
         //REMOVE THIS BUTTON ONCE WE HAVE A FACEBOOK LOGOUT BUTTON
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +163,7 @@ public class MapActivity extends AppCompatActivity
             }
         });
 
-        //Creates the drawer
+        //Adds the action bar for the drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -160,6 +172,30 @@ public class MapActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
+        //Set the custom adapter
+        activitiesList.add(new UserActivity("Get breakfast",2,2,new Date(2017,01,10),"Eating",1.99,1.99));
+        activitiesList.add(new UserActivity("Fun stuff",2,2,new Date(2017,01,10),"Eating",1.99,1.99));
+        adapter = new ActivityListAdapter(getApplicationContext());
+        listView = (ListView)findViewById(R.id.activity_list);
+
+        if (listView == null) {
+            Log.w("LIST VIEW ERROR", "List view is null!");
+        } else {
+            Log.w("LIST SUCCESS", "The List view it's alive!!!");
+            listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Log.w("LIST ITEM", "Clicked!");
+//                    UserActivity userActivity = (UserActivity) activitiesList.get(position);
+//                    Snackbar.make(view, userActivity.getName() + "\n" + userActivity.getType(), Snackbar.LENGTH_LONG)
+//                            .setAction("No action", null).show();
+                }
+            });
+        }
     }
 
     @Override
@@ -198,22 +234,6 @@ public class MapActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-//        int id = item.getItemId();
-
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -222,10 +242,11 @@ public class MapActivity extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setOnMarkerClickListener(this);
 
         // Add a marker in Sydney, Australia, and move the camera.
         LatLng montreal = new LatLng(45.467206,-73.612096);
-        mMap.addMarker(new MarkerOptions().position(montreal).title("Home"));
+        mMap.addMarker(new MarkerOptions().position(montreal).title("Scott's House!"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(montreal));
     }
 
@@ -312,6 +333,7 @@ public class MapActivity extends AppCompatActivity
 
                     if (runOnce) {
                         Toast.makeText(getApplicationContext(), "GPS Coordinates = " + current_gps_latitude + "," + current_gps_longitude, Toast.LENGTH_LONG).show();
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),15));
                         runOnce = false;
                         current_location_ready = true;
 
@@ -414,6 +436,8 @@ public class MapActivity extends AppCompatActivity
                     public void onSuccess(int statusCode, Header[] headers, JSONArray responseArray) {
                         Log.w("HTTP SUCCESS10", statusCode + "- JSON ARRAY: " + responseArray.toString());
 
+                        activitiesList.clear();
+
                         //Cycle through the list of activities
                         for (int i=0; i<responseArray.length(); i++){
                             try {
@@ -442,12 +466,27 @@ public class MapActivity extends AppCompatActivity
                                         longitude );
 
                                 activitiesList.add(userActivity);
+
+                                int height = 75;
+                                int width = 75;
+                                BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.canada_icon);
+                                Bitmap b=bitmapdraw.getBitmap();
+                                Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                                MarkerOptions marker = new MarkerOptions()
+                                        .position(new LatLng(latitude,longitude))
+                                        .title(name)
+                                        .snippet(type)
+                                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+                                mMap.addMarker(marker);
+
+
                             } catch (JSONException e){
                                 Log.w("JSON EXCEPTION:", "Error parsing the getActivities response");
                             }
 
                         }
 
+                        ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
                     }
 
                     @Override
@@ -468,5 +507,19 @@ public class MapActivity extends AppCompatActivity
         } catch (IOException e){
             Log.w("GPS CITY RESULT: ", "FAIL");
         }
+    }
+
+    View banner;
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        Log.w("MAP PINS","Pin clicked!");
+
+
+        CoordinatorLayout layout = (CoordinatorLayout) findViewById(R.id.app_bar_map);
+        LayoutInflater layoutInflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        banner = layoutInflater.inflate(R.layout.activity_list_row_item,null,true);
+//        banner.setBottom(5);
+        layout.addView(banner);
+        return false;
     }
 }
