@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -18,6 +19,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -514,11 +516,16 @@ public class MapActivity extends AppCompatActivity
     public boolean onMarkerClick(Marker marker) {
         Log.w("MAP PINS","Pin clicked!");
 
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int height = size.y;
 
         CoordinatorLayout layout = (CoordinatorLayout) findViewById(R.id.app_bar_map);
         LayoutInflater layoutInflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         banner = layoutInflater.inflate(R.layout.activity_list_row_item,null,true);
-//        banner.setBottom(5);
+        banner.setTranslationY(height - 215);
+//        banner.setBottom(height); //Did not work as expected
         layout.addView(banner);
         return false;
     }
