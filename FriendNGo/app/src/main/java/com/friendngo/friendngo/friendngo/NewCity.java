@@ -171,6 +171,8 @@ public class NewCity extends AppCompatActivity {
                             Log.w("HTTP FAILURE:", "Error Code: " + error_code);
                         }
                     });
+                    Intent intent = new Intent(NewCity.this,WhatDoYouWantToDoToday.class);
+                    NewCity.this.startActivity(intent);
                     NewCity.this.finish();
                 }
             }

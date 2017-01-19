@@ -33,8 +33,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
@@ -61,6 +63,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -175,8 +180,6 @@ public class MapActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
         //Set the custom adapter
         activitiesList.add(new UserActivity("Get breakfast",2,2,new Date(2017,01,10),"Eating",1.99,1.99));
         activitiesList.add(new UserActivity("Fun stuff",2,2,new Date(2017,01,10),"Eating",1.99,1.99));
@@ -188,16 +191,121 @@ public class MapActivity extends AppCompatActivity
         } else {
             Log.w("LIST SUCCESS", "The List view it's alive!!!");
             listView.setAdapter(adapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Log.w("LIST ITEM", "Clicked!");
-//                    UserActivity userActivity = (UserActivity) activitiesList.get(position);
-//                    Snackbar.make(view, userActivity.getName() + "\n" + userActivity.getType(), Snackbar.LENGTH_LONG)
-//                            .setAction("No action", null).show();
-                }
-            });
+
+            //Here is where we schedule the polling of our activities
+            ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
+            scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+
+                        //This happens in a seperate thread
+                        public void run() {
+                            Log.w("SCHEDULER", "Running on schedule");
+
+                            //Now hop back onto main thread to do the actual work
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    update_activities();
+                                }
+                            });
+
+                        }
+                    }, 0, 3, TimeUnit.SECONDS);
         }
+    }
+
+    private void update_activities() {
+        //GET the activities list
+        AsyncHttpClient client = new AsyncHttpClient();
+        if (SignIn.static_token != null) {
+            client.addHeader("Authorization", "Token " + SignIn.static_token);
+        }
+
+        RequestParams params = new RequestParams();
+        params.put("last_city", "montreal");
+        JsonHttpResponseHandler responseHandler = new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                Log.w("HTTP SUCCESS6: ", statusCode + ": " + "Response = " + response.toString());
+                try {
+                    Log.w("ACTIVITIES SUCCESS7: ", response.getString("lastCity"));
+                } catch (JSONException e) {
+                    Log.w("HTTP LOCATION FAIL: ", e.getMessage().toString());
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray responseArray) {
+                Log.w("HTTP SUCCESS10", statusCode + "- JSON ARRAY: " + responseArray.toString());
+
+                activitiesList.clear();
+
+                //Cycle through the list of activities
+                for (int i=0; i<responseArray.length(); i++){
+                    try {
+                        JSONObject activity = responseArray.getJSONObject(i);
+                        String name = activity.getString("activity_name");
+                        int creator = activity.getInt("creator");
+                        int maxUsers = activity.getInt("max_users");
+                        String activityTimeString = activity.getString("activity_time");
+                        SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'"); //TODO: Proper formatting required for the UI to look proper
+                        Date activityTime = new Date();
+                        try {
+                            activityTime = activityTimeFormat.parse(activityTimeString);
+                        }catch (ParseException p){
+                            Log.w("PARSE EXCEPTION","Something went wrong with DATE parsing");
+                        }
+                        String type = activity.getString("activity_type");
+                        double latitude = activity.getDouble("activity_lat");
+                        double longitude = activity.getDouble("activity_lon");
+
+                        UserActivity userActivity = new UserActivity(name,
+                                creator,
+                                maxUsers,
+                                activityTime,
+                                type,
+                                latitude,
+                                longitude );
+
+                        activitiesList.add(userActivity);
+
+                        int height = 75;
+                        int width = 75;
+                        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.canada_icon);
+                        Bitmap b=bitmapdraw.getBitmap();
+                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                        MarkerOptions marker = new MarkerOptions()
+                                .position(new LatLng(latitude,longitude))
+                                .title(name)
+                                .snippet(type)
+                                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+                        mMap.addMarker(marker);
+
+
+                    } catch (JSONException e){
+                        Log.w("JSON EXCEPTION:", "Error parsing the getActivities response");
+                    }
+
+                }
+
+                ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+                Log.w("HTTP RETRY", "TRYING AGAIN");
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                Log.w("HTTP FAILURE3", "Error Code: " + error_code);
+            }
+        };
+//        responseHandler.setUsePoolThread(true);
+
+        client.get(MainActivity.base_host_url + "api/getActivities/", responseHandler);
     }
 
     @Override
@@ -413,95 +521,7 @@ public class MapActivity extends AppCompatActivity
                     Log.w("GPS CITY RESULT", "Not in a new city");
                 }
 
-                //GET the activities list
-                AsyncHttpClient client = new AsyncHttpClient();
-                if (SignIn.static_token != null) {
-                    client.addHeader("Authorization", "Token " + SignIn.static_token);
-                }
-
-                RequestParams params = new RequestParams();
-                params.put("last_city", "montreal");
-                client.get(MainActivity.base_host_url + "api/getActivities/", new JsonHttpResponseHandler() {
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-                        Log.w("HTTP SUCCESS6: ", statusCode + ": " + "Response = " + response.toString());
-                        try {
-                            Log.w("ACTIVITIES SUCCESS7: ", response.getString("lastCity"));
-                        } catch (JSONException e) {
-                            Log.w("HTTP LOCATION FAIL: ", e.getMessage().toString());
-                        }
-                    }
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray responseArray) {
-                        Log.w("HTTP SUCCESS10", statusCode + "- JSON ARRAY: " + responseArray.toString());
-
-                        activitiesList.clear();
-
-                        //Cycle through the list of activities
-                        for (int i=0; i<responseArray.length(); i++){
-                            try {
-                                JSONObject activity = responseArray.getJSONObject(i);
-                                String name = activity.getString("activity_name");
-                                int creator = activity.getInt("creator");
-                                int maxUsers = activity.getInt("max_users");
-                                String activityTimeString = activity.getString("activity_time");
-                                SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
-                                Date activityTime = new Date();
-                                try {
-                                    activityTime = activityTimeFormat.parse(activityTimeString);
-                                }catch (ParseException p){
-                                    Log.w("PARSE EXCEPTION","Something went wrong with DATE parsing");
-                                }
-                                String type = activity.getString("activity_type");
-                                double latitude = activity.getDouble("activity_lat");
-                                double longitude = activity.getDouble("activity_lon");
-
-                                UserActivity userActivity = new UserActivity(name,
-                                        creator,
-                                        maxUsers,
-                                        activityTime,
-                                        type,
-                                        latitude,
-                                        longitude );
-
-                                activitiesList.add(userActivity);
-
-                                int height = 75;
-                                int width = 75;
-                                BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.canada_icon);
-                                Bitmap b=bitmapdraw.getBitmap();
-                                Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
-                                MarkerOptions marker = new MarkerOptions()
-                                        .position(new LatLng(latitude,longitude))
-                                        .title(name)
-                                        .snippet(type)
-                                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
-                                mMap.addMarker(marker);
-
-
-                            } catch (JSONException e){
-                                Log.w("JSON EXCEPTION:", "Error parsing the getActivities response");
-                            }
-
-                        }
-
-                        ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onRetry(int retryNo) {
-                        // called when request is retried
-                        Log.w("HTTP RETRY", "TRYING AGAIN");
-                    }
-
-                    @Override
-                    public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                        Log.w("HTTP FAILURE3", "Error Code: " + error_code);
-                    }
-                });
+//OLD LOCATION OF GET ACTIVITIES
 
             } else {
                 Log.w("GPS LOCATION FAIL", "FAIL");
@@ -525,8 +545,30 @@ public class MapActivity extends AppCompatActivity
         LayoutInflater layoutInflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         banner = layoutInflater.inflate(R.layout.activity_list_row_item,null,true);
         banner.setTranslationY(height - 215);
+
+
+//        (ImageView) banner.findViewById(R.id.profile_picture);
+//        (TextView) convertView.findViewById(R.id.created_text);
+//        (TextView) convertView.findViewById(R.id.status_text);
+//        (TextView) convertView.findViewById(R.id.home_city_text);
+//        (ImageView) convertView.findViewById(R.id.country_flag);
+//        (ImageView) convertView.findViewById(R.id.points);
+//        (ImageView) convertView.findViewById(R.id.activity_type);
+        ((TextView) banner.findViewById(R.id.activity_name)).setText(marker.getTitle());
+//        (ImageView) convertView.findViewById(R.id.clock_image);
+//        (TextView) convertView.findViewById(R.id.activity_time);
+//        (ImageView) convertView.findViewById(R.id.pin_image);
+//        (TextView) convertView.findViewById(R.id.distance);
+//        (RelativeLayout) convertView.findViewById(R.id.row_item);
+
+
 //        banner.setBottom(height); //Did not work as expected
         layout.addView(banner);
         return false;
+    }
+
+    public static void centerOnActivity(String name) {
+    //TODO: When you click on a list item, then you should go to its marker on the map... however this is not what the UI suggests therefore leave for later!
+        //TODO: Basic solution would be register every marker as a dictionary (or hash map in Java) so that you can reference it by name :)
     }
 }

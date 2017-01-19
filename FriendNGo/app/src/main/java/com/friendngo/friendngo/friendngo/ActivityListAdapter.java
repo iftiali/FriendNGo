@@ -51,9 +51,9 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         Object object = getItem(position);
         UserActivity userActivity = (UserActivity)object;
         Log.w("ADAPTER","Item = " + userActivity.getName());
-        double clickedLatitude = userActivity.getLatitude();
-        double clickedLongitude = userActivity.getLongitude();
-        //TODO: Center the map at the clicked latitude and longitude and select that list item
+
+        MapActivity.centerOnActivity(userActivity.getName());
+
     }
 
     //Creates the View instance for the row from xml OR recycles it if already available
