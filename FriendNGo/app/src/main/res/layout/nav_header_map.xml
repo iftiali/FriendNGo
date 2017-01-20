@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:background="#FF8100"
         android:id="@+id/drawer_header_text"
-        android:paddingTop="35dp"
+        android:paddingTop="15dp"
         android:layout_height="50dp"
         android:textColor="@android:color/white"
         android:textSize="20sp"

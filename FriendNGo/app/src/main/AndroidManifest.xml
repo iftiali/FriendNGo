@@ -64,7 +64,8 @@
             android:label="@string/title_activity_map"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Popular" />
-        <activity android:name=".WhatDoYouWantToDoToday"></activity>
+        <activity android:name=".WhatDoYouWantToDoToday" />
+        <activity android:name=".CreateActivity"></activity>
     </application>
 
 </manifest>

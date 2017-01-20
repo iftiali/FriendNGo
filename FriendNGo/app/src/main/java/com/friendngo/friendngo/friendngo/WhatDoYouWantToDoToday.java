@@ -113,6 +113,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
                 }
             }
         });
+
         //Handler for sports buttons
         dancing_button = (Button) findViewById(R.id.dancing_button);
         dancing_button_check = (ImageView) findViewById(R.id.dancing_button_check);
@@ -126,15 +127,15 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
                 }
             }
         });
-        jazz_button = (Button) findViewById(R.id.use_email_button);
-        dancing_button_check = (ImageView) findViewById(R.id.jogging_button_check);
-        dancing_button_check.setVisibility(View.INVISIBLE);
-        dancing_button.setOnClickListener(new View.OnClickListener() {
+        jazz_button = (Button) findViewById(R.id.jazz_button);
+        jazz_button_check = (ImageView) findViewById(R.id.jazz_button_check);
+        jazz_button_check.setVisibility(View.INVISIBLE);
+        jazz_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(dancing_button_check.getVisibility()==View.INVISIBLE){
-                    dancing_button_check.setVisibility(View.VISIBLE);
+                if(jazz_button_check.getVisibility()==View.INVISIBLE){
+                    jazz_button_check.setVisibility(View.VISIBLE);
                 }else{
-                    dancing_button_check.setVisibility(View.INVISIBLE);
+                    jazz_button_check.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -204,7 +205,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
         });
 
 
-        //Last but not least, the save button
+        //Last but not least, the save preferences
         save_button = (Button) findViewById(R.id.save_button);
         save_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

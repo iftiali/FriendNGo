@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -318,7 +321,8 @@
         android:textColor="@android:color/white"
         android:background="@color/colorAccent"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/gallery_button"
-        android:layout_alignStart="@+id/gallery_button"
+        android:layout_below="@id/gallery_button"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp" />
 </RelativeLayout>
+</ScrollView>

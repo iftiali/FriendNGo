@@ -21,7 +21,7 @@ import java.security.NoSuchAlgorithmException;
 public class MainActivity extends Activity {
 
     private final int SPLASH_DISPLAY_LENGTH = 2000;
-    public static String base_host_url = "http://52.91.189.6/";
+    public static String base_host_url = "http://52.91.230.210:8000/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -198,7 +198,7 @@ public class MapActivity extends AppCompatActivity
 
                         //This happens in a seperate thread
                         public void run() {
-                            Log.w("SCHEDULER", "Running on schedule");
+//                            Log.w("SCHEDULER", "Running on schedule");
 
                             //Now hop back onto main thread to do the actual work
                             runOnUiThread(new Runnable() {
@@ -237,7 +237,7 @@ public class MapActivity extends AppCompatActivity
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray responseArray) {
-                Log.w("HTTP SUCCESS10", statusCode + "- JSON ARRAY: " + responseArray.toString());
+//                Log.w("HTTP SUCCESS10", statusCode + "- JSON ARRAY: " + responseArray.toString());
 
                 activitiesList.clear();
 
@@ -332,10 +332,15 @@ public class MapActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.add_activity){
+            Intent intent = new Intent(MapActivity.this,CreateActivity.class);
+            MapActivity.this.startActivity(intent);
         }
+
+        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

@@ -29,7 +29,7 @@ public class Popular extends AppCompatActivity {
             // Hide the status bar.
             int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
             decorView.setSystemUiVisibility(uiOptions);
-            getSupportActionBar().hide();
+//            getSupportActionBar().hide();
         }
 
         imageButton = (ImageButton) findViewById(R.id.staticImage);
