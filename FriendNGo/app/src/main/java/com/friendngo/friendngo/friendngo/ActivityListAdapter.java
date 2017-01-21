@@ -1,7 +1,6 @@
 package com.friendngo.friendngo.friendngo;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,7 +34,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         TextView homeCity;
         ImageView nationality;
         ImageView points;
-        ImageView activityType;
+        ImageView category;
         ImageView clock;
         TextView dateTime;
         ImageView pin;
@@ -72,13 +71,13 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.activity_list_row_item, null, true); //Seems equivalent to inflate(R... , parent, false)
-            viewHolder.profilePicture = (ImageView) convertView.findViewById(R.id.profile_picture);
+            viewHolder.profilePicture = (ImageView) convertView.findViewById(R.id.profilepicture);
             viewHolder.creator = (TextView) convertView.findViewById(R.id.created_text);
             viewHolder.status = (TextView) convertView.findViewById(R.id.status_text);
             viewHolder.homeCity = (TextView) convertView.findViewById(R.id.home_city_text);
             viewHolder.nationality = (ImageView) convertView.findViewById(R.id.country_flag);
             viewHolder.points = (ImageView) convertView.findViewById(R.id.points);
-            viewHolder.activityType = (ImageView) convertView.findViewById(R.id.activity_type);
+            viewHolder.category = (ImageView) convertView.findViewById(R.id.activity_type);
             viewHolder.name = (TextView) convertView.findViewById(R.id.activity_name);
             viewHolder.clock = (ImageView) convertView.findViewById(R.id.clock_image);
             viewHolder.dateTime = (TextView) convertView.findViewById(R.id.activity_time);
@@ -89,7 +88,6 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             result=convertView; //result is associated with the animation
             convertView.setTag(R.string.VIEW_HOLDER_KEY,viewHolder); //This associates the viewHolder to the convertView
         } else {
-
             //Recycle old view -> More Efficient
             viewHolder = (ViewHolder) convertView.getTag(R.string.VIEW_HOLDER_KEY);
             result = convertView;
@@ -107,7 +105,39 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         viewHolder.homeCity.setTextColor(Color.GRAY);
         viewHolder.nationality.setImageResource(R.drawable.canada); //TODO: Get flag from nationalities
         viewHolder.points.setImageResource(R.drawable.points);
-        viewHolder.activityType.setImageResource(R.drawable.cup);
+
+        switch(userActivity.getCategory()){
+            case "Art & Culture":
+                viewHolder.category.setImageResource(R.drawable.arts_and_culture);
+                break;
+            case "Nightlife":
+                viewHolder.category.setImageResource(R.drawable.nightlife);
+                break;
+            case "Sports":
+                viewHolder.category.setImageResource(R.drawable.sports);
+                break;
+            case "Business":
+                viewHolder.category.setImageResource(R.drawable.handshake);
+                break;
+            case "Date":
+                viewHolder.category.setImageResource(R.drawable.wink);
+                break;
+            case "Pool":
+                viewHolder.category.setImageResource(R.drawable.pool);
+                break;
+            case "Outdoors":
+                viewHolder.category.setImageResource(R.drawable.backpack);
+                break;
+            case "Camping":
+                viewHolder.category.setImageResource(R.drawable.camping);
+                break;
+            case "Drinks":
+                viewHolder.category.setImageResource(R.drawable.cup);
+                break;
+            case "Meetup":
+                viewHolder.category.setImageResource(R.drawable.three);
+        }
+
         viewHolder.clock.setImageResource(R.drawable.clock);
         viewHolder.dateTime.setText(userActivity.getActivityTime().toString());
         viewHolder.dateTime.setTextColor(Color.GRAY);

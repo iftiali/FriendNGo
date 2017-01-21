@@ -1,6 +1,5 @@
 package com.friendngo.friendngo.friendngo;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -14,7 +13,8 @@ public class UserActivity {
     private int maxUsers;
 //    private SimpleDateFormat createdTime;
     private Date activityTime;
-    private String type;
+    private String category;
+    private String activityType;
     private double latitude;
     private double longitude;
 
@@ -23,7 +23,7 @@ public class UserActivity {
                         int maxUsers,
 //                        SimpleDateFormat createdTime,
                         Date activityTime,
-                        String type,
+                        String category, String type,
                         double latitude,
                         double longitude) {
         this.name = name;
@@ -31,9 +31,18 @@ public class UserActivity {
         this.maxUsers = maxUsers;
 //        this.createdTime = createdTime;
         this.activityTime = activityTime;
-        this.type = type;
+        this.category = category;
+        this.activityType = type;
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getName() {
@@ -76,12 +85,12 @@ public class UserActivity {
         this.activityTime = activityTime;
     }
 
-    public String getType() {
-        return type;
+    public String getActivityType() {
+        return activityType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setActivityType(String activityType) {
+        this.activityType = activityType;
     }
 
     public double getLatitude() {
@@ -99,9 +108,4 @@ public class UserActivity {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
-
-    //TODO: Define getters and setters
-
-    //TODO:
-
 }

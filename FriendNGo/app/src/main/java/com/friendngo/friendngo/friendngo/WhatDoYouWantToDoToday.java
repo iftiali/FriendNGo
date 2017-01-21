@@ -36,7 +36,6 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
     private ImageView gallery_button_check;
     private Button city_tour_button;
     private ImageView city_tour_button_check;
-
     private Button save_button;
 
 
@@ -209,8 +208,8 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
         save_button = (Button) findViewById(R.id.save_button);
         save_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //TODO: Create POST request
-                //TODO: Modify Backend to support
+                Intent intent = new Intent(WhatDoYouWantToDoToday.this,WhoAreYou.class);
+                WhatDoYouWantToDoToday.this.startActivity(intent);
                 WhatDoYouWantToDoToday.this.finish();
             }
         });

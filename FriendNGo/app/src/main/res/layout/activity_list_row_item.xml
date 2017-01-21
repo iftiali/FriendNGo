@@ -13,7 +13,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         app:srcCompat="@drawable/scott"
-        android:id="@+id/profile_picture" />
+        android:id="@+id/profilepicture" />
 
     <!--android:layout_alignParentTop="true"-->
     <TextView
@@ -21,8 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_toRightOf="@+id/profile_picture"
-        android:layout_toEndOf="@+id/profile_picture"
+        android:layout_toRightOf="@+id/profilepicture"
+        android:layout_toEndOf="@+id/profilepicture"
         android:id="@+id/created_text"
         android:paddingLeft="10dp"
         android:layout_marginTop="10dp"
@@ -36,28 +36,28 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
-        android:layout_alignBottom="@+id/profile_picture"
+        android:layout_alignBottom="@+id/profilepicture"
 
         android:id="@+id/separation_bar"
         android:layout_marginBottom="-5dp" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         app:srcCompat="@drawable/cup"
         android:id="@+id/activity_type"
         android:layout_below="@+id/separation_bar"
-        android:layout_alignLeft="@+id/profile_picture"
+        android:layout_alignLeft="@+id/profilepicture"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp" />
 
     <TextView
         android:text="OctoberFest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/separation_bar"
-        android:layout_toRightOf="@+id/profile_picture"
-        android:layout_toEndOf="@+id/profile_picture"
+        android:layout_toRightOf="@+id/profilepicture"
+        android:layout_toEndOf="@+id/profilepicture"
         android:id="@+id/activity_name"
         android:layout_marginTop="10dp"
         android:paddingLeft="10dp" />
@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/clock"
         android:layout_below="@+id/activity_type"
-        android:layout_alignLeft="@+id/profile_picture"
+        android:layout_alignLeft="@+id/profilepicture"
         android:id="@+id/clock_image"
         android:layout_marginTop="4dp" />
 
@@ -126,8 +126,8 @@
         android:textSize="8sp"
         android:layout_alignBaseline="@+id/home_city_text"
         android:layout_alignBottom="@+id/home_city_text"
-        android:layout_toRightOf="@+id/profile_picture"
-        android:layout_toEndOf="@+id/profile_picture" />
+        android:layout_toRightOf="@+id/profilepicture"
+        android:layout_toEndOf="@+id/profilepicture" />
 
     <TextView
         android:text="Montreal"

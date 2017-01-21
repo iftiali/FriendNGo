@@ -65,7 +65,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Popular" />
         <activity android:name=".WhatDoYouWantToDoToday" />
-        <activity android:name=".CreateActivity"></activity>
+        <activity android:name=".CreateActivity" />
+        <activity android:name=".WhoAreYou"></activity>
     </application>
 
 </manifest>

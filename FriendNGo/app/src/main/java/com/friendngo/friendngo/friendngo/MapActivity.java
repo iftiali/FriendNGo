@@ -15,12 +15,9 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -31,15 +28,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.login.LoginManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -61,8 +55,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -91,6 +87,10 @@ public class MapActivity extends AppCompatActivity
     public ListView listView;
     public static List activitiesList = new ArrayList<UserActivity>();
     private static ActivityListAdapter adapter;
+    Marker currLocationMarker;
+    LatLng currentPosition;
+
+    Map markerMap = new HashMap();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,17 +158,17 @@ public class MapActivity extends AppCompatActivity
         });
 
         //REMOVE THIS BUTTON ONCE WE HAVE A FACEBOOK LOGOUT BUTTON
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                LoginManager.getInstance().logOut();
-
-                Snackbar.make(view, "Logged Out", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                LoginManager.getInstance().logOut();
+//
+//                Snackbar.make(view, "Logged Out", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         //Adds the action bar for the drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -181,8 +181,8 @@ public class MapActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Set the custom adapter
-        activitiesList.add(new UserActivity("Get breakfast",2,2,new Date(2017,01,10),"Eating",1.99,1.99));
-        activitiesList.add(new UserActivity("Fun stuff",2,2,new Date(2017,01,10),"Eating",1.99,1.99));
+        activitiesList.add(new UserActivity("Get breakfast",2,2,new Date(2017,01,10), "Drinks", "Eating",1.99,1.99));
+        activitiesList.add(new UserActivity("Fun stuff",2,2,new Date(2017,01,10), "Business", "Eating",1.99,1.99));
         adapter = new ActivityListAdapter(getApplicationContext());
         listView = (ListView)findViewById(R.id.activity_list);
 
@@ -237,7 +237,7 @@ public class MapActivity extends AppCompatActivity
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray responseArray) {
-//                Log.w("HTTP SUCCESS10", statusCode + "- JSON ARRAY: " + responseArray.toString());
+                Log.w("HTTP SUCCESS10", statusCode + "- JSON ARRAY: " + responseArray.toString());
 
                 activitiesList.clear();
 
@@ -256,7 +256,8 @@ public class MapActivity extends AppCompatActivity
                         }catch (ParseException p){
                             Log.w("PARSE EXCEPTION","Something went wrong with DATE parsing");
                         }
-                        String type = activity.getString("activity_type");
+//                        String category = activity.getString("category");
+                        String activityType = activity.getString("activity_type");
                         double latitude = activity.getDouble("activity_lat");
                         double longitude = activity.getDouble("activity_lon");
 
@@ -264,7 +265,8 @@ public class MapActivity extends AppCompatActivity
                                 creator,
                                 maxUsers,
                                 activityTime,
-                                type,
+                                "Business",
+                                activityType,
                                 latitude,
                                 longitude );
 
@@ -278,8 +280,9 @@ public class MapActivity extends AppCompatActivity
                         MarkerOptions marker = new MarkerOptions()
                                 .position(new LatLng(latitude,longitude))
                                 .title(name)
-                                .snippet(type)
+                                .snippet(activityType)
                                 .icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+                        markerMap.put(name,i);
                         mMap.addMarker(marker);
 
 
@@ -358,11 +361,6 @@ public class MapActivity extends AppCompatActivity
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setOnMarkerClickListener(this);
-
-        // Add a marker in Sydney, Australia, and move the camera.
-        LatLng montreal = new LatLng(45.467206,-73.612096);
-        mMap.addMarker(new MarkerOptions().position(montreal).title("Scott's House!"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(montreal));
     }
 
 
@@ -445,6 +443,16 @@ public class MapActivity extends AppCompatActivity
                 public void onLocationChanged(Location location) {
                     current_gps_latitude = location.getLatitude();
                     current_gps_longitude = location.getLongitude();
+
+                    if (currLocationMarker != null) {
+                        currLocationMarker.remove();
+                    }
+                    currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.position(currentPosition);
+                    markerOptions.title("Current Position");
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+                    currLocationMarker = mMap.addMarker(markerOptions);
 
                     if (runOnce) {
                         Toast.makeText(getApplicationContext(), "GPS Coordinates = " + current_gps_latitude + "," + current_gps_longitude, Toast.LENGTH_LONG).show();
@@ -551,7 +559,50 @@ public class MapActivity extends AppCompatActivity
         banner = layoutInflater.inflate(R.layout.activity_list_row_item,null,true);
         banner.setTranslationY(height - 215);
 
+        int i =(int) markerMap.get(marker.getTitle());
+        UserActivity act =(UserActivity)activitiesList.get(i);
 
+        switch(act.getCategory()){
+            case "Art & Culture":
+                ImageView imageView = (ImageView) banner.findViewById(R.id.activity_type);
+                imageView.setImageResource(R.drawable.arts_and_culture);
+                break;
+            case "Nightlife":
+                ImageView imageView2 = (ImageView) banner.findViewById(R.id.activity_type);
+                imageView2.setImageResource(R.drawable.nightlife);
+                break;
+            case "Sports":
+                ImageView imageView3 = (ImageView) banner.findViewById(R.id.activity_type);
+                imageView3.setImageResource(R.drawable.sports);
+                break;
+            case "Business":
+                ImageView imageView4= (ImageView) banner.findViewById(R.id.activity_type);
+                imageView4.setImageResource(R.drawable.handshake);
+                break;
+            case "Date":
+                ImageView imageView5 = (ImageView) banner.findViewById(R.id.activity_type);
+                imageView5.setImageResource(R.drawable.wink);
+                break;
+            case "Pool":
+                ImageView imageView6 = (ImageView) banner.findViewById(R.id.activity_type);
+                imageView6.setImageResource(R.drawable.pool);
+                break;
+            case "Outdoors":
+                ImageView imageView7 = (ImageView) banner.findViewById(R.id.activity_type);
+                imageView7.setImageResource(R.drawable.backpack);
+                break;
+            case "Camping":
+                ImageView imageView8 = (ImageView) banner.findViewById(R.id.activity_type);
+                imageView8.setImageResource(R.drawable.camping);
+                break;
+            case "Drinks":
+                ImageView imageView9 = (ImageView) banner.findViewById(R.id.activity_type);
+                imageView9.setImageResource(R.drawable.cup);
+                break;
+            case "Meetup":
+                ImageView imageView10 = (ImageView) banner.findViewById(R.id.activity_type);
+                imageView10.setImageResource(R.drawable.three);
+        }
 //        (ImageView) banner.findViewById(R.id.profile_picture);
 //        (TextView) convertView.findViewById(R.id.created_text);
 //        (TextView) convertView.findViewById(R.id.status_text);
@@ -565,6 +616,8 @@ public class MapActivity extends AppCompatActivity
 //        (ImageView) convertView.findViewById(R.id.pin_image);
 //        (TextView) convertView.findViewById(R.id.distance);
 //        (RelativeLayout) convertView.findViewById(R.id.row_item);
+
+
 
 
 //        banner.setBottom(height); //Did not work as expected
