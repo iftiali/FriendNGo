@@ -1,0 +1,14 @@
+Blockers:
+- Access to DNS (needs to be pointed to our servers)
+- Need properly spliced images and pins with alpha backgrounds
+
+A note on the New City screen:
+- You can manually trigger a New City screen by going into the backend and changing the "Last city" to something other than montreal (such as Toronto)
+
+Still to do:
+- Fix layout on add activity screen
+- Create a second layout + adaptor for the main map screen (currently using the same as the list)
+- Social Auth -> Needs DNS changes
+- Graceful degradation (user hints when they type in their e-mail wrong etc.)
+- Implement Image Libraries
+- Make all categories dynamic including nested models and many-to-many relationships (backend updates needed)
