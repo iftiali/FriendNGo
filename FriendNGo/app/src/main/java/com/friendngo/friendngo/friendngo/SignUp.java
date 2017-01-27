@@ -74,7 +74,7 @@ public class SignUp extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
+                        Log.w("POST REGISTER SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
 
                             //Now that you are registered, call the authenticate class
                             AsyncHttpClient client = new AsyncHttpClient();
@@ -90,37 +90,37 @@ public class SignUp extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                                    Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
+                                    Log.w("AUTH POST SUCCESS", statusCode + ": " + "Response = " + response.toString());
                                     try{
                                         SignIn.static_username = emailEditTextValue.getText().toString();
                                         SignIn.static_token = response.get("token").toString();
-                                        Log.w("HTTP SUCCESS: ", SignIn.static_token.toString());
+                                        Log.w("AUTH POST SUCCESS2", SignIn.static_token.toString());
 
                                         Intent intent = new Intent(SignUp.this,Popular.class);
                                         SignUp.this.startActivity(intent);
                                         SignUp.this.finish();
 
                                     }catch (JSONException e){
-                                        Log.w("HTTP FAIL: ",e.getMessage().toString());
+                                        Log.w("AUTH POST FAIL",e.getMessage().toString());
                                     }
                                 }
 
                                 @Override
                                 public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                                    Log.w("HTTP SUCCESS: ", statusCode + ": " + response.toString());
+                                    Log.w("AUTH POST SUCCESS?", statusCode + ": " + response.toString());
                                     try {
                                         JSONObject firstEvent = response.getJSONObject(0);
 
                                         SignIn.static_username = emailEditTextValue.getText().toString();
                                         SignIn.static_token = firstEvent.getString("token");
-                                        Log.w("HTTP SUCCESS: ", SignIn.static_token.toString());
+                                        Log.w("AUTH POST SUCCESS", SignIn.static_token.toString());
 
                                         Intent intent = new Intent(SignUp.this,Popular.class);
                                         SignUp.this.startActivity(intent);
                                         SignUp.this.finish();
 
                                     } catch (JSONException e) {
-                                        Log.w("HTTP FAIL: ", e.getMessage().toString());
+                                        Log.w("AUTH POST FAIL", e.getMessage().toString());
                                     }
                                 }
 
@@ -132,7 +132,7 @@ public class SignUp extends AppCompatActivity {
                                 //TODO: Give Users Helpful Error messages when there is a problem
                                 @Override
                                 public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                                    Log.w("HTTP FAILURE:", "Error Code: " + error_code);
+                                    Log.w("HTTP FAILURE", "Error Code: " + error_code);
                                 }
                             });
                     }

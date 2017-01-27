@@ -20,12 +20,19 @@ import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends Activity {
 
+    static boolean is_production = false;
     private final int SPLASH_DISPLAY_LENGTH = 2000;
-    public static String base_host_url = "http://54.152.86.147/";
+    public static String base_host_url = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(is_production==true){
+            base_host_url = "http://api.friendngo.com/";
+        } else {
+            base_host_url = "http://staging.friendngo.com/";
+        }
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);

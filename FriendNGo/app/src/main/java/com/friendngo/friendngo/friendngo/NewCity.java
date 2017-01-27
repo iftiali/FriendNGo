@@ -147,22 +147,23 @@ public class NewCity extends AppCompatActivity {
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
                             //TODO: Test and implement statusCode handler for developers and graceful degradation
-                            Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
+                            Log.w("POST STATUS SUCCESS", statusCode + ": " + "Response = " + response.toString());
                             try{
-                                Log.w("STATUS SUCCESS: ", response.getString("status"));
+                                Log.w("POST STATUS SUCCESS2", response.getString("status"));
                             }catch (JSONException e){
-                                Log.w("HTTP LOCATION FAIL: ",e.getMessage().toString());
+                                Log.w("POST STATUS FAIL",e.getMessage().toString());
                             }
                         }
 
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                            Log.w("JSON ARRAY???: ", statusCode + ": " + timeline.toString());
+                            Log.w("POST STATUS ARRSUCCESS", statusCode + ": " + timeline.toString());
                         }
 
                         @Override
                         public void onRetry(int retryNo) {
                             // called when request is retried
+                            Log.w("POST STATUS RETRY",""+ retryNo);
                         }
 
                         @Override

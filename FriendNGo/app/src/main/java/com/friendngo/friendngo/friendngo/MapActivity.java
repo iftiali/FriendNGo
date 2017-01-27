@@ -117,7 +117,7 @@ public class MapActivity extends AppCompatActivity
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.w("HTTP SUCCESS1: ", statusCode + ": " + "Response = " + response.toString());
+                Log.w("GET LASTLOC SUCCESS", statusCode + ": " + "Response = " + response.toString());
 
                 try{
                     Log.w("GET LOCATION: ", statusCode + ", " + response.getString("last_city"));
@@ -128,7 +128,7 @@ public class MapActivity extends AppCompatActivity
                         update_city();
                     }
                 }catch (JSONException e){
-                    Log.w("HTTP LOCATION FAIL: ",e.getMessage().toString());
+                    Log.w("GET LASTLOC FAIL: ",e.getMessage().toString());
                 }
             }
 
@@ -138,11 +138,11 @@ public class MapActivity extends AppCompatActivity
                 try {
                     JSONObject firstEvent = timeline.getJSONObject(0);
                     String token = firstEvent.getString("token");
-                    Log.w("HTTP SUCCESS2: ", token.toString());
+                    Log.w("GET LASTLOC SUCCESS2", token.toString());
 
 
                 } catch (JSONException e) {
-                    Log.w("HTTP FAIL1: ", e.getMessage().toString());
+                    Log.w("GET LASTLOC FAIL1: ", e.getMessage().toString());
                 }
             }
 
@@ -153,7 +153,7 @@ public class MapActivity extends AppCompatActivity
 
             @Override
             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                Log.w("HTTP FAILURE2:", "Error Code: " + error_code);
+                Log.w("GET LASTLOC FAILURE2:", "Error Code: " + error_code);
             }
         });
 
@@ -216,10 +216,10 @@ public class MapActivity extends AppCompatActivity
         AsyncHttpClient client = new AsyncHttpClient();
         if (SignIn.static_token != null) {
             client.addHeader("Authorization", "Token " + SignIn.static_token);
+        }else{
+            Log.w("TOKEN ERROR","What happened to the token :(");
         }
 
-        RequestParams params = new RequestParams();
-        params.put("last_city", "montreal");
         client.get(MainActivity.base_host_url + "api/getActivities/", new JsonHttpResponseHandler() {
 
             @Override

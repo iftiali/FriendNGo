@@ -83,49 +83,49 @@ public class SignIn extends AppCompatActivity {
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
                             //TODO: Test and implement statusCode handlers for developers and graceful degradation
-                            Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
+                            Log.w("POST AUTH SUCCESS", statusCode + ": " + "Response = " + response.toString());
                             try{
                                 static_username = emailEditTextValue.getText().toString();
                                 static_token = response.get("token").toString();
-                                Log.w("HTTP SUCCESS: ", static_token);
+                                Log.w("POST AUTH SUCCESS2", static_token);
 
                                 Intent intent = new Intent(SignIn.this,Popular.class);
                                 SignIn.this.startActivity(intent);
                                 SignIn.this.finish();
 
-
                             }catch (JSONException e){
-                                Log.w("HTTP FAIL: ",e.getMessage().toString());
+                                Log.w("POST AUTH FAIL",e.getMessage().toString());
                             }
                         }
 
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                            Log.w("HTTP SUCCESS: ", statusCode + ": " + response.toString());
+                            Log.w("POST AUTH SUCCESS3", statusCode + ": " + response.toString());
                             try {
                                 JSONObject firstEvent = response.getJSONObject(0);
 
                                 static_username = emailEditTextValue.getText().toString();
                                 static_token = firstEvent.getString("token");
-                                Log.w("HTTP SUCCESS: ", static_token.toString());
+                                Log.w("POST AUTH SUCCESS4", static_token.toString());
 
                                 Intent intent = new Intent(SignIn.this,Popular.class);
                                 SignIn.this.startActivity(intent);
                                 SignIn.this.finish();
 
                             } catch (JSONException e) {
-                                Log.w("HTTP FAIL: ", e.getMessage().toString());
+                                Log.w("POST AUTH JSON ERROR", e.getMessage().toString());
                             }
                         }
 
                     @Override
                     public void onRetry(int retryNo) {
                         // called when request is retried
+                        Log.w("POST AUTH RETRY",""+retryNo);
                     }
 
                     @Override
                     public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                        Log.w("HTTP FAILURE:", "Error Code: " + error_code);
+                        Log.w("POST AUTH FAILURE :(", "Error Code: " + error_code);
                     }
                     });
                 }
