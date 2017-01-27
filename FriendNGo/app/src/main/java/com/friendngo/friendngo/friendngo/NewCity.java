@@ -117,7 +117,6 @@ public class NewCity extends AppCompatActivity {
                 }else{
                     AsyncHttpClient client = new AsyncHttpClient();
                     if(SignIn.static_token != null) {
-//                      client.setBasicAuth(SignIn.static_username, SignIn.static_token);
                         client.addHeader("Authorization","Token "+SignIn.static_token);
                     }
 
@@ -168,7 +167,7 @@ public class NewCity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                            Log.w("HTTP FAILURE:", "Error Code: " + error_code);
+                            Log.w("POST STATUS FAILURE", "Error Code: " + error_code);
                         }
                     });
                     Intent intent = new Intent(NewCity.this,WhatDoYouWantToDoToday.class);

@@ -21,7 +21,7 @@ import java.security.NoSuchAlgorithmException;
 public class MainActivity extends Activity {
 
     private final int SPLASH_DISPLAY_LENGTH = 2000;
-    public static String base_host_url = "http://52.91.230.210:8000/";
+    public static String base_host_url = "http://54.152.86.147/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +29,6 @@ public class MainActivity extends Activity {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
-//      TODO: Just a Reminder you can log in app purchases via Facebook console using this line of code
-//        logger.logPurchase(BigDecimal.valueOf(4.32), Currency.getInstance("USD"));
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -46,23 +44,5 @@ public class MainActivity extends Activity {
                 MainActivity.this.finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
-
-//        This is supposed to generate HASH keys that will work more than once without resetting the app settings... but it doesn't work as advertised
-
-//        try {
-//            PackageInfo info = getPackageManager().getPackageInfo(
-//                    "com.example.packagename",
-//                    PackageManager.GET_SIGNATURES);
-//            for (Signature signature : info.signatures) {
-//                MessageDigest md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-//            }
-//        } catch (PackageManager.NameNotFoundException e) {
-//            Log.w("KeyHash:", " Package Manager FAIL");
-//        } catch (NoSuchAlgorithmException e) {
-//            Log.w("KeyHash:", "No algo FAIL");
-//        }
-
     }
 }

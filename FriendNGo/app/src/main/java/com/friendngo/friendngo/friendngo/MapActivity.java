@@ -198,8 +198,6 @@ public class MapActivity extends AppCompatActivity
 
                         //This happens in a seperate thread
                         public void run() {
-//                            Log.w("SCHEDULER", "Running on schedule");
-
                             //Now hop back onto main thread to do the actual work
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -222,22 +220,22 @@ public class MapActivity extends AppCompatActivity
 
         RequestParams params = new RequestParams();
         params.put("last_city", "montreal");
-        JsonHttpResponseHandler responseHandler = new JsonHttpResponseHandler() {
+        client.get(MainActivity.base_host_url + "api/getActivities/", new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                Log.w("HTTP SUCCESS6: ", statusCode + ": " + "Response = " + response.toString());
+                Log.w("GET ACTIVITIES SUCCESS", statusCode + ": " + "Response = " + response.toString());
                 try {
-                    Log.w("ACTIVITIES SUCCESS7: ", response.getString("lastCity"));
+                    Log.w("GET ACTIVITIES SUCCESS2", response.getString("lastCity"));
                 } catch (JSONException e) {
-                    Log.w("HTTP LOCATION FAIL: ", e.getMessage().toString());
+                    Log.w("GET ACTIVITIES FAIL: ", e.getMessage().toString());
                 }
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray responseArray) {
-                Log.w("HTTP SUCCESS10", statusCode + "- JSON ARRAY: " + responseArray.toString());
+                Log.w("GET ACTIVITIES SUCCESS3", statusCode + "- JSON ARRAY: " + responseArray.toString());
 
                 activitiesList.clear();
 
@@ -256,7 +254,6 @@ public class MapActivity extends AppCompatActivity
                         }catch (ParseException p){
                             Log.w("PARSE EXCEPTION","Something went wrong with DATE parsing");
                         }
-//                        String category = activity.getString("category");
                         String activityType = activity.getString("activity_type");
                         double latitude = activity.getDouble("activity_lat");
                         double longitude = activity.getDouble("activity_lon");
@@ -298,17 +295,14 @@ public class MapActivity extends AppCompatActivity
             @Override
             public void onRetry(int retryNo) {
                 // called when request is retried
-                Log.w("HTTP RETRY", "TRYING AGAIN");
+                Log.w("GET ACTIVITIES RETRY", "TRYING AGAIN");
             }
 
             @Override
             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                Log.w("HTTP FAILURE3", "Error Code: " + error_code);
+                Log.w("GET ACTIVITIES FAIL2", "Error Code: " + error_code);
             }
-        };
-//        responseHandler.setUsePoolThread(true);
-
-        client.get(MainActivity.base_host_url + "api/getActivities/", responseHandler);
+        });
     }
 
     @Override
@@ -339,12 +333,6 @@ public class MapActivity extends AppCompatActivity
             Intent intent = new Intent(MapActivity.this,CreateActivity.class);
             MapActivity.this.startActivity(intent);
         }
-
-        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -507,22 +495,23 @@ public class MapActivity extends AppCompatActivity
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                                Log.w("HTTP SUCCESS5", statusCode + ": " + "Response = " + response.toString());
+                                Log.w("POST LOCATION SUCCESS", statusCode + ": " + "Response = " + response.toString());
                             }
 
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                                Log.w("JSON ARRAY???: ", statusCode + ": " + timeline.toString());
+                                Log.w("POST LOCATION SUCCESS2", statusCode + ": " + timeline.toString());
                             }
 
                             @Override
                             public void onRetry(int retryNo) {
                                 // called when request is retried
+                                Log.w("POST LOCATION RETRY", "" + retryNo);
                             }
 
                             @Override
                             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                                Log.w("HTTP FAILURE4:", "Error Code: " + error_code);
+                                Log.w("POST LOCATION FAIL", "Error Code: " + error_code);
                             }
                         });
 

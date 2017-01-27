@@ -46,7 +46,7 @@
         android:padding="15dp" />
 
     <Button
-        android:text="LOGIN"
+        android:text="SIGN UP"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

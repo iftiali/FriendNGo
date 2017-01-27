@@ -128,24 +128,24 @@ public class FacebookLogin extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                                            Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
+                                            Log.w("TOKEN SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
                                             try {
                                                 String fb_token = response.get("token").toString();
-                                                Log.w("HTTP SUCCESS: ", fb_token);
+                                                Log.w("TOKEN SUCCESS2: ", fb_token);
 
                                                 Intent mainIntent = new Intent(FacebookLogin.this, Popular.class);
                                                 FacebookLogin.this.startActivity(mainIntent);
                                                 FacebookLogin.this.finish();
 
                                             } catch (JSONException e) {
-                                                Log.w("HTTP FAIL: ", e.getMessage().toString());
+                                                Log.w("TOKEN FAIL: ", e.getMessage().toString());
                                             }
                                         }
 
                                         //Handler of alternative JSONArray form
                                         @Override
                                         public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                                            Log.w("HTTP SUCCESS: ", statusCode + ": " + response.toString());
+                                            Log.w("TOKEN SUCCESS3: ", statusCode + ": " + response.toString());
                                             try {
                                                 JSONObject firstEvent = response.getJSONObject(0);
 
@@ -154,7 +154,7 @@ public class FacebookLogin extends AppCompatActivity {
 //                                              Log.w("HTTP SUCCESS: ", static_token.toString());
 
                                             } catch (JSONException e) {
-                                                Log.w("HTTP FAIL: ", e.getMessage().toString());
+                                                Log.w("TOKEN FAIL2: ", e.getMessage().toString());
                                             }
                                         }
 
@@ -165,7 +165,7 @@ public class FacebookLogin extends AppCompatActivity {
 
                                         @Override
                                         public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                                            Log.w("HTTP FAILURE:", "Error Code: " + error_code);
+                                            Log.w("TOKEN FAIL3:", "Error Code: " + error_code);
                                         }
 
                                     });

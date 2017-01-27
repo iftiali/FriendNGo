@@ -74,8 +74,6 @@ public class SignUp extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-                        //TODO: Test and implement statusCode handler for developers and graceful degradation
                         Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
 
                             //Now that you are registered, call the authenticate class
@@ -92,7 +90,6 @@ public class SignUp extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                                    //TODO: Test and implement statusCode handlers for developers and graceful degradation
                                     Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
                                     try{
                                         SignIn.static_username = emailEditTextValue.getText().toString();
@@ -132,14 +129,12 @@ public class SignUp extends AppCompatActivity {
                                     // called when request is retried
                                 }
 
+                                //TODO: Give Users Helpful Error messages when there is a problem
                                 @Override
                                 public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
                                     Log.w("HTTP FAILURE:", "Error Code: " + error_code);
                                 }
                             });
-//                        }catch (JSONException e){
-//                            Log.w("HTTP JSON ERROR: ",e.getMessage().toString());
-//                        }
                     }
 
                     @Override

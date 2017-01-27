@@ -3,10 +3,21 @@ package com.friendngo.friendngo.friendngo;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 public class WhatDoYouWantToDoToday extends AppCompatActivity {
 
@@ -46,6 +57,63 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
 
         //Sets the top bar text
         getSupportActionBar().setTitle("What do you want to do today?");
+
+        //GET a list of the categories and activity types
+        AsyncHttpClient client = new AsyncHttpClient();
+        if(SignIn.static_token != null) {
+            client.addHeader("Authorization","Token "+SignIn.static_token);
+        }
+
+        client.get(MainActivity.base_host_url + "api/getCategories/", new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                //TODO: Test and implement statusCode handlers for developers and graceful degradation
+                Log.w("GET CAT SUCCESS", statusCode + ": " + "Response = " + response.toString());
+//                try{
+////                    static_token = response.get("token").toString();
+////                    Log.w("HTTP SUCCESS: ", static_token);
+////
+////                    Intent intent = new Intent(SignIn.this,Popular.class);
+////                    SignIn.this.startActivity(intent);
+////                    SignIn.this.finish();
+//                }catch (JSONException e){
+//                    Log.w("HTTP FAIL: ",e.getMessage().toString());
+//                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                Log.w("GET CAT SUCCESS", statusCode + ": " + response.toString());
+//                try {
+//                    JSONObject firstEvent = response.getJSONObject(0);
+//
+////                    static_username = emailEditTextValue.getText().toString();
+////                    static_token = firstEvent.getString("token");
+////                    Log.w("HTTP SUCCESS: ", static_token.toString());
+////
+////                    Intent intent = new Intent(SignIn.this,Popular.class);
+////                    SignIn.this.startActivity(intent);
+////                    SignIn.this.finish();
+//
+//                } catch (JSONException e) {
+//                    Log.w("HTTP FAIL: ", e.getMessage().toString());
+//                }
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+                Log.w("GET CAT RETRY", "Trying: " + retryNo);
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
+                Log.w("GET CAT FAIL", "Error Code: " + error_code);
+            }
+        });
+
 
         //Handler for sports category
         sports_category = (ImageView) findViewById(R.id.sports_image);

@@ -168,7 +168,7 @@ public class CreateActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         //TODO: Test and implement statusCode handler for developers and graceful degradation
-                        Log.w("HTTP SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
+                        Log.w("POST ACT SUCCESS", statusCode + ": " + "Response = " + response.toString());
 //                        try{
 //                            Log.w("STATUS SUCCESS: ", response.getString("status"));
 //                        }catch (JSONException e){
@@ -178,17 +178,19 @@ public class CreateActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                        Log.w("JSON ARRAY???: ", statusCode + ": " + timeline.toString());
+                        Log.w("POST ACT SUCCESS2", statusCode + ": " + timeline.toString());
                     }
 
                     @Override
                     public void onRetry(int retryNo) {
                         // called when request is retried
+                        Log.w("POST ACT RETRY", "" + retryNo);
                     }
 
                     @Override
                     public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                        Log.w("HTTP FAILURE", "Error Code: " + error_code);
+                        //TODO: Give the user a hint as to where he went wrong
+                        Log.w("POST ACT FAIL", "Error Code: " + error_code);
                     }
                 });
 
