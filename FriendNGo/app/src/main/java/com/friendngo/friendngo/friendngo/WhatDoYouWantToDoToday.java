@@ -57,6 +57,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
 
         //Sets the top bar text
         getSupportActionBar().setTitle("What do you want to do today?");
+        Log.w("GET CAT", "CALLING");
 
         //GET a list of the categories and activity types
         AsyncHttpClient client = new AsyncHttpClient();
@@ -64,28 +65,24 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
             client.addHeader("Authorization","Token "+SignIn.static_token);
         }
 
+
         client.get(MainActivity.base_host_url + "api/getCategories/", new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                //TODO: Test and implement statusCode handlers for developers and graceful degradation
                 Log.w("GET CAT SUCCESS", statusCode + ": " + "Response = " + response.toString());
-//                try{
-////                    static_token = response.get("token").toString();
-////                    Log.w("HTTP SUCCESS: ", static_token);
-////
-////                    Intent intent = new Intent(SignIn.this,Popular.class);
-////                    SignIn.this.startActivity(intent);
-////                    SignIn.this.finish();
-//                }catch (JSONException e){
-//                    Log.w("HTTP FAIL: ",e.getMessage().toString());
-//                }
+                try{
+                    String category = response.get("category").toString();
+                    Log.w("CATEGORY", category);
+                }catch (JSONException e){
+                    Log.w("JSONEXCEPTION",e.getMessage().toString());
+                }
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                Log.w("GET CAT SUCCESS", statusCode + ": " + response.toString());
+                Log.w("GET CAT SUCCESS", "JSONArray" + statusCode + ": " + response.toString());
 //                try {
 //                    JSONObject firstEvent = response.getJSONObject(0);
 //
@@ -110,7 +107,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
 
             @Override
             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                Log.w("GET CAT FAIL", "Error Code: " + error_code);
+                Log.w("GET CAT FAIL", "Error Code: " + error_code + "," + text);
             }
         });
 

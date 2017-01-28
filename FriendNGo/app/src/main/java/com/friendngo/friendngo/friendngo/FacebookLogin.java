@@ -56,6 +56,12 @@ public class FacebookLogin extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
+        if(MainActivity.cheat_mode==true){
+            Intent mainIntent = new Intent(FacebookLogin.this,SignIn.class);
+            FacebookLogin.this.startActivity(mainIntent);
+            FacebookLogin.this.finish();
+        }
+
         //If the user is logged in then go straight to the New City Activity
         if(isLoggedIn()) {
             Intent mainIntent = new Intent(FacebookLogin.this,Popular.class);

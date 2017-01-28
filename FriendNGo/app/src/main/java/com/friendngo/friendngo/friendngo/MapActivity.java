@@ -153,7 +153,7 @@ public class MapActivity extends AppCompatActivity
 
             @Override
             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                Log.w("GET LASTLOC FAILURE2:", "Error Code: " + error_code);
+                Log.w("GET LASTLOC FAILURE2:", "Error Code: " + error_code + ",  " + text);
             }
         });
 
@@ -301,6 +301,7 @@ public class MapActivity extends AppCompatActivity
             @Override
             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
                 Log.w("GET ACTIVITIES FAIL2", "Error Code: " + error_code);
+                Log.w("ERROR MESSAGE",text);
             }
         });
     }
@@ -441,6 +442,7 @@ public class MapActivity extends AppCompatActivity
                     markerOptions.title("Current Position");
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
                     currLocationMarker = mMap.addMarker(markerOptions);
+                    markerMap.put("Current Position",-1);
 
                     if (runOnce) {
                         Toast.makeText(getApplicationContext(), "GPS Coordinates = " + current_gps_latitude + "," + current_gps_longitude, Toast.LENGTH_LONG).show();
@@ -489,7 +491,12 @@ public class MapActivity extends AppCompatActivity
                         }
 
                         RequestParams params = new RequestParams();
+                        if(MainActivity.cheat_mode==false){
                         params.put("last_city", "montreal");
+                        }else {
+                            params.put("last_city", "middle of nowhere");
+                        }
+
                         client.post(MainActivity.base_host_url + "api/postLocation/", params, new JsonHttpResponseHandler() {
 
                             @Override
@@ -511,12 +518,18 @@ public class MapActivity extends AppCompatActivity
 
                             @Override
                             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                                Log.w("POST LOCATION FAIL", "Error Code: " + error_code);
+                                Log.w("POST LOCATION FAIL", "Error Code: " + error_code + "," + text);
                             }
                         });
 
                         Log.w("GPS CITY RESULT", "New City Detected");
-                        Intent intent = new Intent(MapActivity.this,NewCity.class);
+
+                        Intent intent;
+                        if(MainActivity.cheat_mode==true){
+                            intent = new Intent(MapActivity.this, WhatDoYouWantToDoToday.class);
+                        }else {
+                            intent = new Intent(MapActivity.this, NewCity.class);
+                        }
                         MapActivity.this.startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(),current_city, Toast.LENGTH_LONG).show();
@@ -548,50 +561,53 @@ public class MapActivity extends AppCompatActivity
         banner = layoutInflater.inflate(R.layout.activity_list_row_item,null,true);
         banner.setTranslationY(height - 215);
 
-        int i =(int) markerMap.get(marker.getTitle());
-        UserActivity act =(UserActivity)activitiesList.get(i);
+        int i = (int) markerMap.get(marker.getTitle());
 
-        switch(act.getCategory()){
-            case "Art & Culture":
-                ImageView imageView = (ImageView) banner.findViewById(R.id.activity_type);
-                imageView.setImageResource(R.drawable.arts_and_culture);
-                break;
-            case "Nightlife":
-                ImageView imageView2 = (ImageView) banner.findViewById(R.id.activity_type);
-                imageView2.setImageResource(R.drawable.nightlife);
-                break;
-            case "Sports":
-                ImageView imageView3 = (ImageView) banner.findViewById(R.id.activity_type);
-                imageView3.setImageResource(R.drawable.sports);
-                break;
-            case "Business":
-                ImageView imageView4= (ImageView) banner.findViewById(R.id.activity_type);
-                imageView4.setImageResource(R.drawable.handshake);
-                break;
-            case "Date":
-                ImageView imageView5 = (ImageView) banner.findViewById(R.id.activity_type);
-                imageView5.setImageResource(R.drawable.wink);
-                break;
-            case "Pool":
-                ImageView imageView6 = (ImageView) banner.findViewById(R.id.activity_type);
-                imageView6.setImageResource(R.drawable.pool);
-                break;
-            case "Outdoors":
-                ImageView imageView7 = (ImageView) banner.findViewById(R.id.activity_type);
-                imageView7.setImageResource(R.drawable.backpack);
-                break;
-            case "Camping":
-                ImageView imageView8 = (ImageView) banner.findViewById(R.id.activity_type);
-                imageView8.setImageResource(R.drawable.camping);
-                break;
-            case "Drinks":
-                ImageView imageView9 = (ImageView) banner.findViewById(R.id.activity_type);
-                imageView9.setImageResource(R.drawable.cup);
-                break;
-            case "Meetup":
-                ImageView imageView10 = (ImageView) banner.findViewById(R.id.activity_type);
-                imageView10.setImageResource(R.drawable.three);
-        }
+        // Check to see if this is the user's location pin (-1)
+        if(i != -1) {
+            UserActivity act = (UserActivity) activitiesList.get(i);
+
+            switch (act.getCategory()) {
+                case "Art & Culture":
+                    ImageView imageView = (ImageView) banner.findViewById(R.id.activity_type);
+                    imageView.setImageResource(R.drawable.arts_and_culture);
+                    break;
+                case "Nightlife":
+                    ImageView imageView2 = (ImageView) banner.findViewById(R.id.activity_type);
+                    imageView2.setImageResource(R.drawable.nightlife);
+                    break;
+                case "Sports":
+                    ImageView imageView3 = (ImageView) banner.findViewById(R.id.activity_type);
+                    imageView3.setImageResource(R.drawable.sports);
+                    break;
+                case "Business":
+                    ImageView imageView4 = (ImageView) banner.findViewById(R.id.activity_type);
+                    imageView4.setImageResource(R.drawable.handshake);
+                    break;
+                case "Date":
+                    ImageView imageView5 = (ImageView) banner.findViewById(R.id.activity_type);
+                    imageView5.setImageResource(R.drawable.wink);
+                    break;
+                case "Pool":
+                    ImageView imageView6 = (ImageView) banner.findViewById(R.id.activity_type);
+                    imageView6.setImageResource(R.drawable.pool);
+                    break;
+                case "Outdoors":
+                    ImageView imageView7 = (ImageView) banner.findViewById(R.id.activity_type);
+                    imageView7.setImageResource(R.drawable.backpack);
+                    break;
+                case "Camping":
+                    ImageView imageView8 = (ImageView) banner.findViewById(R.id.activity_type);
+                    imageView8.setImageResource(R.drawable.camping);
+                    break;
+                case "Drinks":
+                    ImageView imageView9 = (ImageView) banner.findViewById(R.id.activity_type);
+                    imageView9.setImageResource(R.drawable.cup);
+                    break;
+                case "Meetup":
+                    ImageView imageView10 = (ImageView) banner.findViewById(R.id.activity_type);
+                    imageView10.setImageResource(R.drawable.three);
+            }
 //        (ImageView) banner.findViewById(R.id.profile_picture);
 //        (TextView) convertView.findViewById(R.id.created_text);
 //        (TextView) convertView.findViewById(R.id.status_text);
@@ -599,7 +615,7 @@ public class MapActivity extends AppCompatActivity
 //        (ImageView) convertView.findViewById(R.id.country_flag);
 //        (ImageView) convertView.findViewById(R.id.points);
 //        (ImageView) convertView.findViewById(R.id.activity_type);
-        ((TextView) banner.findViewById(R.id.activity_name)).setText(marker.getTitle());
+            ((TextView) banner.findViewById(R.id.activity_name)).setText(marker.getTitle());
 //        (ImageView) convertView.findViewById(R.id.clock_image);
 //        (TextView) convertView.findViewById(R.id.activity_time);
 //        (ImageView) convertView.findViewById(R.id.pin_image);
@@ -607,10 +623,9 @@ public class MapActivity extends AppCompatActivity
 //        (RelativeLayout) convertView.findViewById(R.id.row_item);
 
 
-
-
 //        banner.setBottom(height); //Did not work as expected
-        layout.addView(banner);
+            layout.addView(banner);
+        }
         return false;
     }
 

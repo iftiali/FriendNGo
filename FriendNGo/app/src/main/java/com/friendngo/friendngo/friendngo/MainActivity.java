@@ -11,7 +11,6 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
@@ -23,6 +22,7 @@ public class MainActivity extends Activity {
     static boolean is_production = false;
     private final int SPLASH_DISPLAY_LENGTH = 2000;
     public static String base_host_url = "";
+    public static boolean cheat_mode = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
