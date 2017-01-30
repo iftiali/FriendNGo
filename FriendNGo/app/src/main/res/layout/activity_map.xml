@@ -36,6 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
+            android:dividerHeight="10.0sp"
+            android:divider="@android:color/transparent"
             android:layout_below="@id/navigation_drawer_header_include"
 
             />

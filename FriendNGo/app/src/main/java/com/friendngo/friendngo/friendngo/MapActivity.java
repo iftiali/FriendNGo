@@ -181,8 +181,8 @@ public class MapActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Set the custom adapter
-        activitiesList.add(new UserActivity("Get breakfast",2,2,new Date(2017,01,10), "Drinks", "Eating",1.99,1.99));
-        activitiesList.add(new UserActivity("Fun stuff",2,2,new Date(2017,01,10), "Business", "Eating",1.99,1.99));
+        activitiesList.add(new UserActivity("Get breakfast","t2@t2.com",2,new Date(2017,01,10), "Drinks", "Eating",1.99,1.99));
+        activitiesList.add(new UserActivity("Fun stuff","t2@t2.com",2,new Date(2017,01,10), "Business", "Eating",1.99,1.99));
         adapter = new ActivityListAdapter(getApplicationContext());
         listView = (ListView)findViewById(R.id.activity_list);
 
@@ -244,7 +244,7 @@ public class MapActivity extends AppCompatActivity
                     try {
                         JSONObject activity = responseArray.getJSONObject(i);
                         String name = activity.getString("activity_name");
-                        int creator = activity.getInt("creator");
+                        String creator = activity.getString("creator");
                         int maxUsers = activity.getInt("max_users");
                         String activityTimeString = activity.getString("activity_time");
                         SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'"); //TODO: Proper formatting required for the UI to look proper

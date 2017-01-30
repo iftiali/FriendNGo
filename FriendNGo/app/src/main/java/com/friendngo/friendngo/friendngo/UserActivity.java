@@ -9,7 +9,7 @@ import java.util.Date;
 public class UserActivity {
 
     private String name;
-    private int creator;
+    private String creator;
     private int maxUsers;
 //    private SimpleDateFormat createdTime;
     private Date activityTime;
@@ -19,7 +19,7 @@ public class UserActivity {
     private double longitude;
 
     public UserActivity(String name,
-                        int creator,
+                        String  creator,
                         int maxUsers,
 //                        SimpleDateFormat createdTime,
                         Date activityTime,
@@ -53,11 +53,11 @@ public class UserActivity {
         this.name = name;
     }
 
-    public int getCreator() {
+    public String getCreator() {
         return creator;
     }
 
-    public void setCreator(int creator) {
+    public void setCreator(String creator) {
         this.creator = creator;
     }
 
