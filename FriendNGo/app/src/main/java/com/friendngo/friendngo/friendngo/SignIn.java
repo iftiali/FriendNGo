@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 
@@ -129,72 +130,87 @@ public class SignIn extends AppCompatActivity {
                 public void onClick(View v) {
 
                     AsyncHttpClient client = new AsyncHttpClient();
-                    client.setBasicAuth(emailEditTextValue.getText().toString(), passwordEditTextValue.getText().toString());
+                    //By Parth 30-Jan-2017
+                    //client.setBasicAuth(emailEditTextValue.getText().toString(), passwordEditTextValue.getText().toString());
 
                     RequestParams params = new RequestParams();
 //                params.setUseJsonStreamer(true);
                     params.put("username", emailEditTextValue.getText().toString());
                     params.put("password", passwordEditTextValue.getText().toString());
+                   boolean isNullCheck = ValidationClass.isNullCheck(emailEditTextValue.getText().toString(),passwordEditTextValue.getText().toString());
+                   boolean isEmailValid = ValidationClass.isValidEmail(emailEditTextValue.getText().toString());
+                    //Log.w("error", String.valueOf(isEmailValid));
+                    if(isNullCheck){
+                    if(isEmailValid){
+                        client.post(MainActivity.base_host_url + "api-token-auth/", params, new JsonHttpResponseHandler() {
 
-                    client.post(MainActivity.base_host_url + "api-token-auth/", params, new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                //TODO: Test and implement statusCode handlers for developers and graceful degradation
+                                Log.w("POST AUTH SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                                try {
+                                    static_username = emailEditTextValue.getText().toString();
+                                    static_token = response.get("token").toString();
+                                    Log.w("POST AUTH SUCCESS2", static_token);
 
-                            //TODO: Test and implement statusCode handlers for developers and graceful degradation
-                            Log.w("POST AUTH SUCCESS", statusCode + ": " + "Response = " + response.toString());
-                            try {
-                                static_username = emailEditTextValue.getText().toString();
-                                static_token = response.get("token").toString();
-                                Log.w("POST AUTH SUCCESS2", static_token);
+                                    Intent intent = new Intent(SignIn.this, Popular.class);
+                                    SignIn.this.startActivity(intent);
+                                    SignIn.this.finish();
 
-                                Intent intent = new Intent(SignIn.this, Popular.class);
-                                SignIn.this.startActivity(intent);
-                                SignIn.this.finish();
-
-                            } catch (JSONException e) {
-                                Log.w("POST AUTH FAIL", e.getMessage().toString());
+                                } catch (JSONException e) {
+                                    Log.w("POST AUTH FAIL", e.getMessage().toString());
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                            Log.w("POST AUTH SUCCESS3", statusCode + ": " + response.toString());
-                            try {
-                                JSONObject firstEvent = response.getJSONObject(0);
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                                Log.w("POST AUTH SUCCESS3", statusCode + ": " + response.toString());
+                                try {
+                                    JSONObject firstEvent = response.getJSONObject(0);
 
-                                static_username = emailEditTextValue.getText().toString();
-                                static_token = firstEvent.getString("token");
-                                Log.w("POST AUTH SUCCESS4", static_token.toString());
+                                    static_username = emailEditTextValue.getText().toString();
+                                    static_token = firstEvent.getString("token");
+                                    Log.w("POST AUTH SUCCESS4", static_token.toString());
 
-                                Intent intent = new Intent(SignIn.this, Popular.class);
-                                SignIn.this.startActivity(intent);
-                                SignIn.this.finish();
+                                    Intent intent = new Intent(SignIn.this, Popular.class);
+                                    SignIn.this.startActivity(intent);
+                                    SignIn.this.finish();
 
-                            } catch (JSONException e) {
-                                Log.w("POST AUTH JSON ERROR", e.getMessage().toString());
+                                } catch (JSONException e) {
+                                    Log.w("POST AUTH JSON ERROR", e.getMessage().toString());
+                                }
                             }
+
+                            @Override
+                            public void onRetry(int retryNo) {
+                                // called when request is retried
+                                Log.w("POST AUTH RETRY", "" + retryNo);
+                            }
+
+                            @Override
+                            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                                Log.w("POST AUTH FAILURE", "Error Code: " + error_code);
+                            }
+                            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                                AsyncHttpClient.log.w("POST AUTH FAILURE", String.valueOf(statusCode));
+                                Toast.makeText(SignIn.this, "Invalid user", Toast.LENGTH_LONG).show();
+                    }
+
+                        });
+                    }else{
+                        Toast.makeText(SignIn.this, "Invalid Email ", Toast.LENGTH_LONG).show();
+
+                    }
+                }   else {
+                    //message
+                    Toast.makeText(SignIn.this, "Email or password is empty ", Toast.LENGTH_LONG).show();
                         }
 
-                        @Override
-                        public void onRetry(int retryNo) {
-                            // called when request is retried
-                            Log.w("POST AUTH RETRY", "" + retryNo);
-                        }
 
-                        @Override
-                        public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                            Log.w("POST AUTH FAILURE", "Error Code: " + error_code);
-                        }
-
-//                        @Override
-//                        public void onFailure(int error_code, Header[] headers, JSONObject json, Throwable throwable) {
-//                            Log.w("POST AUTH FAIL2", "ERROR!!!");
-//                        }
-
-                    });
                 }
             });
         }
     }
+
 }
