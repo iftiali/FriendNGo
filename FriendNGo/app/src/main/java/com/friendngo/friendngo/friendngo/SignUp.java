@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,99 +70,113 @@ public class SignUp extends AppCompatActivity {
 //                params.setUseJsonStreamer(true);
                 params.put("username", emailEditTextValue.getText().toString());
                 params.put("password", passwordEditTextValue.getText().toString());
+                boolean isNullCheck = ValidationClass.isNullCheck(emailEditTextValue.getText().toString(),passwordEditTextValue.getText().toString());
+                boolean isEmailValid = ValidationClass.isValidEmail(emailEditTextValue.getText().toString());
+                //Log.w("error", String.valueOf(isEmailValid));
+                if(isNullCheck){
+                    if(isEmailValid) {
 
-                client.post(MainActivity.base_host_url + "users/register/", params, new JsonHttpResponseHandler() {
+                        client.post(MainActivity.base_host_url + "users/register/", params, new JsonHttpResponseHandler() {
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        Log.w("POST REGISTER SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                Log.w("POST REGISTER SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
 
-                            //Now that you are registered, call the authenticate class
-                            AsyncHttpClient client = new AsyncHttpClient();
-                            client.setBasicAuth(emailEditTextValue.getText().toString(), passwordEditTextValue.getText().toString());
+                                //Now that you are registered, call the authenticate class
+                                AsyncHttpClient client = new AsyncHttpClient();
+                                client.setBasicAuth(emailEditTextValue.getText().toString(), passwordEditTextValue.getText().toString());
 
-                            RequestParams params = new RequestParams();
+                                RequestParams params = new RequestParams();
 //                          params.setUseJsonStreamer(true);
-                            params.put("username", emailEditTextValue.getText().toString());
-                            params.put("password", passwordEditTextValue.getText().toString());
+                                params.put("username", emailEditTextValue.getText().toString());
+                                params.put("password", passwordEditTextValue.getText().toString());
 
-                            client.post(MainActivity.base_host_url + "api-token-auth/", params, new JsonHttpResponseHandler() {
+                                client.post(MainActivity.base_host_url + "api-token-auth/", params, new JsonHttpResponseHandler() {
 
-                                @Override
-                                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                                    Log.w("AUTH POST SUCCESS", statusCode + ": " + "Response = " + response.toString());
-                                    try{
-                                        SignIn.static_username = emailEditTextValue.getText().toString();
-                                        SignIn.static_token = response.get("token").toString();
-                                        Log.w("AUTH POST SUCCESS2", SignIn.static_token.toString());
+                                        Log.w("AUTH POST SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                                        try {
+                                            SignIn.static_username = emailEditTextValue.getText().toString();
+                                            SignIn.static_token = response.get("token").toString();
+                                            Log.w("AUTH POST SUCCESS2", SignIn.static_token.toString());
 
-                                        Intent intent = new Intent(SignUp.this,Popular.class);
-                                        SignUp.this.startActivity(intent);
-                                        SignUp.this.finish();
+                                            Intent intent = new Intent(SignUp.this, Popular.class);
+                                            SignUp.this.startActivity(intent);
+                                            SignUp.this.finish();
 
-                                    }catch (JSONException e){
-                                        Log.w("AUTH POST FAIL",e.getMessage().toString());
+                                        } catch (JSONException e) {
+                                            Log.w("AUTH POST FAIL", e.getMessage().toString());
+                                        }
                                     }
-                                }
 
-                                @Override
-                                public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                                    Log.w("AUTH POST SUCCESS?", statusCode + ": " + response.toString());
-                                    try {
-                                        JSONObject firstEvent = response.getJSONObject(0);
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                                        Log.w("AUTH POST SUCCESS?", statusCode + ": " + response.toString());
+                                        try {
+                                            JSONObject firstEvent = response.getJSONObject(0);
 
-                                        SignIn.static_username = emailEditTextValue.getText().toString();
-                                        SignIn.static_token = firstEvent.getString("token");
-                                        Log.w("AUTH POST SUCCESS", SignIn.static_token.toString());
+                                            SignIn.static_username = emailEditTextValue.getText().toString();
+                                            SignIn.static_token = firstEvent.getString("token");
+                                            Log.w("AUTH POST SUCCESS", SignIn.static_token.toString());
 
-                                        Intent intent = new Intent(SignUp.this,Popular.class);
-                                        SignUp.this.startActivity(intent);
-                                        SignUp.this.finish();
+                                            Intent intent = new Intent(SignUp.this, Popular.class);
+                                            SignUp.this.startActivity(intent);
+                                            SignUp.this.finish();
 
-                                    } catch (JSONException e) {
-                                        Log.w("AUTH POST FAIL", e.getMessage().toString());
+                                        } catch (JSONException e) {
+                                            Log.w("AUTH POST FAIL", e.getMessage().toString());
+                                        }
                                     }
+
+                                    @Override
+                                    public void onRetry(int retryNo) {
+                                        // called when request is retried
+                                    }
+
+                                    //TODO: Give Users Helpful Error messages when there is a problem
+                                    @Override
+                                    public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                                        Log.w("HTTP FAILURE", "Error Code: " + error_code);
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                                Log.w("HTTP SUCCESS: ", statusCode + ": " + response.toString());
+                                try {
+                                    JSONObject firstEvent = response.getJSONObject(0);
+
+                                    Intent intent = new Intent(SignUp.this, Popular.class);
+                                    SignUp.this.startActivity(intent);
+                                    SignUp.this.finish();
+
+                                } catch (JSONException e) {
+                                    Log.w("HTTP JSON ERROR: ", e.getMessage().toString());
                                 }
+                            }
 
-                                @Override
-                                public void onRetry(int retryNo) {
-                                    // called when request is retried
-                                }
+                            @Override
+                            public void onRetry(int retryNo) {
+                                // called when request is retried
+                            }
 
-                                //TODO: Give Users Helpful Error messages when there is a problem
-                                @Override
-                                public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                                    Log.w("HTTP FAILURE", "Error Code: " + error_code);
-                                }
-                            });
+                            @Override
+                            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                                Log.w("HTTP FAILURE:", "Error Code: " + error_code);
+                            }
+                        });
+                    }else{
+                        Toast.makeText(SignUp.this, "Invalid Email format ", Toast.LENGTH_LONG).show();
+
                     }
+                }   else {
+                    //message
+                    Toast.makeText(SignUp.this, "Email or password is empty ", Toast.LENGTH_LONG).show();
+                }
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                        Log.w("HTTP SUCCESS: ", statusCode + ": " + response.toString());
-                        try {
-                            JSONObject firstEvent = response.getJSONObject(0);
-
-                            Intent intent = new Intent(SignUp.this,Popular.class);
-                            SignUp.this.startActivity(intent);
-                            SignUp.this.finish();
-
-                        } catch (JSONException e) {
-                            Log.w("HTTP JSON ERROR: ", e.getMessage().toString());
-                        }
-                    }
-
-                    @Override
-                    public void onRetry(int retryNo) {
-                        // called when request is retried
-                    }
-
-                    @Override
-                    public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                        Log.w("HTTP FAILURE:", "Error Code: " + error_code);
-                    }
-                });
             }
         });
 
