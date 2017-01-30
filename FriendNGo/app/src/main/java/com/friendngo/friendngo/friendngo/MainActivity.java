@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
     static boolean is_production = false;
     private final int SPLASH_DISPLAY_LENGTH = 2000;
     public static String base_host_url = "";
-    public static boolean cheat_mode = true;
+    public static boolean cheat_mode = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

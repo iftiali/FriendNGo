@@ -184,8 +184,14 @@ public class SignIn extends AppCompatActivity {
 
                         @Override
                         public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                            Log.w("POST AUTH FAILURE :(", "Error Code: " + error_code);
+                            Log.w("POST AUTH FAILURE", "Error Code: " + error_code);
                         }
+
+//                        @Override
+//                        public void onFailure(int error_code, Header[] headers, JSONObject json, Throwable throwable) {
+//                            Log.w("POST AUTH FAIL2", "ERROR!!!");
+//                        }
+
                     });
                 }
             });
