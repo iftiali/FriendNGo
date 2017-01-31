@@ -162,7 +162,7 @@ public class CreateActivity extends AppCompatActivity {
                 params.put("max_users", maxUsers);
                 params.put("activity_lat", Double.toString(latitude) );
                 params.put("activity_lon", Double.toString(longitude));
-
+                params.put("address",address);
                 client.post(MainActivity.base_host_url + "api/postActivity/",params, new JsonHttpResponseHandler() {
 
                     @Override

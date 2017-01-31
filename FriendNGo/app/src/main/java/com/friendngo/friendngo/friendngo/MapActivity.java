@@ -181,8 +181,8 @@ public class MapActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Set the custom adapter
-        activitiesList.add(new UserActivity("Get breakfast","t2@t2.com",2,new Date(2017,01,10), "Drinks", "Eating",1.99,1.99));
-        activitiesList.add(new UserActivity("Fun stuff","t2@t2.com",2,new Date(2017,01,10), "Business", "Eating",1.99,1.99));
+        activitiesList.add(new UserActivity("Get breakfast","t2@t2.com",2,new Date(2017,01,10),"5800 Upper Lachine Road, H4A 2B5",10, "Drinks", "Eating",1.99,1.99));
+        activitiesList.add(new UserActivity("Fun stuff","t2@t2.com",2,new Date(2017,01,10),"5800 Upper Lachine Road, H4A 2B5",10,"Business", "Eating",1.99,1.99));
         adapter = new ActivityListAdapter(getApplicationContext());
         listView = (ListView)findViewById(R.id.activity_list);
 
@@ -247,7 +247,6 @@ public class MapActivity extends AppCompatActivity
                         String creator = activity.getString("creator");
                         int maxUsers = activity.getInt("max_users");
                         String activityTimeString = activity.getString("activity_time");
-                        Log.w("parth",activityTimeString);
                         SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
                         Date activityTime = new Date();
                         //TODO: Improve timzezones for multi-city support
@@ -260,11 +259,14 @@ public class MapActivity extends AppCompatActivity
                         String activityType = activity.getString("activity_type");
                         double latitude = activity.getDouble("activity_lat");
                         double longitude = activity.getDouble("activity_lon");
-
+                        String address = activity.getString("address");
+                        int distance = getDistance(address);
                         UserActivity userActivity = new UserActivity(name,
                                 creator,
                                 maxUsers,
                                 activityTime,
+                                address,
+                                distance,
                                 "Business",
                                 activityType,
                                 latitude,
@@ -474,7 +476,12 @@ public class MapActivity extends AppCompatActivity
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         }
     }
+    //parth
+    private int getDistance(String address){
 
+        
+        return 10;
+    }
     //Helper function to calculate the distance from the last known location
     //This could possibly be replaced by an address poll with a city name parser
     private void update_city() {
