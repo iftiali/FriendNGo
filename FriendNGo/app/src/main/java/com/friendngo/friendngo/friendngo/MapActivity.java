@@ -50,7 +50,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.EOFException;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -181,8 +183,8 @@ public class MapActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Set the custom adapter
-        activitiesList.add(new UserActivity("Get breakfast","t2@t2.com",2,new Date(2017,01,10),"5800 Upper Lachine Road, H4A 2B5",10, "Drinks", "Eating",1.99,1.99));
-        activitiesList.add(new UserActivity("Fun stuff","t2@t2.com",2,new Date(2017,01,10),"5800 Upper Lachine Road, H4A 2B5",10,"Business", "Eating",1.99,1.99));
+        activitiesList.add(new UserActivity("Get breakfast","t2@t2.com",2,new Date(2017,01,10),"5800 Upper Lachine Road, H4A 2B5","10","0", "Drinks", "Eating",1.99,1.99));
+        activitiesList.add(new UserActivity("Fun stuff","t2@t2.com",2,new Date(2017,01,10),"5800 Upper Lachine Road, H4A 2B5","10","0","Business", "Eating",1.99,1.99));
         adapter = new ActivityListAdapter(getApplicationContext());
         listView = (ListView)findViewById(R.id.activity_list);
 
@@ -260,13 +262,15 @@ public class MapActivity extends AppCompatActivity
                         double latitude = activity.getDouble("activity_lat");
                         double longitude = activity.getDouble("activity_lon");
                         String address = activity.getString("address");
-                        int distance = getDistance(address);
+                        String points = activity.getString("points");
+                        String distance = calculation_Distance(address);
                         UserActivity userActivity = new UserActivity(name,
                                 creator,
                                 maxUsers,
                                 activityTime,
                                 address,
                                 distance,
+                                points,
                                 "Business",
                                 activityType,
                                 latitude,
@@ -477,10 +481,44 @@ public class MapActivity extends AppCompatActivity
         }
     }
     //parth
-    private int getDistance(String address){
+    private String calculation_Distance(String strAddress){
+// Toast.makeText(getApplicationContext(), "GPS Coordinates = " + current_gps_latitude + "," + current_gps_longitude, Toast.LENGTH_LONG).show();
 
-        
-        return 10;
+        Geocoder coder = new Geocoder(this);
+        List<Address> address;
+        double km = 0;
+        DecimalFormat df = new DecimalFormat("#.#");
+        try {
+            address = coder.getFromLocationName(strAddress,5);
+            if (address==null) {
+                return "0";
+            }
+            Address location=address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+           // Toast.makeText(getApplicationContext(), "event locaiton GPS Coordinates = " + location.getLatitude() + "," + location.getLongitude(), Toast.LENGTH_LONG).show();
+            int Radius = 6371;
+            double lat1 = current_gps_latitude;//StartP.latitude;
+            double lat2 = location.getLatitude();//EndP.latitude;
+            double lon1 = current_gps_longitude;//StartP.longitude;
+            double lon2 = location.getLongitude();//EndP.longitude;
+            double dLat = Math.toRadians(lat2 - lat1);
+            double dLon = Math.toRadians(lon2 - lon1);
+            double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                    + Math.cos(Math.toRadians(lat1))
+                    * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                    * Math.sin(dLon / 2);
+            double c = 2 * Math.asin(Math.sqrt(a));
+            double valueResult = Radius * c;
+            km = valueResult / 1;
+            if(km<0.1){
+                km=0.1;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return df.format(km);
     }
     //Helper function to calculate the distance from the last known location
     //This could possibly be replaced by an address poll with a city name parser

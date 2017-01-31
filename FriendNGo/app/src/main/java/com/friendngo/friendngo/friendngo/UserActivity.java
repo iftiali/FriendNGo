@@ -13,7 +13,8 @@ public class UserActivity {
     private int maxUsers;
 //    private SimpleDateFormat createdTime;
     private Date activityTime;
-    private int distance;
+    private String distance;
+    private String points;
     private String category;
     private String activityType;
     private double latitude;
@@ -25,7 +26,8 @@ public class UserActivity {
 //                        SimpleDateFormat createdTime,
                         Date activityTime,
                         String address,
-                        int distance,
+                        String distance,
+                        String points,
                         String category, String type,
                         double latitude,
                         double longitude) {
@@ -36,6 +38,7 @@ public class UserActivity {
         this.activityTime = activityTime;
         this.address = address;
         this.distance =distance;
+        this.points=points;
         this.category = category;
         this.activityType = type;
         this.latitude = latitude;
@@ -72,13 +75,17 @@ public class UserActivity {
     public void setCreator(String creator) {
         this.creator = creator;
     }
-    public int getDistance() {
-        return distance;
-    }
-
-    public void setDistance(int distance) {
+    public String getDistance() {return distance;}
+    public void setDistance(String distance) {
         this.distance = distance;
     }
+
+    public void setPoints(String points) {
+        this.points = points;
+    }
+    public String getPoints() {return points;}
+
+
     public int getMaxUsers() {
         return maxUsers;
     }
