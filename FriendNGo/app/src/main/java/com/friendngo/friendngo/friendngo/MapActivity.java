@@ -247,9 +247,12 @@ public class MapActivity extends AppCompatActivity
                         String creator = activity.getString("creator");
                         int maxUsers = activity.getInt("max_users");
                         String activityTimeString = activity.getString("activity_time");
-                        SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'"); //TODO: Proper formatting required for the UI to look proper
+                        Log.w("parth",activityTimeString);
+                        SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
                         Date activityTime = new Date();
+                        //TODO: Improve timzezones for multi-city support
                         try {
+
                             activityTime = activityTimeFormat.parse(activityTimeString);
                         }catch (ParseException p){
                             Log.w("PARSE EXCEPTION","Something went wrong with DATE parsing");

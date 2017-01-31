@@ -11,6 +11,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by scott on 2017-01-17.
  */
@@ -139,7 +143,8 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         }
 
         viewHolder.clock.setImageResource(R.drawable.clock);
-        viewHolder.dateTime.setText(userActivity.getActivityTime().toString());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd, HH:mma");
+        viewHolder.dateTime.setText(dateFormat.format(userActivity.getActivityTime()));
         viewHolder.dateTime.setTextColor(Color.GRAY);
         viewHolder.pin.setImageResource(R.drawable.pin);
         viewHolder.distance.setText("10km away");
