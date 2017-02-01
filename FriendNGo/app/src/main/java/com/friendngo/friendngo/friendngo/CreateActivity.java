@@ -22,6 +22,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class CreateActivity extends AppCompatActivity {
 
     Button createActivityButton;
     Button todayButton;
+    Geocoder coder = new Geocoder(this);
     Button tomorrowButton;
 
     @Override
@@ -158,11 +161,14 @@ public class CreateActivity extends AppCompatActivity {
                 RequestParams params = new RequestParams();
                 params.put("activity_name",activity_name );
 //                params.put("category", category);
+                params.put("address",address);
+
                 params.put("activity_type", activityType);
                 params.put("max_users", maxUsers);
-                params.put("activity_lat", Double.toString(latitude) );
-                params.put("activity_lon", Double.toString(longitude));
-                params.put("address",address);
+                params.put("activity_lat", Double.toString(ValidationClass.get_Latitude(address,coder)));
+                params.put("activity_lon", Double.toString(ValidationClass.get_longitude(address,coder)));
+                //params.put("activity_lat", Double.toString(-73));
+                //params.put("activity_lon", Double.toString(73));
                 client.post(MainActivity.base_host_url + "api/postActivity/",params, new JsonHttpResponseHandler() {
 
                     @Override
@@ -201,6 +207,6 @@ public class CreateActivity extends AppCompatActivity {
             }
         });
 
+        }
 
-    }
 }
