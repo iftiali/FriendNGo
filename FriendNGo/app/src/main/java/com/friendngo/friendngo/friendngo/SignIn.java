@@ -54,7 +54,7 @@ public class SignIn extends AppCompatActivity {
             client.setBasicAuth("t@t.com", "fun");
             RequestParams params = new RequestParams();
 //          params.setUseJsonStreamer(true);
-            params.put("username", "t@t.com");
+            params.put("username", "t2@t2.com");
             params.put("password", "fun");
             client.post(MainActivity.base_host_url + "api-token-auth/", params, new JsonHttpResponseHandler() {
 
