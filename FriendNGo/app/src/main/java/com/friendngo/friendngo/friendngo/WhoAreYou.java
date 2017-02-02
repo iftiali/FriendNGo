@@ -36,17 +36,20 @@ import cz.msebera.android.httpclient.Header;
 
 public class WhoAreYou extends AppCompatActivity {
 
-    Button continueButton;
     private static final int CAMERA_REQUEST = 1888;
+
+    Button continueButton;
+    EditText nameInput;
+    EditText nationalityInput;
+    EditText languageInput;
+    EditText ageInput;
+
     ImageView profilePicture;
-    EditText first_name;
-    EditText last_name;
-    EditText citizenship;
-    EditText mother_tongue;
-    EditText second_language;
     String pictureURL ="";
     File directory;
-
+    File downloadedImage;
+    File myFile;
+    Bitmap photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,28 @@ public class WhoAreYou extends AppCompatActivity {
         setContentView(R.layout.activity_who_are_you);
         getSupportActionBar().setTitle("Who Are you?");
         profilePicture = (ImageView) findViewById(R.id.profilepicture);
+//        ageInput = (EditText) findViewById(R.id.age_editText);
+//        languageInput = (EditText) findViewById(R.id.language_editText);
+//        nationalityInput = (EditText) findViewById(R.id.language_editText);
+//        nameInput = (EditText) findViewById(R.id.name_input_editView);
+
+
+        //Set OnClick Listener for the profile picture pressed
+        profilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Set OnClick Listener for the profile picture button
+                if (Build.VERSION.SDK_INT >= 23) {
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                }else {
+                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                }
+            }
+        });
+
+        //SETUP GET user profile
         AsyncHttpClient client = new AsyncHttpClient();
         if(SignIn.static_token != null) {
             client.addHeader("Authorization","Token "+SignIn.static_token);
@@ -75,22 +100,17 @@ public class WhoAreYou extends AppCompatActivity {
                 client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                        Log.w("GET IMAGE FAIL","Could not retrieve image");
                     }
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, File response) {
-                        //Set the profile image as the received image file
+                        Log.w("GET IMAGE SUCCESS","Successfully Retrieved The Image");
+                        //Use the downloaded image as the profile picture
                         Uri uri = Uri.fromFile(response);
                         profilePicture.setImageURI(uri);
+                        downloadedImage = response;
                     }
                 });
-
-                if (Build.VERSION.SDK_INT >= 23) {
-                        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                }else {
-                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                }
             }
 
             @Override
@@ -118,64 +138,80 @@ public class WhoAreYou extends AppCompatActivity {
             }
         });
 
-
         continueButton = (Button)findViewById(R.id.profile_continue_button);
         continueButton.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
-                  //After saving... Use Async Library's Post Images
-                  File myFile = new File(directory + "/profile.jpg");
-                  RequestParams params = new RequestParams();
-//                  params.put("first_name","Testing");
-//                  params.put("last_name","Lasting");
-//                  params.put("phone","444-444-4444");
-//                  params.put("age","27");
-//                  params.put("home_city","toronto");
-//                  params.put("home_nationality","canadian");
 
-                  try {
-                      params.put("picture", myFile);
-                  } catch(FileNotFoundException e) {}
-
-
+                  //SETUP POST to profile
                   AsyncHttpClient client = new AsyncHttpClient();
                   if(SignIn.static_token != null) {
                       client.addHeader("Authorization","Token "+SignIn.static_token);
                   }
-                  //GET last known location
 
-                  client.post(MainActivity.base_host_url + "api/postProfile", params, new JsonHttpResponseHandler() {
-//                  client.post( "http://requestb.in/y84bv2y8", params, new JsonHttpResponseHandler() {
+                  ageInput = (EditText) findViewById(R.id.age_editText);
+                  languageInput = (EditText) findViewById(R.id.language_editText);
+                  nationalityInput = (EditText) findViewById(R.id.language_editText);
+                  nameInput = (EditText) findViewById(R.id.name_input_editView);
+
+                  RequestParams params = new RequestParams();
+                  //Adding text params
+                  if(MainActivity.cheat_mode==true){
+
+                      params.put("first_name","Seahorse");
+                      params.put("last_name","Tootles");
+                      params.put("phone","444-444-4444");
+                      params.put("age","99");
+                      params.put("home_city","toronto");
+                      params.put("home_nationality","Canadian");
+                  }else{
+//                      params.put("first_name",nameInput.getText());
+//                      params.put("last_name",nameInput.getText());
+//                      params.put("phone","444-444-4444");
+//                      params.put("age",ageInput.getText());
+//                      params.put("home_city","toronto");
+//                      params.put("home_nationality",nationalityInput.getText());
+                  }
+
+                  //Adding image params
+                 File myFile = new File(directory + "/picture.jpg");
+                  try {
+                      params.put("picture", myFile);
+//                      params.put("picture", downloadedImage);
+                  } catch(FileNotFoundException e) {}
+
+                  //POST Update to profile
+                  client.post(MainActivity.base_host_url + "api/postProfile/", params, new JsonHttpResponseHandler() {
 
                       @Override
                       public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                          Log.w("GET PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                          Log.w("POST PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
 
-                          String pictureURL = "";
-                          try{
-                              pictureURL = MainActivity.base_host_url + response.getString("picture");
-
-                          }catch (JSONException e){
-                              Log.w("GET PROFILE JSON FAIL",e.getMessage().toString());
-                          }
+//                          String pictureURL = "";
+//                          try{
+//                              pictureURL = MainActivity.base_host_url + response.getString("picture");
+//
+//                          }catch (JSONException e){
+//                              Log.w("GET PROFILE JSON FAIL",e.getMessage().toString());
+//                          }
                       }
 
                       @Override
                       public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                          Log.w("PROFILE SUCCESS ARRAY", statusCode + ": " + timeline.toString());
+                          Log.w("POST PROFILE ARRAY", statusCode + ": " + timeline.toString());
                       }
 
                       @Override
                       public void onRetry(int retryNo) {
                           // called when request is retried
+                          Log.w("POST PROFILE RETRY", "" + retryNo);
                       }
 
                       @Override
                       public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                          Log.w("GET PROFILE FAIL", "Headers: " + headers + ", Error Code: " + error_code + ",  " + text);
+                          Log.w("POST PROFILE FAIL", "Headers: " + headers + ", Error Code: " + error_code + ",  " + text);
                       }
                   });
-
                   //Close the Activity and Return to the map when finished
                   WhoAreYou.this.finish();
               }
@@ -185,17 +221,19 @@ public class WhoAreYou extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            photo = (Bitmap) data.getExtras().get("data");
+            profilePicture.setImageBitmap(photo);
 
+            //Preprocess Image for Uploading
             ContextWrapper cw = new ContextWrapper(getApplicationContext());
             // path to /data/data/yourapp/app_data/imageDir
             directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
             // Create imageDir
-            File mypath=new File(directory,"profile.jpg");
+            myFile=new File(directory,"picture.jpg");
 
             FileOutputStream fos = null;
             try {
-                fos = new FileOutputStream(mypath);
+                fos = new FileOutputStream(myFile);
                 // Use the compress method on the BitMap object to write image to the OutputStream
                 photo.compress(Bitmap.CompressFormat.PNG, 100, fos);
             } catch (Exception e) {
@@ -209,5 +247,4 @@ public class WhoAreYou extends AppCompatActivity {
             }
         }
     }
-
 }

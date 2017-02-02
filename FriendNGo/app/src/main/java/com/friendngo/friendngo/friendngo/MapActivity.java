@@ -235,8 +235,7 @@ public class MapActivity extends AppCompatActivity
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray responseArray) {
-                Log.w("GET ACTIVITIES SUCCESS3", statusCode + "- JSON ARRAY: " + responseArray.toString());
-
+//                Log.w("GET ACTIVITIES SUCCESS3", statusCode + "- JSON ARRAY: " + responseArray.toString());
                 activitiesList.clear();
 
                 //Cycle through the list of activities
@@ -247,7 +246,7 @@ public class MapActivity extends AppCompatActivity
                         String creator = activity.getString("creator");
                         int maxUsers = activity.getInt("max_users");
                         String activityTimeString = activity.getString("activity_time");
-                        Log.w("parth",activityTimeString);
+//                        Log.w("parth",activityTimeString);
                         SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
                         Date activityTime = new Date();
                         //TODO: Improve timzezones for multi-city support
