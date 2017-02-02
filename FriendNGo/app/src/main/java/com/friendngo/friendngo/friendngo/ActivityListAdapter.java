@@ -100,7 +100,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         //Here is where we map our model data to our View instance
         viewHolder.name.setText(userActivity.getName());
         viewHolder.name.setTextColor(Color.GRAY);
-        viewHolder.creator.setText("Created by Scott Laughlin, 29 y-o");
+        viewHolder.creator.setText("Created by "+userActivity.getCreator());
         viewHolder.creator.setTextColor(Color.GRAY);
         viewHolder.profilePicture.setImageResource(R.drawable.scott);
         viewHolder.status.setText("Resident" + ", ");

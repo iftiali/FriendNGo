@@ -211,9 +211,7 @@ public class MapActivity extends AppCompatActivity
         activitiesList.add(new UserActivity("Get breakfast","t2@t2.com",2,new Date(2017,01,10),"5800 Upper Lachine Road, H4A 2B5","10","0", "Drinks", "Eating",1.99,1.99));
         activitiesList.add(new UserActivity("Fun stuff","t2@t2.com",2,new Date(2017,01,10),"5800 Upper Lachine Road, H4A 2B5","10","0","Business", "Eating",1.99,1.99));
         adapter = new ActivityListAdapter(getApplicationContext());
-        //adaptermarkup = new ActivityMarkupListAdapter (getApplicationContext());
         listView = (ListView)findViewById(R.id.activity_list);
-        //markuplistView = (ListView)findViewById(R.id.activity_markup_list);
 
         if (listView == null) {
             Log.w("LIST VIEW ERROR", "List view is null!");
@@ -646,7 +644,7 @@ public class MapActivity extends AppCompatActivity
 
             name.setText(act.getName());
             name.setTextColor(Color.GRAY);
-            creator.setText("Created by Scott Laughlin, 29 y-o");
+            creator.setText("Created by "+act.getCreator());
             creator.setTextColor(Color.GRAY);
             profilePicture.setImageResource(R.drawable.scott);
             status.setText("Resident" + ", ");
@@ -659,6 +657,38 @@ public class MapActivity extends AppCompatActivity
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd, HH:mma");
         dateTime.setText(dateFormat.format(act.getActivityTime()));
         dateTime.setTextColor(Color.GRAY);
+            switch(act.getCategory()){
+                case "Art & Culture":
+                   category.setImageResource(R.drawable.arts_and_culture);
+                    break;
+                case "Nightlife":
+                    category.setImageResource(R.drawable.nightlife);
+                    break;
+                case "Sports":
+                    category.setImageResource(R.drawable.sports);
+                    break;
+                case "Business":
+                    category.setImageResource(R.drawable.handshake);
+                    break;
+                case "Date":
+                    category.setImageResource(R.drawable.wink);
+                    break;
+                case "Pool":
+                    category.setImageResource(R.drawable.pool);
+                    break;
+                case "Outdoors":
+                    category.setImageResource(R.drawable.backpack);
+                    break;
+                case "Camping":
+                    category.setImageResource(R.drawable.camping);
+                    break;
+                case "Drinks":
+                    category.setImageResource(R.drawable.cup);
+                    break;
+                case "Meetup":
+                    category.setImageResource(R.drawable.three);
+            }
+
         }
 //        markup_layout.setTranslationY(height -215);
 /*
