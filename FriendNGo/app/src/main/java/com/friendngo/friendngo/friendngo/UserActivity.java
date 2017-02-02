@@ -16,11 +16,12 @@ public class UserActivity {
     private String distance;
     private String points;
     private String category;
+    private String homeCity;
     private String activityType;
     private double latitude;
     private double longitude;
     private String address;
-    public UserActivity(String name,
+    public UserActivity(String home_nationality,String name,
                         String  creator,
                         int maxUsers,
 //                        SimpleDateFormat createdTime,
@@ -30,7 +31,7 @@ public class UserActivity {
                         String points,
                         String category, String type,
                         double latitude,
-                        double longitude) {
+                        double longitude) {this.homeCity = homeCity;
         this.name = name;
         this.creator = creator;
         this.maxUsers = maxUsers;
@@ -53,6 +54,14 @@ public class UserActivity {
         this.category = category;
     }
 
+
+    public String getHomeCity() {
+        return homeCity;
+    }
+
+    public void setHomeCity(String homeCity) {
+        this.homeCity = homeCity;
+    }
     public String getName() {
         return name;
     }

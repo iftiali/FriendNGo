@@ -105,7 +105,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         viewHolder.profilePicture.setImageResource(R.drawable.scott);
         viewHolder.status.setText("Resident" + ", ");
         viewHolder.status.setTextColor(Color.GRAY);
-        viewHolder.homeCity.setText("Montreal");
+        viewHolder.homeCity.setText(userActivity.getHomeCity());
         viewHolder.homeCity.setTextColor(Color.GRAY);
         viewHolder.nationality.setImageResource(R.drawable.canada); //TODO: Get flag from nationalities
         viewHolder.points.setText(userActivity.getPoints()+"pts");

@@ -208,8 +208,8 @@ public class MapActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Set the custom adapter
-        activitiesList.add(new UserActivity("Get breakfast","t2@t2.com",2,new Date(2017,01,10),"5800 Upper Lachine Road, H4A 2B5","10","0", "Drinks", "Eating",1.99,1.99));
-        activitiesList.add(new UserActivity("Fun stuff","t2@t2.com",2,new Date(2017,01,10),"5800 Upper Lachine Road, H4A 2B5","10","0","Business", "Eating",1.99,1.99));
+        activitiesList.add(new UserActivity("toronto","Get breakfast","t2@t2.com",2,new Date(2017,01,10),"5800 Upper Lachine Road, H4A 2B5","10","0", "Drinks", "Eating",1.99,1.99));
+        activitiesList.add(new UserActivity("toronto","Fun stuff","t2@t2.com",2,new Date(2017,01,10),"5800 Upper Lachine Road, H4A 2B5","10","0","Business", "Eating",1.99,1.99));
         adapter = new ActivityListAdapter(getApplicationContext());
         listView = (ListView)findViewById(R.id.activity_list);
 
@@ -288,8 +288,9 @@ public class MapActivity extends AppCompatActivity
                         double longitude = activity.getDouble("activity_lon");
                         String address = activity.getString("address");
                         String points = activity.getString("points");
+                        String  home_nationality= activity.getString("home_nationality");
                         String distance = calculation_Distance(address);
-                        UserActivity userActivity = new UserActivity(name,
+                        UserActivity userActivity = new UserActivity(home_nationality,name,
                                 creator,
                                 maxUsers,
                                 activityTime,
@@ -649,7 +650,7 @@ public class MapActivity extends AppCompatActivity
             profilePicture.setImageResource(R.drawable.scott);
             status.setText("Resident" + ", ");
             status.setTextColor(Color.GRAY);
-            homeCity.setText("Montreal");
+            homeCity.setText(act.getHomeCity());
             homeCity.setTextColor(Color.GRAY);
             nationality.setImageResource(R.drawable.canada); //TODO: Get flag from nationalities
             points.setText(act.getPoints()+"pts");

@@ -11,7 +11,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.loopj.android.http.AsyncHttpClient;
@@ -24,16 +27,22 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.client.utils.DateUtils;
 
 public class CreateActivity extends AppCompatActivity {
 
+    public ArrayList<CategorySpinnerModel> cust_category = new ArrayList<CategorySpinnerModel>();
+
     Button createActivityButton;
     Button todayButton;
-    Geocoder coder = new Geocoder(this);
     Button tomorrowButton;
 
     @Override
@@ -42,15 +51,26 @@ public class CreateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create);
 
         getSupportActionBar().setTitle("Create a new activity");
+        ArrayList<CategorySpinnerModel> list=new ArrayList<>();
+        list.add(new CategorySpinnerModel("Arts And Culture",R.drawable.arts_and_culture));
+        list.add(new CategorySpinnerModel("Nightlife",R.drawable.nightlife));
+        list.add(new CategorySpinnerModel("Sports",R.drawable.sports));
+        list.add(new CategorySpinnerModel("Business",R.drawable.handshake));
+        list.add(new CategorySpinnerModel("Date",R.drawable.wink));
+        list.add(new CategorySpinnerModel("Pool",R.drawable.pool));
+        list.add(new CategorySpinnerModel("Outdoors",R.drawable.backpack));
+        list.add(new CategorySpinnerModel("Camping",R.drawable.camping));
+        list.add(new CategorySpinnerModel("Drinks",R.drawable.cup));
+        list.add(new CategorySpinnerModel("Meetup",R.drawable.three));
 
         Spinner category_spinner = (Spinner)findViewById(R.id.category_picker);
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        category_spinner.setAdapter(spinnerAdapter);
-        spinnerAdapter.add("Sports");
-        spinnerAdapter.add("Nightlife");
-        spinnerAdapter.add("Arts & Culture");
-        spinnerAdapter.notifyDataSetChanged();
+        CategorySpinnerActivity adapter=new CategorySpinnerActivity(CreateActivity.this, R.layout.category_picker,R.id.txt,list);
+        category_spinner.setAdapter(adapter);
+       // ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
+        //spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //category_spinner.setAdapter(spinnerAdapter);
+        //spinnerAdapter.notifyDataSetChanged();
+
 
         //TODO: Dynamically create lists
         Spinner activity_type_spinner = (Spinner)findViewById(R.id.activity_type_picker);
@@ -81,8 +101,10 @@ public class CreateActivity extends AppCompatActivity {
         spinnerAdapter3.add("7");
         spinnerAdapter3.add("8");
         spinnerAdapter3.notifyDataSetChanged();
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMMM");
 
         todayButton = (Button)findViewById(R.id.today_button);
+        todayButton.setText(dateFormat.format(new Date()));
         todayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,10 +114,21 @@ public class CreateActivity extends AppCompatActivity {
                 tomorrowButton.setActivated(false);
                 tomorrowButton.setTextColor(Color.BLACK);
                 tomorrowButton.setBackgroundResource(R.drawable.white_button);
+
             }
         });
 
         tomorrowButton = (Button)findViewById(R.id.tomorrow_button);
+        try {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime( dateFormat.parse(dateFormat.format(new Date())) );
+            cal.add( Calendar.DATE, 1 );
+            tomorrowButton.setText((String)(dateFormat.format(cal.getTime())));
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         tomorrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,26 +162,9 @@ public class CreateActivity extends AppCompatActivity {
                 EditText addressText = (EditText) findViewById(R.id.address_edit_text);
                 String address = addressText.getText().toString();
 
-                double latitude=0;
-                double longitude=0;
-
                 //Determine the latitude and longitude from the address provided
                 Geocoder coder = new Geocoder(getApplicationContext());
-                List<Address> addressList;
-                LatLng p1 = null;
-                try {
-                    addressList = coder.getFromLocationName(address, 5);
 
-                    if (addressList == null) {
-                        Log.w("FORM VALIDATION","ADDRESS IS NULL");
-                    }else {
-                        Address location = addressList.get(0);
-                        latitude = location.getLatitude();
-                        longitude = location.getLongitude();
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
 
 
                 //POST new activity to the server
