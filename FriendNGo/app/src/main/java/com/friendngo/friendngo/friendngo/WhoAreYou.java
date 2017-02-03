@@ -1,22 +1,20 @@
 package com.friendngo.friendngo.friendngo;
 
-<<<<<<< HEAD
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.ContactsContract;
-=======
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
->>>>>>> 0a071deecc80a2710a80edf67bbc527cf8048dcf
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,8 +38,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.jar.Manifest;
-
 import cz.msebera.android.httpclient.Header;
 
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -61,13 +57,10 @@ import java.util.Date;
 
 import cz.msebera.android.httpclient.Header;
 
-<<<<<<< HEAD
-    private static final int CAMERA_REQUEST = 1888;
 
-=======
 public class WhoAreYou extends AppCompatActivity {
+    private static final int CAMERA_REQUEST = 1888;
     CircularImageView circularImageView;
->>>>>>> 0a071deecc80a2710a80edf67bbc527cf8048dcf
     Button continueButton;
     EditText nameInput;
     EditText nationalityInput;
@@ -84,13 +77,9 @@ public class WhoAreYou extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_who_are_you);
         getSupportActionBar().setTitle("Who Are you?");
         profilePicture = (ImageView) findViewById(R.id.profilepicture);
-//        ageInput = (EditText) findViewById(R.id.age_editText);
-//        languageInput = (EditText) findViewById(R.id.language_editText);
-//        nationalityInput = (EditText) findViewById(R.id.language_editText);
-//        nameInput = (EditText) findViewById(R.id.name_input_editView);
-
 
         //Set OnClick Listener for the profile picture pressed
         profilePicture.setOnClickListener(new View.OnClickListener() {
@@ -145,15 +134,7 @@ public class WhoAreYou extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
                 Log.w("PROFILE SUCCESS ARRAY", statusCode + ": " + timeline.toString());
-//                try {
-//                    JSONObject firstEvent = timeline.getJSONObject(0);
-//                    String token = firstEvent.getString("token");
-//                    Log.w("GET LASTLOC SUCCESS2", token.toString());
-//
-//
-//                } catch (JSONException e) {
-//                    Log.w("GET LASTLOC FAIL1: ", e.getMessage().toString());
-//                }
+
             }
 
             @Override
@@ -167,16 +148,12 @@ public class WhoAreYou extends AppCompatActivity {
             }
         });
 
-       // isStoragePermissionGranted();
-        setContentView(R.layout.activity_who_are_you);
-
-         get_UserInfo();
-        //TODO: Make a GET request to get the stored values for the user's profile
+        get_UserInfo();
 
         circularImageView = (CircularImageView)findViewById(R.id.profilepicture);
         continueButton = (Button)findViewById(R.id.profile_continue_button);
         continueButton.setOnClickListener(new View.OnClickListener() {
-<<<<<<< HEAD
+
               @Override
               public void onClick(View view) {
 
@@ -195,23 +172,32 @@ public class WhoAreYou extends AppCompatActivity {
                   //Adding text params
                   if(MainActivity.cheat_mode==true){
 
-                      params.put("first_name","Seahorse");
+                      params.put("first_name","Mr. Delicious");
                       params.put("last_name","Tootles");
                       params.put("phone","444-444-4444");
                       params.put("age","99");
                       params.put("home_city","toronto");
                       params.put("home_nationality","Canadian");
                   }else{
-//                      params.put("first_name",nameInput.getText());
-//                      params.put("last_name",nameInput.getText());
-//                      params.put("phone","444-444-4444");
-//                      params.put("age",ageInput.getText());
-//                      params.put("home_city","toronto");
-//                      params.put("home_nationality",nationalityInput.getText());
+                      params.put("first_name",nameInput.getText());
+                      params.put("last_name",nameInput.getText());
+                      params.put("phone","444-444-4444");
+                      params.put("age",ageInput.getText());
+                      params.put("home_city","toronto");
+                      params.put("home_nationality",nationalityInput.getText());
                   }
 
                   //Adding image params
                  File myFile = new File(directory + "/picture.jpg");
+
+                  //Use to test if file is being saved / loaded properly
+//                  if(myFile.exists()){
+//                      Bitmap myBitmap = BitmapFactory.decodeFile(myFile.getAbsolutePath());
+//                      profilePicture.setImageBitmap(myBitmap);
+//                  }else {
+//                      Log.w("LOAD IMAGE FILE ERROR","Cannot load image :(");
+//                  }
+
                   try {
                       params.put("picture", myFile);
 //                      params.put("picture", downloadedImage);
@@ -259,7 +245,8 @@ public class WhoAreYou extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             photo = (Bitmap) data.getExtras().get("data");
-            profilePicture.setImageBitmap(photo);
+
+//            profilePicture.setImageBitmap(photo);
 
             //Preprocess Image for Uploading
             ContextWrapper cw = new ContextWrapper(getApplicationContext());
@@ -284,15 +271,7 @@ public class WhoAreYou extends AppCompatActivity {
             }
         }
     }
-=======
-                                              @Override
-                                              public void onClick(View view) {
-                                                  //TODO: Make HTTP POST call to update the user's profile
-                                                  WhoAreYou.this.finish();
-                                              }
-                                          }
-        );
-    }
+
     private void get_UserInfo() {
         //GET the user info
         AsyncHttpClient client = new AsyncHttpClient();
@@ -406,6 +385,4 @@ public class WhoAreYou extends AppCompatActivity {
             return true;
         }
     }
-
->>>>>>> 0a071deecc80a2710a80edf67bbc527cf8048dcf
 }

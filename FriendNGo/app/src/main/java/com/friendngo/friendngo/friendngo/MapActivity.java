@@ -73,11 +73,10 @@ import cz.msebera.android.httpclient.Header;
 
 import static android.location.LocationManager.GPS_PROVIDER;
 
-public class MapActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class MapActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
-//    private String apiKey = "AIzaSyBsrd4IbitFz96ey3GTh-p0-9GyrybN1Ac";
     private String last_city;
     private String current_city;
 
@@ -207,14 +206,6 @@ public class MapActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //Set the custom adapter
-<<<<<<< HEAD
-//        activitiesList.add(new UserActivity("Get breakfast","t2@t2.com",2,new Date(2017,01,10), "Drinks", "Eating",1.99,1.99));
-//        activitiesList.add(new UserActivity("Fun stuff","t2@t2.com",2,new Date(2017,01,10), "Business", "Eating",1.99,1.99));
-=======
-        activitiesList.add(new UserActivity("toronto","Get breakfast","t2@t2.com",2,new Date(2017,01,10),"5800 Upper Lachine Road, H4A 2B5","10","0", "Drinks", "Eating",1.99,1.99));
-        activitiesList.add(new UserActivity("toronto","Fun stuff","t2@t2.com",2,new Date(2017,01,10),"5800 Upper Lachine Road, H4A 2B5","10","0","Business", "Eating",1.99,1.99));
->>>>>>> 0a071deecc80a2710a80edf67bbc527cf8048dcf
         adapter = new ActivityListAdapter(getApplicationContext());
         listView = (ListView)findViewById(R.id.activity_list);
 
@@ -278,10 +269,6 @@ public class MapActivity extends AppCompatActivity
                         String creator = activity.getString("creator");
                         int maxUsers = activity.getInt("max_users");
                         String activityTimeString = activity.getString("activity_time");
-<<<<<<< HEAD
-//                        Log.w("parth",activityTimeString);
-=======
->>>>>>> 0a071deecc80a2710a80edf67bbc527cf8048dcf
                         SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
                         Date activityTime = new Date();
                         //TODO: Improve timzezones for multi-city support
@@ -632,23 +619,23 @@ public class MapActivity extends AppCompatActivity
     @Override
     public boolean onMarkerClick(Marker marker) {
         Log.w("MAP PINS","Pin clicked!");
-        alpha_layer.setVisibility(View.VISIBLE);
-        markup_layout.setVisibility(View.VISIBLE);
         int i = (int) markerMap.get(marker.getTitle());
         if(i != -1) {
+            alpha_layer.setVisibility(View.VISIBLE);
+            markup_layout.setVisibility(View.VISIBLE);
             UserActivity act = (UserActivity) activitiesList.get(i);
             Log.w("address",act.getAddress());
 
-        profilePicture = (ImageView) findViewById(R.id.banner_profilepicture);
-        creator = (TextView) findViewById(R.id.banner_created_text);
-        status = (TextView) findViewById(R.id.banner_status_text);
-        homeCity = (TextView) findViewById(R.id.banner_home_city_text);
-        nationality = (ImageView) findViewById(R.id.banner_country_flag);
-        points = (TextView) findViewById(R.id.banner_points);
-        category = (ImageView) findViewById(R.id.banner_activity_type);
-        name = (TextView) findViewById(R.id.banner_activity_name);
-        clock = (ImageView) findViewById(R.id.banner_clock_image);
-        dateTime = (TextView)findViewById(R.id.banner_activity_time);
+            profilePicture = (ImageView) findViewById(R.id.banner_profilepicture);
+            creator = (TextView) findViewById(R.id.banner_created_text);
+            status = (TextView) findViewById(R.id.banner_status_text);
+            homeCity = (TextView) findViewById(R.id.banner_home_city_text);
+            nationality = (ImageView) findViewById(R.id.banner_country_flag);
+            points = (TextView) findViewById(R.id.banner_points);
+            category = (ImageView) findViewById(R.id.banner_activity_type);
+            name = (TextView) findViewById(R.id.banner_activity_name);
+            clock = (ImageView) findViewById(R.id.banner_clock_image);
+            dateTime = (TextView)findViewById(R.id.banner_activity_time);
 
 
             name.setText(act.getName());

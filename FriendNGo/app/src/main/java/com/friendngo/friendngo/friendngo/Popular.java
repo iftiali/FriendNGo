@@ -58,8 +58,14 @@ public class Popular extends AppCompatActivity {
 //            getSupportActionBar().hide();
         }
 
+        if(MainActivity.cheat_mode==true){
+            Intent intent = new Intent(Popular.this,MapActivity.class);
+            Popular.this.startActivity(intent);
+            Popular.this.finish();
+        }
+
         participantsNumber = (TextView)findViewById(R.id.activity_number);
-        participantsNumber.setText("1");
+        participantsNumber.setText("9");
         gridAdapter = new GridAdapter(getApplicationContext());
         grid = (GridView) findViewById(R.id.activity_grid_view);
         grid.setAdapter(gridAdapter);
@@ -95,7 +101,7 @@ public class Popular extends AppCompatActivity {
                         JSONObject categoryJSONObject = categoryJSONArray.getJSONObject(i);
                         Category category = new Category();
                         category.setName(categoryJSONObject.getString("name"));
-                        Log.w("JSON PARSE DEBUG", "Category = " + categoryJSONObject.getString("name"));
+//                        Log.w("JSON PARSE DEBUG", "Category = " + categoryJSONObject.getString("name"));
                         JSONArray activitiesJSONArray = categoryJSONObject.getJSONArray("activity_type");
 
                         //Take just the first ActivityType in each category for this page
@@ -103,7 +109,7 @@ public class Popular extends AppCompatActivity {
                         for (int j=0; j<1; j++){
 //                      for (int j=0; j< activitiesJSONArray.length(); j++){ //Alternative to loop through every one
                             String activityType = activitiesJSONArray.getJSONObject(j).getString("name");
-                            Log.w("JSON PARSE DEBUG", "ActivityType = " + activityType + ", " + j);
+//                            Log.w("JSON PARSE DEBUG", "ActivityType = " + activityType + ", " + j);
                             category.addActivityType(activityType);
                         }
                         categoryList.add(category);
