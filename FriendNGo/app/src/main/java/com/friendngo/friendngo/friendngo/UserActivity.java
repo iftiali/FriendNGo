@@ -13,24 +13,33 @@ public class UserActivity {
     private int maxUsers;
 //    private SimpleDateFormat createdTime;
     private Date activityTime;
+    private String distance;
+    private String points;
     private String category;
+    private String homeCity;
     private String activityType;
     private double latitude;
     private double longitude;
-
-    public UserActivity(String name,
+    private String address;
+    public UserActivity(String home_nationality,String name,
                         String  creator,
                         int maxUsers,
 //                        SimpleDateFormat createdTime,
                         Date activityTime,
+                        String address,
+                        String distance,
+                        String points,
                         String category, String type,
                         double latitude,
-                        double longitude) {
+                        double longitude) {this.homeCity = homeCity;
         this.name = name;
         this.creator = creator;
         this.maxUsers = maxUsers;
 //        this.createdTime = createdTime;
         this.activityTime = activityTime;
+        this.address = address;
+        this.distance =distance;
+        this.points=points;
         this.category = category;
         this.activityType = type;
         this.latitude = latitude;
@@ -45,12 +54,27 @@ public class UserActivity {
         this.category = category;
     }
 
+
+    public String getHomeCity() {
+        return homeCity;
+    }
+
+    public void setHomeCity(String homeCity) {
+        this.homeCity = homeCity;
+    }
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getCreator() {
@@ -60,6 +84,16 @@ public class UserActivity {
     public void setCreator(String creator) {
         this.creator = creator;
     }
+    public String getDistance() {return distance;}
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+    public void setPoints(String points) {
+        this.points = points;
+    }
+    public String getPoints() {return points;}
+
 
     public int getMaxUsers() {
         return maxUsers;

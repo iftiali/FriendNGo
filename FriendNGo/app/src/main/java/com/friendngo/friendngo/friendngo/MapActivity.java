@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
@@ -29,8 +30,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +54,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.EOFException;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -78,18 +84,31 @@ public class MapActivity extends AppCompatActivity
     private boolean current_location_ready = false;
     private double current_gps_latitude;
     private double current_gps_longitude;
-
+    RelativeLayout alpha_layer;
     private boolean last_location_ready = false;
-
+    FrameLayout markup_layout;
     private boolean runOnce = true;
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 2;
 
     public ListView listView;
+
     public static List activitiesList = new ArrayList<UserActivity>();
     private static ActivityListAdapter adapter;
+
     Marker currLocationMarker;
     LatLng currentPosition;
-
+    ImageView profilePicture;
+    TextView name;
+    TextView creator;
+    TextView status;
+    TextView homeCity;
+    ImageView nationality;
+    TextView points;
+    ImageView category;
+    ImageView clock;
+    TextView dateTime;
+    Button activityDetails,participate;
+    RelativeLayout info;
     Map markerMap = new HashMap();
 
     @Override
@@ -101,7 +120,15 @@ public class MapActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("FriendNGo");
-
+        alpha_layer = (RelativeLayout)findViewById(R.id.alpha_layer);
+        markup_layout= (FrameLayout) findViewById(R.id.markup_layout);
+        alpha_layer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                markup_layout.setVisibility(View.GONE);
+                alpha_layer.setVisibility(View.GONE);
+            }
+        });
         //Setup the Map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -125,7 +152,7 @@ public class MapActivity extends AppCompatActivity
                     last_location_ready = true;
 
                     if(current_location_ready == true){
-                        update_city();
+                        //update_city();
                     }
                 }catch (JSONException e){
                     Log.w("GET LASTLOC FAIL: ",e.getMessage().toString());
@@ -181,8 +208,13 @@ public class MapActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //Set the custom adapter
+<<<<<<< HEAD
 //        activitiesList.add(new UserActivity("Get breakfast","t2@t2.com",2,new Date(2017,01,10), "Drinks", "Eating",1.99,1.99));
 //        activitiesList.add(new UserActivity("Fun stuff","t2@t2.com",2,new Date(2017,01,10), "Business", "Eating",1.99,1.99));
+=======
+        activitiesList.add(new UserActivity("toronto","Get breakfast","t2@t2.com",2,new Date(2017,01,10),"5800 Upper Lachine Road, H4A 2B5","10","0", "Drinks", "Eating",1.99,1.99));
+        activitiesList.add(new UserActivity("toronto","Fun stuff","t2@t2.com",2,new Date(2017,01,10),"5800 Upper Lachine Road, H4A 2B5","10","0","Business", "Eating",1.99,1.99));
+>>>>>>> 0a071deecc80a2710a80edf67bbc527cf8048dcf
         adapter = new ActivityListAdapter(getApplicationContext());
         listView = (ListView)findViewById(R.id.activity_list);
 
@@ -246,7 +278,10 @@ public class MapActivity extends AppCompatActivity
                         String creator = activity.getString("creator");
                         int maxUsers = activity.getInt("max_users");
                         String activityTimeString = activity.getString("activity_time");
+<<<<<<< HEAD
 //                        Log.w("parth",activityTimeString);
+=======
+>>>>>>> 0a071deecc80a2710a80edf67bbc527cf8048dcf
                         SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
                         Date activityTime = new Date();
                         //TODO: Improve timzezones for multi-city support
@@ -259,11 +294,17 @@ public class MapActivity extends AppCompatActivity
                         String activityType = activity.getString("activity_type");
                         double latitude = activity.getDouble("activity_lat");
                         double longitude = activity.getDouble("activity_lon");
-
-                        UserActivity userActivity = new UserActivity(name,
+                        String address = activity.getString("address");
+                        String points = activity.getString("points");
+                        String  home_nationality= activity.getString("home_nationality");
+                        String distance = calculation_Distance(address);
+                        UserActivity userActivity = new UserActivity(home_nationality,name,
                                 creator,
                                 maxUsers,
                                 activityTime,
+                                address,
+                                distance,
+                                points,
                                 "Business",
                                 activityType,
                                 latitude,
@@ -273,6 +314,8 @@ public class MapActivity extends AppCompatActivity
 
                         int height = 75;
                         int width = 75;
+
+                        //TODO: Make the icon equal to to the right pin depending on the category
                         BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.canada_icon);
                         Bitmap b=bitmapdraw.getBitmap();
                         Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
@@ -303,7 +346,7 @@ public class MapActivity extends AppCompatActivity
             @Override
             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
                 Log.w("GET ACTIVITIES FAIL2", "Error Code: " + error_code);
-                Log.w("ERROR MESSAGE",text);
+
             }
         });
     }
@@ -473,7 +516,44 @@ public class MapActivity extends AppCompatActivity
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         }
     }
+    //parth
+    private String calculation_Distance(String strAddress){
 
+        Geocoder coder = new Geocoder(this);
+        List<Address> address;
+        double km = 0;
+        DecimalFormat df = new DecimalFormat("#.#");
+        try {
+            address = coder.getFromLocationName(strAddress,5);
+            if (address==null || address.size()==0) {
+                return "0";
+            }
+            Address location=address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+            int Radius = 6371;
+            double lat1 = current_gps_latitude;//StartP.latitude;
+            double lat2 = location.getLatitude();//EndP.latitude;
+            double lon1 = current_gps_longitude;//StartP.longitude;
+            double lon2 = location.getLongitude();//EndP.longitude;
+            double dLat = Math.toRadians(lat2 - lat1);
+            double dLon = Math.toRadians(lon2 - lon1);
+            double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                    + Math.cos(Math.toRadians(lat1))
+                    * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                    * Math.sin(dLon / 2);
+            double c = 2 * Math.asin(Math.sqrt(a));
+            double valueResult = Radius * c;
+            km = valueResult / 1;
+            if(km<0.1){
+                km=0.1;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return df.format(km);
+    }
     //Helper function to calculate the distance from the last known location
     //This could possibly be replaced by an address poll with a city name parser
     private void update_city() {
@@ -552,15 +632,85 @@ public class MapActivity extends AppCompatActivity
     @Override
     public boolean onMarkerClick(Marker marker) {
         Log.w("MAP PINS","Pin clicked!");
+        alpha_layer.setVisibility(View.VISIBLE);
+        markup_layout.setVisibility(View.VISIBLE);
+        int i = (int) markerMap.get(marker.getTitle());
+        if(i != -1) {
+            UserActivity act = (UserActivity) activitiesList.get(i);
+            Log.w("address",act.getAddress());
 
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int height = size.y;
+        profilePicture = (ImageView) findViewById(R.id.banner_profilepicture);
+        creator = (TextView) findViewById(R.id.banner_created_text);
+        status = (TextView) findViewById(R.id.banner_status_text);
+        homeCity = (TextView) findViewById(R.id.banner_home_city_text);
+        nationality = (ImageView) findViewById(R.id.banner_country_flag);
+        points = (TextView) findViewById(R.id.banner_points);
+        category = (ImageView) findViewById(R.id.banner_activity_type);
+        name = (TextView) findViewById(R.id.banner_activity_name);
+        clock = (ImageView) findViewById(R.id.banner_clock_image);
+        dateTime = (TextView)findViewById(R.id.banner_activity_time);
 
-        CoordinatorLayout layout = (CoordinatorLayout) findViewById(R.id.app_bar_map);
-        LayoutInflater layoutInflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        banner = layoutInflater.inflate(R.layout.activity_list_row_item,null,true);
+
+            name.setText(act.getName());
+            name.setTextColor(Color.GRAY);
+            creator.setText("Created by "+act.getCreator());
+            creator.setTextColor(Color.GRAY);
+            profilePicture.setImageResource(R.drawable.scott);
+            status.setText("Resident" + ", ");
+            status.setTextColor(Color.GRAY);
+            homeCity.setText(act.getHomeCity());
+            homeCity.setTextColor(Color.GRAY);
+            nationality.setImageResource(R.drawable.canada); //TODO: Get flag from nationalities
+            points.setText(act.getPoints()+"pts");
+        clock.setImageResource(R.drawable.clock);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd, HH:mma");
+        dateTime.setText(dateFormat.format(act.getActivityTime()));
+        dateTime.setTextColor(Color.GRAY);
+            switch(act.getCategory()){
+                case "Art & Culture":
+                   category.setImageResource(R.drawable.arts_and_culture);
+                    break;
+                case "Nightlife":
+                    category.setImageResource(R.drawable.nightlife);
+                    break;
+                case "Sports":
+                    category.setImageResource(R.drawable.sports);
+                    break;
+                case "Business":
+                    category.setImageResource(R.drawable.handshake);
+                    break;
+                case "Date":
+                    category.setImageResource(R.drawable.wink);
+                    break;
+                case "Pool":
+                    category.setImageResource(R.drawable.pool);
+                    break;
+                case "Outdoors":
+                    category.setImageResource(R.drawable.backpack);
+                    break;
+                case "Camping":
+                    category.setImageResource(R.drawable.camping);
+                    break;
+                case "Drinks":
+                    category.setImageResource(R.drawable.cup);
+                    break;
+                case "Meetup":
+                    category.setImageResource(R.drawable.three);
+            }
+
+        }
+//        markup_layout.setTranslationY(height -215);
+/*
+        banner = (RelativeLayout) findViewById(R.id.alpha_layer);
+        banner_clock_imageView = (ImageView) findViewById(R.id.banner_clock_image);
+        banner_clock_imageView.setImage(proper image);
+
+        banner.hide();
+        banner.show();
+
+        //CoordinatorLayout layout = (CoordinatorLayout) findViewById(R.id.app_bar_map);
+        //LayoutInflater layoutInflater = (LayoutInflater)this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        banner = layoutInflater.inflate(R.layout.activity_markup_click_list,null,true);
         banner.setTranslationY(height - 215);
 
         int i = (int) markerMap.get(marker.getTitle());
@@ -568,7 +718,7 @@ public class MapActivity extends AppCompatActivity
         // Check to see if this is the user's location pin (-1)
         if(i != -1) {
             UserActivity act = (UserActivity) activitiesList.get(i);
-
+            Log.w("Error in act",String.valueOf(act));
             switch (act.getCategory()) {
                 case "Art & Culture":
                     ImageView imageView = (ImageView) banner.findViewById(R.id.activity_type);
@@ -628,6 +778,8 @@ public class MapActivity extends AppCompatActivity
 //        banner.setBottom(height); //Did not work as expected
             layout.addView(banner);
         }
+        return false;*/
+
         return false;
     }
 

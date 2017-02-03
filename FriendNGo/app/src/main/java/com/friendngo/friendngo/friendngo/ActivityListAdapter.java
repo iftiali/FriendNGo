@@ -37,7 +37,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         TextView status;
         TextView homeCity;
         ImageView nationality;
-        ImageView points;
+        TextView points;
         ImageView category;
         ImageView clock;
         TextView dateTime;
@@ -80,7 +80,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder.status = (TextView) convertView.findViewById(R.id.status_text);
             viewHolder.homeCity = (TextView) convertView.findViewById(R.id.home_city_text);
             viewHolder.nationality = (ImageView) convertView.findViewById(R.id.country_flag);
-            viewHolder.points = (ImageView) convertView.findViewById(R.id.points);
+            viewHolder.points = (TextView) convertView.findViewById(R.id.points);
             viewHolder.category = (ImageView) convertView.findViewById(R.id.activity_type);
             viewHolder.name = (TextView) convertView.findViewById(R.id.activity_name);
             viewHolder.clock = (ImageView) convertView.findViewById(R.id.clock_image);
@@ -100,15 +100,15 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         //Here is where we map our model data to our View instance
         viewHolder.name.setText(userActivity.getName());
         viewHolder.name.setTextColor(Color.GRAY);
-        viewHolder.creator.setText("Created by Scott Laughlin, 29 y-o");
+        viewHolder.creator.setText("Created by "+userActivity.getCreator());
         viewHolder.creator.setTextColor(Color.GRAY);
         viewHolder.profilePicture.setImageResource(R.drawable.scott);
         viewHolder.status.setText("Resident" + ", ");
         viewHolder.status.setTextColor(Color.GRAY);
-        viewHolder.homeCity.setText("Montreal");
+        viewHolder.homeCity.setText(userActivity.getHomeCity());
         viewHolder.homeCity.setTextColor(Color.GRAY);
         viewHolder.nationality.setImageResource(R.drawable.canada); //TODO: Get flag from nationalities
-        viewHolder.points.setImageResource(R.drawable.points);
+        viewHolder.points.setText(userActivity.getPoints()+"pts");
 
         switch(userActivity.getCategory()){
             case "Art & Culture":
@@ -147,7 +147,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         viewHolder.dateTime.setText(dateFormat.format(userActivity.getActivityTime()));
         viewHolder.dateTime.setTextColor(Color.GRAY);
         viewHolder.pin.setImageResource(R.drawable.pin);
-        viewHolder.distance.setText("10km away");
+        viewHolder.distance.setText( userActivity.getDistance()+" away");
         viewHolder.distance.setTextColor(Color.GRAY);
 
         viewHolder.info.setOnClickListener(this);
