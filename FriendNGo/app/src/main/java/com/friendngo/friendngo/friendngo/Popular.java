@@ -1,16 +1,42 @@
 package com.friendngo.friendngo.friendngo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 public class Popular extends AppCompatActivity {
 
-    private ImageButton imageButton;
+    private Button imageButton;
+
+    private GridView grid;
+    private GridAdapter gridAdapter;
+    private TextView participantsNumber;
+
+    public static List categoryList = new ArrayList<Category>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +58,76 @@ public class Popular extends AppCompatActivity {
 //            getSupportActionBar().hide();
         }
 
-        imageButton = (ImageButton) findViewById(R.id.staticImage);
+        participantsNumber = (TextView)findViewById(R.id.activity_number);
+        participantsNumber.setText("1");
+        gridAdapter = new GridAdapter(getApplicationContext());
+        grid = (GridView) findViewById(R.id.activity_grid_view);
+        grid.setAdapter(gridAdapter);
+
+        //SETUP GET Categories
+        AsyncHttpClient client = new AsyncHttpClient();
+        if(SignIn.static_token != null) {
+            client.addHeader("Authorization","Token "+SignIn.static_token);
+        }
+        //GET last known location
+        client.get(MainActivity.base_host_url + "api/getCategories/", new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.w("GET CATEGORY SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                try{
+                    Log.w("GET CATEGORY", statusCode + ", " + response.getString("last_city"));
+                }catch (JSONException e){
+                    Log.w("GET CATEGORY",e.getMessage().toString());
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray categoryJSONArray) {
+                Log.w("JSON CATEGORY ARRAY", statusCode + ": " + categoryJSONArray.toString());
+
+                String updateText = String.valueOf(categoryJSONArray.length());
+                participantsNumber.setText(updateText);
+
+                int activitySum;
+                for (int i =0; i < categoryJSONArray.length(); i++){
+                    try {
+                        JSONObject categoryJSONObject = categoryJSONArray.getJSONObject(i);
+                        Category category = new Category();
+                        category.setName(categoryJSONObject.getString("name"));
+                        Log.w("JSON PARSE DEBUG", "Category = " + categoryJSONObject.getString("name"));
+                        JSONArray activitiesJSONArray = categoryJSONObject.getJSONArray("activity_type");
+
+                        //Take just the first ActivityType in each category for this page
+
+                        for (int j=0; j<1; j++){
+//                      for (int j=0; j< activitiesJSONArray.length(); j++){ //Alternative to loop through every one
+                            String activityType = activitiesJSONArray.getJSONObject(j).getString("name");
+                            Log.w("JSON PARSE DEBUG", "ActivityType = " + activityType + ", " + j);
+                            category.addActivityType(activityType);
+                        }
+                        categoryList.add(category);
+                    } catch (JSONException e) {
+                        Log.w("GET CATEGORY PARSE FAIL", e.getMessage().toString());
+                    }
+                }
+                gridAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
+                Log.w("GET LASTLOC FAILURE2:", "Error Code: " + error_code + ",  " + text);
+            }
+        });
+
+
+
+        imageButton = (Button) findViewById(R.id.got_it_button);
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

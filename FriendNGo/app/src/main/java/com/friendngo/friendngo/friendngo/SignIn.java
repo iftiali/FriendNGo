@@ -61,14 +61,13 @@ public class SignIn extends AppCompatActivity {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                    //TODO: Test and implement statusCode handlers for developers and graceful degradation
                     Log.w("POST AUTH SUCCESS", statusCode + ": " + "Response = " + response.toString());
                     try {
                         static_username = "t@t.com";
                         static_token = response.get("token").toString();
                         Log.w("POST AUTH SUCCESS2", static_token);
 
-                        Intent intent = new Intent(SignIn.this, MapActivity.class);
+                        Intent intent = new Intent(SignIn.this, Popular.class);
                         SignIn.this.startActivity(intent);
                         SignIn.this.finish();
 
@@ -86,7 +85,7 @@ public class SignIn extends AppCompatActivity {
                         static_token = firstEvent.getString("token");
                         Log.w("POST AUTH SUCCESS4", static_token.toString());
 
-                        Intent intent = new Intent(SignIn.this, MapActivity.class);
+                        Intent intent = new Intent(SignIn.this, Popular.class);
                         SignIn.this.startActivity(intent);
                         SignIn.this.finish();
 
@@ -147,7 +146,6 @@ public class SignIn extends AppCompatActivity {
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                                //TODO: Test and implement statusCode handlers for developers and graceful degradation
                                 Log.w("POST AUTH SUCCESS", statusCode + ": " + "Response = " + response.toString());
                                 try {
                                     static_username = emailEditTextValue.getText().toString();
