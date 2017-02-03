@@ -59,6 +59,12 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
         getSupportActionBar().setTitle("What do you want to do today?");
         Log.w("GET CAT", "CALLING");
 
+        if(MainActivity.cheat_mode==true){
+            Intent intent = new Intent(WhatDoYouWantToDoToday.this,WhoAreYou.class);
+            WhatDoYouWantToDoToday.this.startActivity(intent);
+            WhatDoYouWantToDoToday.this.finish();
+        }
+
         //GET a list of the categories and activity types
         AsyncHttpClient client = new AsyncHttpClient();
         if(SignIn.static_token != null) {

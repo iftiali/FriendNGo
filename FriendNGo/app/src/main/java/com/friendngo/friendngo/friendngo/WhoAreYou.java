@@ -190,7 +190,7 @@ public class WhoAreYou extends AppCompatActivity {
                   //Adding image params
                  File myFile = new File(directory + "/picture.jpg");
 
-                  //Use to test if file is being saved / loaded properly
+//                  //Use to test if file is being saved / loaded properly
 //                  if(myFile.exists()){
 //                      Bitmap myBitmap = BitmapFactory.decodeFile(myFile.getAbsolutePath());
 //                      profilePicture.setImageBitmap(myBitmap);
@@ -246,7 +246,7 @@ public class WhoAreYou extends AppCompatActivity {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             photo = (Bitmap) data.getExtras().get("data");
 
-//            profilePicture.setImageBitmap(photo);
+            profilePicture.setImageBitmap(photo);
 
             //Preprocess Image for Uploading
             ContextWrapper cw = new ContextWrapper(getApplicationContext());

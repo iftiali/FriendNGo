@@ -20,13 +20,17 @@ import java.security.NoSuchAlgorithmException;
 public class MainActivity extends Activity {
 
     static boolean is_production = false;
-    private final int SPLASH_DISPLAY_LENGTH = 2000;
+    private int SPLASH_DISPLAY_LENGTH = 2000;
     public static String base_host_url = "";
     public static boolean cheat_mode = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(cheat_mode==true){
+            SPLASH_DISPLAY_LENGTH=20;
+        }
 
         if(is_production==true){
             base_host_url = "http://api.friendngo.com/";
