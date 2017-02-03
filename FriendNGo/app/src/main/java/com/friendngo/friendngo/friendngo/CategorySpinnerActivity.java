@@ -39,6 +39,7 @@ public View getView(int position, View convertView, ViewGroup parent ){
         imageView.setBackgroundColor(Color.WHITE);
         imageView.setImageResource(list.get(position).getImageId());
         TextView textView=(TextView)itemView.findViewById(R.id.txt);
+
         textView.setText(list.get(position).getText());
         textView.setBackgroundColor(Color.WHITE);
         return itemView;
