@@ -34,10 +34,13 @@ list){
 
 public View getView(int position, View convertView, ViewGroup parent ){
         View itemView=inflater.inflate(groupid,parent,false);
+        itemView.setBackgroundColor(Color.WHITE);
         ImageView imageView=(ImageView)itemView.findViewById(R.id.img);
+        imageView.setBackgroundColor(Color.WHITE);
         imageView.setImageResource(list.get(position).getImageId());
         TextView textView=(TextView)itemView.findViewById(R.id.txt);
         textView.setText(list.get(position).getText());
+        textView.setBackgroundColor(Color.WHITE);
         return itemView;
         }
 

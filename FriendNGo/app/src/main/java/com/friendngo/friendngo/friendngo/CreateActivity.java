@@ -1,8 +1,6 @@
 package com.friendngo.friendngo.friendngo;
 
-import android.content.Intent;
 import android.graphics.Color;
-import android.location.Address;
 import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,35 +9,23 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
-
-import com.google.android.gms.maps.model.LatLng;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.client.utils.DateUtils;
 
 public class CreateActivity extends AppCompatActivity {
-
-    public ArrayList<CategorySpinnerModel> cust_category = new ArrayList<CategorySpinnerModel>();
 
     Button createActivityButton;
     Button todayButton;
@@ -52,25 +38,21 @@ public class CreateActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Create a new activity");
         ArrayList<CategorySpinnerModel> list=new ArrayList<>();
-        list.add(new CategorySpinnerModel("Arts And Culture",R.drawable.arts_and_culture));
+        list.add(new CategorySpinnerModel("Arts And Culture",R.drawable.art_exposition));
         list.add(new CategorySpinnerModel("Nightlife",R.drawable.nightlife));
-        list.add(new CategorySpinnerModel("Sports",R.drawable.sports));
-        list.add(new CategorySpinnerModel("Business",R.drawable.handshake));
-        list.add(new CategorySpinnerModel("Date",R.drawable.wink));
-        list.add(new CategorySpinnerModel("Pool",R.drawable.pool));
+        list.add(new CategorySpinnerModel("Sports",R.drawable.running));
+//        list.add(new CategorySpinnerModel("Business",R.drawable.handshake));
+        list.add(new CategorySpinnerModel("Date",R.drawable.naked_run));
+        list.add(new CategorySpinnerModel("Pool",R.drawable.billard));
         list.add(new CategorySpinnerModel("Outdoors",R.drawable.backpack));
         list.add(new CategorySpinnerModel("Camping",R.drawable.camping));
-        list.add(new CategorySpinnerModel("Drinks",R.drawable.cup));
-        list.add(new CategorySpinnerModel("Meetup",R.drawable.three));
+        list.add(new CategorySpinnerModel("Drinks",R.drawable.grab_drink));
+        list.add(new CategorySpinnerModel("Meetup",R.drawable.coworking));
 
         Spinner category_spinner = (Spinner)findViewById(R.id.category_picker);
+        category_spinner.setBackgroundColor(Color.WHITE);
         CategorySpinnerActivity adapter=new CategorySpinnerActivity(CreateActivity.this, R.layout.category_picker,R.id.txt,list);
         category_spinner.setAdapter(adapter);
-       // ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
-        //spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //category_spinner.setAdapter(spinnerAdapter);
-        //spinnerAdapter.notifyDataSetChanged();
-
 
         //TODO: Dynamically create lists
         Spinner activity_type_spinner = (Spinner)findViewById(R.id.activity_type_picker);
