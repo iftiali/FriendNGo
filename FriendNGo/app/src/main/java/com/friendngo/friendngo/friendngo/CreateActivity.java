@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TimePicker;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -17,6 +19,7 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,12 +33,15 @@ public class CreateActivity extends AppCompatActivity {
     Button createActivityButton;
     Button todayButton;
     Button tomorrowButton;
+    TimePicker startTimePicker;
+    TimePicker endTimePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
+        //Data Model
         getSupportActionBar().setTitle("Create a new activity");
         ArrayList<CategorySpinnerModel> list=new ArrayList<>();
         list.add(new CategorySpinnerModel("Arts And Culture",R.drawable.art_exposition));
@@ -49,12 +55,17 @@ public class CreateActivity extends AppCompatActivity {
         list.add(new CategorySpinnerModel("Drinks",R.drawable.grab_drink));
         list.add(new CategorySpinnerModel("Networking",R.drawable.coworking));
 
+
         Spinner category_spinner = (Spinner)findViewById(R.id.category_picker);
         category_spinner.setBackgroundColor(Color.WHITE);
         CategorySpinnerActivity adapter=new CategorySpinnerActivity(CreateActivity.this, R.layout.category_picker,R.id.txt,list);
         category_spinner.setAdapter(adapter);
+        startTimePicker = (TimePicker)findViewById(R.id.start_time_edit_text);
+        endTimePicker = (TimePicker)findViewById(R.id.end_time_edit_text);
 
-        //TODO: Dynamically create lists
+
+
+        //TODO: Dynamically create this lists based on which category was chosen
         Spinner activity_type_spinner = (Spinner)findViewById(R.id.activity_type_picker);
         ArrayAdapter<String> spinnerAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
         spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -104,7 +115,6 @@ public class CreateActivity extends AppCompatActivity {
                 tomorrowButton.setActivated(false);
                 tomorrowButton.setTextColor(Color.BLACK);
                 tomorrowButton.setBackgroundResource(R.drawable.white_button);
-
             }
         });
 
@@ -114,7 +124,6 @@ public class CreateActivity extends AppCompatActivity {
             cal.setTime( dateFormat.parse(dateFormat.format(new Date())) );
             cal.add( Calendar.DATE, 1 );
             tomorrowButton.setText((String)(dateFormat.format(cal.getTime())));
-
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -135,10 +144,7 @@ public class CreateActivity extends AppCompatActivity {
         createActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Get the items selected by the user and put them into an HTTP request
-                Spinner category_picker = (Spinner) findViewById(R.id.category_picker);
-                String category = category_picker.getSelectedItem().toString();
-
+                //Get the items selected by the user and put them into an HTTP reques
                 Spinner activityTypePicker = (Spinner) findViewById(R.id.activity_type_picker);
                 String activityType = activityTypePicker.getSelectedItem().toString();
 
@@ -150,6 +156,16 @@ public class CreateActivity extends AppCompatActivity {
 
                 EditText addressText = (EditText) findViewById(R.id.address_edit_text);
                 String address = addressText.getText().toString();
+
+                EditText descriptionText = (EditText) findViewById(R.id.description_edit_text);
+                String activityDescription = descriptionText.getText().toString();
+
+                EditText additionalNotesText = (EditText) findViewById(R.id.additional_notes_edit_text);
+                String additionalNotes = additionalNotesText.getText().toString();
+
+                String startTime = startTimePicker.getCurrentHour() +":"+startTimePicker.getCurrentMinute();
+                String endTime =  endTimePicker.getCurrentHour() + ":"+endTimePicker.getCurrentMinute();
+
 
                 //Determine the latitude and longitude from the address provided
                 Geocoder coder = new Geocoder(getApplicationContext());
@@ -163,14 +179,19 @@ public class CreateActivity extends AppCompatActivity {
                 //Set the status type into the message for the server
                 RequestParams params = new RequestParams();
                 params.put("activity_name",activity_name );
-//                params.put("category", category);
-//                params.put("address",address);
-//                params.put("activity_type", activityType);
+                params.put("activity_type", activityType);
                 params.put("max_users", maxUsers);
-//                params.put("activity_lat", Double.toString(ValidationClass.get_Latitude(address,coder)));
-//                params.put("activity_lon", Double.toString(ValidationClass.get_longitude(address,coder)));
-                params.put("activity_lat", Double.toString(43));
-                params.put("activity_lon", Double.toString(-72));
+                params.put("activity_lat", Double.toString(ValidationClass.get_Latitude(address,coder)));
+                params.put("activity_lon", Double.toString(ValidationClass.get_longitude(address,coder)));
+//                params.put("activity_lat", Double.toString(43));
+//                params.put("activity_lon", Double.toString(-72));
+
+                params.put("address",address);
+                params.put("activity_time", startTime);
+                params.put("activity_end_time", endTime);
+                params.put("description", activityDescription);
+                params.put("additional_notes",additionalNotes);
+
                 client.post(MainActivity.base_host_url + "api/postActivity/",params, new JsonHttpResponseHandler() {
 
                     @Override
