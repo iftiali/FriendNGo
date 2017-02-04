@@ -106,8 +106,8 @@ public class Popular extends AppCompatActivity {
 
                         //Take just the first ActivityType in each category for this page
 
-                        for (int j=0; j<1; j++){
-//                      for (int j=0; j< activitiesJSONArray.length(); j++){ //Alternative to loop through every one
+//                        for (int j=0; j<1; j++){
+                      for (int j=0; j< activitiesJSONArray.length(); j++){ //Alternative to loop through every one
                             String activityType = activitiesJSONArray.getJSONObject(j).getString("name");
 //                            Log.w("JSON PARSE DEBUG", "ActivityType = " + activityType + ", " + j);
                             category.addActivityType(activityType);

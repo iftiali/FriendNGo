@@ -111,7 +111,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         viewHolder.points.setText(userActivity.getPoints()+"pts");
 
         switch(userActivity.getCategory()){
-            case "Art & Culture":
+            case "Arts & Culture":
                 viewHolder.category.setImageResource(R.drawable.arts_and_culture);
                 break;
             case "Nightlife":
@@ -120,13 +120,13 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             case "Sports":
                 viewHolder.category.setImageResource(R.drawable.sports);
                 break;
-            case "Business":
+            case "Networking":
                 viewHolder.category.setImageResource(R.drawable.handshake);
                 break;
-            case "Date":
+            case "Dating":
                 viewHolder.category.setImageResource(R.drawable.wink);
                 break;
-            case "Pool":
+            case "Activities":
                 viewHolder.category.setImageResource(R.drawable.pool);
                 break;
             case "Outdoors":

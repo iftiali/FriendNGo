@@ -31,7 +31,6 @@ public class GridAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-//        Log.w("GRID ADAPTOR", "Size= " + Popular.categoryList.size());
         return Popular.categoryList.size();
     }
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <Button
+        android:text="Jogging"
+        android:layout_width="wrap_content"
+        android:id="@+id/horizontal_scroll_item"
+        android:background="@drawable/blue_button"
+        android:textColor="@android:color/darker_gray"
+        android:layout_height="30dp"
+        android:layout_alignTop="@+id/jogging_button_check"
+        android:layout_toLeftOf="@+id/arts_text"
+        android:layout_toStartOf="@+id/arts_text"
+        android:layout_margin="5dp" />
+
+    <ImageView
+        android:layout_width="15sp"
+        android:layout_height="15sp"
+        android:background="@drawable/checked"
+        android:id="@+id/horizontal_scroll_item_check"
+        android:translationZ="9dp"
+        android:layout_alignTop="@+id/horizontal_scroll_item"
+        android:layout_alignRight="@+id/horizontal_scroll_item"
+        android:layout_alignEnd="@+id/horizontal_scroll_item" />
+
+</RelativeLayout>

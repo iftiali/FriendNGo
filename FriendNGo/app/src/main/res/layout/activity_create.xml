@@ -235,7 +235,7 @@
         android:id="@+id/additional_notes_edit_text" />
 
     <Button
-        android:text="Button"
+        android:text="Create Activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/additional_notes_edit_text"

@@ -109,7 +109,7 @@
     <com.mikhaellopez.circularimageview.CircularImageView
         android:layout_width="125dp"
         android:layout_height="125dp"
-        android:layout_margin="35dp"
+        android:layout_margin="15dp"
         android:src="@drawable/empty_profile"
         android:id="@+id/profilepicture"
         app:civ_border_color="#EEEEEE"

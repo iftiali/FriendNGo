@@ -65,7 +65,7 @@
         android:id="@+id/activity_name"
         android:layout_marginTop="10dp"
         android:paddingLeft="10dp"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:textAllCaps="false" />
 
     <ImageView
@@ -180,7 +180,8 @@
         android:layout_alignBottom="@+id/separation_bar"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="7dp" />
+        android:layout_marginRight="7dp"
+        android:textColor="@android:color/white" />
 
 
 </RelativeLayout>

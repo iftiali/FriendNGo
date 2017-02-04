@@ -258,7 +258,6 @@ public class MapActivity extends AppCompatActivity implements
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray responseArray) {
-//                Log.w("GET ACTIVITIES SUCCESS3", statusCode + "- JSON ARRAY: " + responseArray.toString());
                 activitiesList.clear();
 
                 //Cycle through the list of activities
@@ -271,9 +270,7 @@ public class MapActivity extends AppCompatActivity implements
                         String activityTimeString = activity.getString("activity_time");
                         SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
                         Date activityTime = new Date();
-                        //TODO: Improve timzezones for multi-city support
                         try {
-
                             activityTime = activityTimeFormat.parse(activityTimeString);
                         }catch (ParseException p){
                             Log.w("PARSE EXCEPTION","Something went wrong with DATE parsing");
@@ -285,6 +282,7 @@ public class MapActivity extends AppCompatActivity implements
                         String points = activity.getString("points");
                         String  home_nationality= activity.getString("home_nationality");
                         String distance = calculation_Distance(address);
+                        String categoryString = activity.getString("category");
                         UserActivity userActivity = new UserActivity(home_nationality,name,
                                 creator,
                                 maxUsers,
@@ -292,7 +290,7 @@ public class MapActivity extends AppCompatActivity implements
                                 address,
                                 distance,
                                 points,
-                                "Business",
+                                categoryString,
                                 activityType,
                                 latitude,
                                 longitude );
@@ -302,8 +300,43 @@ public class MapActivity extends AppCompatActivity implements
                         int height = 75;
                         int width = 75;
 
-                        //TODO: Make the icon equal to to the right pin depending on the category
-                        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.canada_icon);
+                        BitmapDrawable bitmapdraw;
+                        switch(categoryString){
+                            case "Arts & Culture":
+                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.art_exposition_pin);
+                                break;
+                            case "Nightlife":
+                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.concert_pin);
+                                break;
+                            case "Sports":
+                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.running_pin);
+                                break;
+                            case "Networking":
+                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.coworking_pin);
+                                break;
+                            case "Dating":
+                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.grab_drink_pin);//TODO: This needs an update when we have the right pin.
+                                break;
+                            case "Activities":
+                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.art_exposition_pin); //TODO: This needs an update when we have the right pin.
+                                break;
+                            case "Outdoors":
+                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.backpack_pin);
+                                break;
+                            case "Camping":
+                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.camping_pin);
+                                break;
+                            case "Food and Drink":
+                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.grab_drink_pin);
+                                break;
+                            case "Meetup":
+                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.coworking_pin);
+                                break;
+                            default:
+                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.canada_icon);
+                                break;
+                        }
+
                         Bitmap b=bitmapdraw.getBitmap();
                         Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
                         MarkerOptions marker = new MarkerOptions()
@@ -615,7 +648,6 @@ public class MapActivity extends AppCompatActivity implements
         }
     }
 
-    View banner;
     @Override
     public boolean onMarkerClick(Marker marker) {
         Log.w("MAP PINS","Pin clicked!");
@@ -626,17 +658,16 @@ public class MapActivity extends AppCompatActivity implements
             UserActivity act = (UserActivity) activitiesList.get(i);
             Log.w("address",act.getAddress());
 
-            profilePicture = (ImageView) findViewById(R.id.banner_profilepicture);
-            creator = (TextView) findViewById(R.id.banner_created_text);
-            status = (TextView) findViewById(R.id.banner_status_text);
-            homeCity = (TextView) findViewById(R.id.banner_home_city_text);
-            nationality = (ImageView) findViewById(R.id.banner_country_flag);
-            points = (TextView) findViewById(R.id.banner_points);
-            category = (ImageView) findViewById(R.id.banner_activity_type);
-            name = (TextView) findViewById(R.id.banner_activity_name);
-            clock = (ImageView) findViewById(R.id.banner_clock_image);
-            dateTime = (TextView)findViewById(R.id.banner_activity_time);
-
+            profilePicture = (ImageView) markup_layout.findViewById(R.id.banner_profilepicture);
+            creator = (TextView) markup_layout.findViewById(R.id.banner_created_text);
+            status = (TextView) markup_layout.findViewById(R.id.banner_status_text);
+            homeCity = (TextView) markup_layout.findViewById(R.id.banner_home_city_text);
+            nationality = (ImageView) markup_layout.findViewById(R.id.banner_country_flag);
+            points = (TextView) markup_layout.findViewById(R.id.banner_points);
+            category = (ImageView) markup_layout.findViewById(R.id.banner_activity_type);
+            name = (TextView) markup_layout.findViewById(R.id.banner_activity_name);
+            clock = (ImageView) markup_layout.findViewById(R.id.banner_clock_image);
+            dateTime = (TextView) markup_layout.findViewById(R.id.banner_activity_time);
 
             name.setText(act.getName());
             name.setTextColor(Color.GRAY);
@@ -649,42 +680,50 @@ public class MapActivity extends AppCompatActivity implements
             homeCity.setTextColor(Color.GRAY);
             nationality.setImageResource(R.drawable.canada); //TODO: Get flag from nationalities
             points.setText(act.getPoints()+"pts");
-        clock.setImageResource(R.drawable.clock);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd, HH:mma");
-        dateTime.setText(dateFormat.format(act.getActivityTime()));
-        dateTime.setTextColor(Color.GRAY);
+            clock.setImageResource(R.drawable.clock);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd, HH:mma");
+            dateTime.setText(dateFormat.format(act.getActivityTime()));
+            dateTime.setTextColor(Color.GRAY);
+
+            Log.w("CREATING BANNER",act.getCategory());
             switch(act.getCategory()){
-                case "Art & Culture":
-                   category.setImageResource(R.drawable.arts_and_culture);
+                case "Arts & Culture":
+                    Log.w("CREATING BANNER","IN ART");
+                    category.setImageResource(R.drawable.art_exposition);
                     break;
                 case "Nightlife":
                     category.setImageResource(R.drawable.nightlife);
                     break;
                 case "Sports":
-                    category.setImageResource(R.drawable.sports);
+                    category.setImageResource(R.drawable.running);
                     break;
-                case "Business":
-                    category.setImageResource(R.drawable.handshake);
+                case "Networking":
+                    Log.w("CREATING BANNER","IN Networking");
+                    category.setImageResource(R.drawable.coworking); //TODO: Update when properly spliced
                     break;
-                case "Date":
+                case "Dating":
                     category.setImageResource(R.drawable.wink);
                     break;
-                case "Pool":
-                    category.setImageResource(R.drawable.pool);
+                case "Activities":
+                    category.setImageResource(R.drawable.billard);
                     break;
                 case "Outdoors":
+                    Log.w("CREATING BANNER","IN OUTDOORS");
                     category.setImageResource(R.drawable.backpack);
                     break;
                 case "Camping":
                     category.setImageResource(R.drawable.camping);
                     break;
-                case "Drinks":
-                    category.setImageResource(R.drawable.cup);
+                case "Food and Drink":
+                    category.setImageResource(R.drawable.grab_drink);
                     break;
                 case "Meetup":
-                    category.setImageResource(R.drawable.three);
+                    category.setImageResource(R.drawable.coworking);
+                    break;
+                default:
+                    Log.w("CREATING BANNER","IN DEFAULT");
+                    category.setImageResource(R.drawable.arts_and_culture);
             }
-
         }
         return false;
     }

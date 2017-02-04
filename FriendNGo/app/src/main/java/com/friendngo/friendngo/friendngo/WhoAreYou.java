@@ -6,21 +6,14 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.ContactsContract;
 import android.Manifest;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.support.v4.app.ActivityCompat;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,23 +32,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import cz.msebera.android.httpclient.Header;
-
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
 import com.mikhaellopez.circularimageview.CircularImageView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import cz.msebera.android.httpclient.Header;
 
 
 public class WhoAreYou extends AppCompatActivity {
@@ -66,7 +43,6 @@ public class WhoAreYou extends AppCompatActivity {
     EditText nationalityInput;
     EditText languageInput;
     EditText ageInput;
-
     ImageView profilePicture;
     String pictureURL ="";
     File directory;
@@ -80,6 +56,10 @@ public class WhoAreYou extends AppCompatActivity {
         setContentView(R.layout.activity_who_are_you);
         getSupportActionBar().setTitle("Who Are you?");
         profilePicture = (ImageView) findViewById(R.id.profilepicture);
+
+        if(MainActivity.cheat_mode==true){
+            WhoAreYou.this.finish();
+        }
 
         //Set OnClick Listener for the profile picture pressed
         profilePicture.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +81,7 @@ public class WhoAreYou extends AppCompatActivity {
         if(SignIn.static_token != null) {
             client.addHeader("Authorization","Token "+SignIn.static_token);
         }
+
         //GET last known location
         client.get(MainActivity.base_host_url + "api/getProfile/", new JsonHttpResponseHandler() {
 
@@ -149,7 +130,6 @@ public class WhoAreYou extends AppCompatActivity {
         });
 
         get_UserInfo();
-
         circularImageView = (CircularImageView)findViewById(R.id.profilepicture);
         continueButton = (Button)findViewById(R.id.profile_continue_button);
         continueButton.setOnClickListener(new View.OnClickListener() {
@@ -296,63 +276,7 @@ public class WhoAreYou extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray responseArray) {
                 Log.w("User info", statusCode + "- JSON ARRAY: " + responseArray.toString());
-
-//asdfas
-                //Cycle through the list of activities
-                /*for (int i=0; i<responseArray.length(); i++){
-                    try {
-                        JSONObject activity = responseArray.getJSONObject(i);
-                        String name = activity.getString("activity_name");
-                        String creator = activity.getString("creator");
-                        int maxUsers = activity.getInt("max_users");
-                        String activityTimeString = activity.getString("activity_time");
-                        Log.w("parth",activityTimeString);
-                        SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
-                        Date activityTime = new Date();
-                        //TODO: Improve timzezones for multi-city support
-                        try {
-
-                            activityTime = activityTimeFormat.parse(activityTimeString);
-                        }catch (ParseException p){
-                            Log.w("PARSE EXCEPTION","Something went wrong with DATE parsing");
-                        }
-                        String activityType = activity.getString("activity_type");
-                        double latitude = activity.getDouble("activity_lat");
-                        double longitude = activity.getDouble("activity_lon");
-
-                        UserActivity userActivity = new UserActivity(name,
-                                creator,
-                                maxUsers,
-                                activityTime,
-                                "Business",
-                                activityType,
-                                latitude,
-                                longitude );
-
-                        activitiesList.add(userActivity);
-
-                        int height = 75;
-                        int width = 75;
-                        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.canada_icon);
-                        Bitmap b=bitmapdraw.getBitmap();
-                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
-                        MarkerOptions marker = new MarkerOptions()
-                                .position(new LatLng(latitude,longitude))
-                                .title(name)
-                                .snippet(activityType)
-                                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
-                        markerMap.put(name,i);
-                        mMap.addMarker(marker);
-
-
-                    } catch (JSONException e){
-                        Log.w("JSON EXCEPTION:", "Error parsing the getActivities response");
-                    }
-
-                }
-
-                ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
-            */}
+            }
 
             @Override
             public void onRetry(int retryNo) {
@@ -367,6 +291,7 @@ public class WhoAreYou extends AppCompatActivity {
             }
         });
     }
+
     public  boolean isStoragePermissionGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
