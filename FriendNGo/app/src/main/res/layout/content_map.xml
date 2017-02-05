@@ -163,8 +163,8 @@
 
             <ImageView
                 android:id="@+id/banner_clock_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 app:srcCompat="@drawable/clock"
                 android:layout_below="@+id/banner_activity_name"
                 android:layout_toRightOf="@+id/banner_activity_type"

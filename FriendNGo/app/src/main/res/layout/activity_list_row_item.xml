@@ -50,10 +50,10 @@
         android:id="@+id/activity_type"
         android:layout_below="@+id/separation_bar"
         android:layout_alignLeft="@+id/profilepicture"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_width="25dp"
-        android:layout_height="25dp" />
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="6dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp" />
 
     <TextView
         android:text="OctoberFest"
@@ -69,13 +69,14 @@
         android:textAllCaps="false" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         app:srcCompat="@drawable/clock"
         android:layout_below="@+id/activity_type"
         android:layout_alignLeft="@+id/profilepicture"
         android:id="@+id/clock_image"
-        android:layout_marginTop="4dp" />
+        android:layout_marginTop="4dp"
+        android:layout_margin="4dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp" />
 
 
     <!--android:layout_alignParentRight="true"-->
