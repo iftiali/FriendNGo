@@ -1,5 +1,10 @@
 package com.friendngo.friendngo.friendngo;
 
+<<<<<<< HEAD
+=======
+import android.app.TimePickerDialog;
+import android.content.Intent;
+>>>>>>> origin/dev2
 import android.graphics.Color;
 import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +14,18 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+<<<<<<< HEAD
 import android.widget.Spinner;
 import android.widget.TimePicker;
+=======
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
+>>>>>>> origin/dev2
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -19,29 +34,149 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+<<<<<<< HEAD
 import java.sql.Time;
+=======
+import java.io.IOException;
+import java.sql.Time;
+import java.text.DecimalFormat;
+>>>>>>> origin/dev2
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+<<<<<<< HEAD
+=======
+import java.util.List;
+import java.util.Locale;
+>>>>>>> origin/dev2
 
 import cz.msebera.android.httpclient.Header;
 
 public class CreateActivity extends AppCompatActivity {
 
+<<<<<<< HEAD
     Button createActivityButton;
     Button todayButton;
     Button tomorrowButton;
     TimePicker startTimePicker;
     TimePicker endTimePicker;
+=======
+    public ArrayList<CategorySpinnerModel> cust_category = new ArrayList<CategorySpinnerModel>();
+    TextView startEventTime,endEventTime;
+    Button createActivityButton;
+    Button todayButton;
+    Button tomorrowButton;
+    SimpleDateFormat sdf;
+    String currentDateEndTime,currentDateStartTime;
+    Calendar c = Calendar.getInstance();
+    TimePickerDialog.OnTimeSetListener endTimer = new TimePickerDialog.OnTimeSetListener() {
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            sdf = new SimpleDateFormat("HH:mm");
+            currentDateEndTime = sdf.format(new Date());
 
+            try {
+                Date start = new SimpleDateFormat("HH:mm", Locale.ENGLISH)
+                        .parse(currentDateEndTime);
+                Date end = new SimpleDateFormat("HH:mm", Locale.ENGLISH)
+                        .parse(hourOfDay + ":" + minute);
+                if (start.compareTo(end) > 0) {
+                    Toast.makeText(CreateActivity.this,"Selected time is not valid",Toast.LENGTH_LONG).show();
+                    currentDateEndTime = sdf.format(new Date());
+                    endEventTime.setText(currentDateEndTime);
+                } else if (start.compareTo(end) < 0) {
+
+                    //Log.w("Hello",currentDateEndTime+":" +hourOfDay + ":" + minute);
+                    endEventTime.setText(hourOfDay + ":" + minute);
+                } else if (start.compareTo(end) == 0) {
+                    endEventTime.setText(hourOfDay + ":" + minute);
+
+                } else {
+                    endEventTime.setText(currentDateStartTime);
+                    Toast.makeText(CreateActivity.this,"Selected time is not valid",Toast.LENGTH_LONG).show();
+                    currentDateEndTime = sdf.format(new Date());
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+>>>>>>> origin/dev2
+
+        }
+    };
+    TimePickerDialog.OnTimeSetListener startTimer = new TimePickerDialog.OnTimeSetListener() {
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            // TODO Auto-generated method stub
+            sdf = new SimpleDateFormat("HH:mm");
+            currentDateStartTime = sdf.format(new Date());
+
+            try {
+                Date start = new SimpleDateFormat("HH:mm", Locale.ENGLISH)
+                        .parse(currentDateStartTime);
+                Date end = new SimpleDateFormat("HH:mm", Locale.ENGLISH)
+                        .parse(hourOfDay + ":" + minute);
+                if (start.compareTo(end) > 0) {
+
+                    Toast.makeText(CreateActivity.this,"Selected time is not valid",Toast.LENGTH_LONG).show();
+                    currentDateStartTime = sdf.format(new Date());
+                    //Log.w("Hello1",currentDateStartTime+":" +hourOfDay + ":" + minute);
+                    startEventTime.setText(currentDateStartTime);
+                } else if (start.compareTo(end) < 0) {
+                    //Log.w("Hello2",currentDateStartTime+":" +hourOfDay + ":" + minute);
+                    startEventTime.setText(hourOfDay + ":" + minute);
+                } else if (start.compareTo(end) == 0) {
+                    startEventTime.setText(hourOfDay + ":" + minute);
+                } else {
+                    startEventTime.setText(currentDateStartTime);
+                    //Log.w("Hello4",currentDateStartTime+":" +hourOfDay + ":" + minute);
+                    Toast.makeText(CreateActivity.this,"Selected time is not valid",Toast.LENGTH_LONG).show();
+                    currentDateStartTime = sdf.format(new Date());
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
+<<<<<<< HEAD
         //Data Model
+=======
+        startEventTime = (TextView)findViewById(R.id.start_time_text_view);
+        sdf = new SimpleDateFormat("HH:mm");
+        currentDateStartTime = sdf.format(new Date());
+        startEventTime.setText(currentDateStartTime);
+        startEventTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                new TimePickerDialog(CreateActivity.this, startTimer, c
+                        .get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),
+                        true).show();
+            }
+
+        });
+        endEventTime = (TextView)findViewById(R.id.end_time_text_view);
+        sdf = new SimpleDateFormat("HH:mm");
+        currentDateEndTime = sdf.format(new Date());
+        endEventTime.setText(currentDateEndTime);
+        endEventTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new TimePickerDialog(CreateActivity.this, endTimer, c
+                        .get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),
+                        true).show();
+
+            }
+        });
+>>>>>>> origin/dev2
         getSupportActionBar().setTitle("Create a new activity");
         ArrayList<CategorySpinnerModel> list=new ArrayList<>();
         list.add(new CategorySpinnerModel("Arts And Culture",R.drawable.art_exposition));

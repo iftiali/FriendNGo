@@ -569,7 +569,12 @@ public class MapActivity extends AppCompatActivity implements
         double km = 0;
         DecimalFormat df = new DecimalFormat("#.#");
         try {
+<<<<<<< HEAD
             address = coder.getFromLocationName(strAddress,5); //TODO: This needs to be ASYNCHRONOUS
+=======
+            Log.w("GEOCODE DEBUG", strAddress);
+            address = coder.getFromLocationName(strAddress,5);
+>>>>>>> origin/dev2
             if (address==null || address.size()==0) {
                 return "0";
             }
