@@ -511,6 +511,7 @@ public class MapActivity extends AppCompatActivity implements
         double km = 0;
         DecimalFormat df = new DecimalFormat("#.#");
         try {
+            Log.w("GEOCODE DEBUG", strAddress);
             address = coder.getFromLocationName(strAddress,5);
             if (address==null || address.size()==0) {
                 return "0";
