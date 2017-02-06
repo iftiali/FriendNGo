@@ -1,12 +1,14 @@
 package com.friendngo.friendngo.friendngo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -44,6 +46,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         ImageView pin;
         TextView distance;
         RelativeLayout info;
+        Button addActivityButton;
     }
 
     //Process a click on a row item
@@ -54,7 +57,6 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         Object object = getItem(position);
         UserActivity userActivity = (UserActivity)object;
         Log.w("ADAPTER","Item = " + userActivity.getName());
-
         MapActivity.centerOnActivity(userActivity.getName());
 
     }
@@ -71,7 +73,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
 
         if(convertView == null) {
 
-            //View needs to be created from xml
+            //View needs to be inflated from xml
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.activity_list_row_item, null, true); //Seems equivalent to inflate(R... , parent, false)
@@ -88,13 +90,12 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder.pin = (ImageView) convertView.findViewById(R.id.pin_image);
             viewHolder.distance = (TextView) convertView.findViewById(R.id.distance);
             viewHolder.info = (RelativeLayout) convertView.findViewById(R.id.row_item);
+            viewHolder.addActivityButton = (Button) convertView.findViewById(R.id.send_request_button);
 
-            result=convertView; //result is associated with the animation
             convertView.setTag(R.string.VIEW_HOLDER_KEY,viewHolder); //This associates the viewHolder to the convertView
         } else {
             //Recycle old view -> More Efficient
             viewHolder = (ViewHolder) convertView.getTag(R.string.VIEW_HOLDER_KEY);
-            result = convertView;
         }
 
         //Here is where we map our model data to our View instance
@@ -152,6 +153,21 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
 
         viewHolder.info.setOnClickListener(this);
         viewHolder.info.setTag(R.string.POSITION_KEY, position);
+
+        //TODO: Fix this: addActivityButton always returns null??
+        //Needs a check for null for some reason
+        if(viewHolder.addActivityButton != null) {
+            viewHolder.addActivityButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, ActivityDetails.class);
+                    //TODO: Put extra -> The name of the activity
+                    mContext.startActivity(intent);
+                }
+            });
+        }
+
+
         return convertView;
 //        Animation animation = AnimationUtils.loadAnimation(mContext,(position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
     }

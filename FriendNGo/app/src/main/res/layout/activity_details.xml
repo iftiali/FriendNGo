@@ -89,6 +89,15 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/activity_detail_creator_status"
+                        android:text="Student, "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/activity_detail_creator_name"
+                        android:layout_alignLeft="@+id/activity_detail_name"
+                        android:layout_alignStart="@+id/activity_detail_name" />
+
+                    <TextView
                         android:id="@+id/activity_detail_creator_home"
                         android:text="New York"
                         android:layout_width="wrap_content"
@@ -143,17 +152,6 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:textColor="#343B59" />
-
-                    <TextView
-                        android:id="@+id/activity_detail_creator_status"
-                        android:text="Student, "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/activity_detail_creator_name"
-                        android:layout_alignLeft="@+id/activity_detail_name"
-                        android:layout_alignStart="@+id/activity_detail_name" />
-
-
                 </RelativeLayout>
             </FrameLayout>
 
@@ -251,8 +249,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/activity_detail_favorite_user_name"
+                        android:layout_toLeftOf="@+id/activity_detail_anchor"
                         android:layout_margin="5dp"
                         android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/activity_detail_anchor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:layout_below="@+id/activity_detail_favorite_user_name"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="6sp" />
 
                     <TextView
                         android:id="@+id/activity_detail_favorite_user_points"
@@ -263,7 +271,7 @@
                         android:padding="5dp"
                         android:textColor="@android:color/white"
                         android:layout_below="@+id/activity_detail_favorite_user_name"
-                        android:layout_toRightOf="@+id/activity_detail_favorite_user_age"
+                        android:layout_toRightOf="@+id/activity_detail_anchor"
                         android:textSize="6sp"
                          />
 
@@ -273,6 +281,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/activity_detail_favorite_user_age"
+                        android:layout_alignLeft="@id/activity_detail_favorite_user_age"
                         android:layout_centerHorizontal="true"
                         />
 
@@ -316,6 +325,7 @@
                         android:layout_marginRight="10dp" />
 
                 </RelativeLayout>
+
             </FrameLayout>
 
             <FrameLayout
@@ -329,18 +339,25 @@
                     android:layout_height="match_parent">
 
                     <TextView
+                        android:id="@+id/activity_detail_place_heading"
                         android:text="Place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/activity_detail_place_heading"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
                         android:textColor="#343B59"
                         android:textSize="20sp" />
 
                     <TextView
-                        android:text="TextView"
+                        android:id="@+id/activity_type_address_text"
+                        android:text="5846 Upper Lachine Road, H4A 2B5"
+                        android:layout_below="@id/activity_detail_place_heading"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/activity_type_address_text" />
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="10dp"
+                         />
+
                 </RelativeLayout>
             </FrameLayout>
 
@@ -348,7 +365,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="7dp">
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -362,16 +378,14 @@
                         android:textSize="20sp" />
                 </RelativeLayout>
             </FrameLayout>
-
             <Button
                 android:text="Send Request"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/send_request_button"
+                android:layout_margin="10dp"
                 android:textColor="@android:color/white"
                 android:background="@color/colorAccent" />
         </LinearLayout>
     </ScrollView>
-
-
 </RelativeLayout>

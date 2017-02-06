@@ -106,7 +106,7 @@ public class MapActivity extends AppCompatActivity implements
     ImageView category;
     ImageView clock;
     TextView dateTime;
-    Button activityDetails,participate;
+    Button activityDetailsButton,participateButton;
     RelativeLayout info;
     Map markerMap = new HashMap();
 
@@ -121,6 +121,8 @@ public class MapActivity extends AppCompatActivity implements
         getSupportActionBar().setTitle("FriendNGo");
         alpha_layer = (RelativeLayout)findViewById(R.id.alpha_layer);
         markup_layout= (FrameLayout) findViewById(R.id.markup_layout);
+
+        //TODO: Click should not disable the banner when you click on the banner.
         alpha_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +130,11 @@ public class MapActivity extends AppCompatActivity implements
                 alpha_layer.setVisibility(View.GONE);
             }
         });
+
+        activityDetailsButton = (Button) findViewById(R.id.banner_activity_details) ;
+        activityDetailsButton.setEnabled(false);
+        participateButton = (Button) findViewById(R.id.banner_participate) ;
+        participateButton.setEnabled(false);
         //Setup the Map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -655,6 +662,25 @@ public class MapActivity extends AppCompatActivity implements
         if(i != -1) {
             alpha_layer.setVisibility(View.VISIBLE);
             markup_layout.setVisibility(View.VISIBLE);
+
+            //Activate the buttons
+            activityDetailsButton.setEnabled(true);
+            participateButton.setEnabled(true);
+            activityDetailsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                 Intent intent = new Intent(MapActivity.this,ActivityDetails.class);
+                    MapActivity.this.startActivity(intent);
+                }
+            });
+            participateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(MapActivity.this,ActivityDetails.class);
+                    MapActivity.this.startActivity(intent);
+                }
+            });
+
             UserActivity act = (UserActivity) activitiesList.get(i);
             Log.w("address",act.getAddress());
 

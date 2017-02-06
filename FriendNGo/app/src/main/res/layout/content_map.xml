@@ -196,12 +196,12 @@
                 android:layout_marginTop="14dp">
 
                 <Button
+                    android:id="@+id/banner_activity_details"
                     android:text="Activity details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/activity_markup_activity_details_button"
                     android:textColor="@color/whiteish"
-                    android:id="@+id/banner_activity_details"
                     android:layout_weight="0.45"/>
 
                 <FrameLayout
@@ -213,13 +213,14 @@
                 </FrameLayout>
 
                 <Button
+                    android:id="@+id/banner_participate"
                     android:textColor="@color/whiteish"
                     android:layout_weight="0.45"
                     android:text="Participate"
                     android:background="@drawable/activity_markup_participate_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/banner_participate" />
+                     />
 
             </TableRow>
         </RelativeLayout>
