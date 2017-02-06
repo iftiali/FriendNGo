@@ -3,6 +3,7 @@ package com.friendngo.friendngo.friendngo;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -55,10 +56,11 @@ public class ActivityDetails extends AppCompatActivity {
         creatorAge.setText(activity.getCreatorAge());
 
         creatorStatus = (TextView) this.findViewById(R.id.activity_detail_creator_status);
-        creatorStatus.setText(activity.getCreatorStatus());
+        creatorStatus.setText(activity.getCreatorStatus()+",");
 
         creatorHome = (TextView) this.findViewById(R.id.activity_detail_creator_home);
-        creatorHome.setText(activity.getHomeCity());
+        Log.w("HOME CITY DEBUG", activity.getHomeCity());
+        creatorHome.setText(" " + activity.getHomeCity());
 
         creatorFlag = (ImageView) this.findViewById(R.id.activity_detail_creator_flag);
         creatorFlag.setImageResource(R.drawable.canada);

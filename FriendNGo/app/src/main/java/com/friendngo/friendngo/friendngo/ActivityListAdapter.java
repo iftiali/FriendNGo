@@ -90,7 +90,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder.pin = (ImageView) convertView.findViewById(R.id.pin_image);
             viewHolder.distance = (TextView) convertView.findViewById(R.id.distance);
             viewHolder.info = (RelativeLayout) convertView.findViewById(R.id.row_item);
-            viewHolder.addActivityButton = (Button) convertView.findViewById(R.id.send_request_button);
+            viewHolder.addActivityButton = (Button) convertView.findViewById(R.id.add_activity_button);
 
             convertView.setTag(R.string.VIEW_HOLDER_KEY,viewHolder); //This associates the viewHolder to the convertView
         } else {

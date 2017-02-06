@@ -25,7 +25,8 @@ public class UserActivity {
     private String address;
     private String description;
 
-    public UserActivity(String home_nationality,
+    public UserActivity(String home_city,
+                        String home_nationality,
                         String name,
                         String  creator,
                         String creatorAge,
@@ -40,7 +41,8 @@ public class UserActivity {
                         String category,
                         String type,
                         double latitude,
-                        double longitude) {this.homeCity = homeCity;
+                        double longitude) {
+        this.homeCity = home_city;
         this.homeNationality = home_nationality;
         this.name = name;
         this.creator = creator;

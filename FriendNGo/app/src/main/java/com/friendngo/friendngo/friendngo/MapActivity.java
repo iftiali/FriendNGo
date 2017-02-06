@@ -286,6 +286,7 @@ public class MapActivity extends AppCompatActivity implements
                         String creator_age = activity.getString("creator_age");
                         String creator_status = activity.getString("status");
                         int maxUsers = activity.getInt("max_users");
+                        String home_city = activity.getString("home_city");
                         String  home_nationality= activity.getString("home_nationality");
                         String points = activity.getString("points");
 
@@ -302,6 +303,7 @@ public class MapActivity extends AppCompatActivity implements
                         String distance = calculation_Distance(address);
                         //Create new UserActivity instance with the data
                         UserActivity userActivity = new UserActivity(
+                                home_city,
                                 home_nationality,
                                 name,
                                 creator,
@@ -567,8 +569,7 @@ public class MapActivity extends AppCompatActivity implements
         double km = 0;
         DecimalFormat df = new DecimalFormat("#.#");
         try {
-            Log.w("ADDRESS DEBUG", strAddress);
-            address = coder.getFromLocationName(strAddress,5);
+            address = coder.getFromLocationName(strAddress,5); //TODO: This needs to be ASYNCHRONOUS
             if (address==null || address.size()==0) {
                 return "0";
             }
