@@ -7,43 +7,88 @@ import java.util.Date;
  */
 
 public class UserActivity {
-
     private String name;
     private String creator;
+    private String creatorAge;
+    private String creatorStatus;
     private int maxUsers;
 //    private SimpleDateFormat createdTime;
     private Date activityTime;
     private String distance;
     private String points;
     private String category;
+    private String homeNationality;
     private String homeCity;
     private String activityType;
     private double latitude;
     private double longitude;
     private String address;
-    public UserActivity(String home_nationality,String name,
+    private String description;
+
+    public UserActivity(String home_nationality,
+                        String name,
                         String  creator,
+                        String creatorAge,
+                        String creatorStatus,
                         int maxUsers,
 //                        SimpleDateFormat createdTime,
                         Date activityTime,
                         String address,
+                        String description,
                         String distance,
                         String points,
-                        String category, String type,
+                        String category,
+                        String type,
                         double latitude,
                         double longitude) {this.homeCity = homeCity;
+        this.homeNationality = home_nationality;
         this.name = name;
         this.creator = creator;
+        this.creatorAge = creatorAge;
+        this.creatorStatus = creatorStatus;
         this.maxUsers = maxUsers;
 //        this.createdTime = createdTime;
         this.activityTime = activityTime;
         this.address = address;
+        this.description = description;
         this.distance =distance;
         this.points=points;
         this.category = category;
         this.activityType = type;
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public String getHomeNationality() {
+        return homeNationality;
+    }
+
+    public void setHomeNationality(String homeNationality) {
+        this.homeNationality = homeNationality;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCreatorStatus() {
+        return creatorStatus;
+    }
+
+    public void setCreatorStatus(String creatorStatus) {
+        this.creatorStatus = creatorStatus;
+    }
+
+    public String getCreatorAge() {
+        return creatorAge;
+    }
+
+    public void setCreatorAge(String creatorAge) {
+        this.creatorAge = creatorAge;
     }
 
     public String getCategory() {

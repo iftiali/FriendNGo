@@ -269,11 +269,27 @@ public class MapActivity extends AppCompatActivity implements
 
                 //Cycle through the list of activities
                 for (int i=0; i<responseArray.length(); i++){
+
                     try {
+                        //Parse all the JSON for this activity
                         JSONObject activity = responseArray.getJSONObject(i);
                         String name = activity.getString("activity_name");
+                        String categoryString = activity.getString("category");
+                        String activityType = activity.getString("activity_type");
+                        String description = activity.getString("description");
+                        double latitude = activity.getDouble("activity_lat");
+                        double longitude = activity.getDouble("activity_lon");
+                        String address = activity.getString("address");
+
+                        //Parse all the JSON for the creator
                         String creator = activity.getString("creator");
+                        String creator_age = activity.getString("creator_age");
+                        String creator_status = activity.getString("status");
                         int maxUsers = activity.getInt("max_users");
+                        String  home_nationality= activity.getString("home_nationality");
+                        String points = activity.getString("points");
+
+                        //Date parsed seperately
                         String activityTimeString = activity.getString("activity_time");
                         SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
                         Date activityTime = new Date();
@@ -282,19 +298,19 @@ public class MapActivity extends AppCompatActivity implements
                         }catch (ParseException p){
                             Log.w("PARSE EXCEPTION","Something went wrong with DATE parsing");
                         }
-                        String activityType = activity.getString("activity_type");
-                        double latitude = activity.getDouble("activity_lat");
-                        double longitude = activity.getDouble("activity_lon");
-                        String address = activity.getString("address");
-                        String points = activity.getString("points");
-                        String  home_nationality= activity.getString("home_nationality");
+
                         String distance = calculation_Distance(address);
-                        String categoryString = activity.getString("category");
-                        UserActivity userActivity = new UserActivity(home_nationality,name,
+                        //Create new UserActivity instance with the data
+                        UserActivity userActivity = new UserActivity(
+                                home_nationality,
+                                name,
                                 creator,
+                                creator_age,
+                                creator_status,
                                 maxUsers,
                                 activityTime,
                                 address,
+                                description,
                                 distance,
                                 points,
                                 categoryString,
@@ -551,6 +567,7 @@ public class MapActivity extends AppCompatActivity implements
         double km = 0;
         DecimalFormat df = new DecimalFormat("#.#");
         try {
+            Log.w("ADDRESS DEBUG", strAddress);
             address = coder.getFromLocationName(strAddress,5);
             if (address==null || address.size()==0) {
                 return "0";
@@ -651,7 +668,7 @@ public class MapActivity extends AppCompatActivity implements
                 Log.w("GPS LOCATION FAIL", "FAIL");
             }
         } catch (IOException e){
-            Log.w("GPS CITY RESULT: ", "FAIL");
+            Log.w("GPS CITY RESULT", "FAIL");
         }
     }
 
@@ -666,17 +683,24 @@ public class MapActivity extends AppCompatActivity implements
             //Activate the buttons
             activityDetailsButton.setEnabled(true);
             participateButton.setEnabled(true);
+
+            final int j = i;
+            //Set On Click Listeners
             activityDetailsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                  Intent intent = new Intent(MapActivity.this,ActivityDetails.class);
-                    MapActivity.this.startActivity(intent);
+                    intent.putExtra("Activity Index",j);
+                 MapActivity.this.startActivity(intent);
                 }
             });
+
+            //Set On Click Listeners
             participateButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(MapActivity.this,ActivityDetails.class);
+                    intent.putExtra("Activity Index",j);
                     MapActivity.this.startActivity(intent);
                 }
             });
@@ -684,6 +708,7 @@ public class MapActivity extends AppCompatActivity implements
             UserActivity act = (UserActivity) activitiesList.get(i);
             Log.w("address",act.getAddress());
 
+            //Connect the Views To their XML
             profilePicture = (ImageView) markup_layout.findViewById(R.id.banner_profilepicture);
             creator = (TextView) markup_layout.findViewById(R.id.banner_created_text);
             status = (TextView) markup_layout.findViewById(R.id.banner_status_text);
