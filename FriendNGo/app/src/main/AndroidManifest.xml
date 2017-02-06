@@ -65,7 +65,8 @@
         <activity android:name=".Popular" />
         <activity android:name=".WhatDoYouWantToDoToday" />
         <activity android:name=".CreateActivity" />
-        <activity android:name=".WhoAreYou"></activity>
+        <activity android:name=".WhoAreYou" />
+        <activity android:name=".ActivityDetails"></activity>
     </application>
 
 </manifest>
