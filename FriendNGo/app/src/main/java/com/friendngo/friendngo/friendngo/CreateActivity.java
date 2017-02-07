@@ -2,6 +2,7 @@ package com.friendngo.friendngo.friendngo;
 
 
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Geocoder;
@@ -32,6 +33,11 @@ import java.util.Date;
 import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
+<<<<<<< HEAD
+=======
+import cz.msebera.android.httpclient.client.utils.DateUtils;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+>>>>>>> origin/dev2
 
 public class CreateActivity extends AppCompatActivity {
 
@@ -113,6 +119,11 @@ public class CreateActivity extends AppCompatActivity {
 
         }
     };
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

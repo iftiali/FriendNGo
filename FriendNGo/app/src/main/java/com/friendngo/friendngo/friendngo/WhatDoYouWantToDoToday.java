@@ -1,5 +1,6 @@
 package com.friendngo.friendngo.friendngo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,12 +20,48 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class WhatDoYouWantToDoToday extends AppCompatActivity {
 
+<<<<<<< HEAD
     ListView masterListView;
     Button saveButton;
 
+=======
+    private ImageView sports_category;
+    private ImageView sports_category_check;
+    private Button jogging_button;
+    private ImageView jogging_button_check;
+    private Button tennis_button;
+    private ImageView tennis_button_check;
+    private Button hockey_button;
+    private ImageView hockey_button_check;
+
+    private ImageView nightlife_category;
+    private ImageView nightlife_category_check;
+    private Button dancing_button;
+    private ImageView dancing_button_check;
+    private Button jazz_button;
+    private ImageView jazz_button_check;
+    private Button pubs_button;
+    private ImageView pubs_button_check;
+
+    private ImageView arts_category;
+    private ImageView arts_category_check;
+    private Button museum_button;
+    private ImageView museum_button_check;
+    private Button gallery_button;
+    private ImageView gallery_button_check;
+    private Button city_tour_button;
+    private ImageView city_tour_button_check;
+    private Button save_button;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+>>>>>>> origin/dev2
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

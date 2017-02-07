@@ -1,6 +1,7 @@
 package com.friendngo.friendngo.friendngo;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -17,13 +18,19 @@ import com.facebook.appevents.AppEventsLogger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class MainActivity extends Activity {
 
     static boolean is_production = false;
     private int SPLASH_DISPLAY_LENGTH = 2000;
     public static String base_host_url = "";
-    public static boolean cheat_mode = true;
+    public static boolean cheat_mode = false;
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
