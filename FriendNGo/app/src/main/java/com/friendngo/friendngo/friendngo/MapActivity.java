@@ -819,6 +819,8 @@ public class MapActivity extends AppCompatActivity implements
         return false;
     }
 
+    Button button;
+
     public static void centerOnActivity(String name) {
     //TODO: When you click on a list item, then you should go to its marker on the map... however this is not what the UI suggests therefore leave for later!
         //TODO: Basic solution would be register every marker as a dictionary (or hash map in Java) so that you can reference it by name :)
