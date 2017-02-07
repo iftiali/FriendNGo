@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -17,11 +16,8 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -56,7 +52,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.EOFException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -553,7 +548,7 @@ public class MapActivity extends AppCompatActivity implements
 //                current_location_ready = true;
             }
 
-            LocationListener locationListener = new LocationListener() {
+            final LocationListener locationListener = new LocationListener() {
 
 
 ////////////////////////////////// USING GPS CODE //////////////////////////////////////////////////
@@ -575,7 +570,7 @@ public class MapActivity extends AppCompatActivity implements
 
                     if (runOnce) {
 //                        Toast.makeText(getApplicationContext(), "GPS Coordinates = " + current_gps_latitude + "," + current_gps_longitude, Toast.LENGTH_LONG).show();
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),15));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),15)); //TODO: Also do this once for Last Known Location at startup
                         runOnce = false;
                         current_location_ready = true;
 
@@ -793,7 +788,7 @@ public class MapActivity extends AppCompatActivity implements
                     category.setImageResource(R.drawable.coworking); //TODO: Update when properly spliced
                     break;
                 case "Dating":
-                    category.setImageResource(R.drawable.wink);
+                    category.setImageResource(R.drawable.naked_run);
                     break;
                 case "Activities":
                     category.setImageResource(R.drawable.billard);
@@ -813,13 +808,11 @@ public class MapActivity extends AppCompatActivity implements
                     break;
                 default:
                     Log.w("CREATING BANNER","IN DEFAULT");
-                    category.setImageResource(R.drawable.arts_and_culture);
+                    category.setImageResource(R.drawable.art_exposition);
             }
         }
         return false;
     }
-
-    Button button;
 
     public static void centerOnActivity(String name) {
     //TODO: When you click on a list item, then you should go to its marker on the map... however this is not what the UI suggests therefore leave for later!

@@ -24,11 +24,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class WhatDoYouWantToDoToday extends AppCompatActivity {
 
-<<<<<<< HEAD
     ListView masterListView;
     Button saveButton;
-
-=======
     private ImageView sports_category;
     private ImageView sports_category_check;
     private Button jogging_button;
@@ -61,7 +58,6 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
->>>>>>> origin/dev2
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
