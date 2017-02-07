@@ -3,6 +3,7 @@ package com.friendngo.friendngo.friendngo;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +31,11 @@ public class ActivityDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+
+        //Set top bar and toolbar
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setTitle("Activity Details");
 
         sendRequestButton = (Button)findViewById(R.id.send_request_button);
         sendRequestButton.setOnClickListener(new View.OnClickListener() {
@@ -73,5 +79,8 @@ public class ActivityDetails extends AppCompatActivity {
 
         activityDescription = (TextView) this.findViewById(R.id.activity_detail_description_text);
         activityDescription.setText(activity.getDescription());
+
+        activityAddress = (TextView) this.findViewById(R.id.activity_type_address_text);
+        activityAddress.setText(activity.getAddress());
     }
 }

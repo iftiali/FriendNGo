@@ -74,13 +74,10 @@ public class GridAdapter extends BaseAdapter {
                 imageView.setImageResource(R.drawable.art_exposition);
                 break;
             case "Nightlife":
-                imageView.setImageResource(R.drawable.nightlife);
+                imageView.setImageResource(R.drawable.music);
                 break;
             case "Sports":
                 imageView.setImageResource(R.drawable.running);
-                break;
-            case "Business":
-                imageView.setImageResource(R.drawable.handshake);
                 break;
             case "Date":
                 imageView.setImageResource(R.drawable.naked_run);

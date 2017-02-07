@@ -63,7 +63,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
 
     //Creates the View instance for the row from xml OR recycles it if already available
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
+    public View getView(final int position, View convertView, ViewGroup parent)
     {
         UserActivity userActivity = getItem(position);
 
@@ -113,22 +113,22 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
 
         switch(userActivity.getCategory()){
             case "Arts & Culture":
-                viewHolder.category.setImageResource(R.drawable.arts_and_culture);
+                viewHolder.category.setImageResource(R.drawable.art_exposition);
                 break;
             case "Nightlife":
-                viewHolder.category.setImageResource(R.drawable.nightlife);
+                viewHolder.category.setImageResource(R.drawable.music);
                 break;
             case "Sports":
-                viewHolder.category.setImageResource(R.drawable.sports);
+                viewHolder.category.setImageResource(R.drawable.running);
                 break;
             case "Networking":
-                viewHolder.category.setImageResource(R.drawable.handshake);
+                viewHolder.category.setImageResource(R.drawable.coworking);
                 break;
             case "Dating":
-                viewHolder.category.setImageResource(R.drawable.wink);
+                viewHolder.category.setImageResource(R.drawable.naked_run);
                 break;
             case "Activities":
-                viewHolder.category.setImageResource(R.drawable.pool);
+                viewHolder.category.setImageResource(R.drawable.billard);
                 break;
             case "Outdoors":
                 viewHolder.category.setImageResource(R.drawable.backpack);
@@ -137,10 +137,10 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
                 viewHolder.category.setImageResource(R.drawable.camping);
                 break;
             case "Drinks":
-                viewHolder.category.setImageResource(R.drawable.cup);
+                viewHolder.category.setImageResource(R.drawable.grab_drink);
                 break;
             case "Meetup":
-                viewHolder.category.setImageResource(R.drawable.three);
+                viewHolder.category.setImageResource(R.drawable.coworking);
         }
 
         viewHolder.clock.setImageResource(R.drawable.clock);
@@ -162,12 +162,12 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, ActivityDetails.class);
                     //TODO: Put extra -> The name of the activity
+                    intent.putExtra("Activity Index", position);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(intent);
                 }
             });
         }
-
-
         return convertView;
 //        Animation animation = AnimationUtils.loadAnimation(mContext,(position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
     }

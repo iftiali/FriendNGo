@@ -20,6 +20,17 @@
         android:id="@+id/map"
         tools:context=".MapsActivity"
         android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/white"
+        app:itemIconTint="@drawable/bottom_menu_selectors"
+        app:itemTextColor="@color/colorPrimary"
+        app:menu="@menu/bottom_navigation_tabs" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,6 +39,8 @@
         android:alpha="0.6"
         android:visibility="gone"
         >
+
+
 
     </RelativeLayout>
     <FrameLayout
@@ -42,9 +55,14 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+
+
+
             <ImageView
                 android:id="@+id/banner_profilepicture"
                 android:layout_width="40dp"
@@ -52,7 +70,6 @@
                 app:srcCompat="@drawable/scott"
                  />
 
-            <!--android:layout_alignParentTop="true"-->
             <TextView
                 android:id="@+id/banner_created_text"
                 android:text="Created by scottLaughlin, 29 y-o"
@@ -83,14 +100,6 @@
                 android:layout_width="25dp"
                 android:layout_height="35dp"
                  />
-
-            <!--android:layout_alignLeft="@+id/banner_profilepicture"-->
-
-            <!--android:layout_toLeftOf="@+id/banner_clock_image"-->
-            <!--android:layout_toStartOf="@+id/banner_clock_image"-->
-
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_alignParentEnd="true"-->
 
             <TextView
                 android:id="@+id/banner_activity_time"
@@ -179,10 +188,6 @@
                 android:layout_toRightOf="@+id/banner_activity_type"
                 android:layout_alignTop="@+id/banner_activity_type"
                 />
-            <!--android:paddingLeft="10dp"-->
-            <!--android:layout_alignRight="@+id/banner_country_flag"-->
-            <!--android:layout_alignEnd="@+id/banner_country_flag"-->
-
 
             <TableRow
                 android:layout_width="match_parent"

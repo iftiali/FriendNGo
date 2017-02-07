@@ -1,10 +1,8 @@
 package com.friendngo.friendngo.friendngo;
 
-<<<<<<< HEAD
-=======
+
 import android.app.TimePickerDialog;
 import android.content.Intent;
->>>>>>> origin/dev2
 import android.graphics.Color;
 import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
@@ -14,18 +12,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-<<<<<<< HEAD
 import android.widget.Spinner;
 import android.widget.TimePicker;
-=======
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
->>>>>>> origin/dev2
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -34,35 +24,19 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-<<<<<<< HEAD
-import java.sql.Time;
-=======
-import java.io.IOException;
-import java.sql.Time;
-import java.text.DecimalFormat;
->>>>>>> origin/dev2
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-<<<<<<< HEAD
-=======
-import java.util.List;
 import java.util.Locale;
->>>>>>> origin/dev2
 
 import cz.msebera.android.httpclient.Header;
 
 public class CreateActivity extends AppCompatActivity {
 
-<<<<<<< HEAD
-    Button createActivityButton;
-    Button todayButton;
-    Button tomorrowButton;
     TimePicker startTimePicker;
     TimePicker endTimePicker;
-=======
     public ArrayList<CategorySpinnerModel> cust_category = new ArrayList<CategorySpinnerModel>();
     TextView startEventTime,endEventTime;
     Button createActivityButton;
@@ -101,8 +75,6 @@ public class CreateActivity extends AppCompatActivity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
->>>>>>> origin/dev2
-
         }
     };
     TimePickerDialog.OnTimeSetListener startTimer = new TimePickerDialog.OnTimeSetListener() {
@@ -146,9 +118,8 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
-<<<<<<< HEAD
+
         //Data Model
-=======
         startEventTime = (TextView)findViewById(R.id.start_time_text_view);
         sdf = new SimpleDateFormat("HH:mm");
         currentDateStartTime = sdf.format(new Date());
@@ -176,7 +147,6 @@ public class CreateActivity extends AppCompatActivity {
 
             }
         });
->>>>>>> origin/dev2
         getSupportActionBar().setTitle("Create a new activity");
         ArrayList<CategorySpinnerModel> list=new ArrayList<>();
         list.add(new CategorySpinnerModel("Arts And Culture",R.drawable.art_exposition));
@@ -192,13 +162,12 @@ public class CreateActivity extends AppCompatActivity {
 
 
         Spinner category_spinner = (Spinner)findViewById(R.id.category_picker);
-        category_spinner.setBackgroundColor(Color.WHITE);
+//        category_spinner.setBackgroundColor(Color.WHITE);
         CategorySpinnerActivity adapter=new CategorySpinnerActivity(CreateActivity.this, R.layout.category_picker,R.id.txt,list);
         category_spinner.setAdapter(adapter);
-        startTimePicker = (TimePicker)findViewById(R.id.start_time_edit_text);
-        endTimePicker = (TimePicker)findViewById(R.id.end_time_edit_text);
 
-
+//        startTimePicker = (TimePicker)findViewById(R.id.start_time_text_view);
+//        endTimePicker = (TimePicker)findViewById(R.id.end_time_text_view);
 
         //TODO: Dynamically create this lists based on which category was chosen
         Spinner activity_type_spinner = (Spinner)findViewById(R.id.activity_type_picker);
@@ -298,8 +267,8 @@ public class CreateActivity extends AppCompatActivity {
                 EditText additionalNotesText = (EditText) findViewById(R.id.additional_notes_edit_text);
                 String additionalNotes = additionalNotesText.getText().toString();
 
-                String startTime = startTimePicker.getCurrentHour() +":"+startTimePicker.getCurrentMinute();
-                String endTime =  endTimePicker.getCurrentHour() + ":"+endTimePicker.getCurrentMinute();
+//                String startTime = startTimePicker.getCurrentHour() +":"+startTimePicker.getCurrentMinute();
+//                String endTime =  endTimePicker.getCurrentHour() + ":"+endTimePicker.getCurrentMinute();
 
 
                 //Determine the latitude and longitude from the address provided
@@ -322,8 +291,8 @@ public class CreateActivity extends AppCompatActivity {
 //                params.put("activity_lon", Double.toString(-72));
 
                 params.put("address",address);
-                params.put("activity_time", startTime);
-                params.put("activity_end_time", endTime);
+                params.put("activity_time", startEventTime.getText());
+                params.put("activity_end_time", endEventTime.getText());
                 params.put("description", activityDescription);
                 params.put("additional_notes",additionalNotes);
 
@@ -356,9 +325,7 @@ public class CreateActivity extends AppCompatActivity {
                         Log.w("POST ACT FAIL", "Error Code: " + error_code + "Text: " + text);
                     }
                 });
-                //TODO: Go somewhere else next sprint? Maybe invite other people?
-//                Intent intent = new Intent(CreateActivity.this,XXX.class);
-//                CreateActivity.this.startActivity(intent);
+
                 CreateActivity.this.finish();
             }
         });

@@ -252,7 +252,7 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
-        app:srcCompat="@drawable/edit"
+        app:srcCompat="@drawable/crayon"
         android:layout_alignBottom="@+id/start_time_text_view"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -263,7 +263,7 @@
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
-        app:srcCompat="@drawable/edit"
+        app:srcCompat="@drawable/crayon"
         android:layout_marginRight="10dp"
         android:layout_alignBottom="@+id/end_time_text_view"
         android:layout_alignParentRight="true"

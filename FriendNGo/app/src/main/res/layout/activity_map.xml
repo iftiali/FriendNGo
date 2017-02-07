@@ -45,17 +45,4 @@
 
     </android.support.design.widget.NavigationView>
 
-
-
-    <!--<ListView-->
-        <!--android:id="@+id/activity_markup_list"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="215dp"-->
-        <!--android:layout_margin="3dp"-->
-        <!--android:dividerHeight="10.0sp"-->
-        <!--android:divider="@android:color/transparent"-->
-        <!--android:visibility="gone"-->
-        <!--/>-->
-
-
 </android.support.v4.widget.DrawerLayout>

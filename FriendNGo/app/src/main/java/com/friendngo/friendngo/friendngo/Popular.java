@@ -6,6 +6,7 @@ import android.os.Build;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,21 +43,26 @@ public class Popular extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Creates fullscreen effect for older phones -> before setContentView()
-        if (Build.VERSION.SDK_INT < 16) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
+//        if (Build.VERSION.SDK_INT < 16) {
+//            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        }
         setContentView(R.layout.activity_popular);
+//
+//        //Creates fullscreen effect for newer phones
+//        if (Build.VERSION.SDK_INT >= 16) {
+//
+//            View decorView = getWindow().getDecorView();
+//            // Hide the status bar.
+//            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+//            decorView.setSystemUiVisibility(uiOptions);
+////            getSupportActionBar().hide();
+//        }
 
-        //Creates fullscreen effect for newer phones
-        if (Build.VERSION.SDK_INT >= 16) {
-
-            View decorView = getWindow().getDecorView();
-            // Hide the status bar.
-            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-            decorView.setSystemUiVisibility(uiOptions);
-//            getSupportActionBar().hide();
-        }
+        //Set top bar and toolbar
+      //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+        //getSupportActionBar().setTitle("What's up around you?");
 
         if(MainActivity.cheat_mode==true){
             Intent intent = new Intent(Popular.this,MapActivity.class);

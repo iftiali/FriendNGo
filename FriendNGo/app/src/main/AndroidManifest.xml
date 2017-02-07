@@ -62,11 +62,11 @@
             android:name=".MapActivity"
             android:label="@string/title_activity_map"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Popular" />
+        <activity android:name=".Popular" android:label="What's up around you?"/>
         <activity android:name=".WhatDoYouWantToDoToday" />
         <activity android:name=".CreateActivity" />
         <activity android:name=".WhoAreYou" />
-        <activity android:name=".ActivityDetails"></activity>
+        <activity android:name=".ActivityDetails" android:label="Activity Details"></activity>
     </application>
 
 </manifest>

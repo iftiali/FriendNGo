@@ -15,6 +15,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -110,6 +112,8 @@ public class MapActivity extends AppCompatActivity implements
     RelativeLayout info;
     Map markerMap = new HashMap();
 
+    BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,8 +123,38 @@ public class MapActivity extends AppCompatActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("FriendNGo");
+
         alpha_layer = (RelativeLayout)findViewById(R.id.alpha_layer);
         markup_layout= (FrameLayout) findViewById(R.id.markup_layout);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+
+        //TODO: Update all the states check out: https://developer.android.com/guide/topics/resources/drawable-resource.html#StateList
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.home_icon:
+
+                            case R.id.calendar_icon:
+
+                            case R.id.notification_icon:
+
+                            case R.id.message_icon:
+
+                            case R.id.settings_icon:
+                                Log.w("NAV DEBUG", "Settings Pressed");
+                                break;
+
+                            default:
+                                Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");
+
+
+
+                        }
+                        return true;
+                    }
+                });
 
         //TODO: Click should not disable the banner when you click on the banner.
         alpha_layer.setOnClickListener(new View.OnClickListener() {
@@ -535,7 +569,7 @@ public class MapActivity extends AppCompatActivity implements
                     markerMap.put("Current Position",-1);
 
                     if (runOnce) {
-                        Toast.makeText(getApplicationContext(), "GPS Coordinates = " + current_gps_latitude + "," + current_gps_longitude, Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getApplicationContext(), "GPS Coordinates = " + current_gps_latitude + "," + current_gps_longitude, Toast.LENGTH_LONG).show();
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),15));
                         runOnce = false;
                         current_location_ready = true;
@@ -569,12 +603,7 @@ public class MapActivity extends AppCompatActivity implements
         double km = 0;
         DecimalFormat df = new DecimalFormat("#.#");
         try {
-<<<<<<< HEAD
             address = coder.getFromLocationName(strAddress,5); //TODO: This needs to be ASYNCHRONOUS
-=======
-            Log.w("GEOCODE DEBUG", strAddress);
-            address = coder.getFromLocationName(strAddress,5);
->>>>>>> origin/dev2
             if (address==null || address.size()==0) {
                 return "0";
             }

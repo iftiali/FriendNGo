@@ -32,4 +32,10 @@
     <string name="POSITION_KEY">POSITION_KEY</string>
     <string name="VIEW_HOLDER_KEY">VIEW_HOLDER_KEY</string>
 
+    <string name="home_icon_text">Home</string>
+    <string name="calendar_icon_text">Calendar</string>
+    <string name="notification_icon_text">Notifications</string>
+    <string name="message_icon_text">Chat</string>
+    <string name="settings_icon_text">Settings</string>
+
 </resources>
