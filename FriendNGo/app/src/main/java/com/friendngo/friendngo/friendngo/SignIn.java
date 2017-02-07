@@ -1,12 +1,16 @@
 package com.friendngo.friendngo.friendngo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,6 +28,7 @@ import org.json.JSONObject;
 
 
 import cz.msebera.android.httpclient.Header;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SignIn extends AppCompatActivity {
 
@@ -36,7 +41,10 @@ public class SignIn extends AppCompatActivity {
     public static String static_token;
     public static String static_username;
 
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +53,8 @@ public class SignIn extends AppCompatActivity {
         static_token = "";
         static_username = "";
         //Sets the top heading value
-        getSupportActionBar().setTitle("Sign In");
+
+        getSupportActionBar().setTitle("Login");
 
         //Cheat Mode To Go Straight To Map Activity
         if (MainActivity.cheat_mode == true) {

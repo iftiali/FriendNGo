@@ -1,5 +1,6 @@
 package com.friendngo.friendngo.friendngo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class WhatDoYouWantToDoToday extends AppCompatActivity {
 
@@ -49,7 +51,10 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
     private ImageView city_tour_button_check;
     private Button save_button;
 
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

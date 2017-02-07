@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import com.loopj.android.http.*;
 
 import cz.msebera.android.httpclient.Header;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class SignUp extends AppCompatActivity {
@@ -32,6 +33,10 @@ public class SignUp extends AppCompatActivity {
 
     private SharedPreferences sharedPref;
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

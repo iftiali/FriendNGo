@@ -56,6 +56,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import cz.msebera.android.httpclient.Header;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class WhoAreYou extends AppCompatActivity {
@@ -74,6 +75,10 @@ public class WhoAreYou extends AppCompatActivity {
     File myFile;
     Bitmap photo;
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
