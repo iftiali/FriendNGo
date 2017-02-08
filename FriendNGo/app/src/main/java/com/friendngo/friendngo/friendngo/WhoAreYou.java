@@ -34,8 +34,7 @@ import java.io.IOException;
 import cz.msebera.android.httpclient.Header;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
-<<<<<<< HEAD
-=======
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +46,6 @@ import java.util.Date;
 import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
->>>>>>> origin/dev2
 
 public class WhoAreYou extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
