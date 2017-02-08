@@ -40,7 +40,14 @@
         android:background="#FFFFFF"
         android:weightSum="1"
         android:layout_height="275dp"
+        android:layout_centerHorizontal="true"
         android:layout_above="@+id/got_it_button">
+
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
 
         <TextView
             android:text="Popular Activities"
@@ -50,14 +57,19 @@
             android:textAlignment="center"
             android:layout_marginTop="15dp" />
 
-        <GridView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:numColumns="3"
-            android:id="@+id/activity_grid_view"
-            android:layout_marginTop="5dp" />
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:numColumns="3"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/activity_grid_view"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/popular_activities_text" />
 
+</RelativeLayout>
     </LinearLayout>
 
     <Button

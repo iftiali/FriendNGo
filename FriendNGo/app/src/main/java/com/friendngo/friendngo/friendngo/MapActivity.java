@@ -41,6 +41,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -74,6 +76,8 @@ import static android.location.LocationManager.GPS_PROVIDER;
 public class MapActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
+    private static final int POLLING_PERIOD = 20;
+    private final int STARTING_ZOOM = 15;
     private GoogleMap mMap;
     private String last_city;
     private String current_city;
@@ -104,31 +108,43 @@ public class MapActivity extends AppCompatActivity implements
     ImageView category;
     ImageView clock;
     TextView dateTime;
-    Button activityDetailsButton,participateButton;
+    Button activityDetailsButton, participateButton;
     RelativeLayout info;
     Map markerMap = new HashMap();
 
     BottomNavigationView bottomNavigationView;
+    public Circle innerCircle;
+    public Circle outterCircle;
 
+    //Fonts Script
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map); //NOTE: Drawer View is setup later
+
+        getLastKnownLocation();
 
         //Set top bar and toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("FriendNGo");
 
-        alpha_layer = (RelativeLayout)findViewById(R.id.alpha_layer);
-        markup_layout= (FrameLayout) findViewById(R.id.markup_layout);
+        //Initialize Layout views from their XML
+        alpha_layer = (RelativeLayout) findViewById(R.id.alpha_layer);
+        markup_layout = (FrameLayout) findViewById(R.id.markup_layout);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        activityDetailsButton = (Button) findViewById(R.id.banner_activity_details);
+        activityDetailsButton.setEnabled(false);
+        participateButton = (Button) findViewById(R.id.banner_participate);
+        participateButton.setEnabled(false);
 
         //TODO: Update all the states check out: https://developer.android.com/guide/topics/resources/drawable-resource.html#StateList
+        //OnClick listeners for bottom navigation bar
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -148,9 +164,6 @@ public class MapActivity extends AppCompatActivity implements
 
                             default:
                                 Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");
-
-
-
                         }
                         return true;
                     }
@@ -165,10 +178,6 @@ public class MapActivity extends AppCompatActivity implements
             }
         });
 
-        activityDetailsButton = (Button) findViewById(R.id.banner_activity_details) ;
-        activityDetailsButton.setEnabled(false);
-        participateButton = (Button) findViewById(R.id.banner_participate) ;
-        participateButton.setEnabled(false);
         //Setup the Map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -176,8 +185,8 @@ public class MapActivity extends AppCompatActivity implements
 
         //GET last known location setup
         AsyncHttpClient client = new AsyncHttpClient();
-        if(SignIn.static_token != null) {
-            client.addHeader("Authorization","Token "+SignIn.static_token);
+        if (SignIn.static_token != null) {
+            client.addHeader("Authorization", "Token " + SignIn.static_token);
         }
         //GET last known location
         client.get(MainActivity.base_host_url + "api/getLastLocation/", new JsonHttpResponseHandler() {
@@ -186,16 +195,16 @@ public class MapActivity extends AppCompatActivity implements
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.w("GET LASTLOC SUCCESS", statusCode + ": " + "Response = " + response.toString());
 
-                try{
+                try {
                     Log.w("GET LOCATION: ", statusCode + ", " + response.getString("last_city"));
                     last_city = response.getString("last_city");
                     last_location_ready = true;
 
-                    if(current_location_ready == true){
+                    if (current_location_ready == true) {
                         //update_city();
                     }
-                }catch (JSONException e){
-                    Log.w("GET LASTLOC FAIL: ",e.getMessage().toString());
+                } catch (JSONException e) {
+                    Log.w("GET LASTLOC FAIL: ", e.getMessage().toString());
                 }
             }
 
@@ -219,7 +228,7 @@ public class MapActivity extends AppCompatActivity implements
             }
 
             @Override
-            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
+            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
                 Log.w("GET LASTLOC FAILURE2:", "Error Code: " + error_code + ",  " + text);
             }
         });
@@ -248,40 +257,43 @@ public class MapActivity extends AppCompatActivity implements
         navigationView.setNavigationItemSelectedListener(this);
 
         adapter = new ActivityListAdapter(getApplicationContext());
-        listView = (ListView)findViewById(R.id.activity_list);
+        listView = (ListView) findViewById(R.id.activity_list);
 
         if (listView == null) {
             Log.w("LIST VIEW ERROR", "List view is null!");
         } else {
-            Log.w("LIST SUCCESS", "The List view it's alive!!!");
             listView.setAdapter(adapter);
 
             //Here is where we schedule the polling of our activities
             ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
             scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
 
-                        //This happens in a seperate thread
+                //This happens in a seperate thread
+                public void run() {
+                    //Now hop back onto main thread to do the actual work
+                    runOnUiThread(new Runnable() {
+                        @Override
                         public void run() {
-                            //Now hop back onto main thread to do the actual work
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    update_activities();
-                                }
-                            });
-
+                            update_activities();
                         }
-                    }, 0, 3, TimeUnit.SECONDS);
+                    });
+                }
+            }, 0, POLLING_PERIOD, TimeUnit.SECONDS);
         }
     }
 
+    private void getLastKnownLocation() {
+
+    }
+
+    ////////////////// GETs the activities list and processes them ////////////////////////////////////
     private void update_activities() {
         //GET the activities list
         AsyncHttpClient client = new AsyncHttpClient();
         if (SignIn.static_token != null) {
             client.addHeader("Authorization", "Token " + SignIn.static_token);
-        }else{
-            Log.w("TOKEN ERROR","What happened to the token :(");
+        } else {
+            Log.w("TOKEN ERROR", "What happened to the token :(");
         }
 
         client.get(MainActivity.base_host_url + "api/getActivities/", new JsonHttpResponseHandler() {
@@ -301,9 +313,8 @@ public class MapActivity extends AppCompatActivity implements
             public void onSuccess(int statusCode, Header[] headers, JSONArray responseArray) {
                 activitiesList.clear();
 
-                //Cycle through the list of activities
-                for (int i=0; i<responseArray.length(); i++){
-
+                //Cycle through the list of activities and add them to a list
+                for (int i = 0; i < responseArray.length(); i++) {
                     try {
                         //Parse all the JSON for this activity
                         JSONObject activity = responseArray.getJSONObject(i);
@@ -321,7 +332,7 @@ public class MapActivity extends AppCompatActivity implements
                         String creator_status = activity.getString("status");
                         int maxUsers = activity.getInt("max_users");
                         String home_city = activity.getString("home_city");
-                        String  home_nationality= activity.getString("home_nationality");
+                        String home_nationality = activity.getString("home_nationality");
                         String points = activity.getString("points");
 
                         //Date parsed seperately
@@ -330,8 +341,8 @@ public class MapActivity extends AppCompatActivity implements
                         Date activityTime = new Date();
                         try {
                             activityTime = activityTimeFormat.parse(activityTimeString);
-                        }catch (ParseException p){
-                            Log.w("PARSE EXCEPTION","Something went wrong with DATE parsing");
+                        } catch (ParseException p) {
+                            Log.w("PARSE EXCEPTION", "Something went wrong with DATE parsing"); //TODO: Why is this failing
                         }
 
                         String distance = calculation_Distance(address);
@@ -352,67 +363,64 @@ public class MapActivity extends AppCompatActivity implements
                                 categoryString,
                                 activityType,
                                 latitude,
-                                longitude );
+                                longitude);
 
                         activitiesList.add(userActivity);
 
                         int height = 75;
                         int width = 75;
 
+                        //Create the map pin for each activity in the list
                         BitmapDrawable bitmapdraw;
-                        switch(categoryString){
+                        switch (categoryString) {
                             case "Arts & Culture":
-                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.art_exposition_pin);
+                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.art_exposition_pin);
                                 break;
                             case "Nightlife":
-                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.concert_pin);
+                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.concert_pin);
                                 break;
                             case "Sports":
-                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.running_pin);
+                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.running_pin);
                                 break;
                             case "Networking":
-                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.coworking_pin);
+                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.coworking_pin);
                                 break;
                             case "Dating":
-                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.grab_drink_pin);//TODO: This needs an update when we have the right pin.
+                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.grab_drink_pin);//TODO: This needs an update when we have the right pin.
                                 break;
                             case "Activities":
-                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.art_exposition_pin); //TODO: This needs an update when we have the right pin.
+                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.art_exposition_pin); //TODO: This needs an update when we have the right pin.
                                 break;
                             case "Outdoors":
-                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.backpack_pin);
+                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.backpack_pin);
                                 break;
                             case "Camping":
-                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.camping_pin);
+                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.camping_pin);
                                 break;
                             case "Food and Drink":
-                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.grab_drink_pin);
+                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.grab_drink_pin);
                                 break;
                             case "Meetup":
-                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.coworking_pin);
+                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.coworking_pin);
                                 break;
                             default:
-                                bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.canada_icon);
+                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.canada_icon);
                                 break;
                         }
 
-                        Bitmap b=bitmapdraw.getBitmap();
+                        Bitmap b = bitmapdraw.getBitmap();
                         Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
                         MarkerOptions marker = new MarkerOptions()
-                                .position(new LatLng(latitude,longitude))
+                                .position(new LatLng(latitude, longitude))
                                 .title(name)
                                 .snippet(activityType)
                                 .icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
-                        markerMap.put(name,i);
+                        markerMap.put(name, i);
                         mMap.addMarker(marker);
-
-
-                    } catch (JSONException e){
+                    } catch (JSONException e) {
                         Log.w("JSON EXCEPTION:", "Error parsing the getActivities response");
                     }
-
                 }
-
                 ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
             }
 
@@ -425,7 +433,6 @@ public class MapActivity extends AppCompatActivity implements
             @Override
             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
                 Log.w("GET ACTIVITIES FAIL2", "Error Code: " + error_code);
-
             }
         });
     }
@@ -454,8 +461,8 @@ public class MapActivity extends AppCompatActivity implements
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.add_activity){
-            Intent intent = new Intent(MapActivity.this,CreateActivity.class);
+        if (id == R.id.add_activity) {
+            Intent intent = new Intent(MapActivity.this, CreateActivity.class);
             MapActivity.this.startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
@@ -474,8 +481,40 @@ public class MapActivity extends AppCompatActivity implements
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setOnMarkerClickListener(this);
-    }
 
+        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        Location location = locationManager.getLastKnownLocation(GPS_PROVIDER);
+        if (location != null) {
+            current_gps_latitude = location.getLatitude();
+            current_gps_longitude = location.getLongitude();
+            //TODO: Zoom camera to here
+            if (runOnce) {
+//                        Toast.makeText(getApplicationContext(), "GPS Coordinates = " + current_gps_latitude + "," + current_gps_longitude, Toast.LENGTH_LONG).show();
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
+                current_location_ready = true;
+                runOnce = false;
+                if (last_location_ready == true) {
+                    update_city();
+                }
+
+                innerCircle =mMap.addCircle(new CircleOptions()
+                        .center(new LatLng(location.getLatitude(), location.getLongitude()))
+                        .radius(20)
+                        .strokeWidth(8)
+                        .strokeColor(Color.parseColor("#FF8100"))
+                        .fillColor(Color.parseColor("#00000000")));
+                outterCircle = mMap.addCircle(new CircleOptions()
+                        .center(new LatLng(location.getLatitude(), location.getLongitude()))
+                        .radius(50)
+                        .strokeWidth(4)
+                        .strokeColor(Color.parseColor("#FF8100"))
+                        .fillColor(Color.parseColor("#00000000")));
+            }
+        }
+    }
 
 
 ////////////////////////////////// GPS ACQUIRE SIGNAL CODE//////////////////////////////////////////
@@ -541,15 +580,7 @@ public class MapActivity extends AppCompatActivity implements
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     MY_PERMISSIONS_REQUEST_FINE_LOCATION);
         } else {
-            Location location = locationManager.getLastKnownLocation(GPS_PROVIDER);
-            if (location != null) {
-                current_gps_latitude = location.getLatitude();
-                current_gps_longitude = location.getLongitude();
-//                current_location_ready = true;
-            }
-
             final LocationListener locationListener = new LocationListener() {
-
 
 ////////////////////////////////// USING GPS CODE //////////////////////////////////////////////////
                 //Here is where we receive the location update
@@ -557,27 +588,31 @@ public class MapActivity extends AppCompatActivity implements
                     current_gps_latitude = location.getLatitude();
                     current_gps_longitude = location.getLongitude();
 
-                    if (currLocationMarker != null) {
-                        currLocationMarker.remove();
-                    }
-                    currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(currentPosition);
-                    markerOptions.title("Current Position");
-                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-                    currLocationMarker = mMap.addMarker(markerOptions);
-                    markerMap.put("Current Position",-1);
+                    innerCircle.remove();
+                    outterCircle.remove();
+
+                    innerCircle =mMap.addCircle(new CircleOptions()
+                            .center(new LatLng(location.getLatitude(), location.getLongitude()))
+                            .radius(20)
+                            .strokeWidth(8)
+                            .strokeColor(Color.parseColor("#FF8100"))
+                            .fillColor(Color.parseColor("#00000000")));
+                    outterCircle = mMap.addCircle(new CircleOptions()
+                            .center(new LatLng(location.getLatitude(), location.getLongitude()))
+                            .radius(50)
+                            .strokeWidth(4)
+                            .strokeColor(Color.parseColor("#FF8100"))
+                            .fillColor(Color.parseColor("#00000000")));
 
                     if (runOnce) {
 //                        Toast.makeText(getApplicationContext(), "GPS Coordinates = " + current_gps_latitude + "," + current_gps_longitude, Toast.LENGTH_LONG).show();
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),15)); //TODO: Also do this once for Last Known Location at startup
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
                         runOnce = false;
                         current_location_ready = true;
 
                         if (last_location_ready == true) {
                             update_city();
                         }
-
                     }
                 }
 
@@ -595,9 +630,8 @@ public class MapActivity extends AppCompatActivity implements
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         }
     }
-    //parth
-    private String calculation_Distance(String strAddress){
 
+    private String calculation_Distance(String strAddress){
         Geocoder coder = new Geocoder(this);
         List<Address> address;
         double km = 0;
