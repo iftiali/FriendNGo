@@ -145,6 +145,9 @@ public class MapActivity extends AppCompatActivity implements
 
                             case R.id.notification_icon:
 
+                                Intent seeRequest = new Intent(getApplicationContext(), Request.class);
+                                startActivity(seeRequest);
+
                             case R.id.message_icon:
 
                             case R.id.settings_icon:

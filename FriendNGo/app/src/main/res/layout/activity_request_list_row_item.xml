@@ -25,32 +25,32 @@
                 android:src="@drawable/empty_profile"
                 android:id="@+id/profilepicture"
                 app:civ_border_color="#EEEEEE"
-                app:civ_border_width="4dp"
+                app:civ_border_width="1dp"
                 app:civ_shadow="true"
                 app:civ_shadow_radius="2"
                 app:civ_shadow_color="@color/greyish"
                 android:layout_centerVertical="true" />
 
-            <ImageButton
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 app:srcCompat="@drawable/not"
                 android:id="@+id/request_delete_image"
                 android:layout_marginRight="0dp"
                 android:layout_marginEnd="7dp"
-                android:background="@drawable/add_oval"
+
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/request_success_image" />
 
-            <ImageButton
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 app:srcCompat="@drawable/yes"
                 android:id="@+id/request_success_image"
                 android:layout_alignTop="@+id/request_delete_image"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:background="@drawable/add_oval"
+
                 android:layout_marginRight="12dp"
                 android:layout_marginEnd="6dp" />
 
@@ -72,7 +72,7 @@
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView5"
+                android:id="@+id/request_years"
                 android:layout_alignBottom="@+id/request_person_name"
                 android:layout_toRightOf="@+id/request_person_name"
                 android:layout_toEndOf="@+id/request_person_name"
@@ -84,9 +84,9 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/textView5"
+                android:layout_alignTop="@+id/request_years"
                 android:layout_toLeftOf="@+id/request_delete_image"
-                android:id="@+id/request_pint"
+                android:id="@+id/request_point"
                 android:text="10pts"
                 android:background="@drawable/activity_list_point"
                 android:layout_marginRight="11dp"
@@ -115,11 +115,11 @@
                 android:layout_height="25dp"
                 app:srcCompat="@drawable/france"
                 android:layout_alignParentBottom="true"
-                android:id="@+id/imageView2"
+                android:id="@+id/request_flag"
                 android:layout_marginBottom="5dp"
-                android:layout_toRightOf="@+id/textView5"
-                android:layout_toLeftOf="@+id/request_pint"
-                android:layout_toStartOf="@+id/request_pint" />
+                android:layout_toRightOf="@+id/request_years"
+                android:layout_toLeftOf="@+id/request_point"
+                android:layout_toStartOf="@+id/request_point" />
 
         </RelativeLayout>
     </FrameLayout>

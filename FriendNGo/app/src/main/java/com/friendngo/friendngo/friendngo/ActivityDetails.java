@@ -7,12 +7,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ActivityDetails extends AppCompatActivity {
 
-
+    FrameLayout requestFrame;
     TextView activityName;
     ImageView creatorPhoto;
     TextView creatorName;
@@ -44,7 +45,14 @@ public class ActivityDetails extends AppCompatActivity {
                 ActivityDetails.this.finish();
             }
         });
-
+        requestFrame = (FrameLayout)findViewById(R.id.activity_detail_request_frame);
+        requestFrame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent seeRequest = new Intent(getApplicationContext(), Request.class);
+                startActivity(seeRequest);
+            }
+        });
         int i = getIntent().getIntExtra("Activity Index", 0);
         UserActivity activity = (UserActivity) MapActivity.activitiesList.get(i);
 
