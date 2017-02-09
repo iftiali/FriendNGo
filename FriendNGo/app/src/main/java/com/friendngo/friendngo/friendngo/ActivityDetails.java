@@ -48,8 +48,8 @@ public class ActivityDetails extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setTitle("Activity Details");
 
-        int i = getIntent().getIntExtra("Activity Index", 0);
-        final long creator_pk = ((UserActivity)MapActivity.activitiesList.get(i)).getcreator_PK();
+        final int i = getIntent().getIntExtra("Activity Index", 0);
+        final long activity_pk = ((UserActivity)MapActivity.activitiesList.get(i)).getActivity_pk();
 
         sendRequestButton = (Button)findViewById(R.id.send_request_button);
         sendRequestButton.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +60,8 @@ public class ActivityDetails extends AppCompatActivity {
                     client.addHeader("Authorization","Token "+SignIn.static_token);
 
                 }RequestParams params = new RequestParams();
-                params.put("receiver_pk",""+creator_pk);
+                params.put("activity_id",activity_pk);
+                params.put("request_state",0);
                 client.post(MainActivity.base_host_url + "api/postActivityRequest/",params, new JsonHttpResponseHandler() {
 
                     @Override
