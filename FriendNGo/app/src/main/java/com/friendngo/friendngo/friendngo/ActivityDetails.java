@@ -7,12 +7,23 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
+
 public class ActivityDetails extends AppCompatActivity {
 
-
+    FrameLayout requestFrame;
     TextView activityName;
     ImageView creatorPhoto;
     TextView creatorName;
@@ -37,15 +48,63 @@ public class ActivityDetails extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setTitle("Activity Details");
 
+        final int i = getIntent().getIntExtra("Activity Index", 0);
+        final long activity_pk = ((UserActivity)MapActivity.activitiesList.get(i)).getActivity_pk();
+
         sendRequestButton = (Button)findViewById(R.id.send_request_button);
         sendRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AsyncHttpClient client = new AsyncHttpClient();
+                if(SignIn.static_token != null) {
+                    client.addHeader("Authorization","Token "+SignIn.static_token);
+
+                }RequestParams params = new RequestParams();
+                params.put("activity_id",activity_pk);
+                params.put("request_state",0);
+                client.post(MainActivity.base_host_url + "api/postActivityRequest/",params, new JsonHttpResponseHandler() {
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                        //TODO: Test and implement statusCode handler for developers and graceful degradation
+                        Log.w("POST STATUS SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                        try{
+                            Log.w("POST STATUS SUCCESS2", response.getString("status"));
+                        }catch (JSONException e){
+                            Log.w("POST STATUS FAIL",e.getMessage().toString());
+                        }
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                        Log.w("POST STATUS ARRSUCCESS", statusCode + ": " + timeline.toString());
+                    }
+
+                    @Override
+                    public void onRetry(int retryNo) {
+                        // called when request is retried
+                        Log.w("POST STATUS RETRY",""+ retryNo);
+                    }
+
+                    @Override
+                    public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
+                        Log.w("POST STATUS FAILURE", "Error Code: " + error_code+"text"+text);
+                    }
+                });
                 ActivityDetails.this.finish();
+
             }
         });
-
-        int i = getIntent().getIntExtra("Activity Index", 0);
+        requestFrame = (FrameLayout)findViewById(R.id.activity_detail_request_frame);
+        requestFrame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent seeRequest = new Intent(getApplicationContext(), Request.class);
+                startActivity(seeRequest);
+            }
+        });
+        int ii = getIntent().getIntExtra("Activity Index", 0);
         UserActivity activity = (UserActivity) MapActivity.activitiesList.get(i);
 
         //Get the XML instances for each of the headings

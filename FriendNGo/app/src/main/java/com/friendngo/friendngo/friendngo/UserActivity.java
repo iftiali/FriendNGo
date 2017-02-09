@@ -16,6 +16,7 @@ public class UserActivity {
     private Date activityTime;
     private String distance;
     private String points;
+    private long activity_pk;
     private String category;
     private String homeNationality;
     private String homeCity;
@@ -24,7 +25,7 @@ public class UserActivity {
     private double longitude;
     private String address;
     private String description;
-
+    private long creator_PK;
     public UserActivity(String home_city,
                         String home_nationality,
                         String name,
@@ -41,7 +42,9 @@ public class UserActivity {
                         String category,
                         String type,
                         double latitude,
-                        double longitude) {
+                        double longitude,
+                        long creator_PK,
+                        long activity_pk) {
         this.homeCity = home_city;
         this.homeNationality = home_nationality;
         this.name = name;
@@ -59,8 +62,26 @@ public class UserActivity {
         this.activityType = type;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.creator_PK = creator_PK;
+        this.activity_pk = activity_pk;
+
     }
 
+
+    public long getActivity_pk() {
+        return activity_pk;
+    }
+
+    public void setActivity_pk(long activity_pk) {
+        this.activity_pk = activity_pk;
+    }
+    public long getcreator_PK() {
+        return creator_PK;
+    }
+
+    public void setcreator_PK(long creator_PK) {
+        this.creator_PK = creator_PK;
+    }
     public String getHomeNationality() {
         return homeNationality;
     }

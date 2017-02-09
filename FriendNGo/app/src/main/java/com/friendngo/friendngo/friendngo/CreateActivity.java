@@ -33,6 +33,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.client.utils.DateUtils;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CreateActivity extends AppCompatActivity {

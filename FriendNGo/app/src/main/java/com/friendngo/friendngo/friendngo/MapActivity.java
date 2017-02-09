@@ -156,6 +156,9 @@ public class MapActivity extends AppCompatActivity implements
 
                             case R.id.notification_icon:
 
+                                Intent seeRequest = new Intent(getApplicationContext(), Request.class);
+                                startActivity(seeRequest);
+
                             case R.id.message_icon:
 
                             case R.id.settings_icon:
@@ -334,7 +337,8 @@ public class MapActivity extends AppCompatActivity implements
                         String home_city = activity.getString("home_city");
                         String home_nationality = activity.getString("home_nationality");
                         String points = activity.getString("points");
-
+                        long creator_pk = activity.getLong("creator_pk");
+                        long activity_pk = activity.getLong("id");
                         //Date parsed seperately
                         String activityTimeString = activity.getString("activity_time");
                         SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
@@ -385,7 +389,10 @@ public class MapActivity extends AppCompatActivity implements
                                 categoryString,
                                 activityType,
                                 latitude,
-                                longitude);
+                                longitude,
+                                creator_pk,
+                                activity_pk);
+
                         activitiesList.add(userActivity);
 
                         int height = 75;
@@ -453,7 +460,7 @@ public class MapActivity extends AppCompatActivity implements
 
             @Override
             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                Log.w("GET ACTIVITIES FAIL2", "Error Code: " + error_code);
+                Log.w("GET ACTIVITIES FAIL2", "Error Code: " + error_code+ "text: "+text);
             }
         });
     }

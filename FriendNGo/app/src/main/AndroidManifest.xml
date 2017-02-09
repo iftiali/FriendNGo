@@ -68,6 +68,12 @@
         <activity android:name=".CreateActivity" />
         <activity android:name=".WhoAreYou" />
         <activity android:name=".ActivityDetails" android:label="Activity Details"></activity>
+        <activity
+            android:name=".Request"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_request"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>
