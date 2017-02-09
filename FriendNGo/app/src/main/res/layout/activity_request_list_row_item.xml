@@ -25,27 +25,26 @@
                 android:src="@drawable/empty_profile"
                 android:id="@+id/profilepicture"
                 app:civ_border_color="#EEEEEE"
-                app:civ_border_width="1dp"
+                app:civ_border_width="4dp"
                 app:civ_shadow="true"
                 app:civ_shadow_radius="2"
                 app:civ_shadow_color="@color/greyish"
                 android:layout_centerVertical="true" />
 
             <com.mikhaellopez.circularimageview.CircularImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:srcCompat="@drawable/not"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/not"
                 android:id="@+id/request_delete_image"
-                android:layout_marginRight="0dp"
-                android:layout_marginEnd="7dp"
 
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/request_success_image" />
+                android:layout_toLeftOf="@+id/request_success_image"
+                android:layout_toStartOf="@+id/request_success_image" />
 
             <com.mikhaellopez.circularimageview.CircularImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:srcCompat="@drawable/yes"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/yes"
                 android:id="@+id/request_success_image"
                 android:layout_alignTop="@+id/request_delete_image"
                 android:layout_alignParentRight="true"
@@ -57,7 +56,7 @@
             <TextView
                 android:text="Parth Desai,"
                 android:textStyle="bold"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="11dp"
@@ -69,7 +68,7 @@
 
             <TextView
                 android:text="27 yeays"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/request_years"
@@ -79,18 +78,6 @@
                 android:layout_marginLeft="0dp"
                 android:layout_marginStart="11dp"
                 android:layout_alignTop="@+id/request_person_name" />
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/request_years"
-                android:layout_toLeftOf="@+id/request_delete_image"
-                android:id="@+id/request_point"
-                android:text="10pts"
-                android:background="@drawable/activity_list_point"
-                android:layout_marginRight="11dp"
-                android:padding="4dp"/>
 
             <TextView
                 android:text="Resident, "
@@ -117,9 +104,21 @@
                 android:layout_alignParentBottom="true"
                 android:id="@+id/request_flag"
                 android:layout_marginBottom="5dp"
-                android:layout_toRightOf="@+id/request_years"
                 android:layout_toLeftOf="@+id/request_point"
-                android:layout_toStartOf="@+id/request_point" />
+                android:layout_toEndOf="@+id/reqiest_city_name"
+                android:layout_toRightOf="@+id/reqiest_city_name" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/request_point"
+                android:text="10pts"
+                android:layout_marginLeft="3dp"
+                android:background="@drawable/activity_list_point"
+                android:padding="4dp"
+                android:layout_toRightOf="@+id/request_years"
+                android:layout_above="@+id/request_flag" />
 
         </RelativeLayout>
     </FrameLayout>

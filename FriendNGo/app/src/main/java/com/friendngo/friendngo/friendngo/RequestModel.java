@@ -11,15 +11,35 @@ public class RequestModel {
     String homeCity;
     String nationality;
     String points;
-    public RequestModel(String profileImage,String name, int year, String homeCity,String nationality,String points ) {
+    int request_state;
+
+
+    public RequestModel(String profileImage, String name, int request_state, int year, String homeCity, String nationality, String points ) {
         this.profileImage = profileImage;
         this.name=name;
         this.year=year;
         this.homeCity=homeCity;
         this.nationality=nationality;
         this.points=points;
-
+        this.request_state=request_state;
     }
+
+    public void setPoints(String points) {
+        this.points = points;
+    }
+
+    public int getRequest_state() {
+        return request_state;
+    }
+
+    public void setRequest_state(int request_state) {
+        this.request_state = request_state;
+    }
+
+    public void setHomeCity(String homeCity) {
+        this.homeCity = homeCity;
+    }
+
     public String getProfileImage(){return profileImage;}
     public void setProfileImage(String profileImage){this.profileImage = profileImage;}
 
@@ -46,6 +66,5 @@ public class RequestModel {
 
     public void setPoints(){this.points = points;}
     public String getPoints(){return points;}
-
 }
 

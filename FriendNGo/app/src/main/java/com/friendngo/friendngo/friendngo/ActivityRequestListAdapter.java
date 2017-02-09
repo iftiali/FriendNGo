@@ -116,20 +116,32 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
         viewHolder.profilePicture.setImageResource(R.drawable.scott);
         viewHolder.notImageButton.setImageResource(R.drawable.not);
         viewHolder.yesImageButton.setImageResource(R.drawable.yes);
-        Log.w("name",dataModel.getName());
+
         viewHolder.name.setText(dataModel.getName()+",");
         viewHolder.name.setTextColor(Color.GRAY);
-        viewHolder.years.setText(dataModel.getYear()+" Years");
+        viewHolder.years.setText(dataModel.getYear()+" y-o");
         viewHolder.years.setTextColor(Color.GRAY);
         viewHolder.homeCity.setText(dataModel.getHomeCity());
         viewHolder.homeCity.setTextColor(Color.GRAY);
         viewHolder.resident.setTextColor(Color.GRAY);
+
+        if(dataModel.request_state == 0){
+            //Do nothing!
+        } else if (dataModel.request_state == 1){
+            viewHolder.yesImageButton.setImageResource(R.drawable.success);
+        } else if(dataModel.request_state==2){
+            viewHolder.notImageButton.setImageResource(R.drawable.delete_red);
+        } else {
+            Log.w("DATABASE ERROR","Old records... like the beatles");
+        }
+
        viewHolder.notImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                // viewHolder.notImageButton.setBackground(R.drawable.add_oval);
                 viewHolder.notImageButton.setImageResource(R.drawable.delete_red);
                 viewHolder.yesImageButton.setImageResource(R.drawable.yes);
+
             }
         });
         viewHolder.yesImageButton.setOnClickListener(new View.OnClickListener() {

@@ -40,11 +40,18 @@ public class Request extends AppCompatActivity {
         setContentView(R.layout.activity_request);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        list=(ListView)findViewById(R.id.request_list);
+        list=(ListView)this.findViewById(R.id.request_list);
+
+        dataModels= new ArrayList<>();
+        adapter= new ActivityRequestListAdapter(dataModels,getApplicationContext());
+        list.setAdapter(adapter);
+
+        //GET the ActivityResults list
         AsyncHttpClient client = new AsyncHttpClient();
         if(SignIn.static_token != null) {
             client.addHeader("Authorization","Token "+SignIn.static_token);
         }
+
         //GET last known location
         client.get(MainActivity.base_host_url + "api/getActivityRequests/", new JsonHttpResponseHandler() {
             @Override
@@ -53,16 +60,33 @@ public class Request extends AppCompatActivity {
             }
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                Log.w("JSON ARRAY... FIX IT!: ", statusCode + ": " + timeline.toString());
-                try {
-                    JSONObject firstEvent = timeline.getJSONObject(0);
-                    String token = firstEvent.getString("token");
-                    Log.w("GET REQUEST SUCCESS2", token.toString());
+                Log.w("JSON parth: ", statusCode + ": " + timeline.toString());
 
 
-                } catch (JSONException e) {
-                    Log.w("GET REQUEST FAIL1: ", e.getMessage().toString());
-                }
+                    for (int i = 0; i < timeline.length(); i++) {
+                        try {
+                            //Parse all the JSON for this activity
+                            // JSONObject activity = timeline.;
+                          /*  String name = activity.getString("activity_name");
+                            String categoryString = activity.getString("category");
+                            String activityType = activity.getString("activity_type");
+                            String description = activity.getString("description");
+                   */
+                            JSONObject activity = timeline.getJSONObject(i);
+
+                            dataModels.add(new RequestModel("Parth",
+                                    activity.getString("sender_name"),
+                                    activity.getInt("request_state"),
+                                    10,
+                                    "Montreal",
+                                    "canada",
+                                    "10pts"));
+
+                        } catch (JSONException e) {
+                            Log.w("GET REQUEST FAIL1: ", e.getMessage().toString());
+                        }
+                    }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -76,14 +100,7 @@ public class Request extends AppCompatActivity {
             }
         });
 
-        dataModels= new ArrayList<>();
 
-        dataModels.add(new RequestModel("Parth", "Parth ", 10,"Montreal","canada","10pts"));
-
-
-        adapter= new ActivityRequestListAdapter(dataModels,getApplicationContext());
-
-        list.setAdapter(adapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
