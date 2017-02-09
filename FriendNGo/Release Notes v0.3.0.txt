@@ -1,3 +1,30 @@
+
+RELEASE NOTES v0.3.0
+
+Major improvements in UI and functionality since the last version:
+
+Features Added:
+- Map View
+- List View
+- Creating Activities
+- Sending activity requests
+- Viewing Activities on the Map
+- Immediately Zooming to a user's last known location
+- Icons and Spliced Graphics incorporated
+- Popular Near You Activity is now Dynamic
+- Creating a profile with image uploads
+- Map Activity now functioning without lag
+- Bottom Bar added
+- User Can Send Requests to join activities and Event creator can accept / reject
+- Activities updated on the map every 20 seconds (this is configurable)
+
+
+
+
+
+RELEASE NOTES v0.2.0
+
+
 Blockers:
 - Access to DNS (needs to be pointed to our servers)
 - Need properly spliced images and pins with alpha backgrounds
