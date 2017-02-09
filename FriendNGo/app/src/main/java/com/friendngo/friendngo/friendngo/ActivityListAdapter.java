@@ -148,7 +148,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         viewHolder.dateTime.setText(dateFormat.format(userActivity.getActivityTime()));
         viewHolder.dateTime.setTextColor(Color.GRAY);
         viewHolder.pin.setImageResource(R.drawable.pin);
-        viewHolder.distance.setText( userActivity.getDistance()+" away");
+        viewHolder.distance.setText( userActivity.getDistance()+" km away");
         viewHolder.distance.setTextColor(Color.GRAY);
 
         viewHolder.info.setOnClickListener(this);

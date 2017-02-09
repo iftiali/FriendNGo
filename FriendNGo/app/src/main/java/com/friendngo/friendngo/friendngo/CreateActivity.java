@@ -125,7 +125,6 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
-
         //Data Model
         startEventTime = (TextView)findViewById(R.id.start_time_text_view);
         sdf = new SimpleDateFormat("HH:mm");
@@ -151,7 +150,6 @@ public class CreateActivity extends AppCompatActivity {
                 new TimePickerDialog(CreateActivity.this, endTimer, c
                         .get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),
                         true).show();
-
             }
         });
         getSupportActionBar().setTitle("Create a new activity");
@@ -159,7 +157,6 @@ public class CreateActivity extends AppCompatActivity {
         list.add(new CategorySpinnerModel("Arts And Culture",R.drawable.art_exposition));
         list.add(new CategorySpinnerModel("Nightlife",R.drawable.nightlife));
         list.add(new CategorySpinnerModel("Sports",R.drawable.running));
-//        list.add(new CategorySpinnerModel("Business",R.drawable.handshake));
         list.add(new CategorySpinnerModel("Dating",R.drawable.naked_run));
         list.add(new CategorySpinnerModel("Activities",R.drawable.billard));
         list.add(new CategorySpinnerModel("Outdoors",R.drawable.backpack));

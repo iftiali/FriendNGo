@@ -345,7 +345,29 @@ public class MapActivity extends AppCompatActivity implements
                             Log.w("PARSE EXCEPTION", "Something went wrong with DATE parsing"); //TODO: Why is this failing
                         }
 
-                        String distance = calculation_Distance(address);
+                        //Calculate the distance from the user to the activity
+                        double km;
+                        int Radius = 6371;
+                        double lat1 = current_gps_latitude;//StartP.latitude;
+                        double lat2 = latitude;//EndP.latitude;
+                        double lon1 = current_gps_longitude;//StartP.longitude;
+                        double lon2 = longitude;//EndP.longitude;
+                        double dLat = Math.toRadians(lat2 - lat1);
+                        double dLon = Math.toRadians(lon2 - lon1);
+                        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                                + Math.cos(Math.toRadians(lat1))
+                                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                                * Math.sin(dLon / 2);
+                        double c = 2 * Math.asin(Math.sqrt(a));
+                        double valueResult = Radius * c;
+                        km = valueResult / 1;
+                        if(km<0.1){
+                            km=0.1;
+                        }
+
+                        DecimalFormat df = new DecimalFormat("#.#");
+                        String distance = df.format(km);
+//                        String distance = calculation_Distance(address);
                         //Create new UserActivity instance with the data
                         UserActivity userActivity = new UserActivity(
                                 home_city,
@@ -364,7 +386,6 @@ public class MapActivity extends AppCompatActivity implements
                                 activityType,
                                 latitude,
                                 longitude);
-
                         activitiesList.add(userActivity);
 
                         int height = 75;
@@ -667,6 +688,7 @@ public class MapActivity extends AppCompatActivity implements
         }
         return df.format(km);
     }
+
     //Helper function to calculate the distance from the last known location
     //This could possibly be replaced by an address poll with a city name parser
     private void update_city() {
