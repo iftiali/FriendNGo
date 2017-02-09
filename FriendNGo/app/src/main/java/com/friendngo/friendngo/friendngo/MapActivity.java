@@ -151,20 +151,18 @@ public class MapActivity extends AppCompatActivity implements
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.home_icon:
-
+                                Log.w("BOTTOM NAV","Home Icon Pressed");
                             case R.id.calendar_icon:
-
+                                Log.w("BOTTOM NAV","Calendar Icon Pressed");
                             case R.id.notification_icon:
-
+                                Log.w("BOTTOM NAV","Notifications Icon Pressed");
                                 Intent seeRequest = new Intent(getApplicationContext(), Request.class);
                                 startActivity(seeRequest);
-
                             case R.id.message_icon:
-
+                                Log.w("BOTTOM NAV","Message Icon Pressed");
                             case R.id.settings_icon:
-                                Log.w("NAV DEBUG", "Settings Pressed");
+                                Log.w("NAV DEBUG", "Settings Icon Pressed");
                                 break;
-
                             default:
                                 Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");
                         }

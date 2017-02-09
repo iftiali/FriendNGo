@@ -60,28 +60,22 @@ public class Request extends AppCompatActivity {
             }
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                Log.w("JSON parth: ", statusCode + ": " + timeline.toString());
-
+                Log.w("GET AR JSON ARRAY", statusCode + ": " + timeline.toString());
 
                     for (int i = 0; i < timeline.length(); i++) {
                         try {
-                            //Parse all the JSON for this activity
-                            // JSONObject activity = timeline.;
-                          /*  String name = activity.getString("activity_name");
-                            String categoryString = activity.getString("category");
-                            String activityType = activity.getString("activity_type");
-                            String description = activity.getString("description");
-                   */
                             JSONObject activity = timeline.getJSONObject(i);
 
-                            dataModels.add(new RequestModel("Parth",
+//                            dataModels.add(new RequestModel(activity.getString("sender_profile"),
+                            dataModels.add(new RequestModel(
+                                    activity.getLong("sender"),
+                                    "parth", //TODO: Get this to work with an image
                                     activity.getString("sender_name"),
                                     activity.getInt("request_state"),
-                                    10,
-                                    "Montreal",
-                                    "canada",
-                                    "10pts"));
-
+                                    activity.getInt("sender_age"),
+                                    activity.getString("sender_home_city"),
+                                    activity.getString("sender_home_nationality"),
+                                    activity.getString("sender_points")));
                         } catch (JSONException e) {
                             Log.w("GET REQUEST FAIL1: ", e.getMessage().toString());
                         }
@@ -96,10 +90,9 @@ public class Request extends AppCompatActivity {
 
             @Override
             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                Log.w("GET LASTLOC FAILURE2:", "Error Code: " + error_code + ",  " + text);
+                Log.w("GET REQUEST FAILURE2:", "Error Code: " + error_code + ",  " + text);
             }
         });
-
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

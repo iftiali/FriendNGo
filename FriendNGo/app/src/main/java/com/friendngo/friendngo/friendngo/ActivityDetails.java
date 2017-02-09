@@ -68,28 +68,28 @@ public class ActivityDetails extends AppCompatActivity {
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
                         //TODO: Test and implement statusCode handler for developers and graceful degradation
-                        Log.w("POST STATUS SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                        Log.w("POST AR SUCCESS", statusCode + ": " + "Response = " + response.toString());
                         try{
-                            Log.w("POST STATUS SUCCESS2", response.getString("status"));
+                            Log.w("POST AR SUCCESS2", response.getString("status"));
                         }catch (JSONException e){
-                            Log.w("POST STATUS FAIL",e.getMessage().toString());
+                            Log.w("POST AR FAIL",e.getMessage().toString());
                         }
                     }
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                        Log.w("POST STATUS ARRSUCCESS", statusCode + ": " + timeline.toString());
+                        Log.w("POST AR ARRSUCCESS", statusCode + ": " + timeline.toString());
                     }
 
                     @Override
                     public void onRetry(int retryNo) {
                         // called when request is retried
-                        Log.w("POST STATUS RETRY",""+ retryNo);
+                        Log.w("POST AR RETRY",""+ retryNo);
                     }
 
                     @Override
                     public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                        Log.w("POST STATUS FAILURE", "Error Code: " + error_code+"text"+text);
+                        Log.w("POST AR FAILURE", "Error Code: " + error_code+", text: "+text);
                     }
                 });
                 ActivityDetails.this.finish();

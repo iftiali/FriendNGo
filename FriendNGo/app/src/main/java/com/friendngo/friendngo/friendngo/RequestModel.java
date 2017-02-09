@@ -12,9 +12,18 @@ public class RequestModel {
     String nationality;
     String points;
     int request_state;
+    long sender_id;
 
+    public long getSender_id() {
+        return sender_id;
+    }
 
-    public RequestModel(String profileImage, String name, int request_state, int year, String homeCity, String nationality, String points ) {
+    public void setSender_id(long sender_id) {
+        this.sender_id = sender_id;
+    }
+
+    public RequestModel(long sender_id, String profileImage, String name, int request_state, int year, String homeCity, String nationality, String points ) {
+        this.sender_id = sender_id;
         this.profileImage = profileImage;
         this.name=name;
         this.year=year;

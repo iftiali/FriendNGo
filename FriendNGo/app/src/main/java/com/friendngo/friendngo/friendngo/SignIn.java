@@ -60,7 +60,7 @@ public class SignIn extends AppCompatActivity {
         if (MainActivity.cheat_mode == true) {
             //Go straight to signing in with default user
             AsyncHttpClient client = new AsyncHttpClient();
-            client.setBasicAuth("t@t.com", "fun");
+            client.setBasicAuth("t2@t2.com", "fun");
             RequestParams params = new RequestParams();
 //          params.setUseJsonStreamer(true);
             params.put("username", "t2@t2.com");

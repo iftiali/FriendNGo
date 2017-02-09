@@ -64,7 +64,6 @@ public class UserActivity {
         this.longitude = longitude;
         this.creator_PK = creator_PK;
         this.activity_pk = activity_pk;
-
     }
 
 
