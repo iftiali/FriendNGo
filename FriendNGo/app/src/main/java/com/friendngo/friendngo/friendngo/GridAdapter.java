@@ -98,7 +98,7 @@ public class GridAdapter extends BaseAdapter {
                 imageView.setImageResource(R.drawable.coworking);
                 break;
             default:
-                imageView.setImageResource(R.drawable.wink);
+                imageView.setImageResource(R.drawable.naked_run);
         }
         return convertView;
     }

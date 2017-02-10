@@ -88,7 +88,7 @@ public class MapActivity extends AppCompatActivity implements
     RelativeLayout alpha_layer;
     private boolean last_location_ready = false;
     FrameLayout markup_layout;
-    private boolean runOnce = true;
+    private boolean gettingGPS = true;
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 2;
 
     public ListView listView;
@@ -508,20 +508,20 @@ public class MapActivity extends AppCompatActivity implements
         mMap = googleMap;
         mMap.setOnMarkerClickListener(this);
 
+        //ZOOM Camera to the last known location
         LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         Location location = locationManager.getLastKnownLocation(GPS_PROVIDER);
         if (location != null) {
-            current_gps_latitude = location.getLatitude();
-            current_gps_longitude = location.getLongitude();
-            //TODO: Zoom camera to here
-            if (runOnce) {
-//                        Toast.makeText(getApplicationContext(), "GPS Coordinates = " + current_gps_latitude + "," + current_gps_longitude, Toast.LENGTH_LONG).show();
+
+            //Zoom to last known location if we don't have GPS
+            if (gettingGPS) {
+                current_gps_latitude = location.getLatitude();
+                current_gps_longitude = location.getLongitude();
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
                 current_location_ready = true;
-                runOnce = false;
                 if (last_location_ready == true) {
                     update_city();
                 }
@@ -630,10 +630,10 @@ public class MapActivity extends AppCompatActivity implements
                             .strokeColor(Color.parseColor("#FF8100"))
                             .fillColor(Color.parseColor("#00000000")));
 
-                    if (runOnce) {
+                    if (gettingGPS) {
 //                        Toast.makeText(getApplicationContext(), "GPS Coordinates = " + current_gps_latitude + "," + current_gps_longitude, Toast.LENGTH_LONG).show();
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
-                        runOnce = false;
+                        gettingGPS = false;
                         current_location_ready = true;
 
                         if (last_location_ready == true) {
