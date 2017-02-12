@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
     static boolean is_production = false;
     private int SPLASH_DISPLAY_LENGTH = 2000;
     public static String base_host_url = "";
-    public static boolean cheat_mode = false;
+    public static boolean cheat_mode = true;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -45,13 +45,13 @@ public class MainActivity extends Activity {
             base_host_url = "http://staging.friendngo.com/";
         }
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_main);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main);
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
 
         new Handler().postDelayed(new Runnable(){
             @Override

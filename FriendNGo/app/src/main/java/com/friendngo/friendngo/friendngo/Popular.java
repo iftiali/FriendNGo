@@ -69,11 +69,11 @@ public class Popular extends AppCompatActivity {
         //setSupportActionBar(toolbar);
         //getSupportActionBar().setTitle("What's up around you?");
 
-        if(MainActivity.cheat_mode==true){
-            Intent intent = new Intent(Popular.this,MapActivity.class);
-            Popular.this.startActivity(intent);
-            Popular.this.finish();
-        }
+//        if(MainActivity.cheat_mode==true){
+//            Intent intent = new Intent(Popular.this,MapActivity.class);
+//            Popular.this.startActivity(intent);
+//            Popular.this.finish();
+//        }
 
         participantsNumber = (TextView)findViewById(R.id.activity_number);
         participantsNumber.setText("9");

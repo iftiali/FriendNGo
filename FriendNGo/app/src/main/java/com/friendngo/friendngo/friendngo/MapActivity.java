@@ -74,30 +74,30 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import static android.location.LocationManager.GPS_PROVIDER;
 
 public class MapActivity extends AppCompatActivity implements
-        NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
+        NavigationView.OnNavigationItemSelectedListener,
+        OnMapReadyCallback,
+        GoogleMap.OnMarkerClickListener {
+
+    //Constants
     private static final int POLLING_PERIOD = 20;
     private final int STARTING_ZOOM = 15;
+    private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 2;
+
+    //Map and location variables
     private GoogleMap mMap;
     private String last_city;
     private String current_city;
-
     private boolean current_location_ready = false;
     private double current_gps_latitude;
     private double current_gps_longitude;
-    RelativeLayout alpha_layer;
     private boolean last_location_ready = false;
-    FrameLayout markup_layout;
     private boolean gettingGPS = true;
-    private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 2;
 
+    //Layout instances
+    FrameLayout markup_layout;
+    RelativeLayout alpha_layer;
     public ListView listView;
-
-    public static List activitiesList = new ArrayList<UserActivity>();
-    private static ActivityListAdapter adapter;
-
-    Marker currLocationMarker;
-    LatLng currentPosition;
     ImageView profilePicture;
     TextView name;
     TextView creator;
@@ -109,7 +109,10 @@ public class MapActivity extends AppCompatActivity implements
     ImageView clock;
     TextView dateTime;
     Button activityDetailsButton, participateButton;
-    RelativeLayout info;
+
+    //Data Model and Adapters
+    public static List activitiesList = new ArrayList<UserActivity>();
+    private static ActivityListAdapter adapter;
     Map markerMap = new HashMap();
 
     BottomNavigationView bottomNavigationView;
@@ -126,8 +129,6 @@ public class MapActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map); //NOTE: Drawer View is setup later
-
-        getLastKnownLocation();
 
         //Set top bar and toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -152,19 +153,24 @@ public class MapActivity extends AppCompatActivity implements
                         switch (item.getItemId()) {
                             case R.id.home_icon:
                                 Log.w("BOTTOM NAV","Home Icon Pressed");
+                                break;
                             case R.id.calendar_icon:
                                 Log.w("BOTTOM NAV","Calendar Icon Pressed");
+                                break;
                             case R.id.notification_icon:
                                 Log.w("BOTTOM NAV","Notifications Icon Pressed");
                                 Intent seeRequest = new Intent(getApplicationContext(), Request.class);
                                 startActivity(seeRequest);
+                                break;
                             case R.id.message_icon:
                                 Log.w("BOTTOM NAV","Message Icon Pressed");
+                                break;
                             case R.id.settings_icon:
                                 Log.w("NAV DEBUG", "Settings Icon Pressed");
                                 break;
                             default:
                                 Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");
+                                break;
                         }
                         return true;
                     }
@@ -283,9 +289,6 @@ public class MapActivity extends AppCompatActivity implements
         }
     }
 
-    private void getLastKnownLocation() {
-
-    }
 
     ////////////////// GETs the activities list and processes them ////////////////////////////////////
     private void update_activities() {
@@ -526,19 +529,22 @@ public class MapActivity extends AppCompatActivity implements
                     update_city();
                 }
 
-                innerCircle =mMap.addCircle(new CircleOptions()
-                        .center(new LatLng(location.getLatitude(), location.getLongitude()))
-                        .radius(20)
-                        .strokeWidth(8)
-                        .strokeColor(Color.parseColor("#FF8100"))
-                        .fillColor(Color.parseColor("#00000000")));
-                outterCircle = mMap.addCircle(new CircleOptions()
-                        .center(new LatLng(location.getLatitude(), location.getLongitude()))
-                        .radius(50)
-                        .strokeWidth(4)
-                        .strokeColor(Color.parseColor("#FF8100"))
-                        .fillColor(Color.parseColor("#00000000")));
+                mMap.setMyLocationEnabled(true);
+//                innerCircle =mMap.addCircle(new CircleOptions()
+//                        .center(new LatLng(location.getLatitude(), location.getLongitude()))
+//                        .radius(20)
+//                        .strokeWidth(8)
+//                        .strokeColor(Color.parseColor("#FF8100"))
+//                        .fillColor(Color.parseColor("#00000000")));
+//                outterCircle = mMap.addCircle(new CircleOptions()
+//                        .center(new LatLng(location.getLatitude(), location.getLongitude()))
+//                        .radius(50)
+//                        .strokeWidth(4)
+//                        .strokeColor(Color.parseColor("#FF8100"))
+//                        .fillColor(Color.parseColor("#00000000")));
             }
+        } else {
+            Log.w("LOCATION ERROR", "Last Known Location is null!!!");
         }
     }
 
@@ -614,21 +620,26 @@ public class MapActivity extends AppCompatActivity implements
                     current_gps_latitude = location.getLatitude();
                     current_gps_longitude = location.getLongitude();
 
-                    innerCircle.remove();
-                    outterCircle.remove();
+//                    if(innerCircle != null && outterCircle != null){
+//                        innerCircle.remove();
+//                        outterCircle.remove();
+//                    }else{
+//                        Log.w("CIRCLE DEBUG", "Inner or outer circle are null");
+//                    }
+//
+//                    innerCircle =mMap.addCircle(new CircleOptions()
+//                            .center(new LatLng(location.getLatitude(), location.getLongitude()))
+//                            .radius(20)
+//                            .strokeWidth(8)
+//                            .strokeColor(Color.parseColor("#FF8100"))
+//                            .fillColor(Color.parseColor("#00000000")));
+//                    outterCircle = mMap.addCircle(new CircleOptions()
+//                            .center(new LatLng(location.getLatitude(), location.getLongitude()))
+//                            .radius(50)
+//                            .strokeWidth(4)
+//                            .strokeColor(Color.parseColor("#FF8100"))
+//                            .fillColor(Color.parseColor("#00000000")));
 
-                    innerCircle =mMap.addCircle(new CircleOptions()
-                            .center(new LatLng(location.getLatitude(), location.getLongitude()))
-                            .radius(20)
-                            .strokeWidth(8)
-                            .strokeColor(Color.parseColor("#FF8100"))
-                            .fillColor(Color.parseColor("#00000000")));
-                    outterCircle = mMap.addCircle(new CircleOptions()
-                            .center(new LatLng(location.getLatitude(), location.getLongitude()))
-                            .radius(50)
-                            .strokeWidth(4)
-                            .strokeColor(Color.parseColor("#FF8100"))
-                            .fillColor(Color.parseColor("#00000000")));
 
                     if (gettingGPS) {
 //                        Toast.makeText(getApplicationContext(), "GPS Coordinates = " + current_gps_latitude + "," + current_gps_longitude, Toast.LENGTH_LONG).show();
@@ -748,7 +759,7 @@ public class MapActivity extends AppCompatActivity implements
 
                         Intent intent;
                         if(MainActivity.cheat_mode==true){
-                            intent = new Intent(MapActivity.this, WhatDoYouWantToDoToday.class);
+                            intent = new Intent(MapActivity.this, NewCity.class);
                         }else {
                             intent = new Intent(MapActivity.this, NewCity.class);
                         }
