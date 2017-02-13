@@ -80,7 +80,7 @@ public class MapActivity extends AppCompatActivity implements
         GoogleMap.OnMarkerClickListener {
 
     //Constants
-    private static final int POLLING_PERIOD = 20;
+    private static final int POLLING_PERIOD = 5;
     private final int STARTING_ZOOM = 15;
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 2;
 
@@ -116,8 +116,6 @@ public class MapActivity extends AppCompatActivity implements
     Map markerMap = new HashMap();
 
     BottomNavigationView bottomNavigationView;
-    public Circle innerCircle;
-    public Circle outterCircle;
 
     //Fonts Script
     @Override
@@ -402,7 +400,7 @@ public class MapActivity extends AppCompatActivity implements
                         //Create the map pin for each activity in the list
                         BitmapDrawable bitmapdraw;
                         switch (categoryString) {
-                            case "Arts & Culture":
+                            case "Art & Culture":
                                 bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.art_exposition_pin);
                                 break;
                             case "Nightlife":
@@ -411,25 +409,25 @@ public class MapActivity extends AppCompatActivity implements
                             case "Sports":
                                 bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.running_pin);
                                 break;
-                            case "Networking":
+                            case "Professional & Networking":
                                 bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.coworking_pin);
                                 break;
-                            case "Dating":
+                            case "Fun & Crazy":
                                 bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.grab_drink_pin);//TODO: This needs an update when we have the right pin.
                                 break;
-                            case "Activities":
+                            case "Games":
                                 bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.art_exposition_pin); //TODO: This needs an update when we have the right pin.
                                 break;
-                            case "Outdoors":
+                            case "Nature & Outdoors":
                                 bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.backpack_pin);
                                 break;
-                            case "Camping":
+                            case "Travel & Road-Trip":
                                 bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.camping_pin);
                                 break;
-                            case "Food and Drink":
+                            case "Social Activities":
                                 bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.grab_drink_pin);
                                 break;
-                            case "Meetup":
+                            case "Help & Association":
                                 bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.coworking_pin);
                                 break;
                             default:
@@ -845,37 +843,37 @@ public class MapActivity extends AppCompatActivity implements
 
             Log.w("CREATING BANNER",act.getCategory());
             switch(act.getCategory()){
-                case "Arts & Culture":
+                case "Art & Culture":
                     Log.w("CREATING BANNER","IN ART");
                     category.setImageResource(R.drawable.art_exposition);
                     break;
                 case "Nightlife":
-                    category.setImageResource(R.drawable.nightlife);
+                    category.setImageResource(R.drawable.music);
                     break;
                 case "Sports":
                     category.setImageResource(R.drawable.running);
                     break;
-                case "Networking":
+                case "Professional & Networking":
                     Log.w("CREATING BANNER","IN Networking");
                     category.setImageResource(R.drawable.coworking); //TODO: Update when properly spliced
                     break;
-                case "Dating":
+                case "Fun & Crazy":
                     category.setImageResource(R.drawable.naked_run);
                     break;
-                case "Activities":
+                case "Games":
                     category.setImageResource(R.drawable.billard);
                     break;
-                case "Outdoors":
+                case "Nature & Outdoors":
                     Log.w("CREATING BANNER","IN OUTDOORS");
                     category.setImageResource(R.drawable.backpack);
                     break;
-                case "Camping":
+                case "Travel & Road-Trip":
                     category.setImageResource(R.drawable.camping);
                     break;
-                case "Food and Drink":
+                case "Social Activities":
                     category.setImageResource(R.drawable.grab_drink);
                     break;
-                case "Meetup":
+                case "Help & Association":
                     category.setImageResource(R.drawable.coworking);
                     break;
                 default:

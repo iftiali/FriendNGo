@@ -70,7 +70,7 @@ public class GridAdapter extends BaseAdapter {
         }
 
         switch (category.name) {
-            case "Arts & Culture":
+            case "Art & Culture":
                 imageView.setImageResource(R.drawable.art_exposition);
                 break;
             case "Nightlife":
@@ -79,22 +79,25 @@ public class GridAdapter extends BaseAdapter {
             case "Sports":
                 imageView.setImageResource(R.drawable.running);
                 break;
-            case "Date":
+            case "Fun & Crazy":
                 imageView.setImageResource(R.drawable.naked_run);
                 break;
-            case "Activities":
+            case "Games":
                 imageView.setImageResource(R.drawable.billard);
                 break;
-            case "Outdoors":
+            case "Nature & Outdoors":
                 imageView.setImageResource(R.drawable.backpack);
                 break;
-            case "Camping":
+            case "Travel & Road-Trip":
                 imageView.setImageResource(R.drawable.camping);
                 break;
-            case "Food and Drink":
+            case "Social Activities":
                 imageView.setImageResource(R.drawable.grab_drink);
                 break;
-            case "Networking":
+            case "Professional & Networking":
+                imageView.setImageResource(R.drawable.coworking);
+                break;
+            case "Help & Association":
                 imageView.setImageResource(R.drawable.coworking);
                 break;
             default:

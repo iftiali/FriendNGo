@@ -112,10 +112,7 @@ public class WhoAreYou extends AppCompatActivity {
                 }
 
                 client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-                        Log.w("GET IMAGE FAIL","Could not retrieve image");
-                    }
+
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, File response) {
                         Log.w("GET IMAGE SUCCESS","Successfully Retrieved The Image");
@@ -123,6 +120,11 @@ public class WhoAreYou extends AppCompatActivity {
                         Uri uri = Uri.fromFile(response);
                         profilePicture.setImageURI(uri);
                         downloadedImage = response;
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                        Log.w("GET IMAGE FAIL","Could not retrieve image");
                     }
                 });
             }
@@ -204,14 +206,6 @@ public class WhoAreYou extends AppCompatActivity {
                       @Override
                       public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                           Log.w("POST PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
-
-//                          String pictureURL = "";
-//                          try{
-//                              pictureURL = MainActivity.base_host_url + response.getString("picture");
-//
-//                          }catch (JSONException e){
-//                              Log.w("GET PROFILE JSON FAIL",e.getMessage().toString());
-//                          }
                       }
 
                       @Override

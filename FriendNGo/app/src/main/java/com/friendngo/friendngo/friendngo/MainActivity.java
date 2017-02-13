@@ -22,11 +22,11 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends Activity {
 
-    static boolean is_production = true;
+    static boolean is_production = false;
     private int SPLASH_DISPLAY_LENGTH = 2000;
     public static String base_host_url = "";
-    public static boolean cheat_mode = true;
-    
+    public static boolean cheat_mode = false;
+
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
         if(is_production==true){
             base_host_url = "http://api.friendngo.com/";
         } else {
-            base_host_url = "http://staging.friendngo.com/";
+            base_host_url = "http://54.242.24.135/";
         }
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
