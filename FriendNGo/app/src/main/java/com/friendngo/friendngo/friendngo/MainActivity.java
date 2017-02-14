@@ -25,8 +25,7 @@ public class MainActivity extends Activity {
     static boolean is_production = false;
     private int SPLASH_DISPLAY_LENGTH = 2000;
     public static String base_host_url = "";
-    public static boolean cheat_mode = false;
-
+    public static boolean cheat_mode = true;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -36,8 +35,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(cheat_mode==true){
+        if(cheat_mode==false){
             SPLASH_DISPLAY_LENGTH=20;
+        } else {
+            SPLASH_DISPLAY_LENGTH=5;
         }
 
         if(is_production==true){

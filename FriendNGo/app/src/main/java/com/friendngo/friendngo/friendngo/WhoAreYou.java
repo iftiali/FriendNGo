@@ -103,14 +103,14 @@ public class WhoAreYou extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.w("GET PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
-                AsyncHttpClient client = new AsyncHttpClient();
 
+                //GET The image file at the pictureURL
+                AsyncHttpClient client = new AsyncHttpClient();
                 try{
                     pictureURL = response.getString("picture");
                 }catch (JSONException e){
                     Log.w("GET PROFILE JSON FAIL",e.getMessage().toString());
                 }
-
                 client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
 
                     @Override

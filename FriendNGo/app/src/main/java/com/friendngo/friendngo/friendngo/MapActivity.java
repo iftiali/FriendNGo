@@ -12,6 +12,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -41,12 +42,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -54,6 +54,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -234,7 +235,7 @@ public class MapActivity extends AppCompatActivity implements
 
             @Override
             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                Log.w("GET LASTLOC FAILURE2:", "Error Code: " + error_code + ",  " + text);
+                Log.w("GET LASTLOC FAILURE2:", "Error Code: " + error_code + ", Text:" + text);
             }
         });
 
@@ -298,7 +299,10 @@ public class MapActivity extends AppCompatActivity implements
             Log.w("TOKEN ERROR", "What happened to the token :(");
         }
 
+
+
         client.get(MainActivity.base_host_url + "api/getActivities/", new JsonHttpResponseHandler() {
+            //TODO: Declare all of the level 1 variables here
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -315,11 +319,14 @@ public class MapActivity extends AppCompatActivity implements
             public void onSuccess(int statusCode, Header[] headers, JSONArray responseArray) {
                 activitiesList.clear();
 
+                Log.w("ACTIVITIES LIST", responseArray.toString());
                 //Cycle through the list of activities and add them to a list
                 for (int i = 0; i < responseArray.length(); i++) {
                     try {
                         //Parse all the JSON for this activity
                         JSONObject activity = responseArray.getJSONObject(i);
+
+                        String pictureURL = activity.getString("picture");
                         String name = activity.getString("activity_name");
                         String categoryString = activity.getString("category");
                         String activityType = activity.getString("activity_type");
@@ -338,6 +345,7 @@ public class MapActivity extends AppCompatActivity implements
                         String points = activity.getString("points");
                         long creator_pk = activity.getLong("creator_pk");
                         long activity_pk = activity.getLong("id");
+
                         //Date parsed seperately
                         String activityTimeString = activity.getString("activity_time");
                         SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
@@ -390,7 +398,9 @@ public class MapActivity extends AppCompatActivity implements
                                 latitude,
                                 longitude,
                                 creator_pk,
-                                activity_pk);
+                                activity_pk,
+                                activityTime, //TODO: Put the end time instead of a copy of the start time
+                                pictureURL);
 
                         activitiesList.add(userActivity);
 
@@ -413,7 +423,7 @@ public class MapActivity extends AppCompatActivity implements
                                 bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.coworking_pin);
                                 break;
                             case "Fun & Crazy":
-                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.grab_drink_pin);//TODO: This needs an update when we have the right pin.
+                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.naked_run_pin);
                                 break;
                             case "Games":
                                 bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.art_exposition_pin); //TODO: This needs an update when we have the right pin.
@@ -459,7 +469,7 @@ public class MapActivity extends AppCompatActivity implements
 
             @Override
             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                Log.w("GET ACTIVITIES FAIL2", "Error Code: " + error_code+ "text: "+text);
+                Log.w("GET ACTIVITIES FAIL2", "Error Code: " + error_code+ ", Text: "+text);
             }
         });
     }
@@ -528,6 +538,11 @@ public class MapActivity extends AppCompatActivity implements
                 }
 
                 mMap.setMyLocationEnabled(true);
+//                mMap.getUiSettings().
+//                mMap.getUiSettings().set
+//                mMap.getUiSettings().setMyLocationButtonEnabled(false);
+//                mMap.setMyLocationButtonEnabled(false);
+
 //                innerCircle =mMap.addCircle(new CircleOptions()
 //                        .center(new LatLng(location.getLatitude(), location.getLongitude()))
 //                        .radius(20)
@@ -713,6 +728,7 @@ public class MapActivity extends AppCompatActivity implements
                 current_city = addresses.get(0).getLocality();
 
                 Log.w("GPS CITY RESULT", current_city);
+                Log.w("LAST CITY DEBUG",last_city);
                 if(last_city.equalsIgnoreCase(current_city) != true){
 
                         //POST Location
@@ -749,7 +765,7 @@ public class MapActivity extends AppCompatActivity implements
 
                             @Override
                             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                                Log.w("POST LOCATION FAIL", "Error Code: " + error_code + "," + text);
+                                Log.w("POST LOCATION FAIL", "Error Code: " + error_code + ", Text:" + text);
                             }
                         });
 
@@ -829,7 +845,7 @@ public class MapActivity extends AppCompatActivity implements
             name.setTextColor(Color.GRAY);
             creator.setText("Created by "+act.getCreator());
             creator.setTextColor(Color.GRAY);
-            profilePicture.setImageResource(R.drawable.scott);
+            profilePicture.setImageResource(R.drawable.empty_profile);
             status.setText("Resident" + ", ");
             status.setTextColor(Color.GRAY);
             homeCity.setText(act.getHomeCity());
@@ -880,6 +896,30 @@ public class MapActivity extends AppCompatActivity implements
                     Log.w("CREATING BANNER","IN DEFAULT");
                     category.setImageResource(R.drawable.art_exposition);
             }
+
+            //GET The image file at the pictureURL
+            AsyncHttpClient client = new AsyncHttpClient();
+
+            String pictureURL = ((UserActivity)activitiesList.get(j)).getProfilePicURL();
+
+            client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, File response) {
+                    Log.w("GET IMAGE SUCCESS","Successfully Retrieved The Image");
+                    //Use the downloaded image as the profile picture
+                    Uri uri = Uri.fromFile(response);
+//                    profilePicture = (ImageView) markup_layout.findViewById(R.id.banner_profilepicture);
+                    profilePicture.setImageURI(uri);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                    Log.w("GET IMAGE FAIL","Could not retrieve image");
+                }
+            });
+
+
         }
         return false;
     }

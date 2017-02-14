@@ -12,7 +12,6 @@ public class UserActivity {
     private String creatorAge;
     private String creatorStatus;
     private int maxUsers;
-//    private SimpleDateFormat createdTime;
     private Date activityTime;
     private String distance;
     private String points;
@@ -26,6 +25,9 @@ public class UserActivity {
     private String address;
     private String description;
     private long creator_PK;
+    private Date endTime;
+    private String profilePicURL;
+
     public UserActivity(String home_city,
                         String home_nationality,
                         String name,
@@ -33,7 +35,6 @@ public class UserActivity {
                         String creatorAge,
                         String creatorStatus,
                         int maxUsers,
-//                        SimpleDateFormat createdTime,
                         Date activityTime,
                         String address,
                         String description,
@@ -44,7 +45,9 @@ public class UserActivity {
                         double latitude,
                         double longitude,
                         long creator_PK,
-                        long activity_pk) {
+                        long activity_pk,
+                        Date endTime,
+                        String profilePicURL) {
         this.homeCity = home_city;
         this.homeNationality = home_nationality;
         this.name = name;
@@ -64,8 +67,33 @@ public class UserActivity {
         this.longitude = longitude;
         this.creator_PK = creator_PK;
         this.activity_pk = activity_pk;
+        this.endTime = endTime;
+        this.profilePicURL = profilePicURL;
     }
 
+    public long getCreator_PK() {
+        return creator_PK;
+    }
+
+    public void setCreator_PK(long creator_PK) {
+        this.creator_PK = creator_PK;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getProfilePicURL() {
+        return profilePicURL;
+    }
+
+    public void setProfilePicURL(String profilePicURL) {
+        this.profilePicURL = profilePicURL;
+    }
 
     public long getActivity_pk() {
         return activity_pk;

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_map"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="0dp"
@@ -19,6 +20,7 @@
         android:layout_height="match_parent"
         android:id="@+id/map"
         tools:context=".MapsActivity"
+        android:layout_above="@id/bottom_navigation"
         android:name="com.google.android.gms.maps.SupportMapFragment" />
 
     <android.support.design.widget.BottomNavigationView
@@ -68,7 +70,7 @@
                 android:id="@+id/banner_profilepicture"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                app:srcCompat="@drawable/scott"
+                app:srcCompat="@drawable/empty_profile"
                  />
 
             <TextView

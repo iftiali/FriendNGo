@@ -67,12 +67,9 @@ public class SignUp extends AppCompatActivity {
         signupButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
 
-                //Make a call to register the user
+                //POST to /users/register to register the user
                 AsyncHttpClient client = new AsyncHttpClient();
-//                client.setBasicAuth(emailEditTextValue.getText().toString(),passwordEditTextValue.getText().toString());
-
                 RequestParams params = new RequestParams();
-//                params.setUseJsonStreamer(true);
                 params.put("username", emailEditTextValue.getText().toString());
                 params.put("password", passwordEditTextValue.getText().toString());
                 boolean isNullCheck = ValidationClass.isNullCheck(emailEditTextValue.getText().toString(),passwordEditTextValue.getText().toString());
@@ -92,7 +89,6 @@ public class SignUp extends AppCompatActivity {
                                 client.setBasicAuth(emailEditTextValue.getText().toString(), passwordEditTextValue.getText().toString());
 
                                 RequestParams params = new RequestParams();
-//                          params.setUseJsonStreamer(true);
                                 params.put("username", emailEditTextValue.getText().toString());
                                 params.put("password", passwordEditTextValue.getText().toString());
 
@@ -143,7 +139,7 @@ public class SignUp extends AppCompatActivity {
                                     //TODO: Give Users Helpful Error messages when there is a problem
                                     @Override
                                     public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                                        Log.w("HTTP FAILURE", "Error Code: " + error_code);
+                                        Log.w("HTTP FAILURE1", "Error Code: " + error_code + ", Text: " + text);
                                     }
                                 });
                             }
@@ -170,20 +166,20 @@ public class SignUp extends AppCompatActivity {
 
                             @Override
                             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                                Log.w("HTTP FAILURE:", "Error Code: " + error_code);
+                                Log.w("HTTP FAILURE2", "Error Code: " + error_code + ", Text: " + text);
+                                if(error_code==409){
+                                    Toast.makeText(SignUp.this, "Username Already Exists", Toast.LENGTH_LONG).show();
+                                }
                             }
                         });
                     }else{
                         Toast.makeText(SignUp.this, "Invalid Email format ", Toast.LENGTH_LONG).show();
-
                     }
                 }   else {
                     //message
                     Toast.makeText(SignUp.this, "Email or password is empty ", Toast.LENGTH_LONG).show();
                 }
-
             }
         });
-
     }
 }
