@@ -33,36 +33,26 @@
         android:layout_alignParentStart="true" />
 
     <EditText
-        android:hint="Spoken Languages"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:id="@+id/language_editText"
-        android:layout_below="@+id/citizen_editText"
-        android:layout_alignLeft="@+id/citizen_editText"
-        android:layout_alignStart="@+id/citizen_editText"
-        android:gravity="center_vertical"
-        android:background="@android:color/white"
-        android:padding="10dp"
-        android:layout_marginTop="3dp" />
-
-    <EditText
         android:hint="Age"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:id="@+id/age_editText"
-        android:layout_below="@+id/language_editText"
-        android:layout_alignLeft="@+id/language_editText"
-        android:layout_alignStart="@+id/language_editText"
+        android:inputType="number"
+        android:ems="10"
+        android:layout_below="@+id/language_spninner"
+        android:layout_alignLeft="@+id/language_spninner"
+        android:layout_alignStart="@+id/language_spninner"
         android:gravity="center_vertical"
         android:layout_marginTop="3dp"
         android:padding="10dp"
         android:background="@android:color/white" />
 
-    <EditText
+    <Spinner
         android:hint="Citizenship"
         android:layout_height="45dp"
+
         android:layout_width="match_parent"
-        android:id="@+id/citizen_editText"
+        android:id="@+id/citizen_spinner"
         android:layout_below="@+id/name_input_editView"
         android:layout_centerHorizontal="true"
         android:gravity="center_vertical"
@@ -79,20 +69,14 @@
         android:layout_alignParentEnd="true"
         android:id="@+id/imageView4" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        app:srcCompat="@drawable/crayon"
-        android:layout_alignTop="@+id/language_editText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/imageView5" />
+
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        app:srcCompat="@drawable/crayon"
-        android:layout_alignTop="@+id/citizen_editText"
+        android:layout_height="20dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/next"
+        android:layout_alignTop="@+id/citizen_spinner"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/imageView6" />
@@ -130,5 +114,37 @@
         android:layout_alignTop="@+id/name_input_editView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <io.apptik.widget.multiselectspinner.MultiSelectSpinner
+        android:hint="Spoken Languages"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/language_spninner"
+        android:background="@color/white"
+        android:layout_below="@+id/citizen_spinner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/next"
+        android:layout_alignTop="@+id/citizen_spinner"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/imageView" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        app:srcCompat="@drawable/next"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/citizen_spinner"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/imageView2" />
+
+
 
 </RelativeLayout>

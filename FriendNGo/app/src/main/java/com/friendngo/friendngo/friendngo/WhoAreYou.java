@@ -1,5 +1,6 @@
 package com.friendngo.friendngo.friendngo;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -9,14 +10,19 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.Manifest;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.support.v4.app.ActivityCompat;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
@@ -34,6 +40,7 @@ import java.io.IOException;
 import cz.msebera.android.httpclient.Header;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,18 +48,20 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Locale;
 
-import cz.msebera.android.httpclient.Header;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 
 public class WhoAreYou extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     CircularImageView circularImageView;
     Button continueButton;
     EditText nameInput;
-    EditText nationalityInput;
-    EditText languageInput;
+    Spinner nationalityInputSpinner;
+
     EditText ageInput;
     ImageView profilePicture;
     String pictureURL ="";
@@ -65,6 +74,8 @@ public class WhoAreYou extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+    @TargetApi(Build.VERSION_CODES.N)
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +86,67 @@ public class WhoAreYou extends AppCompatActivity {
         if(MainActivity.cheat_mode==true){
             WhoAreYou.this.finish();
         }
+        nationalityInputSpinner = (Spinner) findViewById(R.id.citizen_spinner);
+        nameInput = (EditText) findViewById(R.id.name_input_editView);
+        Locale[] locales = Locale.getAvailableLocales();
+        ArrayList<String> languageList = new ArrayList<String>();
 
+        for (Locale locale : locales) {
+            String country = locale.getDisplayLanguage();
+            if (country.trim().length()>0 && !languageList.contains(country)) {
+                languageList.add(country);
+
+            }
+        }
+        Collections.sort(languageList);
+        MultiSelectSpinner multiSelectSpinner1 = (MultiSelectSpinner) findViewById(R.id.language_spninner);
+        multiSelectSpinner1.setItems(languageList)
+
+                .setListener(new MultiSelectSpinner.MultiSpinnerListener() {
+                    @Override
+                    public void onItemsSelected(boolean[] selected) {
+
+                    }
+                })
+                .setAllCheckedText("All types")
+                .setAllUncheckedText("Spoken laguages")
+                .setSelectAll(false)
+
+        ;
+
+
+        ArrayList<String> countriesList = new ArrayList<String>();
+
+        for (Locale locale : locales) {
+            String country = locale.getDisplayCountry();
+            if (country.trim().length()>0 && !countriesList.contains(country)) {
+                countriesList.add(country);
+
+            }
+        }
+
+        Collections.sort(countriesList);
+
+                  /*for (String country : countries) {
+                      Log.w("country",country);
+                  }*/
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(WhoAreYou.this,android.R.layout.simple_spinner_item, countriesList);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        nationalityInputSpinner.setAdapter(adapter);
+        nationalityInputSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                Log.w("name",selectedItem);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
         //Set OnClick Listener for the profile picture pressed
         profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,9 +230,7 @@ public class WhoAreYou extends AppCompatActivity {
                   }
 
                   ageInput = (EditText) findViewById(R.id.age_editText);
-                  languageInput = (EditText) findViewById(R.id.language_editText);
-                  nationalityInput = (EditText) findViewById(R.id.language_editText);
-                  nameInput = (EditText) findViewById(R.id.name_input_editView);
+
 
                   RequestParams params = new RequestParams();
                   //Adding text params
@@ -179,7 +248,7 @@ public class WhoAreYou extends AppCompatActivity {
                       params.put("phone","444-444-4444");
                       params.put("age",ageInput.getText());
                       params.put("home_city","toronto");
-                      params.put("home_nationality",nationalityInput.getText());
+                     // params.put("home_nationality",nationalityInput.getText());
                   }
 
                   //Adding image params

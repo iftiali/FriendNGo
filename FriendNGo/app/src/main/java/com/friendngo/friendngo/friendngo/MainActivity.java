@@ -17,6 +17,9 @@ import com.facebook.appevents.AppEventsLogger;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Locale;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -25,7 +28,7 @@ public class MainActivity extends Activity {
     static boolean is_production = true;
     private int SPLASH_DISPLAY_LENGTH = 2000;
     public static String base_host_url = "";
-    public static boolean cheat_mode = true;
+    public static boolean cheat_mode = false;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -34,6 +37,8 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = new Intent(MainActivity.this,WhoAreYou.class);
+        startActivity(intent);
 
         if(cheat_mode==true){
             SPLASH_DISPLAY_LENGTH=20;
