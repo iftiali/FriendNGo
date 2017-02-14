@@ -266,7 +266,7 @@
                 android:id="@+id/send_request_button"
                 android:layout_margin="10dp"
                 android:textColor="@android:color/white"
-                android:background="@color/colorAccent" />
+                android:background="@drawable/submit_button"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

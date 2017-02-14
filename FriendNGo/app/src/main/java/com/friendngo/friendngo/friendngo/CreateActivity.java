@@ -177,9 +177,12 @@ public class CreateActivity extends AppCompatActivity {
                         true).show();
             }
         });
+
+
+
         getSupportActionBar().setTitle("Create a new activity");
         ArrayList<CategorySpinnerModel> list=new ArrayList<>();
-        list.add(new CategorySpinnerModel("Arts And Culture",R.drawable.art_exposition));
+        list.add(new CategorySpinnerModel("Art & Culture",R.drawable.art_exposition));
         list.add(new CategorySpinnerModel("Nightlife",R.drawable.nightlife));
         list.add(new CategorySpinnerModel("Sports",R.drawable.running));
         list.add(new CategorySpinnerModel("Dating",R.drawable.naked_run));

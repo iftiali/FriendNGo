@@ -20,7 +20,7 @@
         android:id="@+id/next_button"
         android:layout_width="160dp"
         android:layout_margin="15dp"
-        android:backgroundTint="@color/colorAccent"
+        android:background="@drawable/submit_button"
         android:textColor="@android:color/white" />
 
     <Button

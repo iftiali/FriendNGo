@@ -221,7 +221,7 @@
         android:layout_below="@+id/additional_notes_edit_text"
         android:id="@+id/create_activity_button"
         android:textColor="@android:color/white"
-        android:background="@color/colorAccent"
+        android:background="@drawable/submit_button"
         android:layout_margin="25dp" />
 
     <ImageView
