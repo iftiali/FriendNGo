@@ -38,6 +38,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CreateActivity extends AppCompatActivity {
 
+    TextView plus_minus_textview;
+    Button plus_button,minus_button;
     TimePicker startTimePicker;
     TimePicker endTimePicker;
     public ArrayList<CategorySpinnerModel> cust_category = new ArrayList<CategorySpinnerModel>();
@@ -125,7 +127,29 @@ public class CreateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
+        plus_minus_textview = (TextView)findViewById(R.id.plus_minus_textview);
+        plus_button = (Button)findViewById(R.id.create_plus_button);
+        minus_button = (Button)findViewById(R.id.create_minus_button);
+        plus_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int plus = Integer.parseInt(plus_minus_textview.getText().toString());
+                plus++;
+                plus_minus_textview.setText(String.valueOf(plus));
+            }
+        });
 
+        minus_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int plus = Integer.parseInt(plus_minus_textview.getText().toString());
+                if(plus<=0){
+                    plus =0;
+                }else {
+                plus--;}
+                plus_minus_textview.setText(String.valueOf(plus));
+            }
+        });
         //Data Model
         startEventTime = (TextView)findViewById(R.id.start_time_text_view);
         sdf = new SimpleDateFormat("HH:mm");
@@ -198,7 +222,7 @@ public class CreateActivity extends AppCompatActivity {
         spinnerAdapter2.add("None Of The Above");
         spinnerAdapter2.notifyDataSetChanged();
 
-        Spinner max_user_spinner = (Spinner)findViewById(R.id.max_participants_spinner);
+        /* parth Spinner max_user_spinner = (Spinner)findViewById(R.id.max_participants_spinner);
         ArrayAdapter<String> spinnerAdapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
         spinnerAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         max_user_spinner.setAdapter(spinnerAdapter3);
@@ -211,6 +235,7 @@ public class CreateActivity extends AppCompatActivity {
         spinnerAdapter3.add("7");
         spinnerAdapter3.add("8");
         spinnerAdapter3.notifyDataSetChanged();
+        */
         final SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMMM");
 
         todayButton = (Button)findViewById(R.id.today_button);
@@ -257,8 +282,8 @@ public class CreateActivity extends AppCompatActivity {
                 Spinner activityTypePicker = (Spinner) findViewById(R.id.activity_type_picker);
                 String activityType = activityTypePicker.getSelectedItem().toString();
 
-                Spinner maxUsersPicker = (Spinner) findViewById(R.id.max_participants_spinner);
-                String maxUsers = maxUsersPicker.getSelectedItem().toString();
+                //parth Spinner maxUsersPicker = (Spinner) findViewById(R.id.max_participants_spinner);
+                //String maxUsers = maxUsersPicker.getSelectedItem().toString();
 
                 EditText activityEditText = (EditText) findViewById(R.id.editText);
                 String activity_name = activityEditText.getText().toString();
@@ -289,7 +314,7 @@ public class CreateActivity extends AppCompatActivity {
                 RequestParams params = new RequestParams();
                 params.put("activity_name",activity_name );
                 params.put("activity_type", activityType);
-                params.put("max_users", maxUsers);
+              //parth  params.put("max_users", maxUsers);
                 params.put("activity_lat", Double.toString(ValidationClass.get_Latitude(address,coder)));
                 params.put("activity_lon", Double.toString(ValidationClass.get_longitude(address,coder)));
 //                params.put("activity_lat", Double.toString(43));
