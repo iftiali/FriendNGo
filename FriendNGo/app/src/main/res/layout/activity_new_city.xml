@@ -137,10 +137,10 @@
         app:srcCompat="@drawable/world_map"
         android:id="@+id/new_city_word_map"
         android:layout_below="@+id/detected_text"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/resident_button"
-        android:layout_alignStart="@+id/resident_button"
         android:layout_above="@+id/resident_button" />
 
 </RelativeLayout>

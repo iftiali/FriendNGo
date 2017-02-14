@@ -53,7 +53,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
     private Button city_tour_button;
     private ImageView city_tour_button_check;
     private Button save_button;
-
+    String current_city;
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -67,7 +67,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
 
         //Sets the top bar text
         getSupportActionBar().setTitle("What do you want to do today?");
-
+        current_city = getIntent().getExtras().getString("currentCity");
         if(MainActivity.cheat_mode==true){
             Intent intent = new Intent(WhatDoYouWantToDoToday.this,WhoAreYou.class);
             WhatDoYouWantToDoToday.this.startActivity(intent);
@@ -79,6 +79,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(WhatDoYouWantToDoToday.this,WhoAreYou.class);
+                intent.putExtra("currentCity", current_city);
                 WhatDoYouWantToDoToday.this.startActivity(intent);
                 WhatDoYouWantToDoToday.this.finish();
             }

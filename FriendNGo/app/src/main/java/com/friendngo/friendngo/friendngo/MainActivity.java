@@ -37,8 +37,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(MainActivity.this,WhoAreYou.class);
-        startActivity(intent);
+
 
         if(cheat_mode==true){
             SPLASH_DISPLAY_LENGTH=20;

@@ -69,7 +69,7 @@ public class WhoAreYou extends AppCompatActivity {
     File downloadedImage;
     File myFile;
     Bitmap photo;
-
+    String current_city;
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -82,7 +82,7 @@ public class WhoAreYou extends AppCompatActivity {
         setContentView(R.layout.activity_who_are_you);
         getSupportActionBar().setTitle("Who Are you?");
         profilePicture = (ImageView) findViewById(R.id.profilepicture);
-
+        current_city = getIntent().getExtras().getString("currentCity");
         if(MainActivity.cheat_mode==true){
             WhoAreYou.this.finish();
         }
@@ -248,6 +248,7 @@ public class WhoAreYou extends AppCompatActivity {
                       params.put("phone","444-444-4444");
                       params.put("age",ageInput.getText());
                       params.put("home_city","toronto");
+                      params.put("home_nationality","Canadian");
                      // params.put("home_nationality",nationalityInput.getText());
                   }
 
@@ -300,6 +301,11 @@ public class WhoAreYou extends AppCompatActivity {
                       }
                   });
                   //Close the Activity and Return to the map when finished
+                 // WhoAreYou.this.finish();
+                //parth
+                  Intent intent = new Intent(WhoAreYou.this,MyCity.class);
+                  intent.putExtra("currentCity", current_city);
+                  WhoAreYou.this.startActivity(intent);
                   WhoAreYou.this.finish();
               }
           }
