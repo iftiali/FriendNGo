@@ -721,7 +721,7 @@ public class MapActivity extends AppCompatActivity implements
 
 
                 Log.w("Location","message");
-                //parth
+
                 String montreal_center_point_address="5430 Chemin de la Côte-de-Liesse\n" +
                         "Mont-Royal, QC H4P 1A6";
 

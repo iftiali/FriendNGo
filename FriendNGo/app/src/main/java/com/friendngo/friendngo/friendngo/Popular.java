@@ -26,6 +26,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -148,6 +149,8 @@ public class Popular extends AppCompatActivity {
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+
                 Intent intent = new Intent(Popular.this,MapActivity.class);
                 Popular.this.startActivity(intent);
                 Popular.this.finish();

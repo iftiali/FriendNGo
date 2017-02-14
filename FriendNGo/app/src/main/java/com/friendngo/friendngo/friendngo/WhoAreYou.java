@@ -302,7 +302,7 @@ public class WhoAreYou extends AppCompatActivity {
                   });
                   //Close the Activity and Return to the map when finished
                  // WhoAreYou.this.finish();
-                //parth
+
                   Intent intent = new Intent(WhoAreYou.this,MyCity.class);
                   intent.putExtra("currentCity", current_city);
                   WhoAreYou.this.startActivity(intent);

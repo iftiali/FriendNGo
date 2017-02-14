@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
@@ -127,6 +129,9 @@ public class CreateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
+
+        Log.w("text",Popular.categoryList.toString());
+
         plus_minus_textview = (TextView)findViewById(R.id.plus_minus_textview);
         plus_button = (Button)findViewById(R.id.create_plus_button);
         minus_button = (Button)findViewById(R.id.create_minus_button);
@@ -179,17 +184,16 @@ public class CreateActivity extends AppCompatActivity {
         });
 
 
-
         getSupportActionBar().setTitle("Create a new activity");
-        ArrayList<CategorySpinnerModel> list=new ArrayList<>();
-        list.add(new CategorySpinnerModel("Art & Culture",R.drawable.art_exposition));
+        final ArrayList<CategorySpinnerModel> list=new ArrayList<>();
+        list.add(new CategorySpinnerModel("Arts & Culture",R.drawable.art_exposition));
         list.add(new CategorySpinnerModel("Nightlife",R.drawable.nightlife));
         list.add(new CategorySpinnerModel("Sports",R.drawable.running));
         list.add(new CategorySpinnerModel("Dating",R.drawable.naked_run));
         list.add(new CategorySpinnerModel("Activities",R.drawable.billard));
         list.add(new CategorySpinnerModel("Outdoors",R.drawable.backpack));
         list.add(new CategorySpinnerModel("Camping",R.drawable.camping));
-        list.add(new CategorySpinnerModel("Drinks",R.drawable.grab_drink));
+        list.add(new CategorySpinnerModel("Food and Drink",R.drawable.grab_drink));
         list.add(new CategorySpinnerModel("Networking",R.drawable.coworking));
 
 
@@ -198,14 +202,44 @@ public class CreateActivity extends AppCompatActivity {
         CategorySpinnerActivity adapter=new CategorySpinnerActivity(CreateActivity.this, R.layout.category_picker,R.id.txt,list);
         category_spinner.setAdapter(adapter);
 
+        Spinner activity_type_spinner = (Spinner)findViewById(R.id.activity_type_picker);
+        final ArrayAdapter<String> spinnerAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
+        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        activity_type_spinner.setAdapter(spinnerAdapter2);
+
+        category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spinnerAdapter2.clear();
+                String itemSelected =  list.get(position).getText();
+                List categoryArrayList=new ArrayList<Category>();
+                categoryArrayList = Popular.categoryList;
+                Category c = new Category();
+
+                for(int i =0; i<categoryArrayList.size(); i++)
+                {
+                    c = (Category) categoryArrayList.get(i);
+                    if(itemSelected.equals(c.getName())){
+                    //Log.w("category list", c.getName());
+                    //Log.w("Size",c.getActivityTypeList().size()+"");
+                    for(int j=0;j<c.getActivityTypeList().size();j++){
+                        String activityType = (String) c.getActivityTypeList().get(j);
+                        // Log.w("list list",activityType);
+                        spinnerAdapter2.add(activityType);
+                    }}
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 //        startTimePicker = (TimePicker)findViewById(R.id.start_time_text_view);
 //        endTimePicker = (TimePicker)findViewById(R.id.end_time_text_view);
 
         //TODO: Dynamically create this lists based on which category was chosen
-        Spinner activity_type_spinner = (Spinner)findViewById(R.id.activity_type_picker);
-        ArrayAdapter<String> spinnerAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
-        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        activity_type_spinner.setAdapter(spinnerAdapter2);
+/*
         spinnerAdapter2.add("5 @ 7");
         spinnerAdapter2.add("Startup Weekend");
         spinnerAdapter2.add("Conference");
@@ -224,21 +258,8 @@ public class CreateActivity extends AppCompatActivity {
         spinnerAdapter2.add("Dodgeball");
         spinnerAdapter2.add("None Of The Above");
         spinnerAdapter2.notifyDataSetChanged();
+*/
 
-        /* parth Spinner max_user_spinner = (Spinner)findViewById(R.id.max_participants_spinner);
-        ArrayAdapter<String> spinnerAdapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, android.R.id.text1);
-        spinnerAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        max_user_spinner.setAdapter(spinnerAdapter3);
-        spinnerAdapter3.add("1");
-        spinnerAdapter3.add("2");
-        spinnerAdapter3.add("3");
-        spinnerAdapter3.add("4");
-        spinnerAdapter3.add("5");
-        spinnerAdapter3.add("6");
-        spinnerAdapter3.add("7");
-        spinnerAdapter3.add("8");
-        spinnerAdapter3.notifyDataSetChanged();
-        */
         final SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMMM");
 
         todayButton = (Button)findViewById(R.id.today_button);
@@ -285,7 +306,7 @@ public class CreateActivity extends AppCompatActivity {
                 Spinner activityTypePicker = (Spinner) findViewById(R.id.activity_type_picker);
                 String activityType = activityTypePicker.getSelectedItem().toString();
 
-                //parth Spinner maxUsersPicker = (Spinner) findViewById(R.id.max_participants_spinner);
+                // Spinner maxUsersPicker = (Spinner) findViewById(R.id.max_participants_spinner);
                 //String maxUsers = maxUsersPicker.getSelectedItem().toString();
 
                 EditText activityEditText = (EditText) findViewById(R.id.editText);
@@ -317,7 +338,7 @@ public class CreateActivity extends AppCompatActivity {
                 RequestParams params = new RequestParams();
                 params.put("activity_name",activity_name );
                 params.put("activity_type", activityType);
-              //parth  params.put("max_users", maxUsers);
+              //  params.put("max_users", maxUsers);
                 params.put("activity_lat", Double.toString(ValidationClass.get_Latitude(address,coder)));
                 params.put("activity_lon", Double.toString(ValidationClass.get_longitude(address,coder)));
 //                params.put("activity_lat", Double.toString(43));

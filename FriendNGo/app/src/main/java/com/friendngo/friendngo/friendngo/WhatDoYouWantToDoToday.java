@@ -70,6 +70,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
         current_city = getIntent().getExtras().getString("currentCity");
         if(MainActivity.cheat_mode==true){
             Intent intent = new Intent(WhatDoYouWantToDoToday.this,WhoAreYou.class);
+            intent.putExtra("currentCity", current_city);
             WhatDoYouWantToDoToday.this.startActivity(intent);
             WhatDoYouWantToDoToday.this.finish();
         }
