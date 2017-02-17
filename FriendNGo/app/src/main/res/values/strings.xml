@@ -20,8 +20,8 @@
     <string name="facebook_app_id">704534619705934</string>
     <string name="fb_login_protocol_scheme">fb704534619705934</string>
 
-    <string name="django_client_id">FacPJkd54FAsgQv0G7H9pmjkJXkeQzo8c3EQDKah</string>
-    <string name="django_client_secret">NQHJ98PPsbNQHdqHNnHuAtbNCcf26akcnZhRdEMyl57opYyrzUDl6P1FRDgoJcNU33Qx3Ka4pHJOMXdMRuOBIfw2hn7m5YfjAsHZEc0KGK2qPg1x30ympyrIGkEM1WJi</string>
+    <string name="django_client_id">CbTAAHkquN3sCySbUogG5hnurQBSNfzMcogUDB5S</string>
+    <string name="django_client_secret">M7pRRTS7UiJKZrmdJbKoIp2FJhvfaMheBAvkefA6ApFi2VGhp00MjYCn2EK4kXnBaPj79SBuxmMPqxudNvjiHx8lKzgutV5PKbRgBzGrVjYomXP10nqWThJCZo50NJE1</string>
     <string name="title_activity_map">MapActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

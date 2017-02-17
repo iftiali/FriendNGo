@@ -3,6 +3,7 @@ package com.friendngo.friendngo.friendngo;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +14,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
+
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import cz.msebera.android.httpclient.Header;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
+import static com.friendngo.friendngo.friendngo.MapActivity.activitiesList;
 
 /**
  * Created by scott on 2017-01-17.
@@ -27,7 +37,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
 
     //Maps each list row item to one Activity
     public ActivityListAdapter(Context context){
-        super(context, R.layout.activity_list_row_item, MapActivity.activitiesList);
+        super(context, R.layout.activity_list_row_item, activitiesList);
         this.mContext = context;
     }
 
@@ -58,7 +68,6 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         UserActivity userActivity = (UserActivity)object;
         Log.w("ADAPTER","Item = " + userActivity.getName());
         MapActivity.centerOnActivity(userActivity.getName());
-
     }
 
     //Creates the View instance for the row from xml OR recycles it if already available
@@ -66,11 +75,8 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
     public View getView(final int position, View convertView, ViewGroup parent)
     {
         UserActivity userActivity = getItem(position);
-
         ViewHolder viewHolder;
         final View result;
-
-
         if(convertView == null) {
 
             //View needs to be inflated from xml
@@ -103,7 +109,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         viewHolder.name.setTextColor(Color.GRAY);
         viewHolder.creator.setText("Created by "+userActivity.getCreator());
         viewHolder.creator.setTextColor(Color.GRAY);
-        viewHolder.profilePicture.setImageResource(R.drawable.scott);
+//        viewHolder.profilePicture.setImageResource(R.drawable.scott);
         viewHolder.status.setText("Resident" + ", ");
         viewHolder.status.setTextColor(Color.GRAY);
         viewHolder.homeCity.setText(userActivity.getHomeCity());
@@ -111,8 +117,30 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         viewHolder.nationality.setImageResource(R.drawable.canada); //TODO: Get flag from nationalities
         viewHolder.points.setText(userActivity.getPoints()+"pts");
 
+        //GET The image file at the pictureURL
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        String pictureURL = ((UserActivity)activitiesList.get(position)).getProfilePicURL();
+        final ImageView profilePic = (ImageView) convertView.findViewById(R.id.profilepicture);
+
+        client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(mContext) {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, File response) {
+                Log.w("GET IMAGE SUCCESS","Successfully Retrieved The Image");
+                //Use the downloaded image as the profile picture
+                Uri uri = Uri.fromFile(response);
+                profilePic.setImageURI(uri);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                Log.w("GET IMAGE FAIL","Could not retrieve image");
+            }
+        });
+
         switch(userActivity.getCategory()){
-            case "Arts & Culture":
+            case "Art & Culture":
                 viewHolder.category.setImageResource(R.drawable.art_exposition);
                 break;
             case "Nightlife":
@@ -121,25 +149,25 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             case "Sports":
                 viewHolder.category.setImageResource(R.drawable.running);
                 break;
-            case "Networking":
+            case "Professional & Networking":
                 viewHolder.category.setImageResource(R.drawable.coworking);
                 break;
-            case "Dating":
+            case "Fun & Crazy":
                 viewHolder.category.setImageResource(R.drawable.naked_run);
                 break;
-            case "Activities":
+            case "Games":
                 viewHolder.category.setImageResource(R.drawable.billard);
                 break;
-            case "Outdoors":
+            case "Travel & Road-Trip":
                 viewHolder.category.setImageResource(R.drawable.backpack);
                 break;
-            case "Camping":
+            case "Nature & Outdoors":
                 viewHolder.category.setImageResource(R.drawable.camping);
                 break;
-            case "Drinks":
+            case "Social Activities":
                 viewHolder.category.setImageResource(R.drawable.grab_drink);
                 break;
-            case "Meetup":
+            case "Help & Association":
                 viewHolder.category.setImageResource(R.drawable.coworking);
         }
 
@@ -150,18 +178,14 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         viewHolder.pin.setImageResource(R.drawable.pin);
         viewHolder.distance.setText( userActivity.getDistance()+" km away");
         viewHolder.distance.setTextColor(Color.GRAY);
-
         viewHolder.info.setOnClickListener(this);
         viewHolder.info.setTag(R.string.POSITION_KEY, position);
 
-        //TODO: Fix this: addActivityButton always returns null??
-        //Needs a check for null for some reason
         if(viewHolder.addActivityButton != null) {
             viewHolder.addActivityButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(mContext, ActivityDetails.class);
-                    //TODO: Put extra -> The name of the activity
                     intent.putExtra("Activity Index", position);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(intent);
@@ -169,7 +193,6 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             });
         }
         return convertView;
-//        Animation animation = AnimationUtils.loadAnimation(mContext,(position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
     }
 }
 

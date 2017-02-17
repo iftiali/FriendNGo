@@ -64,14 +64,17 @@
             android:layout_height="match_parent">
 
 
-
-
-            <ImageView
-                android:id="@+id/banner_profilepicture"
+            <com.mikhaellopez.circularimageview.CircularImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                app:srcCompat="@drawable/empty_profile"
-                 />
+                android:src="@drawable/empty_profile"
+                android:id="@+id/banner_profilepicture"
+                app:civ_border_color="#EEEEEE"
+                app:civ_border_width="2dp"
+                app:civ_shadow="true"
+                app:civ_shadow_radius="0.5"
+                app:civ_shadow_color="@color/greyish"
+                />
 
             <TextView
                 android:id="@+id/banner_created_text"

@@ -1,6 +1,7 @@
 package com.friendngo.friendngo.friendngo;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -19,7 +21,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+
 import cz.msebera.android.httpclient.Header;
+
+import static com.friendngo.friendngo.friendngo.MapActivity.activitiesList;
 
 public class ActivityDetails extends AppCompatActivity {
 
@@ -34,7 +40,6 @@ public class ActivityDetails extends AppCompatActivity {
     TextView activityDate;
     TextView activityTime;
     TextView activityDescription;
-    //TODO: What with favorite???
     TextView activityAddress;
     Button sendRequestButton;
 
@@ -107,12 +112,33 @@ public class ActivityDetails extends AppCompatActivity {
         int ii = getIntent().getIntExtra("Activity Index", 0);
         UserActivity activity = (UserActivity) MapActivity.activitiesList.get(i);
 
+        //GET The image file at the pictureURL
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        String pictureURL = activity.getProfilePicURL();
+
+        creatorPhoto = (ImageView) this.findViewById(R.id.creator_image);
+
+        client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, File response) {
+                Log.w("GET IMAGE SUCCESS","Successfully Retrieved The Image");
+                //Use the downloaded image as the profile picture
+                Uri uri = Uri.fromFile(response);
+//                    profilePicture = (ImageView) markup_layout.findViewById(R.id.banner_profilepicture);
+                creatorPhoto.setImageURI(uri);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                Log.w("GET IMAGE FAIL","Could not retrieve image");
+            }
+        });
+
         //Get the XML instances for each of the headings
         activityName = (TextView) this.findViewById(R.id.activity_detail_name);
         activityName.setText(activity.getName());
-
-        creatorPhoto = (ImageView) this.findViewById(R.id.creator_image);
-        creatorPhoto.setImageResource(R.drawable.scott);
 
         creatorName = (TextView) this.findViewById(R.id.activity_detail_creator_name);
         creatorName.setText(activity.getCreator());

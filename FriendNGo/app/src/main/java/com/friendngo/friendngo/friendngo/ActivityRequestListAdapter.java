@@ -2,6 +2,7 @@ package com.friendngo.friendngo.friendngo;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.mikhaellopez.circularimageview.CircularImageView;
+
+import java.io.File;
 import java.util.ArrayList;
 
+import cz.msebera.android.httpclient.Header;
+
+import static com.friendngo.friendngo.friendngo.MapActivity.activitiesList;
 import static com.friendngo.friendngo.friendngo.R.drawable.add_oval;
 
 /**
@@ -113,7 +122,29 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
         lastPosition = position;
 
 
-        viewHolder.profilePicture.setImageResource(R.drawable.scott);
+        //GET The image file at the pictureURL
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        String pictureURL = ((UserActivity)activitiesList.get(position)).getProfilePicURL();
+        final ImageView profilePic = (CircularImageView) convertView.findViewById(R.id.profilepicture);
+
+        client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(mContext) {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, File response) {
+                Log.w("GET IMAGE SUCCESS","Successfully Retrieved The Image");
+                //Use the downloaded image as the profile picture
+                Uri uri = Uri.fromFile(response);
+                profilePic.setImageURI(uri);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                Log.w("GET IMAGE FAIL","Could not retrieve image");
+            }
+        });
+
+//        viewHolder.profilePicture.setImageResource(R.drawable.scott);
         viewHolder.notImageButton.setImageResource(R.drawable.not);
         viewHolder.yesImageButton.setImageResource(R.drawable.yes);
 

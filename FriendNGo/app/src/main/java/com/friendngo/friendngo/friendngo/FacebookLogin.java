@@ -67,9 +67,7 @@ public class FacebookLogin extends AppCompatActivity {
             Intent mainIntent = new Intent(FacebookLogin.this,Popular.class);
             FacebookLogin.this.startActivity(mainIntent);
             FacebookLogin.this.finish();
-
         }else{
-
             //Handler for the button to go to e-mail login
             useEmailButton = (Button) findViewById(R.id.use_email_button);
             useEmailButton.setOnClickListener(new View.OnClickListener() {
@@ -85,106 +83,65 @@ public class FacebookLogin extends AppCompatActivity {
             callbackManager = CallbackManager.Factory.create();
             LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
 
-            //Set the permissions that the user should have with the login
-//            loginButton.setReadPermissions("email");
+            // Set the permissions that the user should have with the login
+            // loginButton.setReadPermissions("email");
             loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
 //                "public_profile", "email", "user_birthday", "user_friends"));
             loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(final LoginResult loginResult) {
                 /* Create an Intent that will start the Menu-Activity. */
-                    Log.w("FACEBOOK LOGIN: ", "Success! Token: " + loginResult.getAccessToken().getToken());
+                    Log.w("FACEBOOK LOGIN", "Success! Token: " + loginResult.getAccessToken().getToken());
 
-                    Intent mainIntent = new Intent(FacebookLogin.this, Popular.class);
-                    FacebookLogin.this.startActivity(mainIntent);
-                    FacebookLogin.this.finish();
+                    AsyncHttpClient client = new AsyncHttpClient();
+                    RequestParams params = new RequestParams();
+                    params.put("access_token", loginResult.getAccessToken().getToken());
+                    client.post(MainActivity.base_host_url + "api/exchange_token/facebook/", params, new JsonHttpResponseHandler() {
 
-                    // Now Let's Call the Facebook API to get the user's e-mail, birthday, picture, etc.
-                    GraphRequest request = GraphRequest.newMeRequest(
-                            loginResult.getAccessToken(),
-                            new GraphRequest.GraphJSONObjectCallback() {
-                                @Override
-                                public void onCompleted(JSONObject object, GraphResponse response) {
-                                    Log.w("FACEBOOK RESPONSE: ", response.toString());
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
-                                    try {
-                                        // Application code
-                                        String email = object.getString("email");
-                                        String birthday = object.getString("birthday"); // 01/31/1980 format
-                                    } catch (JSONException e) {
-                                    }
+                            Log.w("SOCIAL SIGN UP SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                            try {
+                                SignIn.static_token = response.get("token").toString();
+                                Log.w("TOKEN SUCCESS2: ", SignIn.static_token);
 
-                                    //Now Finally Call the Django Backend to get convert the Facebook token to a Django Token
-                                    //HTTP ASYNC CODE to authenticate with the backend server
-                                    AsyncHttpClient client = new AsyncHttpClient();
-//                                  client.setBasicAuth(emailEditTextValue.getText().toString(), passwordEditTextValue.getText().toString());
+                                Intent mainIntent = new Intent(FacebookLogin.this, MapActivity.class);
+                                FacebookLogin.this.startActivity(mainIntent);
+                                FacebookLogin.this.finish();
 
-                                    RequestParams params = new RequestParams();
-//                                    params.setUseJsonStreamer(true);
-                                    params.put("grant_type", "convert_token");
-                                    params.put("client_id", getString(R.string.django_client_id));
-                                    params.put("client_secret", getString(R.string.django_client_secret));
-                                    params.put("backend", "facebook");
-                                    params.put("token", loginResult.getAccessToken().getToken());
+                            } catch (JSONException e) {
+                                Log.w("SOCIAL SIGN UP FAIL: ", e.getMessage().toString());
+                            }
+                        }
 
-                                    client.post(MainActivity.base_host_url + "api/auth/convert-token", params, new JsonHttpResponseHandler() {
-//                                client.post("http://requestb.in/1ni37eo1", params, new JsonHttpResponseHandler() {
+                        //Handler of alternative JSONArray form
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                            Log.w("SOCIAL SIGNUP SUCCESS3", statusCode + ": " + response.toString());
+                            try {
+                                JSONObject firstEvent = response.getJSONObject(0);
+                            } catch (JSONException e) {
+                                Log.w("SOCIAL SIGNUP FAIL2", e.getMessage().toString());
+                            }
+                        }
 
+                        @Override
+                        public void onRetry(int retryNo) {
+                            // called when request is retried
+                        }
 
-                                        @Override
-                                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        @Override
+                        public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
+                            Log.w("SOCIAL SIGNUP FAIL3", "Error Code: " + error_code + ", Text: " + text);
+                        }
 
-                                            Log.w("TOKEN SUCCESS: ", statusCode + ": " + "Response = " + response.toString());
-                                            try {
-                                                String fb_token = response.get("token").toString();
-                                                Log.w("TOKEN SUCCESS2: ", fb_token);
+                        @Override
+                        public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject jsonObject){
+                            Log.w("SOCIAL SIGNUP FAIL3", "Error Code: " + error_code + ", JSON Object: " + jsonObject.toString());
+                        }
 
-                                                Intent mainIntent = new Intent(FacebookLogin.this, Popular.class);
-                                                FacebookLogin.this.startActivity(mainIntent);
-                                                FacebookLogin.this.finish();
-
-                                            } catch (JSONException e) {
-                                                Log.w("TOKEN FAIL: ", e.getMessage().toString());
-                                            }
-                                        }
-
-                                        //Handler of alternative JSONArray form
-                                        @Override
-                                        public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                                            Log.w("TOKEN SUCCESS3: ", statusCode + ": " + response.toString());
-                                            try {
-                                                JSONObject firstEvent = response.getJSONObject(0);
-
-//                                              static_username = emailEditTextValue.getText().toString();
-//                                              static_token = firstEvent.getString("token");
-//                                              Log.w("HTTP SUCCESS: ", static_token.toString());
-
-                                            } catch (JSONException e) {
-                                                Log.w("TOKEN FAIL2: ", e.getMessage().toString());
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onRetry(int retryNo) {
-                                            // called when request is retried
-                                        }
-
-                                        @Override
-                                        public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                                            Log.w("TOKEN FAIL3:", "Error Code: " + error_code);
-                                        }
-
-                                    });
-
-                                    using_facebook = true;
-
-
-                                }
-                            });
-                    Bundle parameters = new Bundle();
-                    parameters.putString("fields", "id,name,email,gender,birthday");
-                    request.setParameters(parameters);
-                    request.executeAsync();
+                    });
                 }
 
                 @Override
