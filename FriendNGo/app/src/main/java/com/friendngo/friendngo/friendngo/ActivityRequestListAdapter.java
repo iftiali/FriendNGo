@@ -131,7 +131,6 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
             }
         });
 
-//        viewHolder.profilePicture.setImageResource(R.drawable.scott);
         viewHolder.notImageButton.setImageResource(R.drawable.not);
         viewHolder.yesImageButton.setImageResource(R.drawable.yes);
 

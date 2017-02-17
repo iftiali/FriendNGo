@@ -743,16 +743,13 @@ public class MapActivity extends AppCompatActivity implements
                 String montreal_center_point_address="5430 Chemin de la Côte-de-Liesse\n" +
                         "Mont-Royal, QC H4P 1A6";
 
-<<<<<<< HEAD
-                Log.w("GPS CITY RESULT", current_city);
-                Log.w("LAST CITY DEBUG",last_city);
-                if(last_city.equalsIgnoreCase(current_city) != true){
-=======
+//                Log.w("GPS CITY RESULT", current_city);
+//                Log.w("LAST CITY DEBUG",last_city);
+//                if(last_city.equalsIgnoreCase(current_city) != true){
+
                 String distanceFromCityCenter = calculate_Distance(montreal_center_point_address);
                 Log.w("GPS CITY RESULT", distanceFromCityCenter);
                 if(Double.valueOf(distanceFromCityCenter)<=30){
->>>>>>> origin/dev4
-
                         //POST Location
                         AsyncHttpClient client = new AsyncHttpClient();
                         if (SignIn.static_token != null) {

@@ -42,12 +42,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-<<<<<<< HEAD
         if(cheat_mode==false){
-=======
-
-        if(cheat_mode==true){
->>>>>>> origin/dev4
             SPLASH_DISPLAY_LENGTH=20;
         } else {
             SPLASH_DISPLAY_LENGTH=5;
