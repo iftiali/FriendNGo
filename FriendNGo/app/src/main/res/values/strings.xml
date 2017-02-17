@@ -39,5 +39,13 @@
     <string name="settings_icon_text">Settings</string>
     <string name="title_activity_new_city">NewCity</string>
     <string name="title_activity_my_city">MyCity</string>
+    <string name="title_activity_sign_in">activity_sign_in</string>
+    <string name="title_activity_sign_up">activity_sign_up</string>
+    <string name="title_activity_who_are_you">activity_who_are_you</string>
+    <string name="title_activity_what_do_you_want_to_do_today2">
+        activity_what_do_you_want_to_do_today2
+    </string>
+    <string name="title_activity_create">activity_create</string>
+    <string name="title_activity_details">activity_details</string>
 
 </resources>

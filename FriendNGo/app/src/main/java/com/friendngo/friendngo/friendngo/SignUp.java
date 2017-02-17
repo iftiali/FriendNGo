@@ -44,7 +44,7 @@ public class SignUp extends AppCompatActivity {
 
         sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         //Sets the top bar text
-        getSupportActionBar().setTitle("Create an account");
+        //getSupportActionBar().setTitle("Create an account");
 
         //Creates a code instance of the buttons and text inputs
         textView = (TextView) findViewById(R.id.account_link);

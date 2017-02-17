@@ -42,8 +42,7 @@ public class CreateActivity extends AppCompatActivity {
 
     TextView plus_minus_textview;
     Button plus_button,minus_button;
-    TimePicker startTimePicker;
-    TimePicker endTimePicker;
+    int todayTomorrowFlag =0;
     public ArrayList<CategorySpinnerModel> cust_category = new ArrayList<CategorySpinnerModel>();
     TextView startEventTime,endEventTime;
     Button createActivityButton;
@@ -63,6 +62,7 @@ public class CreateActivity extends AppCompatActivity {
                         .parse(currentDateEndTime);
                 Date end = new SimpleDateFormat("HH:mm", Locale.ENGLISH)
                         .parse(hourOfDay + ":" + minute);
+                if(todayTomorrowFlag == 0){
                 if (start.compareTo(end) > 0) {
                     Toast.makeText(CreateActivity.this,"Selected time is not valid",Toast.LENGTH_LONG).show();
                     currentDateEndTime = sdf.format(new Date());
@@ -76,8 +76,11 @@ public class CreateActivity extends AppCompatActivity {
 
                 } else {
                     endEventTime.setText(currentDateStartTime);
-                    Toast.makeText(CreateActivity.this,"Selected time is not valid",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CreateActivity.this, "Selected time is not valid", Toast.LENGTH_LONG).show();
                     currentDateEndTime = sdf.format(new Date());
+                }
+                }else {
+                    endEventTime.setText(hourOfDay + ":" + minute);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -97,6 +100,7 @@ public class CreateActivity extends AppCompatActivity {
                         .parse(currentDateStartTime);
                 Date end = new SimpleDateFormat("HH:mm", Locale.ENGLISH)
                         .parse(hourOfDay + ":" + minute);
+                if(todayTomorrowFlag ==0){
                 if (start.compareTo(end) > 0) {
 
                     Toast.makeText(CreateActivity.this,"Selected time is not valid",Toast.LENGTH_LONG).show();
@@ -113,6 +117,8 @@ public class CreateActivity extends AppCompatActivity {
                     //Log.w("Hello4",currentDateStartTime+":" +hourOfDay + ":" + minute);
                     Toast.makeText(CreateActivity.this,"Selected time is not valid",Toast.LENGTH_LONG).show();
                     currentDateStartTime = sdf.format(new Date());
+                }}else{
+                    startEventTime.setText(hourOfDay + ":" + minute);
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -184,7 +190,7 @@ public class CreateActivity extends AppCompatActivity {
         });
 
 
-        getSupportActionBar().setTitle("Create a new activity");
+      //  getSupportActionBar().setTitle("Create a new activity");
         final ArrayList<CategorySpinnerModel> list=new ArrayList<>();
         list.add(new CategorySpinnerModel("Arts & Culture",R.drawable.art_exposition));
         list.add(new CategorySpinnerModel("Nightlife",R.drawable.nightlife));
@@ -267,6 +273,7 @@ public class CreateActivity extends AppCompatActivity {
         todayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                todayTomorrowFlag = 0;
                 todayButton.setActivated(true);
                 todayButton.setTextColor(Color.WHITE);
                 todayButton.setBackgroundResource(R.drawable.white_button_activated);
@@ -289,6 +296,7 @@ public class CreateActivity extends AppCompatActivity {
         tomorrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                todayTomorrowFlag = 1;
                 tomorrowButton.setActivated(true);
                 tomorrowButton.setTextColor(Color.WHITE);
                 tomorrowButton.setBackgroundResource(R.drawable.white_button_activated);

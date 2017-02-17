@@ -69,7 +69,7 @@ public class NewCity extends AppCompatActivity {
         getLocationPermission();
         signup = getIntent().getStringExtra("signup");
         //Sets the top bar text
-        getSupportActionBar().setTitle("New City");
+        //getSupportActionBar().setTitle("New City");
 
         //Get the button instances
         residentButton = (Button) findViewById(R.id.resident_button);
@@ -221,7 +221,7 @@ public class NewCity extends AppCompatActivity {
             LocationManager locationmanager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             Location location = locationmanager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             new_city_country_name_text_view.setText(hereLocation(location.getLatitude(),location.getLongitude()));
-            Toast.makeText(NewCity.this,hereLocation(location.getLatitude(),location.getLongitude()),Toast.LENGTH_LONG).show();
+           // Toast.makeText(NewCity.this,hereLocation(location.getLatitude(),location.getLongitude()),Toast.LENGTH_LONG).show();
             try{
 
             }catch (Exception e)

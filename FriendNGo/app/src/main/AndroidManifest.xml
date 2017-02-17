@@ -51,13 +51,16 @@
         </activity>
         <activity
             android:name=".SignIn"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SignUp"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NewCity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".FacebookLogin" />
         <activity
             android:name=".MapActivity"
@@ -67,14 +70,24 @@
             android:name=".Popular"
             android:label="What&apos;s up around you?"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".WhatDoYouWantToDoToday" />
-        <activity android:name=".CreateActivity" />
-        <activity android:name=".WhoAreYou" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".WhatDoYouWantToDoToday"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CreateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".WhoAreYou"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ActivityDetails"
-            android:label="Activity Details" />
+            android:label="Activity Details"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Request"
             android:label="@string/title_activity_request"
@@ -84,7 +97,7 @@
             android:name=".MyCity"
             android:label="@string/title_activity_my_city"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

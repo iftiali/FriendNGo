@@ -81,7 +81,7 @@ public class WhoAreYou extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_who_are_you);
-        getSupportActionBar().setTitle("Who Are you?");
+
         profilePicture = (ImageView) findViewById(R.id.profilepicture);
 
         if(MainActivity.cheat_mode==true){

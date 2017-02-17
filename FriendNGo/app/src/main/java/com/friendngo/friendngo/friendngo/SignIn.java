@@ -56,7 +56,7 @@ public class SignIn extends AppCompatActivity {
         static_username = "";
         //Sets the top heading value
 
-        getSupportActionBar().setTitle("Login");
+       // getSupportActionBar().setTitle("Login");
 
         //Cheat Mode To Go Straight To Map Activity
         if (MainActivity.cheat_mode == true) {

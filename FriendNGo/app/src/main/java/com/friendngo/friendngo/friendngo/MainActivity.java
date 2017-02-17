@@ -123,8 +123,8 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                //Intent mainIntent = new Intent(MainActivity.this,FacebookLogin.class);
-                Intent mainIntent = new Intent(MainActivity.this,FacebookSdk.class);
+                Intent mainIntent = new Intent(MainActivity.this,FacebookLogin.class);
+               //Intent mainIntent = new Intent(MainActivity.this,CreateActivity.class);
                 MainActivity.this.startActivity(mainIntent);
                 MainActivity.this.finish();
             }

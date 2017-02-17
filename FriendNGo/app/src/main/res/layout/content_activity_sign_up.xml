@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_activity_sign_up"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="@color/whiteish"
+    tools:context="com.friendngo.friendngo.friendngo.SignUp"
+    tools:showIn="@layout/activity_sign_up">
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/signup_email"
+        android:textColor="@color/textInput"
+        android:hint="Email Address"
+        android:background="@android:color/white"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="7dp"
+        android:padding="15dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/signup_email"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/signup_password"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/textInput"
+        android:hint="Password"
+        android:background="@android:color/white"
+        android:padding="15dp" />
+
+    <Button
+        android:text="SIGN UP"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/signup_button"
+        android:layout_width="160dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/submit_button"
+        android:layout_marginBottom="15dp" />
+
+    <TextView
+        android:text="account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/have_account_text"
+        android:layout_toRightOf="@+id/have_account_text"
+        android:layout_toEndOf="@+id/have_account_text"
+        android:id="@+id/account_link"
+        android:clickable="true"
+        android:textColor="@color/colorAccent" />
+
+    <TextView
+        android:text="I already have an "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/have_account_text"
+        android:textColor="@color/textInput"
+        android:layout_above="@+id/signup_button"
+        android:layout_alignLeft="@+id/signup_button"
+        android:layout_alignStart="@+id/signup_button"
+        android:layout_marginBottom="15dp" />
+
+</RelativeLayout>

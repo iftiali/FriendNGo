@@ -32,7 +32,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
     Button saveButton;
 
 
-    private ImageView sports_category;
+   /* private ImageView sports_category;
     private ImageView sports_category_check;
     private Button jogging_button;
     private ImageView jogging_button_check;
@@ -58,8 +58,8 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
     private ImageView gallery_button_check;
     private Button city_tour_button;
     private ImageView city_tour_button_check;
-    private Button save_button;
-    String current_city;
+    private Button save_button;*/
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -72,8 +72,8 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
         //Horizontal recycle view
 
         //Sets the top bar text
-        getSupportActionBar().setTitle("What do you want to do today?");
-       //current_city = getIntent().getExtras().getString("currentCity");
+       // getSupportActionBar().setTitle("What do you want to do today?");
+
         if(MainActivity.cheat_mode==true){
             Intent intent = new Intent(WhatDoYouWantToDoToday.this,WhoAreYou.class);
             WhatDoYouWantToDoToday.this.startActivity(intent);
