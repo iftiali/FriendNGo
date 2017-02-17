@@ -3,6 +3,7 @@ package com.friendngo.friendngo.friendngo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -54,7 +56,7 @@ public class SignIn extends AppCompatActivity {
         static_username = "";
         //Sets the top heading value
 
-        getSupportActionBar().setTitle("Login");
+       // getSupportActionBar().setTitle("Login");
 
         //Cheat Mode To Go Straight To Map Activity
         if (MainActivity.cheat_mode == true) {
@@ -76,7 +78,10 @@ public class SignIn extends AppCompatActivity {
                         static_token = response.get("token").toString();
                         Log.w("POST AUTH SUCCESS2", static_token);
 
+<<<<<<< HEAD
                         //NEXT ACTIVITY
+=======
+>>>>>>> origin/dev4
                         Intent intent = new Intent(SignIn.this, MapActivity.class);
                         SignIn.this.startActivity(intent);
                         SignIn.this.finish();
@@ -95,7 +100,11 @@ public class SignIn extends AppCompatActivity {
                         static_token = firstEvent.getString("token");
                         Log.w("POST AUTH SUCCESS4", static_token.toString());
 
+<<<<<<< HEAD
                         Intent intent = new Intent(SignIn.this, MainActivity.class);
+=======
+                        Intent intent = new Intent(SignIn.this, MapActivity.class);
+>>>>>>> origin/dev4
                         SignIn.this.startActivity(intent);
                         SignIn.this.finish();
 
@@ -162,7 +171,8 @@ public class SignIn extends AppCompatActivity {
                                     static_token = response.get("token").toString();
                                     Log.w("POST AUTH SUCCESS2", static_token);
 
-                                    Intent intent = new Intent(SignIn.this, Popular.class);
+                                    Intent intent = new Intent(SignIn.this, MapActivity.class);
+
                                     SignIn.this.startActivity(intent);
                                     SignIn.this.finish();
 
@@ -181,7 +191,8 @@ public class SignIn extends AppCompatActivity {
                                     static_token = firstEvent.getString("token");
                                     Log.w("POST AUTH SUCCESS4", static_token.toString());
 
-                                    Intent intent = new Intent(SignIn.this, Popular.class);
+                                    Intent intent = new Intent(SignIn.this, MapActivity.class);
+
                                     SignIn.this.startActivity(intent);
                                     SignIn.this.finish();
 

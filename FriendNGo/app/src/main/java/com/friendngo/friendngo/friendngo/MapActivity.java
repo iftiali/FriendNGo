@@ -210,6 +210,7 @@ public class MapActivity extends AppCompatActivity implements
                     last_location_ready = true;
 
                     if (current_location_ready == true) {
+                        Log.w("Text","1");
                         update_city();
                     }
                 } catch (JSONException e) {
@@ -539,6 +540,7 @@ public class MapActivity extends AppCompatActivity implements
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
                 current_location_ready = true;
                 if (last_location_ready == true) {
+                    Log.w("Text","2");
                     update_city();
                 }
 
@@ -665,7 +667,8 @@ public class MapActivity extends AppCompatActivity implements
                         gettingGPS = false;
                         current_location_ready = true;
 
-                        if (last_location_ready == true) {
+                        if (last_location_ready==true) {
+                            Log.w("Text","3");
                             update_city();
                         }
                     }
@@ -738,11 +741,13 @@ public class MapActivity extends AppCompatActivity implements
                 }
 
 
+                //TODO: Change to <center of last_location city query>
                 Log.w("Location","message");
-
+                //center point of montreal city
                 String montreal_center_point_address="5430 Chemin de la Côte-de-Liesse\n" +
                         "Mont-Royal, QC H4P 1A6";
 
+<<<<<<< HEAD
 //                Log.w("GPS CITY RESULT", current_city);
 //                Log.w("LAST CITY DEBUG",last_city);
 //                if(last_city.equalsIgnoreCase(current_city) != true){
@@ -755,54 +760,81 @@ public class MapActivity extends AppCompatActivity implements
                         if (SignIn.static_token != null) {
                             client.addHeader("Authorization", "Token " + SignIn.static_token);
                         }
+=======
 
-                        RequestParams params = new RequestParams();
-                        if(MainActivity.cheat_mode==false){
-                        params.put("last_city", "montreal");
-                        }else {
-                            params.put("last_city", "middle of nowhere");
+
+
+                String distanceFromCityCenter = calculate_Distance(montreal_center_point_address);
+                Log.w("GPS CITY RESULT", distanceFromCityCenter);
+                if(Double.valueOf(distanceFromCityCenter)>=30) {
+
+                    //POST Location
+                    AsyncHttpClient client = new AsyncHttpClient();
+                    if (SignIn.static_token != null) {
+                        client.addHeader("Authorization", "Token " + SignIn.static_token);
+                    }
+>>>>>>> origin/dev4
+
+                    RequestParams params = new RequestParams();
+                    if (MainActivity.cheat_mode == false) {
+                        params.put("last_city", last_city);
+                    } else {
+                        params.put("last_city", "Toronto");
+                    }
+
+                    client.post(MainActivity.base_host_url + "api/postLocation/", params, new JsonHttpResponseHandler() {
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                            Log.w("POST LOCATION SUCCESS", statusCode + ": " + "Response = " + response.toString());
                         }
 
-                        client.post(MainActivity.base_host_url + "api/postLocation/", params, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                            Log.w("POST LOCATION SUCCESS2", statusCode + ": " + timeline.toString());
+                        }
 
-                            @Override
-                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        @Override
+                        public void onRetry(int retryNo) {
+                            // called when request is retried
+                            Log.w("POST LOCATION RETRY", "" + retryNo);
+                        }
 
-                                Log.w("POST LOCATION SUCCESS", statusCode + ": " + "Response = " + response.toString());
-                            }
+                        @Override
+                        public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                            Log.w("POST LOCATION FAIL", "Error Code: " + error_code + "," + text);
+                        }
+                    });
 
-                            @Override
-                            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                                Log.w("POST LOCATION SUCCESS2", statusCode + ": " + timeline.toString());
-                            }
-
-                            @Override
-                            public void onRetry(int retryNo) {
-                                // called when request is retried
-                                Log.w("POST LOCATION RETRY", "" + retryNo);
-                            }
-
+<<<<<<< HEAD
                             @Override
                             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
                                 Log.w("POST LOCATION FAIL", "Error Code: " + error_code + ", Text:" + text);
                             }
                         });
+=======
+                    Log.w("GPS CITY RESULT", "New City Detected");
+>>>>>>> origin/dev4
 
-                        Log.w("GPS CITY RESULT", "New City Detected");
+                    Intent intent;
 
-                        Intent intent;
-                        if(MainActivity.cheat_mode==true){
+                        if (MainActivity.cheat_mode == true) {
                             intent = new Intent(MapActivity.this, NewCity.class);
-                            intent.putExtra("currentCity", current_city);
-                        }else {
+
+                        } else {
                             intent = new Intent(MapActivity.this, NewCity.class);
-                            intent.putExtra("currentCity", current_city);
+
                         }
-                        MapActivity.this.startActivity(intent);
-                } else {
-                    Toast.makeText(getApplicationContext(),current_city, Toast.LENGTH_LONG).show();
-                    Log.w("GPS CITY RESULT", "Not in a new city");
-                }
+
+                    MapActivity.this.startActivity(intent);
+                    }
+
+                else{
+                        Toast.makeText(getApplicationContext(), current_city, Toast.LENGTH_LONG).show();
+                        Log.w("GPS CITY RESULT", "Not in a new city");
+                    }
+
 
 //OLD LOCATION OF GET ACTIVITIES
 

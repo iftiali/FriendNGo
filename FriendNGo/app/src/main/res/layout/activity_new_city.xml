@@ -1,146 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_new_city"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#FFFFFF"
+    android:fitsSystemWindows="true"
     tools:context="com.friendngo.friendngo.friendngo.NewCity">
 
-    <Button
-        android:text="Next"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/next_button"
-        android:layout_width="160dp"
-        android:layout_margin="15dp"
-        android:background="@drawable/submit_button"
-        android:textColor="@android:color/white" />
-
-    <Button
-        android:text="Student"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_above="@+id/next_button"
-        android:id="@+id/student_button"
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/white_button"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="15dp" />
-
-    <TextView
-        android:text="We detected you changed your city since your last connection"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:id="@+id/detected_text"
-        android:layout_width="250dp"
-        android:textColor="@color/greyish"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="10dp" />
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <Button
-        android:text="Resident"
-        android:layout_width="match_parent"
-        android:id="@+id/resident_button"
-        android:background="@drawable/white_button"
-        android:layout_above="@+id/migrant_button"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_height="40dp" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+                <TextView
+                    android:text="New City"
+                    android:textSize="24sp"
+                    android:textColor="#FFFFFF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/request_text_iew"
 
-    <Button
-        android:text="Migrant - New To City"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:id="@+id/migrant_button"
-        android:background="@drawable/white_button"
-        android:layout_above="@+id/tourist_button"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp" />
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
 
-    <Button
-        android:text="Tourist"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:id="@+id/tourist_button"
-        android:background="@drawable/white_button"
-        android:layout_above="@+id/student_button"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_margin="5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp" />
+    </android.support.design.widget.AppBarLayout>
 
-    <TextView
-        android:text="What is your status here?"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="22dp"
-        android:textColor="@color/greyish"
-        android:id="@+id/new_city_what_is_your_status_here"
-        android:layout_above="@+id/resident_button"
-        android:layout_alignRight="@+id/next_button"
-        android:layout_alignEnd="@+id/next_button" />
+    <include layout="@layout/content_activity_new_city" />
 
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:srcCompat="@drawable/icon_map"
-        android:layout_marginTop="32dp"
-        android:id="@+id/new_city_icon_map"
-        android:layout_below="@+id/detected_text"
-        android:layout_toLeftOf="@+id/new_city_country_name_text_view"
-        android:layout_toStartOf="@+id/new_city_country_name_text_view"
-        android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp" />
 
-    <TextView
-        android:text="Paris, France"
-        android:textColor="@color/light_grey"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/new_city_country_name_text_view"
-        android:layout_alignTop="@+id/new_city_icon_map"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/france"
-        android:id="@+id/new_city_country_flag"
-        android:layout_below="@+id/new_city_country_name_text_view"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/world_map"
-        android:id="@+id/new_city_word_map"
-        android:layout_below="@+id/detected_text"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/resident_button" />
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
