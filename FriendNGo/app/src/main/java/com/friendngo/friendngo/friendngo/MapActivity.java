@@ -97,6 +97,7 @@ public class MapActivity extends AppCompatActivity implements
     private double current_gps_longitude;
     private boolean last_location_ready = false;
     private boolean gettingGPS = true;
+    private boolean run_once = true;
 
     //Layout instances
     FrameLayout markup_layout;
@@ -210,7 +211,11 @@ public class MapActivity extends AppCompatActivity implements
                     last_location_ready = true;
 
                     if (current_location_ready == true) {
-                        update_city();
+                        if(run_once==true){
+                            update_city();
+                            run_once = false;
+                        }
+
                     }
                 } catch (JSONException e) {
                     Log.w("GET LASTLOC FAIL: ", e.getMessage().toString());
@@ -539,7 +544,11 @@ public class MapActivity extends AppCompatActivity implements
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
                 current_location_ready = true;
                 if (last_location_ready == true) {
-                    update_city();
+                    if(run_once==true){
+                        update_city();
+                        run_once=false;
+                    }
+
                 }
 
                 mMap.setMyLocationEnabled(true);
@@ -666,7 +675,11 @@ public class MapActivity extends AppCompatActivity implements
                         current_location_ready = true;
 
                         if (last_location_ready == true) {
-                            update_city();
+                            if(run_once==true){
+                                update_city();
+                                run_once=false;
+
+                            }
                         }
                     }
                 }

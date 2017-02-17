@@ -53,8 +53,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Locale;
 
-
-
 public class WhoAreYou extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     CircularImageView circularImageView;
@@ -121,15 +119,11 @@ public class WhoAreYou extends AppCompatActivity {
             String country = locale.getDisplayCountry();
             if (country.trim().length()>0 && !countriesList.contains(country)) {
                 countriesList.add(country);
-
             }
         }
 
         Collections.sort(countriesList);
 
-                  /*for (String country : countries) {
-                      Log.w("country",country);
-                  }*/
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(WhoAreYou.this,android.R.layout.simple_spinner_item, countriesList);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
