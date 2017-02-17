@@ -40,6 +40,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CreateActivity extends AppCompatActivity {
 
+    CallApiCategory cc =new CallApiCategory();
     TextView plus_minus_textview;
     Button plus_button,minus_button;
     TimePicker startTimePicker;
@@ -130,7 +131,7 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
-        Log.w("text",Popular.categoryList.toString());
+        Log.w("text",CallApiCategory.categoryList.toString());
 
         plus_minus_textview = (TextView)findViewById(R.id.plus_minus_textview);
         plus_button = (Button)findViewById(R.id.create_plus_button);
@@ -213,7 +214,7 @@ public class CreateActivity extends AppCompatActivity {
                 spinnerAdapter2.clear();
                 String itemSelected =  list.get(position).getText();
                 List categoryArrayList=new ArrayList<Category>();
-                categoryArrayList = Popular.categoryList;
+                categoryArrayList = CallApiCategory.categoryList;
                 Category c = new Category();
 
                 for(int i =0; i<categoryArrayList.size(); i++)

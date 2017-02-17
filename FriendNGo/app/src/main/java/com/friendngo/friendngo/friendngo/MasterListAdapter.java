@@ -32,6 +32,7 @@ public class MasterListAdapter extends BaseAdapter {
     private RecyclerView.LayoutManager mHorizontallayoutManager;
     private RecyclerView.Adapter mHorizontalAdapter;
     private ArrayList<String> mHorizontalDataset;
+    CallApiCategory c =new CallApiCategory();
     //TODO: Make this more efficient by using ViewHolder pattern
     //This is the data structure that will be recycled
 //    private static class ViewHolder {
@@ -51,7 +52,8 @@ public class MasterListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return Popular.categoryList.size();
+
+        return CallApiCategory.categoryList.size();
     }
 
     @Override
@@ -93,7 +95,7 @@ public class MasterListAdapter extends BaseAdapter {
         mHorizontalRecycleView.setAdapter(mHorizontalAdapter);
 
         //Set the category image
-        Category category = (Category) Popular.categoryList.get(position);
+        Category category = (Category) CallApiCategory.categoryList.get(position);
         switch (category.name) {
             case "Arts & Culture":
                 categoryImage.setImageResource(R.drawable.art_exposition);
@@ -149,7 +151,7 @@ public class MasterListAdapter extends BaseAdapter {
         mHorizontalDataset.clear();
         String itemSelected =  category.name;
         List categoryArrayList=new ArrayList<Category>();
-        categoryArrayList = Popular.categoryList;
+        categoryArrayList = CallApiCategory.categoryList;
         Category c = new Category();
 
         for(int i =0; i<categoryArrayList.size(); i++) {

@@ -73,10 +73,9 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
 
         //Sets the top bar text
         getSupportActionBar().setTitle("What do you want to do today?");
-        current_city = getIntent().getExtras().getString("currentCity");
+       //current_city = getIntent().getExtras().getString("currentCity");
         if(MainActivity.cheat_mode==true){
             Intent intent = new Intent(WhatDoYouWantToDoToday.this,WhoAreYou.class);
-            intent.putExtra("currentCity", current_city);
             WhatDoYouWantToDoToday.this.startActivity(intent);
             WhatDoYouWantToDoToday.this.finish();
         }
@@ -85,8 +84,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
             saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(WhatDoYouWantToDoToday.this,WhoAreYou.class);
-                intent.putExtra("currentCity", current_city);
+                Intent intent = new Intent(WhatDoYouWantToDoToday.this,MapActivity.class);
                 WhatDoYouWantToDoToday.this.startActivity(intent);
                 WhatDoYouWantToDoToday.this.finish();
             }

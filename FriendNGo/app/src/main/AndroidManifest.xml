@@ -65,11 +65,14 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Popular"
-            android:label="What&apos;s up around you?" />
+            android:label="What&apos;s up around you?"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".WhatDoYouWantToDoToday" />
         <activity android:name=".CreateActivity" />
         <activity android:name=".WhoAreYou" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".ActivityDetails"
             android:label="Activity Details" />
         <activity
@@ -80,6 +83,7 @@
         <activity
             android:name=".MyCity"
             android:label="@string/title_activity_my_city"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
