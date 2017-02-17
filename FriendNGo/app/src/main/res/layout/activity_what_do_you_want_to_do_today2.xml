@@ -5,13 +5,13 @@
 
     <Button
         android:text="SAVE"
-        android:layout_width="wrap_content"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/save_categories_button"
         android:layout_margin="5dp"
-        android:background="@color/colorAccent"
+        android:background="@drawable/submit_button"
         android:textColor="@android:color/white" />
 
     <ListView

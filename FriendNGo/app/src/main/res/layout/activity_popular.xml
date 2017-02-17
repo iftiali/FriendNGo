@@ -77,7 +77,7 @@
         android:id="@+id/got_it_button"
         android:layout_height="55dp"
         android:textColor="@android:color/white"
-        android:background="#3AE070"
+        android:background="@drawable/submit_button"
         android:layout_width="150dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

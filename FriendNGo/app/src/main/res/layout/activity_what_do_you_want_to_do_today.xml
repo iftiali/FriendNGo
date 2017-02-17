@@ -320,7 +320,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/save_button"
         android:textColor="@android:color/white"
-        android:background="@color/colorAccent"
+        android:background="@drawable/submit_button"
         android:layout_alignParentBottom="true"
         android:layout_below="@id/gallery_button"
         android:layout_centerHorizontal="true"

@@ -17,6 +17,9 @@ import com.facebook.appevents.AppEventsLogger;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Locale;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -39,7 +42,12 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+<<<<<<< HEAD
         if(cheat_mode==false){
+=======
+
+        if(cheat_mode==true){
+>>>>>>> origin/dev4
             SPLASH_DISPLAY_LENGTH=20;
         } else {
             SPLASH_DISPLAY_LENGTH=5;

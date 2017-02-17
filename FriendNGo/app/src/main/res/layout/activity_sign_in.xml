@@ -33,7 +33,7 @@
         android:id="@+id/signin_button"
         android:layout_width="160dp"
         android:textColor="@android:color/white"
-        android:backgroundTint="@color/colorAccent"
+        android:background="@drawable/submit_button"
         android:layout_marginBottom="15dp" />
 
     <TextView

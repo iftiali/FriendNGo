@@ -10,7 +10,7 @@ import java.util.List;
 public class Category {
 
     String name;
-    List activityTypeList = new ArrayList<String>();
+   List activityTypeList = new ArrayList<String>();
 
     public String getName() {
         return name;

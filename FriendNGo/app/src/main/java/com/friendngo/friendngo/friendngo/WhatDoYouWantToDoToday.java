@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +21,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -26,6 +30,8 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
 
     ListView masterListView;
     Button saveButton;
+
+
     private ImageView sports_category;
     private ImageView sports_category_check;
     private Button jogging_button;
@@ -53,7 +59,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
     private Button city_tour_button;
     private ImageView city_tour_button_check;
     private Button save_button;
-
+    String current_city;
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -63,13 +69,14 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_what_do_you_want_to_do_today2);
-
+        //Horizontal recycle view
 
         //Sets the top bar text
         getSupportActionBar().setTitle("What do you want to do today?");
-
+        current_city = getIntent().getExtras().getString("currentCity");
         if(MainActivity.cheat_mode==true){
             Intent intent = new Intent(WhatDoYouWantToDoToday.this,WhoAreYou.class);
+            intent.putExtra("currentCity", current_city);
             WhatDoYouWantToDoToday.this.startActivity(intent);
             WhatDoYouWantToDoToday.this.finish();
         }
@@ -79,6 +86,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(WhatDoYouWantToDoToday.this,WhoAreYou.class);
+                intent.putExtra("currentCity", current_city);
                 WhatDoYouWantToDoToday.this.startActivity(intent);
                 WhatDoYouWantToDoToday.this.finish();
             }

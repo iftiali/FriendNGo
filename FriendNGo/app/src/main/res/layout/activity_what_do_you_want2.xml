@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:attrs="http://schemas.android.com/tools">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -20,20 +22,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="3dp" />
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/category_list_subtext"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/horizontal_scroll_view_template">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical" />
-    </HorizontalScrollView>
-
     <ImageView
         android:layout_width="15sp"
         android:layout_height="15sp"
@@ -43,4 +31,12 @@
         android:layout_alignTop="@+id/category_image_button"
         android:layout_alignRight="@+id/category_image_button"
         android:layout_alignEnd="@+id/category_image_button" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/category_list_subtext"
+       />
+
 </RelativeLayout>

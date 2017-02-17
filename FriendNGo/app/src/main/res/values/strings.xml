@@ -37,5 +37,7 @@
     <string name="notification_icon_text">Notifications</string>
     <string name="message_icon_text">Chat</string>
     <string name="settings_icon_text">Settings</string>
+    <string name="title_activity_new_city">NewCity</string>
+    <string name="title_activity_my_city">MyCity</string>
 
 </resources>

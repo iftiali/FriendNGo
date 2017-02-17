@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -43,7 +44,8 @@ public class NewCity extends AppCompatActivity {
     private final int MIGRANT = 2;
     private final int TOURIST = 3;
     private final int STUDENT = 4;
-
+    String current_city;
+    TextView new_city_country_name_text_view;
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -52,7 +54,9 @@ public class NewCity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_city);
-
+        new_city_country_name_text_view = (TextView)findViewById(R.id.new_city_country_name_text_view);
+         current_city = getIntent().getExtras().getString("currentCity");
+        new_city_country_name_text_view.setText(current_city);
         //Sets the top bar text
         getSupportActionBar().setTitle("New City");
 
@@ -177,6 +181,7 @@ public class NewCity extends AppCompatActivity {
                         }
                     });
                     Intent intent = new Intent(NewCity.this,WhatDoYouWantToDoToday.class);
+                    intent.putExtra("currentCity", current_city);
                     NewCity.this.startActivity(intent);
                     NewCity.this.finish();
                 }

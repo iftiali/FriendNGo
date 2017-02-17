@@ -210,7 +210,7 @@ public class MapActivity extends AppCompatActivity implements
                     last_location_ready = true;
 
                     if (current_location_ready == true) {
-                        //update_city();
+                        update_city();
                     }
                 } catch (JSONException e) {
                     Log.w("GET LASTLOC FAIL: ", e.getMessage().toString());
@@ -660,7 +660,7 @@ public class MapActivity extends AppCompatActivity implements
 
 
                     if (gettingGPS) {
-//                        Toast.makeText(getApplicationContext(), "GPS Coordinates = " + current_gps_latitude + "," + current_gps_longitude, Toast.LENGTH_LONG).show();
+                      // Toast.makeText(getApplicationContext(), "GPS Coordinates = " + current_gps_latitude + "," + current_gps_longitude, Toast.LENGTH_LONG).show();
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
                         gettingGPS = false;
                         current_location_ready = true;
@@ -686,7 +686,7 @@ public class MapActivity extends AppCompatActivity implements
         }
     }
 
-    private String calculation_Distance(String strAddress){
+    private String calculate_Distance(String strAddress){
         Geocoder coder = new Geocoder(this);
         List<Address> address;
         double km = 0;
@@ -731,10 +731,27 @@ public class MapActivity extends AppCompatActivity implements
             List<Address> addresses = gcd.getFromLocation(current_gps_latitude, current_gps_longitude, 1);
             if (addresses.size() > 0) {
                 current_city = addresses.get(0).getLocality();
+                if(current_city == null){
+                    current_city = addresses.get(0).getSubLocality() +", "+ addresses.get(0).getCountryName();
+                }else{
+                    current_city = current_city+", "+ addresses.get(0).getCountryName();
+                }
 
+
+                Log.w("Location","message");
+
+                String montreal_center_point_address="5430 Chemin de la Côte-de-Liesse\n" +
+                        "Mont-Royal, QC H4P 1A6";
+
+<<<<<<< HEAD
                 Log.w("GPS CITY RESULT", current_city);
                 Log.w("LAST CITY DEBUG",last_city);
                 if(last_city.equalsIgnoreCase(current_city) != true){
+=======
+                String distanceFromCityCenter = calculate_Distance(montreal_center_point_address);
+                Log.w("GPS CITY RESULT", distanceFromCityCenter);
+                if(Double.valueOf(distanceFromCityCenter)<=30){
+>>>>>>> origin/dev4
 
                         //POST Location
                         AsyncHttpClient client = new AsyncHttpClient();
@@ -779,8 +796,10 @@ public class MapActivity extends AppCompatActivity implements
                         Intent intent;
                         if(MainActivity.cheat_mode==true){
                             intent = new Intent(MapActivity.this, NewCity.class);
+                            intent.putExtra("currentCity", current_city);
                         }else {
                             intent = new Intent(MapActivity.this, NewCity.class);
+                            intent.putExtra("currentCity", current_city);
                         }
                         MapActivity.this.startActivity(intent);
                 } else {
