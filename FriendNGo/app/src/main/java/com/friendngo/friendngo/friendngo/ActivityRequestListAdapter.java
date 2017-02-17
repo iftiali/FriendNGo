@@ -57,28 +57,14 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
     @Override
     public void onClick(View v) {
 
-
         int position=(Integer) v.getTag();
         Object object= getItem(position);
         RequestModel dataModel=(RequestModel) object;
 
-
-
-
         switch (v.getId())
         {
 
-           // case R.id.item_info:
-
-                /*Snackbar.make(v, "Release date " +dataModel.getFeature(), Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();
-*/
-             //   break;
-
-
         }
-
-
     }
 
     private int lastPosition = -1;
@@ -125,7 +111,8 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
         //GET The image file at the pictureURL
         AsyncHttpClient client = new AsyncHttpClient();
 
-        String pictureURL = ((UserActivity)activitiesList.get(position)).getProfilePicURL();
+        //TODO: Change this to get the picture of the SENDER of the request
+        String pictureURL = dataModel.getProfileImage();
         final ImageView profilePic = (CircularImageView) convertView.findViewById(R.id.profilepicture);
 
         client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(mContext) {

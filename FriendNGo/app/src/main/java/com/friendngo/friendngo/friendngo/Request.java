@@ -46,30 +46,29 @@ public class Request extends AppCompatActivity {
         adapter= new ActivityRequestListAdapter(dataModels,getApplicationContext());
         list.setAdapter(adapter);
 
-        //GET the ActivityResults list
+        //GET ActivityRequests
         AsyncHttpClient client = new AsyncHttpClient();
         if(SignIn.static_token != null) {
             client.addHeader("Authorization","Token "+SignIn.static_token);
         }
 
-        //GET last known location
+        //GET ActivityRequests
         client.get(MainActivity.base_host_url + "api/getActivityRequests/", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.w("GET REQUEST SUCCESS", statusCode + ": " + "Response = " + response.toString());
             }
             @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                Log.w("GET AR JSON ARRAY", statusCode + ": " + timeline.toString());
+            public void onSuccess(int statusCode, Header[] headers, JSONArray requests) {
+                Log.w("GET AR JSON ARRAY", statusCode + ": " + requests.toString());
 
-                    for (int i = 0; i < timeline.length(); i++) {
+                    for (int i = 0; i < requests.length(); i++) {
                         try {
-                            JSONObject activity = timeline.getJSONObject(i);
+                            JSONObject activity = requests.getJSONObject(i);
 
-//                            dataModels.add(new RequestModel(activity.getString("sender_profile"),
                             dataModels.add(new RequestModel(
                                     activity.getLong("sender"),
-                                    "parth", //TODO: Get this to work with an image
+                                    activity.getString("sender_profile"),
                                     activity.getString("sender_name"),
                                     activity.getInt("request_state"),
                                     activity.getInt("sender_age"),

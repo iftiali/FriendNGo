@@ -1,6 +1,7 @@
 package com.friendngo.friendngo.friendngo;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class FacebookLogin extends AppCompatActivity {
     CallbackManager callbackManager;
     public static boolean using_facebook = false;
     private Button useEmailButton;
+    private String TOKEN_PREFERENCE = "token_preference";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,13 @@ public class FacebookLogin extends AppCompatActivity {
 
         //If the user is logged in then go straight to the New City Activity
         if(isLoggedIn()) {
+            //TODO: Load Persistently stored
+            SharedPreferences prefs = getSharedPreferences(TOKEN_PREFERENCE,MODE_PRIVATE);
+            String shared_preference_token = prefs.getString("token",null);
+            if (shared_preference_token != null){
+                SignIn.static_token = shared_preference_token;
+            }
+
             Intent mainIntent = new Intent(FacebookLogin.this,Popular.class);
             FacebookLogin.this.startActivity(mainIntent);
             FacebookLogin.this.finish();
@@ -86,7 +95,7 @@ public class FacebookLogin extends AppCompatActivity {
             // Set the permissions that the user should have with the login
             // loginButton.setReadPermissions("email");
             loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
-//                "public_profile", "email", "user_birthday", "user_friends"));
+//          "public_profile", "email", "user_birthday", "user_friends"));
             loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(final LoginResult loginResult) {
@@ -105,6 +114,9 @@ public class FacebookLogin extends AppCompatActivity {
                             try {
                                 SignIn.static_token = response.get("token").toString();
                                 Log.w("TOKEN SUCCESS2: ", SignIn.static_token);
+                                SharedPreferences.Editor editor = getSharedPreferences(TOKEN_PREFERENCE, MODE_PRIVATE).edit();
+                                editor.putString("token",response.get("token").toString());
+                                editor.commit();
 
                                 Intent mainIntent = new Intent(FacebookLogin.this, MapActivity.class);
                                 FacebookLogin.this.startActivity(mainIntent);
