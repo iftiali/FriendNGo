@@ -10,14 +10,15 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
-        android:background="@android:color/white" />
-=======
         android:theme="@style/AppTheme.AppBarOverlay">
+
+        <!--<<<<<<< HEAD-->
+        <!--android:id="@+id/textView"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:background="@android:color/white" />-->
+        <!--=======-->
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"

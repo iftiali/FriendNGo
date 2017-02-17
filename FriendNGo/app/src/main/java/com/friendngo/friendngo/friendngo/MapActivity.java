@@ -120,6 +120,7 @@ public class MapActivity extends AppCompatActivity implements
     Map markerMap = new HashMap();
 
     BottomNavigationView bottomNavigationView;
+    private boolean run_once = true;
 
     //Fonts Script
     @Override
@@ -211,7 +212,10 @@ public class MapActivity extends AppCompatActivity implements
 
                     if (current_location_ready == true) {
                         Log.w("Text","1");
-                        update_city();
+                        if(run_once==true){
+                            update_city();
+                        run_once=false;
+                        }
                     }
                 } catch (JSONException e) {
                     Log.w("GET LASTLOC FAIL: ", e.getMessage().toString());
@@ -308,8 +312,6 @@ public class MapActivity extends AppCompatActivity implements
 
 
         client.get(MainActivity.base_host_url + "api/getActivities/", new JsonHttpResponseHandler() {
-            //TODO: Declare all of the level 1 variables here
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
@@ -541,7 +543,10 @@ public class MapActivity extends AppCompatActivity implements
                 current_location_ready = true;
                 if (last_location_ready == true) {
                     Log.w("Text","2");
-                    update_city();
+                    if(run_once==true) {
+                        update_city();
+                        run_once=false;
+                    }
                 }
 
                 mMap.setMyLocationEnabled(true);
@@ -669,7 +674,10 @@ public class MapActivity extends AppCompatActivity implements
 
                         if (last_location_ready==true) {
                             Log.w("Text","3");
-                            update_city();
+                            if(run_once==true) {
+                                update_city();
+                                run_once=false;
+                            }
                         }
                     }
                 }
@@ -740,40 +748,38 @@ public class MapActivity extends AppCompatActivity implements
                     current_city = current_city+", "+ addresses.get(0).getCountryName();
                 }
 
-
-                //TODO: Change to <center of last_location city query>
-                Log.w("Location","message");
-                //center point of montreal city
                 String montreal_center_point_address="5430 Chemin de la Côte-de-Liesse\n" +
                         "Mont-Royal, QC H4P 1A6";
 
-<<<<<<< HEAD
-//                Log.w("GPS CITY RESULT", current_city);
-//                Log.w("LAST CITY DEBUG",last_city);
-//                if(last_city.equalsIgnoreCase(current_city) != true){
+//<<<<<<< HEAD
+////                Log.w("GPS CITY RESULT", current_city);
+////                Log.w("LAST CITY DEBUG",last_city);
+////                if(last_city.equalsIgnoreCase(current_city) != true){
+//
+//                String distanceFromCityCenter = calculate_Distance(montreal_center_point_address);
+//                Log.w("GPS CITY RESULT", distanceFromCityCenter);
+//                if(Double.valueOf(distanceFromCityCenter)<=30){
+//                        //POST Location
+//                        AsyncHttpClient client = new AsyncHttpClient();
+//                        if (SignIn.static_token != null) {
+//                            client.addHeader("Authorization", "Token " + SignIn.static_token);
+//                        }
+//=======
+
+
 
                 String distanceFromCityCenter = calculate_Distance(montreal_center_point_address);
                 Log.w("GPS CITY RESULT", distanceFromCityCenter);
-                if(Double.valueOf(distanceFromCityCenter)<=30){
-                        //POST Location
-                        AsyncHttpClient client = new AsyncHttpClient();
-                        if (SignIn.static_token != null) {
-                            client.addHeader("Authorization", "Token " + SignIn.static_token);
-                        }
-=======
 
-
-
-                String distanceFromCityCenter = calculate_Distance(montreal_center_point_address);
-                Log.w("GPS CITY RESULT", distanceFromCityCenter);
-                if(Double.valueOf(distanceFromCityCenter)>=30) {
+                //TODO: Make this dynamic when we expand to more cities or go public
+//                if(Double.valueOf(distanceFromCityCenter)>=30) {
+                  if(true){
 
                     //POST Location
                     AsyncHttpClient client = new AsyncHttpClient();
                     if (SignIn.static_token != null) {
                         client.addHeader("Authorization", "Token " + SignIn.static_token);
                     }
->>>>>>> origin/dev4
 
                     RequestParams params = new RequestParams();
                     if (MainActivity.cheat_mode == false) {
@@ -807,15 +813,7 @@ public class MapActivity extends AppCompatActivity implements
                         }
                     });
 
-<<<<<<< HEAD
-                            @Override
-                            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                                Log.w("POST LOCATION FAIL", "Error Code: " + error_code + ", Text:" + text);
-                            }
-                        });
-=======
                     Log.w("GPS CITY RESULT", "New City Detected");
->>>>>>> origin/dev4
 
                     Intent intent;
 

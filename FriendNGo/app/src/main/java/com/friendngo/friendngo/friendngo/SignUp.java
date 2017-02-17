@@ -41,10 +41,7 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
         sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        //Sets the top bar text
-        //getSupportActionBar().setTitle("Create an account");
 
         //Creates a code instance of the buttons and text inputs
         textView = (TextView) findViewById(R.id.account_link);
@@ -138,10 +135,14 @@ public class SignUp extends AppCompatActivity {
                                         // called when request is retried
                                     }
 
-                                    //TODO: Give Users Helpful Error messages when there is a problem
                                     @Override
                                     public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
                                         Log.w("HTTP FAILURE1", "Error Code: " + error_code + ", Text: " + text);
+                                    }
+
+                                    @Override
+                                    public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
+                                        Log.w("HTTP FAILURE!", "Error Code: " + error_code + ", JSON: " + json.toString());
                                     }
                                 });
                             }
@@ -164,7 +165,7 @@ public class SignUp extends AppCompatActivity {
 
                             @Override
                             public void onRetry(int retryNo) {
-                                // called when request is retried
+                                Log.w("RETRY", retryNo + "");
                             }
 
                             @Override
@@ -173,6 +174,11 @@ public class SignUp extends AppCompatActivity {
                                 if(error_code==409){
                                     Toast.makeText(SignUp.this, "Username Already Exists", Toast.LENGTH_LONG).show();
                                 }
+                            }
+
+                            @Override
+                            public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
+                                Log.w("HTTP FAILURE :(", "Error Code: " + error_code + ", JSON: " + json.toString());
                             }
                         });
                     }else{

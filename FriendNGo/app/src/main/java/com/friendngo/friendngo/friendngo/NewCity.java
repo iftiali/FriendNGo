@@ -192,7 +192,8 @@ public class NewCity extends AppCompatActivity {
                         }
                     });
                     Intent intent;
-                    if (signup.equals("1")) {
+//                    if (signup.equals("1")) {
+                    if(true){
                         intent = new Intent(NewCity.this, WhatDoYouWantToDoToday.class);
                     }else{
                         intent = new Intent(NewCity.this,MapActivity.class);
