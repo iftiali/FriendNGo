@@ -29,7 +29,7 @@ import static com.friendngo.friendngo.friendngo.R.drawable.add_oval;
  */
 
 public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> implements View.OnClickListener{
-
+//
     private ArrayList<RequestModel> dataSet;
     Context mContext;
 
