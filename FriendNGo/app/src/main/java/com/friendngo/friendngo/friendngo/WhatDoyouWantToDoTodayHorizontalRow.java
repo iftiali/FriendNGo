@@ -55,7 +55,6 @@ public class WhatDoyouWantToDoTodayHorizontalRow extends RecyclerView.Adapter<Wh
     }
 
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         public Button museum_button;
         public ImageView mImageView;
@@ -63,7 +62,6 @@ public class WhatDoyouWantToDoTodayHorizontalRow extends RecyclerView.Adapter<Wh
             super(itemView);
             mImageView = (ImageView)itemView.findViewById(R.id.museum_button_check);
             museum_button = (Button) itemView.findViewById(R.id.museum_button);
-
         }
     }
 }

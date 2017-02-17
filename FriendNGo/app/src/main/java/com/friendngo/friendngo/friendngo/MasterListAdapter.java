@@ -32,15 +32,6 @@ public class MasterListAdapter extends BaseAdapter {
     private RecyclerView.LayoutManager mHorizontallayoutManager;
     private RecyclerView.Adapter mHorizontalAdapter;
     private ArrayList<String> mHorizontalDataset;
-    //TODO: Make this more efficient by using ViewHolder pattern
-    //This is the data structure that will be recycled
-//    private static class ViewHolder {
-//        ImageView categoryImage;
-//        ImageView categoryCheckMark;
-//        TextView categorySubtext;
-//        HorizontalScrollView horizontalScrollView;
-//    }
-
 
     public MasterListAdapter(Context context){
         super();
@@ -71,20 +62,20 @@ public class MasterListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         //Inflate the layout
         convertView = layoutInflater.inflate(R.layout.activity_what_do_you_want2, null);
         ImageView categoryImage = (ImageView)convertView.findViewById(R.id.category_image_button);
         final ImageView categoryCheckMark = (ImageView)convertView.findViewById(R.id.master_category_check_mark);
         TextView categorySubtext = (TextView)convertView.findViewById(R.id.category_list_subtext);
 
-
-
-        //HorizontalScrollView horizontalScrollView = (HorizontalScrollView)convertView.findViewById(R.id.horizontal_scroll_view_template);
+        //Initialize the data model
         mHorizontalDataset = new ArrayList<>();
         for(int i =0;i<30;i++){
             mHorizontalDataset.add("Museum"+i);
-
         }
+
+        //Map the layout to the data model
         mHorizontalRecycleView = (RecyclerView)convertView.findViewById(R.id.recycler_view);
         mHorizontalRecycleView.setHasFixedSize(true);
         mHorizontallayoutManager = new LinearLayoutManager(convertView.getContext(),LinearLayoutManager.HORIZONTAL,false);
@@ -95,7 +86,7 @@ public class MasterListAdapter extends BaseAdapter {
         //Set the category image
         Category category = (Category) Popular.categoryList.get(position);
         switch (category.name) {
-            case "Arts & Culture":
+            case "Art & Culture":
                 categoryImage.setImageResource(R.drawable.art_exposition);
                 break;
             case "Nightlife":
@@ -104,29 +95,29 @@ public class MasterListAdapter extends BaseAdapter {
             case "Sports":
                 categoryImage.setImageResource(R.drawable.running);
                 break;
-            case "Business":
+            case "Help & Association":
                 categoryImage.setImageResource(R.drawable.handshake);
                 break;
-            case "Date":
+            case "Fun & Crazy":
                 categoryImage.setImageResource(R.drawable.naked_run);
                 break;
-            case "Activities":
+            case "Games":
                 categoryImage.setImageResource(R.drawable.billard);
                 break;
-            case "Outdoors":
+            case "Nature & Outdoors":
                 categoryImage.setImageResource(R.drawable.backpack);
                 break;
-            case "Camping":
+            case "Travel & Road-Trip":
                 categoryImage.setImageResource(R.drawable.camping);
                 break;
-            case "Food and Drink":
+            case "Social Activities":
                 categoryImage.setImageResource(R.drawable.grab_drink);
                 break;
-            case "Networking":
+            case "Professional & Networking":
                 categoryImage.setImageResource(R.drawable.coworking);
                 break;
             default:
-                categoryImage.setImageResource(R.drawable.wink);
+                categoryImage.setImageResource(R.drawable.naked_run);
         }
 
         categoryCheckMark.setVisibility(View.INVISIBLE);

@@ -431,7 +431,7 @@ public class MapActivity extends AppCompatActivity implements
                                 bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.naked_run_pin);
                                 break;
                             case "Games":
-                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.art_exposition_pin); //TODO: This needs an update when we have the right pin.
+                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.billiard_pin); //TODO: This needs an update when we have the right pin.
                                 break;
                             case "Nature & Outdoors":
                                 bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.backpack_pin);
@@ -443,7 +443,7 @@ public class MapActivity extends AppCompatActivity implements
                                 bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.grab_drink_pin);
                                 break;
                             case "Help & Association":
-                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.coworking_pin);
+                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.handshake_pin);
                                 break;
                             default:
                                 bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.canada_icon);
@@ -911,7 +911,7 @@ public class MapActivity extends AppCompatActivity implements
                     category.setImageResource(R.drawable.grab_drink);
                     break;
                 case "Help & Association":
-                    category.setImageResource(R.drawable.coworking);
+                    category.setImageResource(R.drawable.handshake);
                     break;
                 default:
                     Log.w("CREATING BANNER","IN DEFAULT");

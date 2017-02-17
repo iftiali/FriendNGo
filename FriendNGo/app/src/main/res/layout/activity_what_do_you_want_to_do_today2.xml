@@ -31,7 +31,7 @@
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:background="@android:color/white" />
 
 </RelativeLayout>
