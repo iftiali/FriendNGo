@@ -11,7 +11,10 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -46,13 +49,13 @@ public class NewCity extends AppCompatActivity {
     private Button touristButton;
     private Button studentButton;
     private Button nextButton;
-    private final int MY_PERMISSIONS_REQUEST_LOCATION = 1;
+    private final int MY_PERMISSIONS_REQUEST_LOCATION = 2;
     private int status = 0;
     private final int RESIDENT = 1;
     private final int MIGRANT = 2;
     private final int TOURIST = 3;
     private final int STUDENT = 4;
-    String signup;
+
 
     TextView new_city_country_name_text_view;
     @Override
@@ -66,8 +69,8 @@ public class NewCity extends AppCompatActivity {
         new_city_country_name_text_view = (TextView)findViewById(R.id.new_city_country_name_text_view);
 
         //get permission
-        getLocationPermission();
-        signup = getIntent().getStringExtra("signup");
+       // getLocationPermission();
+        new_city_country_name_text_view.setText(hereLocation(FacebookLogin.clat,FacebookLogin.clon));
         //Sets the top bar text
         //getSupportActionBar().setTitle("New City");
 
@@ -192,7 +195,7 @@ public class NewCity extends AppCompatActivity {
                         }
                     });
                     Intent intent;
-//                    if (signup.equals("1")) {
+//
                     if(true){
                         intent = new Intent(NewCity.this, WhatDoYouWantToDoToday.class);
                     }else{
@@ -209,29 +212,8 @@ public class NewCity extends AppCompatActivity {
         });
     }
 
-    private void getLocationPermission() {
-        if(ContextCompat.checkSelfPermission(NewCity.this,Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
-            if(ActivityCompat.shouldShowRequestPermissionRationale(NewCity.this,Manifest.permission.ACCESS_COARSE_LOCATION)){
-                ActivityCompat.requestPermissions(NewCity.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},MY_PERMISSIONS_REQUEST_LOCATION);
-            }else{
-                ActivityCompat.requestPermissions(NewCity.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},MY_PERMISSIONS_REQUEST_LOCATION);
 
-            }
-        }else{
-            LocationManager locationmanager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            Location location = locationmanager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            new_city_country_name_text_view.setText(hereLocation(location.getLatitude(),location.getLongitude()));
-           // Toast.makeText(NewCity.this,hereLocation(location.getLatitude(),location.getLongitude()),Toast.LENGTH_LONG).show();
-            try{
 
-            }catch (Exception e)
-            {
-                e.printStackTrace();
-                Toast.makeText(NewCity.this,"Network not found",Toast.LENGTH_LONG).show();
-            }
-        }
-    }
 
 
     //Helper function called when a button is pressed

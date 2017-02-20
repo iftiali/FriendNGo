@@ -123,7 +123,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/france"
+        app:srcCompat="@drawable/canada"
         android:id="@+id/new_city_country_flag"
         android:layout_below="@+id/new_city_country_name_text_view"
         android:layout_centerHorizontal="true" />

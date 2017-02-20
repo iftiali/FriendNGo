@@ -39,6 +39,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.FacebookActivity;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -120,7 +121,7 @@ public class MapActivity extends AppCompatActivity implements
     Map markerMap = new HashMap();
 
     BottomNavigationView bottomNavigationView;
-    private boolean run_once = true;
+    private boolean run_once;
 
     //Fonts Script
     @Override
@@ -211,8 +212,9 @@ public class MapActivity extends AppCompatActivity implements
                     last_location_ready = true;
 
                     if (current_location_ready == true) {
-                        Log.w("Text","1");
+
                         if(run_once==true){
+                            Log.w("Location","2");
                             update_city();
                         run_once=false;
                         }
@@ -533,17 +535,20 @@ public class MapActivity extends AppCompatActivity implements
             return;
         }
         Location location = locationManager.getLastKnownLocation(GPS_PROVIDER);
+
         if (location != null) {
 
             //Zoom to last known location if we don't have GPS
             if (gettingGPS) {
                 current_gps_latitude = location.getLatitude();
                 current_gps_longitude = location.getLongitude();
+
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
                 current_location_ready = true;
                 if (last_location_ready == true) {
-                    Log.w("Text","2");
+
                     if(run_once==true) {
+                        Log.w("Location","3");
                         update_city();
                         run_once=false;
                     }
@@ -568,7 +573,26 @@ public class MapActivity extends AppCompatActivity implements
 //                        .strokeColor(Color.parseColor("#FF8100"))
 //                        .fillColor(Color.parseColor("#00000000")));
             }
-        } else {
+        }else if(FacebookLogin.clon != 0 && FacebookLogin.clat != 0){
+            if (gettingGPS) {
+                current_gps_latitude = FacebookLogin.clat;
+                current_gps_longitude = FacebookLogin.clon;
+
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
+                current_location_ready = true;
+                if (last_location_ready == true) {
+
+                    if(run_once==true) {
+                        Log.w("Location","4");
+                        update_city();
+                        run_once=false;
+                    }
+                }
+
+                mMap.setMyLocationEnabled(true);
+            }
+        }
+        else {
             Log.w("LOCATION ERROR", "Last Known Location is null!!!");
         }
     }
@@ -584,6 +608,7 @@ public class MapActivity extends AppCompatActivity implements
     //Trigger the check for GPS even before we load the page
     @Override
     public void onStart() {
+
         super.onStart();
         LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         if (locationManager.isProviderEnabled(GPS_PROVIDER)) {
@@ -631,6 +656,7 @@ public class MapActivity extends AppCompatActivity implements
 
     //Code to request GPS updates
     private void getGPSLocation() {
+
         LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
@@ -642,8 +668,8 @@ public class MapActivity extends AppCompatActivity implements
 ////////////////////////////////// USING GPS CODE //////////////////////////////////////////////////
                 //Here is where we receive the location update
                 public void onLocationChanged(Location location) {
-                    current_gps_latitude = location.getLatitude();
-                    current_gps_longitude = location.getLongitude();
+                    current_gps_latitude = FacebookLogin.clat;
+                    current_gps_longitude = FacebookLogin.clon;
 
 //                    if(innerCircle != null && outterCircle != null){
 //                        innerCircle.remove();
@@ -673,9 +699,11 @@ public class MapActivity extends AppCompatActivity implements
                         current_location_ready = true;
 
                         if (last_location_ready==true) {
-                            Log.w("Text","3");
+
                             if(run_once==true) {
+                                Log.w("Location","1");
                                 update_city();
+
                                 run_once=false;
                             }
                         }
