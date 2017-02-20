@@ -39,6 +39,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.FacebookActivity;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -97,7 +98,6 @@ public class MapActivity extends AppCompatActivity implements
     private double current_gps_longitude;
     private boolean last_location_ready = false;
     private boolean gettingGPS = true;
-    private boolean run_once = true;
 
     //Layout instances
     FrameLayout markup_layout;
@@ -121,6 +121,7 @@ public class MapActivity extends AppCompatActivity implements
     Map markerMap = new HashMap();
 
     BottomNavigationView bottomNavigationView;
+    private boolean run_once;
 
     //Fonts Script
     @Override
@@ -212,10 +213,10 @@ public class MapActivity extends AppCompatActivity implements
 
                     if (current_location_ready == true) {
                         if(run_once==true){
+                            Log.w("Location","2");
                             update_city();
-                            run_once = false;
+                        run_once=false;
                         }
-
                     }
                 } catch (JSONException e) {
                     Log.w("GET LASTLOC FAIL: ", e.getMessage().toString());
@@ -330,8 +331,6 @@ public class MapActivity extends AppCompatActivity implements
 
 
         client.get(MainActivity.base_host_url + "api/getActivities/", new JsonHttpResponseHandler() {
-            //TODO: Declare all of the level 1 variables here
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
@@ -555,20 +554,22 @@ public class MapActivity extends AppCompatActivity implements
             return;
         }
         Location location = locationManager.getLastKnownLocation(GPS_PROVIDER);
+
         if (location != null) {
 
             //Zoom to last known location if we don't have GPS
             if (gettingGPS) {
                 current_gps_latitude = location.getLatitude();
                 current_gps_longitude = location.getLongitude();
+
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
                 current_location_ready = true;
                 if (last_location_ready == true) {
-                    if(run_once==true){
+                    if(run_once==true) {
+                        Log.w("Location","3");
                         update_city();
                         run_once=false;
                     }
-
                 }
 
                 mMap.setMyLocationEnabled(true);
@@ -590,7 +591,26 @@ public class MapActivity extends AppCompatActivity implements
 //                        .strokeColor(Color.parseColor("#FF8100"))
 //                        .fillColor(Color.parseColor("#00000000")));
             }
-        } else {
+        }else if(FacebookLogin.clon != 0 && FacebookLogin.clat != 0){
+            if (gettingGPS) {
+                current_gps_latitude = FacebookLogin.clat;
+                current_gps_longitude = FacebookLogin.clon;
+
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
+                current_location_ready = true;
+                if (last_location_ready == true) {
+
+                    if(run_once==true) {
+                        Log.w("Location","4");
+                        update_city();
+                        run_once=false;
+                    }
+                }
+
+                mMap.setMyLocationEnabled(true);
+            }
+        }
+        else {
             Log.w("LOCATION ERROR", "Last Known Location is null!!!");
         }
     }
@@ -606,6 +626,7 @@ public class MapActivity extends AppCompatActivity implements
     //Trigger the check for GPS even before we load the page
     @Override
     public void onStart() {
+
         super.onStart();
         LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         if (locationManager.isProviderEnabled(GPS_PROVIDER)) {
@@ -653,6 +674,7 @@ public class MapActivity extends AppCompatActivity implements
 
     //Code to request GPS updates
     private void getGPSLocation() {
+
         LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
@@ -664,8 +686,8 @@ public class MapActivity extends AppCompatActivity implements
 ////////////////////////////////// USING GPS CODE //////////////////////////////////////////////////
                 //Here is where we receive the location update
                 public void onLocationChanged(Location location) {
-                    current_gps_latitude = location.getLatitude();
-                    current_gps_longitude = location.getLongitude();
+                    current_gps_latitude = FacebookLogin.clat;
+                    current_gps_longitude = FacebookLogin.clon;
 
 //                    if(innerCircle != null && outterCircle != null){
 //                        innerCircle.remove();
@@ -693,12 +715,11 @@ public class MapActivity extends AppCompatActivity implements
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
                         gettingGPS = false;
                         current_location_ready = true;
-
                         if (last_location_ready == true) {
-                            if(run_once==true){
+                            if(run_once==true) {
+                                Log.w("Location","1");
                                 update_city();
                                 run_once=false;
-
                             }
                         }
                     }
@@ -770,72 +791,91 @@ public class MapActivity extends AppCompatActivity implements
                     current_city = current_city+", "+ addresses.get(0).getCountryName();
                 }
 
-
-                Log.w("Location","message");
-
                 String montreal_center_point_address="5430 Chemin de la Côte-de-Liesse\n" +
                         "Mont-Royal, QC H4P 1A6";
 
-//                Log.w("GPS CITY RESULT", current_city);
-//                Log.w("LAST CITY DEBUG",last_city);
-//                if(last_city.equalsIgnoreCase(current_city) != true){
+//<<<<<<< HEAD
+////                Log.w("GPS CITY RESULT", current_city);
+////                Log.w("LAST CITY DEBUG",last_city);
+////                if(last_city.equalsIgnoreCase(current_city) != true){
+//
+//                String distanceFromCityCenter = calculate_Distance(montreal_center_point_address);
+//                Log.w("GPS CITY RESULT", distanceFromCityCenter);
+//                if(Double.valueOf(distanceFromCityCenter)<=30){
+//                        //POST Location
+//                        AsyncHttpClient client = new AsyncHttpClient();
+//                        if (SignIn.static_token != null) {
+//                            client.addHeader("Authorization", "Token " + SignIn.static_token);
+//                        }
+//=======
+
+
 
                 String distanceFromCityCenter = calculate_Distance(montreal_center_point_address);
                 Log.w("GPS CITY RESULT", distanceFromCityCenter);
-                if(Double.valueOf(distanceFromCityCenter)<=30){
-                        //POST Location
-                        AsyncHttpClient client = new AsyncHttpClient();
-                        if (SignIn.static_token != null) {
-                            client.addHeader("Authorization", "Token " + SignIn.static_token);
+
+                //TODO: Make this dynamic when we expand to more cities or go public
+//                if(Double.valueOf(distanceFromCityCenter)>=30) {
+                  if(true){
+
+                    //POST Location
+                    AsyncHttpClient client = new AsyncHttpClient();
+                    if (SignIn.static_token != null) {
+                        client.addHeader("Authorization", "Token " + SignIn.static_token);
+                    }
+
+                    RequestParams params = new RequestParams();
+                    if (MainActivity.cheat_mode == false) {
+                        params.put("last_city", last_city);
+                    } else {
+                        params.put("last_city", "Toronto");
+                    }
+
+                    client.post(MainActivity.base_host_url + "api/postLocation/", params, new JsonHttpResponseHandler() {
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                            Log.w("POST LOCATION SUCCESS", statusCode + ": " + "Response = " + response.toString());
                         }
 
-                        RequestParams params = new RequestParams();
-                        if(MainActivity.cheat_mode==false){
-                        params.put("last_city", "montreal");
-                        }else {
-                            params.put("last_city", "middle of nowhere");
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                            Log.w("POST LOCATION SUCCESS2", statusCode + ": " + timeline.toString());
                         }
 
-                        client.post(MainActivity.base_host_url + "api/postLocation/", params, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onRetry(int retryNo) {
+                            // called when request is retried
+                            Log.w("POST LOCATION RETRY", "" + retryNo);
+                        }
 
-                            @Override
-                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        @Override
+                        public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                            Log.w("POST LOCATION FAIL", "Error Code: " + error_code + "," + text);
+                        }
+                    });
 
-                                Log.w("POST LOCATION SUCCESS", statusCode + ": " + "Response = " + response.toString());
-                            }
+                    Log.w("GPS CITY RESULT", "New City Detected");
 
-                            @Override
-                            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                                Log.w("POST LOCATION SUCCESS2", statusCode + ": " + timeline.toString());
-                            }
+                    Intent intent;
 
-                            @Override
-                            public void onRetry(int retryNo) {
-                                // called when request is retried
-                                Log.w("POST LOCATION RETRY", "" + retryNo);
-                            }
-
-                            @Override
-                            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                                Log.w("POST LOCATION FAIL", "Error Code: " + error_code + ", Text:" + text);
-                            }
-                        });
-
-                        Log.w("GPS CITY RESULT", "New City Detected");
-
-                        Intent intent;
-                        if(MainActivity.cheat_mode==true){
+                        if (MainActivity.cheat_mode == true) {
                             intent = new Intent(MapActivity.this, NewCity.class);
-                            intent.putExtra("currentCity", current_city);
-                        }else {
+
+                        } else {
                             intent = new Intent(MapActivity.this, NewCity.class);
-                            intent.putExtra("currentCity", current_city);
+
                         }
-                        MapActivity.this.startActivity(intent);
-                } else {
-                    Toast.makeText(getApplicationContext(),current_city, Toast.LENGTH_LONG).show();
-                    Log.w("GPS CITY RESULT", "Not in a new city");
-                }
+
+                    MapActivity.this.startActivity(intent);
+                    }
+
+                else{
+                        Toast.makeText(getApplicationContext(), current_city, Toast.LENGTH_LONG).show();
+                        Log.w("GPS CITY RESULT", "Not in a new city");
+                    }
+
 
 //OLD LOCATION OF GET ACTIVITIES
 

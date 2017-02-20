@@ -1,15 +1,22 @@
 package com.friendngo.friendngo.friendngo;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +33,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -38,13 +49,14 @@ public class NewCity extends AppCompatActivity {
     private Button touristButton;
     private Button studentButton;
     private Button nextButton;
-
+    private final int MY_PERMISSIONS_REQUEST_LOCATION = 2;
     private int status = 0;
     private final int RESIDENT = 1;
     private final int MIGRANT = 2;
     private final int TOURIST = 3;
     private final int STUDENT = 4;
-    String current_city;
+
+
     TextView new_city_country_name_text_view;
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -55,10 +67,12 @@ public class NewCity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_city);
         new_city_country_name_text_view = (TextView)findViewById(R.id.new_city_country_name_text_view);
-         current_city = getIntent().getExtras().getString("currentCity");
-        new_city_country_name_text_view.setText(current_city);
+
+        //get permission
+       // getLocationPermission();
+        new_city_country_name_text_view.setText(hereLocation(FacebookLogin.clat,FacebookLogin.clon));
         //Sets the top bar text
-        getSupportActionBar().setTitle("New City");
+        //getSupportActionBar().setTitle("New City");
 
         //Get the button instances
         residentButton = (Button) findViewById(R.id.resident_button);
@@ -180,8 +194,16 @@ public class NewCity extends AppCompatActivity {
                             Log.w("POST STATUS FAILURE", "Error Code: " + error_code);
                         }
                     });
-                    Intent intent = new Intent(NewCity.this,WhatDoYouWantToDoToday.class);
-                    intent.putExtra("currentCity", current_city);
+                    Intent intent;
+//
+                    if(true){
+                        intent = new Intent(NewCity.this, WhatDoYouWantToDoToday.class);
+                    }else{
+                        intent = new Intent(NewCity.this,MapActivity.class);
+
+                    }
+
+                    //intent.putExtra("currentCity", current_city);
                     NewCity.this.startActivity(intent);
                     NewCity.this.finish();
                 }
@@ -189,6 +211,9 @@ public class NewCity extends AppCompatActivity {
 
         });
     }
+
+
+
 
 
     //Helper function called when a button is pressed
@@ -210,4 +235,28 @@ public class NewCity extends AppCompatActivity {
         studentButton.setBackgroundResource(R.drawable.white_button);
         studentButton.setTextColor(Color.BLACK);
     }
+
+    public String hereLocation(double lat,double lon){
+        String current_city =null;
+
+        Geocoder geocoder = new Geocoder(NewCity.this,Locale.getDefault());
+        List<Address> addresses;
+        try{
+             addresses = geocoder.getFromLocation(lat, lon, 1);
+            if (addresses.size() > 0) {
+                current_city = addresses.get(0).getLocality();
+                if(current_city == null){
+                    current_city = addresses.get(0).getSubLocality() +", "+ addresses.get(0).getCountryName();
+                }else{
+                    current_city = current_city+", "+ addresses.get(0).getCountryName();
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
+        return  current_city;
+    }
 }
+

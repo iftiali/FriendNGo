@@ -1,8 +1,18 @@
 package com.friendngo.friendngo.friendngo;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Typeface;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +21,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,8 +37,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import java.util.List;
+import java.util.Locale;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.io.SessionInputBuffer;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SignIn extends AppCompatActivity {
@@ -37,6 +51,7 @@ public class SignIn extends AppCompatActivity {
 
     private EditText emailEditTextValue;
     private EditText passwordEditTextValue;
+
     //private SharedPreferences sharedPref;
     public static String static_token;
     public static String static_username;
@@ -54,7 +69,7 @@ public class SignIn extends AppCompatActivity {
         static_username = "";
         //Sets the top heading value
 
-        getSupportActionBar().setTitle("Login");
+
 
         //Cheat Mode To Go Straight To Map Activity
         if (MainActivity.cheat_mode == true) {
@@ -75,8 +90,6 @@ public class SignIn extends AppCompatActivity {
                         static_username = "t2@t2.com";
                         static_token = response.get("token").toString();
                         Log.w("POST AUTH SUCCESS2", static_token);
-
-                        //NEXT ACTIVITY
                         Intent intent = new Intent(SignIn.this, MapActivity.class);
                         SignIn.this.startActivity(intent);
                         SignIn.this.finish();
@@ -95,7 +108,7 @@ public class SignIn extends AppCompatActivity {
                         static_token = firstEvent.getString("token");
                         Log.w("POST AUTH SUCCESS4", static_token.toString());
 
-                        Intent intent = new Intent(SignIn.this, MainActivity.class);
+                        Intent intent = new Intent(SignIn.this, MapActivity.class);
                         SignIn.this.startActivity(intent);
                         SignIn.this.finish();
 
@@ -162,7 +175,8 @@ public class SignIn extends AppCompatActivity {
                                     static_token = response.get("token").toString();
                                     Log.w("POST AUTH SUCCESS2", static_token);
 
-                                    Intent intent = new Intent(SignIn.this, Popular.class);
+                                    Intent intent = new Intent(SignIn.this, MapActivity.class);
+
                                     SignIn.this.startActivity(intent);
                                     SignIn.this.finish();
 
@@ -181,7 +195,8 @@ public class SignIn extends AppCompatActivity {
                                     static_token = firstEvent.getString("token");
                                     Log.w("POST AUTH SUCCESS4", static_token.toString());
 
-                                    Intent intent = new Intent(SignIn.this, Popular.class);
+                                    Intent intent = new Intent(SignIn.this, MapActivity.class);
+
                                     SignIn.this.startActivity(intent);
                                     SignIn.this.finish();
 

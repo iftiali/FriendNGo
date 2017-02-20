@@ -41,10 +41,7 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
         sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        //Sets the top bar text
-        getSupportActionBar().setTitle("Create an account");
 
         //Creates a code instance of the buttons and text inputs
         textView = (TextView) findViewById(R.id.account_link);
@@ -103,7 +100,8 @@ public class SignUp extends AppCompatActivity {
                                             SignIn.static_token = response.get("token").toString();
                                             Log.w("AUTH POST SUCCESS2", SignIn.static_token.toString());
 
-                                            Intent intent = new Intent(SignUp.this, Popular.class);
+                                            Intent intent = new Intent(SignUp.this, WhoAreYou.class);
+
                                             SignUp.this.startActivity(intent);
                                             SignUp.this.finish();
 
@@ -122,7 +120,8 @@ public class SignUp extends AppCompatActivity {
                                             SignIn.static_token = firstEvent.getString("token");
                                             Log.w("AUTH POST SUCCESS", SignIn.static_token.toString());
 
-                                            Intent intent = new Intent(SignUp.this, Popular.class);
+                                            Intent intent = new Intent(SignUp.this, WhoAreYou.class);
+
                                             SignUp.this.startActivity(intent);
                                             SignUp.this.finish();
 
@@ -157,7 +156,8 @@ public class SignUp extends AppCompatActivity {
                                 try {
                                     JSONObject firstEvent = response.getJSONObject(0);
 
-                                    Intent intent = new Intent(SignUp.this, Popular.class);
+                                    Intent intent = new Intent(SignUp.this, WhoAreYou.class);
+
                                     SignUp.this.startActivity(intent);
                                     SignUp.this.finish();
 
@@ -168,7 +168,7 @@ public class SignUp extends AppCompatActivity {
 
                             @Override
                             public void onRetry(int retryNo) {
-                                // called when request is retried
+                                Log.w("RETRY", retryNo + "");
                             }
 
                             @Override
