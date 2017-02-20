@@ -41,10 +41,7 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
         sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        //Sets the top bar text
-        getSupportActionBar().setTitle("Create an account");
 
         //Creates a code instance of the buttons and text inputs
         textView = (TextView) findViewById(R.id.account_link);
@@ -103,7 +100,8 @@ public class SignUp extends AppCompatActivity {
                                             SignIn.static_token = response.get("token").toString();
                                             Log.w("AUTH POST SUCCESS2", SignIn.static_token.toString());
 
-                                            Intent intent = new Intent(SignUp.this, Popular.class);
+                                            Intent intent = new Intent(SignUp.this, WhoAreYou.class);
+
                                             SignUp.this.startActivity(intent);
                                             SignUp.this.finish();
 
@@ -122,7 +120,8 @@ public class SignUp extends AppCompatActivity {
                                             SignIn.static_token = firstEvent.getString("token");
                                             Log.w("AUTH POST SUCCESS", SignIn.static_token.toString());
 
-                                            Intent intent = new Intent(SignUp.this, Popular.class);
+                                            Intent intent = new Intent(SignUp.this, WhoAreYou.class);
+
                                             SignUp.this.startActivity(intent);
                                             SignUp.this.finish();
 
@@ -136,10 +135,17 @@ public class SignUp extends AppCompatActivity {
                                         // called when request is retried
                                     }
 
-                                    //TODO: Give Users Helpful Error messages when there is a problem
                                     @Override
                                     public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
                                         Log.w("HTTP FAILURE1", "Error Code: " + error_code + ", Text: " + text);
+                                        Toast.makeText(SignUp.this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject jsonObject) {
+                                        Log.w("HTTP FAILURE1", "Error Code: " + error_code + ", JSON: " + jsonObject);
+                                        Toast.makeText(SignUp.this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
                                     }
                                 });
                             }
@@ -150,7 +156,8 @@ public class SignUp extends AppCompatActivity {
                                 try {
                                     JSONObject firstEvent = response.getJSONObject(0);
 
-                                    Intent intent = new Intent(SignUp.this, Popular.class);
+                                    Intent intent = new Intent(SignUp.this, WhoAreYou.class);
+
                                     SignUp.this.startActivity(intent);
                                     SignUp.this.finish();
 
@@ -159,10 +166,12 @@ public class SignUp extends AppCompatActivity {
                                 }
                             }
 
-                            //update dev6
+                            //update dev6-1
+
+
                             @Override
                             public void onRetry(int retryNo) {
-                                // called when request is retried
+                                Log.w("RETRY", retryNo + "");
                             }
 
                             @Override
@@ -171,6 +180,12 @@ public class SignUp extends AppCompatActivity {
                                 if(error_code==409){
                                     Toast.makeText(SignUp.this, "Username Already Exists", Toast.LENGTH_LONG).show();
                                 }
+                            }
+
+                            @Override
+                            public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject jsonObject) {
+                                Log.w("HTTP FAILURE2", "Error Code: " + error_code + ", JSON: " + jsonObject);
+                                Toast.makeText(SignUp.this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
                             }
                         });
                     }else{

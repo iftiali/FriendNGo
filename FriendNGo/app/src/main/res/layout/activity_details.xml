@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:fitsSystemWindows="true"
     tools:context="com.friendngo.friendngo.friendngo.ActivityDetails"
-    android:background="@color/whiteish">
+   >
 
-    <ScrollView
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <LinearLayout
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <FrameLayout
-                android:id="@+id/creator_frame"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
@@ -30,9 +27,9 @@
                 android:background="@drawable/rounded_corners_white"
                 android:layout_margin="7dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent">-->
 
 
                     <com.mikhaellopez.circularimageview.CircularImageView
@@ -49,15 +46,6 @@
                         android:layout_centerHorizontal="true"
                         android:layout_margin="5dp"
                         />
-
-                    <!--<ImageView-->
-                        <!--android:id="@+id/creator_image"-->
-                        <!--android:layout_width="75dp"-->
-                        <!--android:layout_height="75dp"-->
-                        <!--app:srcCompat="@drawable/scott"-->
-                        <!--android:layout_below="@+id/created_by_text"-->
-                        <!--android:layout_centerHorizontal="true"-->
-                        <!--android:layout_margin="5dp" />-->
 
                     <TextView
                         android:id="@+id/activity_detail_creator_name"
@@ -103,186 +91,26 @@
                         android:layout_below="@+id/activity_detail_name"
                         android:layout_centerHorizontal="true"
                         android:textSize="14sp" />
+<!--=======-->
+                <!--android:layout_height="wrap_content" >-->
+                <!--<TextView-->
+                    <!--android:text="Activity Details"-->
+                    <!--android:textSize="24sp"-->
+                    <!--android:textColor="#FFFFFF"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/request_text_iew"-->
+<!--&gt;>>>>>> origin/dev4-->
 
-                    <TextView
-                        android:id="@+id/activity_detail_creator_status"
-                        android:text="Student, "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/activity_detail_creator_name"
-                        android:layout_alignLeft="@+id/activity_detail_name"
-                        android:layout_alignStart="@+id/activity_detail_name" />
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:layout_centerVertical="true"/>-->
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
 
-                    <TextView
-                        android:id="@+id/activity_detail_creator_home"
-                        android:text="New York"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/activity_detail_creator_status"
-                        android:layout_alignTop="@id/activity_detail_creator_status"
-                         />
+    </android.support.design.widget.AppBarLayout>
 
-                    <TextView
-                        android:id="@+id/activity_detail_dot"
-                        android:text=" · "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/activity_detail_creator_home"
-                        android:layout_alignTop="@id/activity_detail_creator_home"
-                         />
+    <include layout="@layout/content_activity_details" />
 
-                    <ImageView
-                        app:srcCompat="@drawable/uk"
-                        android:id="@+id/activity_detail_creator_flag"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_toRightOf="@id/activity_detail_dot"
-                        android:layout_alignTop="@id/activity_detail_dot" />
 
-                    <TextView
-                        android:id="@+id/activity_detail_date"
-                        android:text="March 13th, 2017"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/activity_detail_creator_status"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
-                        android:textStyle="normal|bold" />
 
-                    <TextView
-                        android:id="@+id/activity_detail_time"
-                        android:text="7:30 PM - 23:30PM"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/activity_detail_date"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="10dp" />
-
-                    <TextView
-                        android:id="@+id/activity_detail_name"
-                        android:text="Octoberfest"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="20sp"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#343B59" />
-                </RelativeLayout>
-            </FrameLayout>
-            <FrameLayout
-                android:id="@+id/activity_detail_request_frame"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/creator_frame"
-                android:layout_margin="7dp"
-                android:background="@drawable/rounded_corners_white">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/activity_detail_request_heading"
-                        android:text="See request"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
-                        android:textSize="20sp"
-                        android:textColor="#343B59" />
-
-                </RelativeLayout>
-            </FrameLayout>
-            <FrameLayout
-                android:id="@+id/activity_detail_description_frame"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/creator_frame"
-                android:layout_margin="7dp"
-                android:background="@drawable/rounded_corners_white">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/activity_detail_description_heading"
-                        android:text="Description"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
-                        android:textSize="20sp"
-                        android:textColor="#343B59" />
-
-                    <TextView
-                        android:id="@+id/activity_detail_description_text"
-                        android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/activity_detail_description_heading"
-                        android:layout_centerHorizontal="true"
-                        android:textAlignment="center"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="15dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp" />
-                </RelativeLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/rounded_corners_white"
-                android:layout_margin="7dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/activity_detail_place_heading"
-                        android:text="Place"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
-                        android:textColor="#343B59"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/activity_type_address_text"
-                        android:text="5846 Upper Lachine Road, H4A 2B5"
-                        android:layout_below="@id/activity_detail_place_heading"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_margin="10dp"
-                         />
-
-                </RelativeLayout>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="7dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </RelativeLayout>
-            </FrameLayout>
-            <Button
-                android:text="REQUEST TO JOIN ACTIVITY"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/send_request_button"
-                android:layout_margin="10dp"
-                android:textColor="@android:color/white"
-                android:background="@drawable/submit_button"/>
-        </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

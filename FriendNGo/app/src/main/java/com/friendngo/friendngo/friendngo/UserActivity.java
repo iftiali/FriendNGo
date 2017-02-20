@@ -22,12 +22,15 @@ public class UserActivity {
     private String activityType;
     private double latitude;
     private double longitude;
+    private double clatitude;
+    private double clongitude;
     private String address;
     private String description;
     private long creator_PK;
     private Date endTime;
     private String profilePicURL;
-
+    public  UserActivity(){
+    }
     public UserActivity(String home_city,
                         String home_nationality,
                         String name,
@@ -236,5 +239,21 @@ public class UserActivity {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public double getcLatitude() {
+        return clatitude;
+    }
+
+    public void setcLatitude(double clatitude) {
+        this.clatitude = clatitude;
+    }
+
+    public double getcLongitude() {
+        return clongitude;
+    }
+
+    public void setcLongitude(double clongitude) {
+        this.clongitude = clongitude;
     }
 }

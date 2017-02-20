@@ -48,22 +48,22 @@ public class Popular extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Creates fullscreen effect for older phones -> before setContentView()
-//        if (Build.VERSION.SDK_INT < 16) {
-//            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        }
+//        Creates fullscreen effect for older phones -> before setContentView()
+        if (Build.VERSION.SDK_INT < 16) {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
         setContentView(R.layout.activity_popular);
-//
-//        //Creates fullscreen effect for newer phones
-//        if (Build.VERSION.SDK_INT >= 16) {
-//
-//            View decorView = getWindow().getDecorView();
-//            // Hide the status bar.
-//            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-//            decorView.setSystemUiVisibility(uiOptions);
-////            getSupportActionBar().hide();
-//        }
+
+        //Creates fullscreen effect for newer phones
+        if (Build.VERSION.SDK_INT >= 16) {
+
+            View decorView = getWindow().getDecorView();
+            // Hide the status bar.
+            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
+//            getSupportActionBar().hide();
+        }
 
         //Set top bar and toolbar
       //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -130,6 +130,7 @@ public class Popular extends AppCompatActivity {
                     }
                 }
                 gridAdapter.notifyDataSetChanged();
+
             }
 
             @Override
