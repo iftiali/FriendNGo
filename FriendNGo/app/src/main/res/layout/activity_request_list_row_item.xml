@@ -36,11 +36,6 @@
                 android:layout_height="30dp"
                 android:src="@drawable/not"
                 android:id="@+id/request_delete_image"
-                app:civ_border_color="#EEEEEE"
-                app:civ_border_width="2dp"
-                app:civ_shadow="true"
-                app:civ_shadow_radius="0.5"
-                app:civ_shadow_color="@color/greyish"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/request_success_image"
                 android:layout_toStartOf="@+id/request_success_image" />
@@ -53,7 +48,6 @@
                 android:layout_alignTop="@+id/request_delete_image"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-
                 android:layout_marginRight="12dp"
                 android:layout_marginEnd="6dp" />
 

@@ -8,6 +8,11 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
+    <!--This is the header that tells a user how many other users are available-->
+    <include
+        android:id="@+id/navigation_drawer_header_include"
+        layout="@layout/nav_header_map" />
+
     <!--This is the actual map layout-->
     <include
         layout="@layout/app_bar_map"
@@ -21,26 +26,25 @@
         android:layout_height="match_parent"
         android:layout_gravity="start">
 
-        <!--android:fitsSystemWindows="true"-->
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include
-                android:id="@+id/navigation_drawer_header_include"
-                layout="@layout/nav_header_map" />
-
-            <ListView
-            android:id="@+id/activity_list"
+        <include
+            layout="@layout/profile_drawer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="3dp"
-            android:dividerHeight="10.0sp"
-            android:divider="@android:color/transparent"
-            android:layout_below="@id/navigation_drawer_header_include"
+            android:layout_height="match_parent" />
 
-            />
+            <!--This is the Old List View -> TO BE MOVED TO ITS OWN ACTIVITY-->
+            <!--<ListView-->
+            <!--android:id="@+id/activity_list"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_margin="3dp"-->
+            <!--android:dividerHeight="10.0sp"-->
+            <!--android:divider="@android:color/transparent"-->
+            <!--android:layout_below="@id/navigation_drawer_header_include"-->
+            <!--/>-->
         </RelativeLayout>
 
     </android.support.design.widget.NavigationView>

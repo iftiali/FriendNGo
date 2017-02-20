@@ -50,7 +50,6 @@
     <Spinner
         android:hint="Citizenship"
         android:layout_height="45dp"
-
         android:layout_width="match_parent"
         android:id="@+id/citizen_spinner"
         android:layout_below="@+id/name_input_editView"
@@ -120,6 +119,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:id="@+id/language_spninner"
+        android:layout_marginTop="3dp"
         android:background="@color/white"
         android:layout_below="@+id/citizen_spinner"
         android:layout_alignParentLeft="true"

@@ -273,29 +273,47 @@ public class MapActivity extends AppCompatActivity implements
         navigationView.setNavigationItemSelectedListener(this);
 
         adapter = new ActivityListAdapter(getApplicationContext());
-        listView = (ListView) findViewById(R.id.activity_list);
 
-        if (listView == null) {
-            Log.w("LIST VIEW ERROR", "List view is null!");
-        } else {
-            listView.setAdapter(adapter);
+        //TODO: Move ListView Code to it's own activity
+//        listView = (ListView) findViewById(R.id.activity_list);
+//        if (listView == null) {
+//            Log.w("LIST VIEW ERROR", "List view is null!");
+//        } else {
+//            listView.setAdapter(adapter);
+//
+//            //Here is where we schedule the polling of our activities
+//            ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
+//            scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+//
+//                //This happens in a seperate thread
+//                public void run() {
+//                    //Now hop back onto main thread to do the actual work
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            update_activities();
+//                        }
+//                    });
+//                }
+//            }, 0, POLLING_PERIOD, TimeUnit.SECONDS);
+//        }
 
-            //Here is where we schedule the polling of our activities
-            ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
-            scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+        //TODO: Validate if this all makes sense
+        //Here is where we schedule the polling of our activities
+        ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
+        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
 
-                //This happens in a seperate thread
-                public void run() {
-                    //Now hop back onto main thread to do the actual work
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            update_activities();
-                        }
-                    });
-                }
-            }, 0, POLLING_PERIOD, TimeUnit.SECONDS);
-        }
+            //This happens in a seperate thread
+            public void run() {
+                //Now hop back onto main thread to do the actual work
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        update_activities();
+                    }
+                });
+            }
+        }, 0, POLLING_PERIOD, TimeUnit.SECONDS);
     }
 
 
@@ -436,7 +454,7 @@ public class MapActivity extends AppCompatActivity implements
                                 bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.naked_run_pin);
                                 break;
                             case "Games":
-                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.billiard_pin); //TODO: This needs an update when we have the right pin.
+                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.billiard_pin);
                                 break;
                             case "Nature & Outdoors":
                                 bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.backpack_pin);
@@ -468,7 +486,9 @@ public class MapActivity extends AppCompatActivity implements
                         Log.w("JSON EXCEPTION:", "Error parsing the getActivities response");
                     }
                 }
-                ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+
+                //TODO: Move this to seperate ListView Activity
+//                ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
             }
 
             @Override

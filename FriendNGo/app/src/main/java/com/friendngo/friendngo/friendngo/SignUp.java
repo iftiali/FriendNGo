@@ -136,10 +136,17 @@ public class SignUp extends AppCompatActivity {
                                         // called when request is retried
                                     }
 
-                                    //TODO: Give Users Helpful Error messages when there is a problem
                                     @Override
                                     public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
                                         Log.w("HTTP FAILURE1", "Error Code: " + error_code + ", Text: " + text);
+                                        Toast.makeText(SignUp.this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject jsonObject) {
+                                        Log.w("HTTP FAILURE1", "Error Code: " + error_code + ", JSON: " + jsonObject);
+                                        Toast.makeText(SignUp.this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
                                     }
                                 });
                             }
@@ -170,6 +177,12 @@ public class SignUp extends AppCompatActivity {
                                 if(error_code==409){
                                     Toast.makeText(SignUp.this, "Username Already Exists", Toast.LENGTH_LONG).show();
                                 }
+                            }
+
+                            @Override
+                            public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject jsonObject) {
+                                Log.w("HTTP FAILURE2", "Error Code: " + error_code + ", JSON: " + jsonObject);
+                                Toast.makeText(SignUp.this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
                             }
                         });
                     }else{
