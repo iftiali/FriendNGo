@@ -37,21 +37,26 @@ public class MainActivity extends Activity {
     private final int STAGING_SETTING = 1;
     private final int TEST_SETTING = 2;
 
-    private int server_mode = TEST_SETTING;
+    private int server_mode = STAGING_SETTING;
     private int SPLASH_DISPLAY_LENGTH = 2000;
     public static String base_host_url = "";
     public static boolean cheat_mode = false;
-    public static List categoryList = new ArrayList<Category>();
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+                requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_main);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         if(cheat_mode==false){
-            SPLASH_DISPLAY_LENGTH=20;
+            SPLASH_DISPLAY_LENGTH=2000;
         } else {
             SPLASH_DISPLAY_LENGTH=5;
         }
@@ -63,12 +68,6 @@ public class MainActivity extends Activity {
         } else {
             base_host_url = "http://test.friendngo.com/";
         }
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
