@@ -33,6 +33,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
+<<<<<<< HEAD
 
     <Spinner
         android:hint="Citizenship"
@@ -62,14 +63,35 @@
         android:background="@android:color/white" />
 
     <ImageView
+=======
+        <Spinner
+            android:hint="Citizenship"
+            android:layout_height="45dp"
+            android:layout_width="match_parent"
+            android:id="@+id/drawer_citizen_spinner"
+            android:layout_below="@+id/drawer_name_input_editView"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:layout_marginTop="3dp"
+            android:background="@android:color/white" />
+
+
+
+        <ImageView
+>>>>>>> origin/dev6
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             app:srcCompat="@drawable/crayon"
             android:layout_alignTop="@+id/drawer_age_editText"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
+<<<<<<< HEAD
             android:id="@+id/drawer_imageView4"
         android:adjustViewBounds="true" />
+=======
+            android:id="@+id/drawer_imageView4" />
+>>>>>>> origin/dev6
 
         <ImageView
             android:layout_width="wrap_content"
@@ -92,7 +114,26 @@
             android:textColor="@android:color/white"
             android:layout_margin="15dp" />
 
+<<<<<<< HEAD
     <ImageView
+=======
+        <EditText
+            android:hint="Age"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:id="@+id/drawer_age_editText"
+            android:inputType="number"
+            android:ems="10"
+            android:layout_below="@+id/drawer_language_spninner"
+            android:layout_alignLeft="@+id/drawer_language_spninner"
+            android:layout_alignStart="@+id/drawer_language_spninner"
+            android:gravity="center_vertical"
+            android:layout_marginTop="3dp"
+            android:padding="10dp"
+            android:background="@android:color/white" />
+
+        <ImageView
+>>>>>>> origin/dev6
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             app:srcCompat="@drawable/crayon"
@@ -113,6 +154,7 @@
             android:layout_alignParentStart="true" />
 
         <ImageView
+<<<<<<< HEAD
             android:id="@+id/drawer_imageView"
             android:src="@drawable/next"
             android:layout_width="wrap_content"
@@ -122,6 +164,26 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             />
+=======
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/next"
+            android:layout_alignTop="@+id/drawer_citizen_spinner"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/drawer_imageView" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/next"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/drawer_citizen_spinner"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/drawer_imageView2" />
+>>>>>>> origin/dev6
 
     <com.mikhaellopez.circularimageview.CircularImageView
             android:layout_width="125dp"

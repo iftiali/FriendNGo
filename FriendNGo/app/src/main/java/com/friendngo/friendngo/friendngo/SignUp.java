@@ -166,6 +166,9 @@ public class SignUp extends AppCompatActivity {
                                 }
                             }
 
+                            //update dev6-12 added
+
+
                             @Override
                             public void onRetry(int retryNo) {
                                 Log.w("RETRY", retryNo + "");

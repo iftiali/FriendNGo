@@ -100,10 +100,13 @@ public class MapActivity extends AppCompatActivity implements
     private double current_gps_longitude;
     private boolean last_location_ready = false;
     private boolean gettingGPS = true;
+<<<<<<< HEAD
 
     public static ImageView myProfilePicture;
     public static EditText myProfileNameEdit;
     public static EditText myProfileAgeEdit;
+=======
+>>>>>>> origin/dev6
 
     //Layout instances
     FrameLayout markup_layout;
@@ -129,8 +132,12 @@ public class MapActivity extends AppCompatActivity implements
     Map markerMap = new HashMap();
 
     BottomNavigationView bottomNavigationView;
+<<<<<<< HEAD
     private static boolean run_once = true;
     private String profilePictureURL;
+=======
+    private boolean run_once;
+>>>>>>> origin/dev6
 
     //Fonts Script
     @Override
@@ -282,6 +289,7 @@ public class MapActivity extends AppCompatActivity implements
         navigationView.setNavigationItemSelectedListener(this);
 
         adapter = new ActivityListAdapter(getApplicationContext());
+<<<<<<< HEAD
 
         //SETUP GET user profile
         AsyncHttpClient client2 = new AsyncHttpClient();
@@ -351,6 +359,9 @@ public class MapActivity extends AppCompatActivity implements
             }
         });
 
+=======
+
+>>>>>>> origin/dev6
         //TODO: Move ListView Code to it's own activity
 //        listView = (ListView) findViewById(R.id.activity_list);
 //        if (listView == null) {
@@ -875,6 +886,26 @@ public class MapActivity extends AppCompatActivity implements
                 String montreal_center_point_address="5430 Chemin de la Côte-de-Liesse\n" +
                         "Mont-Royal, QC H4P 1A6";
 
+<<<<<<< HEAD
+=======
+//<<<<<<< HEAD
+////                Log.w("GPS CITY RESULT", current_city);
+////                Log.w("LAST CITY DEBUG",last_city);
+////                if(last_city.equalsIgnoreCase(current_city) != true){
+//
+//                String distanceFromCityCenter = calculate_Distance(montreal_center_point_address);
+//                Log.w("GPS CITY RESULT", distanceFromCityCenter);
+//                if(Double.valueOf(distanceFromCityCenter)<=30){
+//                        //POST Location
+//                        AsyncHttpClient client = new AsyncHttpClient();
+//                        if (SignIn.static_token != null) {
+//                            client.addHeader("Authorization", "Token " + SignIn.static_token);
+//                        }
+//=======
+
+
+
+>>>>>>> origin/dev6
                 String distanceFromCityCenter = calculate_Distance(montreal_center_point_address);
                 Log.w("GPS CITY RESULT", distanceFromCityCenter);
 
@@ -907,6 +938,7 @@ public class MapActivity extends AppCompatActivity implements
                         public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
                             Log.w("POST LOCATION SUCCESS2", statusCode + ": " + timeline.toString());
                         }
+<<<<<<< HEAD
 
                         @Override
                         public void onRetry(int retryNo) {
@@ -927,6 +959,23 @@ public class MapActivity extends AppCompatActivity implements
 
                     Log.w("GPS CITY RESULT", "New City Detected");
 
+=======
+
+                        @Override
+                        public void onRetry(int retryNo) {
+                            // called when request is retried
+                            Log.w("POST LOCATION RETRY", "" + retryNo);
+                        }
+
+                        @Override
+                        public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                            Log.w("POST LOCATION FAIL", "Error Code: " + error_code + "," + text);
+                        }
+                    });
+
+                    Log.w("GPS CITY RESULT", "New City Detected");
+
+>>>>>>> origin/dev6
                     Intent intent;
 
                         if (MainActivity.cheat_mode == true) {

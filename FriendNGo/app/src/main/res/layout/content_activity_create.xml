@@ -269,7 +269,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
+<<<<<<< HEAD
             android:text="Max # of participants"
+=======
+            android:text="Maximum number of participants"
+>>>>>>> origin/dev6
             android:layout_alignParentTop="true"
             android:id="@+id/text_view_maximum"/>
 

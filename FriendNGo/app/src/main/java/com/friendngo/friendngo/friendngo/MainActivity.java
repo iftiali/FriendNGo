@@ -9,6 +9,24 @@ import android.view.Window;
 import android.view.WindowManager;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+<<<<<<< HEAD
+=======
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+
+import cz.msebera.android.httpclient.Header;
+>>>>>>> origin/dev6
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends Activity {
@@ -21,7 +39,7 @@ public class MainActivity extends Activity {
     private int SPLASH_DISPLAY_LENGTH = 2000;
     public static String base_host_url = "";
     public static boolean cheat_mode = false;
-
+    public static List categoryList = new ArrayList<Category>();
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -49,6 +67,15 @@ public class MainActivity extends Activity {
             base_host_url = "http://test.friendngo.com/";
         }
 
+<<<<<<< HEAD
+=======
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_main);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
+>>>>>>> origin/dev6
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
 

@@ -314,6 +314,15 @@ public class WhoAreYou extends AppCompatActivity {
                           Log.w("POST PROFILE FAIL", "Headers: " + headers + ", Error Code: " + error_code + ",  " + text);
                       }
                   });
+<<<<<<< HEAD
+=======
+                  //Close the Activity and Return to the map when finished
+                 // WhoAreYou.this.finish();
+
+                  Intent intent = new Intent(WhoAreYou.this,NewCity.class);
+                  intent.putExtra("signup", "1");
+                  WhoAreYou.this.startActivity(intent);
+>>>>>>> origin/dev6
                   WhoAreYou.this.finish();
               }
           }

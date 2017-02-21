@@ -191,6 +191,10 @@ public class CreateActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/dev6
       //  getSupportActionBar().setTitle("Create a new activity");
         final ArrayList<CategorySpinnerModel> list=new ArrayList<>();
         list.add(new CategorySpinnerModel("Art & Culture",R.drawable.art_exposition));
