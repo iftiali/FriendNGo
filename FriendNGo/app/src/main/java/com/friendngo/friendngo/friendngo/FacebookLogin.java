@@ -6,16 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
-<<<<<<< HEAD
 import android.location.LocationManager;
 import android.os.Build;
-=======
 import android.location.LocationListener;
-import android.location.LocationManager;
-import android.media.audiofx.BassBoost;
-import android.os.Build;
 import android.provider.Settings;
->>>>>>> origin/dev6
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -26,47 +20,28 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/dev6
-
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-
 import cz.msebera.android.httpclient.Header;
 
 public class FacebookLogin extends AppCompatActivity {
-<<<<<<< HEAD
-    public  static double clat=0,clon=0;
-    CallbackManager callbackManager;
-    public static boolean using_facebook = false;
-    private Button useEmailButton;
-=======
     public static double clat = 0, clon = 0;
     CallbackManager callbackManager;
     public static boolean using_facebook = false;
     private Button useEmailButton;
     LocationListener listener;
     LocationManager locationmanager = null;
->>>>>>> origin/dev6
     private final int MY_PERMISSIONS_REQUEST_LOCATION = 2;
     private String TOKEN_PREFERENCE = "token_preference";
     int gspEnableFlag = 0;
@@ -98,19 +73,6 @@ public class FacebookLogin extends AppCompatActivity {
         }
 
         //If the user is logged in then go straight to the New City Activity
-<<<<<<< HEAD
-        if(isLoggedIn()) {
-            SharedPreferences prefs = getSharedPreferences(TOKEN_PREFERENCE,MODE_PRIVATE);
-            String shared_preference_token = prefs.getString("token",null);
-            if (shared_preference_token != null){
-                SignIn.static_token = shared_preference_token;
-            }
-
-            Intent mainIntent = new Intent(FacebookLogin.this,MapActivity.class);
-            FacebookLogin.this.startActivity(mainIntent);
-           // FacebookLogin.this.finish();
-        }else{
-=======
         if (isLoggedIn()) {
             SharedPreferences prefs = getSharedPreferences(TOKEN_PREFERENCE, MODE_PRIVATE);
             String shared_preference_token = prefs.getString("token", null);
@@ -126,17 +88,11 @@ public class FacebookLogin extends AppCompatActivity {
                 // FacebookLogin.this.finish();
             }
         } else {
->>>>>>> origin/dev6
             //Handler for the button to go to e-mail login
             useEmailButton = (Button) findViewById(R.id.use_email_button);
             useEmailButton.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
-<<<<<<< HEAD
-                    Intent mainIntent = new Intent(FacebookLogin.this,SignIn.class);
-                    FacebookLogin.this.startActivity(mainIntent);
-                   // FacebookLogin.this.finish();
-=======
                     if(gspEnableFlag ==1){
                         getLocationPermission();
                        // Toast.makeText(getApplicationContext(),"Please turn on your gps",Toast.LENGTH_LONG).show();
@@ -145,7 +101,6 @@ public class FacebookLogin extends AppCompatActivity {
                         FacebookLogin.this.startActivity(mainIntent);
                     }
                     // FacebookLogin.this.finish();
->>>>>>> origin/dev6
                 }
             });
 
@@ -154,13 +109,13 @@ public class FacebookLogin extends AppCompatActivity {
             LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
 
             // Set the permissions that the user should have with the login
-            // loginButton.setReadPermissions("email");
             loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
 //          "public_profile", "email", "user_birthday", "user_friends"));
             loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(final LoginResult loginResult) {
-                /* Create an Intent that will start the Menu-Activity. */
+
+                    /* Create an Intent that will start the Menu-Activity. */
                     Log.w("FACEBOOK LOGIN", "Success! Token: " + loginResult.getAccessToken().getToken());
 
                     AsyncHttpClient client = new AsyncHttpClient();
@@ -181,12 +136,6 @@ public class FacebookLogin extends AppCompatActivity {
 
                                 Intent mainIntent = new Intent(FacebookLogin.this, MapActivity.class);
                                 FacebookLogin.this.startActivity(mainIntent);
-<<<<<<< HEAD
-                               // FacebookLogin.this.finish();
-=======
-                                // FacebookLogin.this.finish();
->>>>>>> origin/dev6
-
                             } catch (JSONException e) {
                                 Log.w("SOCIAL SIGN UP FAIL: ", e.getMessage().toString());
                             }
@@ -217,7 +166,6 @@ public class FacebookLogin extends AppCompatActivity {
                         public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject jsonObject) {
                             Log.w("SOCIAL SIGNUP FAIL3", "Error Code: " + error_code + ", JSON Object: " + jsonObject.toString());
                         }
-
                     });
                 }
 
@@ -251,97 +199,41 @@ public class FacebookLogin extends AppCompatActivity {
 
     //Parth's Get Last Known Location
     private void getLocationPermission() {
-<<<<<<< HEAD
-        if(ContextCompat.checkSelfPermission(FacebookLogin.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
-            if(ActivityCompat.shouldShowRequestPermissionRationale(FacebookLogin.this,Manifest.permission.ACCESS_COARSE_LOCATION)){
-                ActivityCompat.requestPermissions(FacebookLogin.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},MY_PERMISSIONS_REQUEST_LOCATION);
-
-            }else{
-                ActivityCompat.requestPermissions(FacebookLogin.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},MY_PERMISSIONS_REQUEST_LOCATION);
-
-            }
-        }else{
-            LocationManager locationmanager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            Location location = locationmanager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-            // Toast.makeText(NewCity.this,hereLocation(location.getLatitude(),location.getLongitude()),Toast.LENGTH_LONG).show();
-            try{
-                //new_city_country_name_text_view.setText(hereLocation(location.getLatitude(),location.getLongitude()));
-                clat = location.getLatitude();
-                clon = location.getLongitude();
-                // Toast.makeText(SignIn.this,hereLocation(location.getLatitude(),location.getLongitude()),Toast.LENGTH_LONG).show();
-
-            }catch (Exception e)
-            {
-                e.printStackTrace();
-                Toast.makeText(FacebookLogin.this,"turn on your gps please",Toast.LENGTH_LONG).show();
-=======
         gspEnableFlag = 0;
         if (ContextCompat.checkSelfPermission(FacebookLogin.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
             if (ActivityCompat.shouldShowRequestPermissionRationale(FacebookLogin.this, Manifest.permission.ACCESS_FINE_LOCATION)) {
                 ActivityCompat.requestPermissions(FacebookLogin.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
-
             } else {
                 ActivityCompat.requestPermissions(FacebookLogin.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
-
             }
+
         } else {
+
             locationmanager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             Location location = locationmanager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-            // Toast.makeText(NewCity.this,hereLocation(location.getLatitude(),location.getLongitude()),Toast.LENGTH_LONG).show();
             try {
                 if (location == null) {
                     Log.w("Hello", "Hello1a");
                     location = locationmanager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                 }
+
                 Log.w("Hello", "Hello1b");
-                //new_city_country_name_text_view.setText(hereLocation(location.getLatitude(),location.getLongitude()));
                 clat = location.getLatitude();
                 clon = location.getLongitude();
 
-                // Toast.makeText(SignIn.this,hereLocation(location.getLatitude(),location.getLongitude()),Toast.LENGTH_LONG).show();
-
             } catch (Exception e) {
+
                 e.printStackTrace();
                 Toast.makeText(FacebookLogin.this, "turn on your gps please", Toast.LENGTH_LONG).show();
                 Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
                 gspEnableFlag = 1;
->>>>>>> origin/dev6
             }
-
         }
     }
-
-<<<<<<< HEAD
-   
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode){
-            case MY_PERMISSIONS_REQUEST_LOCATION:{
-                if(grantResults.length>0&& grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    if (ContextCompat.checkSelfPermission(FacebookLogin.this, Manifest.permission.ACCESS_COARSE_LOCATION) == (PackageManager.PERMISSION_GRANTED)) {
-
-                        {
-                            LocationManager locationmanager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                            Location location = locationmanager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-                            try{
-                                // Toast.makeText(SignIn.this,hereLocation(location.getLatitude(),location.getLongitude()),Toast.LENGTH_LONG).show();
-                                clat = location.getLatitude();
-                                clon = location.getLongitude();
-                            }catch (Exception e)
-                            {
-                                e.printStackTrace();
-                                Toast.makeText(FacebookLogin.this,"Network not found",Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    }else {
-                        Toast.makeText(FacebookLogin.this,"No permission granted",Toast.LENGTH_LONG).show();
-=======
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -349,7 +241,6 @@ public class FacebookLogin extends AppCompatActivity {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (ContextCompat.checkSelfPermission(FacebookLogin.this, Manifest.permission.ACCESS_FINE_LOCATION) == (PackageManager.PERMISSION_GRANTED)) {
-
                         {
                             LocationManager locationmanager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                             Location location = locationmanager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -370,12 +261,9 @@ public class FacebookLogin extends AppCompatActivity {
                         }
                     } else {
                         Toast.makeText(FacebookLogin.this, "No permission granted", Toast.LENGTH_LONG).show();
->>>>>>> origin/dev6
                     }
                 }
             }
         }
     }
-
-
 }

@@ -47,10 +47,6 @@
     </string>
     <string name="title_activity_create">activity_create</string>
     <string name="title_activity_details">activity_details</string>
-<<<<<<< HEAD
     <string name="title_activity_list">ActivityListActivity</string>
     <string name="title_activity_about_us">AboutUsActivity</string>
-=======
->>>>>>> origin/dev6
-
 </resources>

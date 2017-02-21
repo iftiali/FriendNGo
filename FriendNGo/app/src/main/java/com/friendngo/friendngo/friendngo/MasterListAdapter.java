@@ -69,27 +69,23 @@ public class MasterListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        //Setup the variables
+        mHorizontalDataset = new ArrayList<>();
+        List categoryArrayList=new ArrayList<Category>();
+
         //Inflate the layout
         convertView = layoutInflater.inflate(R.layout.activity_what_do_you_want2, null);
         ImageView categoryImage = (ImageView)convertView.findViewById(R.id.category_image_button);
         final ImageView categoryCheckMark = (ImageView)convertView.findViewById(R.id.master_category_check_mark);
         TextView categorySubtext = (TextView)convertView.findViewById(R.id.category_list_subtext);
-
-<<<<<<< HEAD
-        mHorizontalDataset = new ArrayList<>();
-=======
-
-
-        //HorizontalScrollView horizontalScrollView = (HorizontalScrollView)convertView.findViewById(R.id.horizontal_scroll_view_template);
-        mHorizontalDataset = new ArrayList<>();
-
->>>>>>> origin/dev6
         mHorizontalRecycleView = (RecyclerView)convertView.findViewById(R.id.recycler_view);
-        mHorizontalRecycleView.setHasFixedSize(true);
         mHorizontallayoutManager = new LinearLayoutManager(convertView.getContext(),LinearLayoutManager.HORIZONTAL,false);
+
+        //Set Inner Layout Adapters
         mHorizontalRecycleView.setLayoutManager(mHorizontallayoutManager);
         mHorizontalAdapter = new WhatDoyouWantToDoTodayHorizontalRow(mHorizontalDataset);
         mHorizontalRecycleView.setAdapter(mHorizontalAdapter);
+        mHorizontalRecycleView.setHasFixedSize(true);
 
         //Set the category image
         Category category = (Category) WhatDoYouWantToDoToday.categoryList.get(position);
@@ -146,15 +142,12 @@ public class MasterListAdapter extends BaseAdapter {
 
         mHorizontalDataset.clear();
         String itemSelected =  category.name;
-        List categoryArrayList=new ArrayList<Category>();
         categoryArrayList = WhatDoYouWantToDoToday.categoryList;
         Category c = new Category();
 
         for(int i =0; i<categoryArrayList.size(); i++) {
             c = (Category) categoryArrayList.get(i);
             if (itemSelected.equals(c.getName())) {
-                //Log.w("category list", c.getName());
-                //Log.w("Size",c.getActivityTypeList().size()+"");
                 for (int j = 0; j < c.getActivityTypeList().size(); j++) {
                     String activityType = (String) c.getActivityTypeList().get(j);
                     // Log.w("list list",activityType);

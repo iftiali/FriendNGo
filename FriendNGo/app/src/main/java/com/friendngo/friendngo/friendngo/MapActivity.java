@@ -100,13 +100,9 @@ public class MapActivity extends AppCompatActivity implements
     private double current_gps_longitude;
     private boolean last_location_ready = false;
     private boolean gettingGPS = true;
-<<<<<<< HEAD
-
     public static ImageView myProfilePicture;
     public static EditText myProfileNameEdit;
     public static EditText myProfileAgeEdit;
-=======
->>>>>>> origin/dev6
 
     //Layout instances
     FrameLayout markup_layout;
@@ -132,12 +128,8 @@ public class MapActivity extends AppCompatActivity implements
     Map markerMap = new HashMap();
 
     BottomNavigationView bottomNavigationView;
-<<<<<<< HEAD
     private static boolean run_once = true;
     private String profilePictureURL;
-=======
-    private boolean run_once;
->>>>>>> origin/dev6
 
     //Fonts Script
     @Override
@@ -289,7 +281,6 @@ public class MapActivity extends AppCompatActivity implements
         navigationView.setNavigationItemSelectedListener(this);
 
         adapter = new ActivityListAdapter(getApplicationContext());
-<<<<<<< HEAD
 
         //SETUP GET user profile
         AsyncHttpClient client2 = new AsyncHttpClient();
@@ -359,9 +350,6 @@ public class MapActivity extends AppCompatActivity implements
             }
         });
 
-=======
-
->>>>>>> origin/dev6
         //TODO: Move ListView Code to it's own activity
 //        listView = (ListView) findViewById(R.id.activity_list);
 //        if (listView == null) {
@@ -386,7 +374,6 @@ public class MapActivity extends AppCompatActivity implements
 //            }, 0, POLLING_PERIOD, TimeUnit.SECONDS);
 //        }
 
-        //TODO: Validate if this all makes sense
         //Here is where we schedule the polling of our activities
         ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
         scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
@@ -404,7 +391,6 @@ public class MapActivity extends AppCompatActivity implements
         }, 0, POLLING_PERIOD, TimeUnit.SECONDS);
     }
 
-
     ////////////////// GETs the activities list and processes them ////////////////////////////////////
     private void update_activities() {
         //GET the activities list
@@ -414,8 +400,6 @@ public class MapActivity extends AppCompatActivity implements
         } else {
             Log.w("TOKEN ERROR", "What happened to the token :(");
         }
-
-
 
         client.get(MainActivity.base_host_url + "api/getActivities/", new JsonHttpResponseHandler() {
             @Override
@@ -439,7 +423,6 @@ public class MapActivity extends AppCompatActivity implements
                     try {
                         //Parse all the JSON for this activity
                         JSONObject activity = responseArray.getJSONObject(i);
-
                         String pictureURL = activity.getString("picture");
                         String name = activity.getString("activity_name");
                         String categoryString = activity.getString("category");
@@ -492,7 +475,7 @@ public class MapActivity extends AppCompatActivity implements
 
                         DecimalFormat df = new DecimalFormat("#.#");
                         String distance = df.format(km);
-//                        String distance = calculation_Distance(address);
+
                         //Create new UserActivity instance with the data
                         UserActivity userActivity = new UserActivity(
                                 home_city,
@@ -665,23 +648,6 @@ public class MapActivity extends AppCompatActivity implements
                 }
 
                 mMap.setMyLocationEnabled(true);
-//                mMap.getUiSettings().
-//                mMap.getUiSettings().set
-//                mMap.getUiSettings().setMyLocationButtonEnabled(false);
-//                mMap.setMyLocationButtonEnabled(false);
-
-//                innerCircle =mMap.addCircle(new CircleOptions()
-//                        .center(new LatLng(location.getLatitude(), location.getLongitude()))
-//                        .radius(20)
-//                        .strokeWidth(8)
-//                        .strokeColor(Color.parseColor("#FF8100"))
-//                        .fillColor(Color.parseColor("#00000000")));
-//                outterCircle = mMap.addCircle(new CircleOptions()
-//                        .center(new LatLng(location.getLatitude(), location.getLongitude()))
-//                        .radius(50)
-//                        .strokeWidth(4)
-//                        .strokeColor(Color.parseColor("#FF8100"))
-//                        .fillColor(Color.parseColor("#00000000")));
             }
         }else if(FacebookLogin.clon != 0 && FacebookLogin.clat != 0){
             if (gettingGPS) {
@@ -713,7 +679,6 @@ public class MapActivity extends AppCompatActivity implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
-
 
     //Trigger the check for GPS even before we load the page
     @Override
@@ -758,7 +723,6 @@ public class MapActivity extends AppCompatActivity implements
                 }
                 return;
             }
-
             // other 'case' lines to check for other
             // permissions this app might request
         }
@@ -766,7 +730,6 @@ public class MapActivity extends AppCompatActivity implements
 
     //Code to request GPS updates
     private void getGPSLocation() {
-
         LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
@@ -780,27 +743,6 @@ public class MapActivity extends AppCompatActivity implements
                 public void onLocationChanged(Location location) {
                     current_gps_latitude = FacebookLogin.clat;
                     current_gps_longitude = FacebookLogin.clon;
-
-//                    if(innerCircle != null && outterCircle != null){
-//                        innerCircle.remove();
-//                        outterCircle.remove();
-//                    }else{
-//                        Log.w("CIRCLE DEBUG", "Inner or outer circle are null");
-//                    }
-//
-//                    innerCircle =mMap.addCircle(new CircleOptions()
-//                            .center(new LatLng(location.getLatitude(), location.getLongitude()))
-//                            .radius(20)
-//                            .strokeWidth(8)
-//                            .strokeColor(Color.parseColor("#FF8100"))
-//                            .fillColor(Color.parseColor("#00000000")));
-//                    outterCircle = mMap.addCircle(new CircleOptions()
-//                            .center(new LatLng(location.getLatitude(), location.getLongitude()))
-//                            .radius(50)
-//                            .strokeWidth(4)
-//                            .strokeColor(Color.parseColor("#FF8100"))
-//                            .fillColor(Color.parseColor("#00000000")));
-
 
                     if (gettingGPS) {
                       // Toast.makeText(getApplicationContext(), "GPS Coordinates = " + current_gps_latitude + "," + current_gps_longitude, Toast.LENGTH_LONG).show();
@@ -886,26 +828,6 @@ public class MapActivity extends AppCompatActivity implements
                 String montreal_center_point_address="5430 Chemin de la Côte-de-Liesse\n" +
                         "Mont-Royal, QC H4P 1A6";
 
-<<<<<<< HEAD
-=======
-//<<<<<<< HEAD
-////                Log.w("GPS CITY RESULT", current_city);
-////                Log.w("LAST CITY DEBUG",last_city);
-////                if(last_city.equalsIgnoreCase(current_city) != true){
-//
-//                String distanceFromCityCenter = calculate_Distance(montreal_center_point_address);
-//                Log.w("GPS CITY RESULT", distanceFromCityCenter);
-//                if(Double.valueOf(distanceFromCityCenter)<=30){
-//                        //POST Location
-//                        AsyncHttpClient client = new AsyncHttpClient();
-//                        if (SignIn.static_token != null) {
-//                            client.addHeader("Authorization", "Token " + SignIn.static_token);
-//                        }
-//=======
-
-
-
->>>>>>> origin/dev6
                 String distanceFromCityCenter = calculate_Distance(montreal_center_point_address);
                 Log.w("GPS CITY RESULT", distanceFromCityCenter);
 
@@ -938,7 +860,6 @@ public class MapActivity extends AppCompatActivity implements
                         public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
                             Log.w("POST LOCATION SUCCESS2", statusCode + ": " + timeline.toString());
                         }
-<<<<<<< HEAD
 
                         @Override
                         public void onRetry(int retryNo) {
@@ -958,45 +879,20 @@ public class MapActivity extends AppCompatActivity implements
                     });
 
                     Log.w("GPS CITY RESULT", "New City Detected");
-
-=======
-
-                        @Override
-                        public void onRetry(int retryNo) {
-                            // called when request is retried
-                            Log.w("POST LOCATION RETRY", "" + retryNo);
-                        }
-
-                        @Override
-                        public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                            Log.w("POST LOCATION FAIL", "Error Code: " + error_code + "," + text);
-                        }
-                    });
-
-                    Log.w("GPS CITY RESULT", "New City Detected");
-
->>>>>>> origin/dev6
                     Intent intent;
-
                         if (MainActivity.cheat_mode == true) {
                             intent = new Intent(MapActivity.this, NewCity.class);
-
                         } else {
                             intent = new Intent(MapActivity.this, NewCity.class);
-
                         }
-
                     MapActivity.this.startActivity(intent);
                     }
-
                 else{
                         Toast.makeText(getApplicationContext(), current_city, Toast.LENGTH_LONG).show();
                         Log.w("GPS CITY RESULT", "Not in a new city");
                     }
 
-
-//OLD LOCATION OF GET ACTIVITIES
-
+            //OLD LOCATION OF GET ACTIVITIES
             } else {
                 Log.w("GPS LOCATION FAIL", "FAIL");
             }
@@ -1129,14 +1025,7 @@ public class MapActivity extends AppCompatActivity implements
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
                     Log.w("GET IMAGE FAIL","Could not retrieve image");
                 }
-
-//                @Override
-//                public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
-//                    Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
-//                }
             });
-
-
         }
         return false;
     }

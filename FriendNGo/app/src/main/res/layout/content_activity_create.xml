@@ -185,7 +185,6 @@
         android:layout_below="@+id/description_text"
         android:id="@+id/description_edit_text" />
 
-
     <TextView
         android:text="Address"
         android:layout_margin="10dp"
@@ -263,20 +262,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-
         <TextView
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-<<<<<<< HEAD
             android:text="Max # of participants"
-=======
-            android:text="Maximum number of participants"
->>>>>>> origin/dev6
             android:layout_alignParentTop="true"
             android:id="@+id/text_view_maximum"/>
-
         <Button
             android:text="-"
             android:textSize="16sp"
@@ -313,7 +305,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/create_plus_minus_button"
             android:id="@+id/create_plus_button"
-
             android:layout_toEndOf="@+id/create_minus_button"
             android:layout_toRightOf="@+id/create_minus_button" />
 
@@ -332,8 +323,8 @@
                 android:layout_alignLeft="@+id/estimated_end_time_text"
                 android:layout_alignStart="@+id/estimated_end_time_text" />
 
-
         </RelativeLayout>
 
 </ScrollView>
+
 </RelativeLayout>
