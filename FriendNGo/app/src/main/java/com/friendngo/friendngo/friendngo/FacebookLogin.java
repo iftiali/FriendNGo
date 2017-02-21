@@ -85,7 +85,7 @@ public class FacebookLogin extends AppCompatActivity {
                 SignIn.static_token = shared_preference_token;
             }
 
-            Intent mainIntent = new Intent(FacebookLogin.this,Popular.class);
+            Intent mainIntent = new Intent(FacebookLogin.this,MapActivity.class);
             FacebookLogin.this.startActivity(mainIntent);
            // FacebookLogin.this.finish();
         }else{

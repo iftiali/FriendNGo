@@ -47,5 +47,6 @@
     </string>
     <string name="title_activity_create">activity_create</string>
     <string name="title_activity_details">activity_details</string>
+    <string name="title_activity_list">ActivityListActivity</string>
 
 </resources>

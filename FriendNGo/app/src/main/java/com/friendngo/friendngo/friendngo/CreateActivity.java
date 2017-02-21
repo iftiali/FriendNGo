@@ -41,6 +41,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class CreateActivity extends AppCompatActivity {
 
     TextView plus_minus_textview;
+    int plus = 0;
     Button plus_button,minus_button;
     int todayTomorrowFlag =0;
     public ArrayList<CategorySpinnerModel> cust_category = new ArrayList<CategorySpinnerModel>();
@@ -87,11 +88,11 @@ public class CreateActivity extends AppCompatActivity {
             }
         }
     };
+
     TimePickerDialog.OnTimeSetListener startTimer = new TimePickerDialog.OnTimeSetListener() {
 
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            // TODO Auto-generated method stub
             sdf = new SimpleDateFormat("HH:mm");
             currentDateStartTime = sdf.format(new Date());
 
@@ -131,12 +132,13 @@ public class CreateActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
-        Log.w("text",MainActivity.categoryList.toString());
+        Log.w("text",WhatDoYouWantToDoToday.categoryList.toString());
 
         plus_minus_textview = (TextView)findViewById(R.id.plus_minus_textview);
         plus_button = (Button)findViewById(R.id.create_plus_button);
@@ -144,7 +146,7 @@ public class CreateActivity extends AppCompatActivity {
         plus_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int plus = Integer.parseInt(plus_minus_textview.getText().toString());
+                plus = Integer.parseInt(plus_minus_textview.getText().toString());
                 plus++;
                 plus_minus_textview.setText(String.valueOf(plus));
             }
@@ -153,7 +155,7 @@ public class CreateActivity extends AppCompatActivity {
         minus_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int plus = Integer.parseInt(plus_minus_textview.getText().toString());
+                plus = Integer.parseInt(plus_minus_textview.getText().toString());
                 if(plus<=0){
                     plus =0;
                 }else {
@@ -189,22 +191,20 @@ public class CreateActivity extends AppCompatActivity {
             }
         });
 
-
       //  getSupportActionBar().setTitle("Create a new activity");
         final ArrayList<CategorySpinnerModel> list=new ArrayList<>();
-        list.add(new CategorySpinnerModel("Arts & Culture",R.drawable.art_exposition));
-        list.add(new CategorySpinnerModel("Nightlife",R.drawable.nightlife));
+        list.add(new CategorySpinnerModel("Art & Culture",R.drawable.art_exposition));
+        list.add(new CategorySpinnerModel("Nightlife",R.drawable.concert));
         list.add(new CategorySpinnerModel("Sports",R.drawable.running));
-        list.add(new CategorySpinnerModel("Dating",R.drawable.naked_run));
-        list.add(new CategorySpinnerModel("Activities",R.drawable.billard));
-        list.add(new CategorySpinnerModel("Outdoors",R.drawable.backpack));
-        list.add(new CategorySpinnerModel("Camping",R.drawable.camping));
-        list.add(new CategorySpinnerModel("Food and Drink",R.drawable.grab_drink));
-        list.add(new CategorySpinnerModel("Networking",R.drawable.coworking));
-
+        list.add(new CategorySpinnerModel("Fun & Crazy",R.drawable.naked_run));
+        list.add(new CategorySpinnerModel("Games",R.drawable.billard));
+        list.add(new CategorySpinnerModel("Nature & Outdoors",R.drawable.backpack));
+        list.add(new CategorySpinnerModel("Nature & Outdoors",R.drawable.camping));
+        list.add(new CategorySpinnerModel("Social Activities",R.drawable.grab_drink));
+        list.add(new CategorySpinnerModel("Professional & Networking",R.drawable.coworking));
+        list.add(new CategorySpinnerModel("Help & Association", R.drawable.handshake));
 
         Spinner category_spinner = (Spinner)findViewById(R.id.category_picker);
-//        category_spinner.setBackgroundColor(Color.WHITE);
         CategorySpinnerActivity adapter=new CategorySpinnerActivity(CreateActivity.this, R.layout.category_picker,R.id.txt,list);
         category_spinner.setAdapter(adapter);
 
@@ -219,7 +219,7 @@ public class CreateActivity extends AppCompatActivity {
                 spinnerAdapter2.clear();
                 String itemSelected =  list.get(position).getText();
                 List categoryArrayList=new ArrayList<Category>();
-                categoryArrayList = MainActivity.categoryList;
+                categoryArrayList = WhatDoYouWantToDoToday.categoryList;
                 Category c = new Category();
 
                 for(int i =0; i<categoryArrayList.size(); i++)
@@ -241,30 +241,6 @@ public class CreateActivity extends AppCompatActivity {
 
             }
         });
-//        startTimePicker = (TimePicker)findViewById(R.id.start_time_text_view);
-//        endTimePicker = (TimePicker)findViewById(R.id.end_time_text_view);
-
-        //TODO: Dynamically create this lists based on which category was chosen
-/*
-        spinnerAdapter2.add("5 @ 7");
-        spinnerAdapter2.add("Startup Weekend");
-        spinnerAdapter2.add("Conference");
-        spinnerAdapter2.add("See a Movie");
-        spinnerAdapter2.add("Wine Tasting");
-        spinnerAdapter2.add("Fishing Trip");
-        spinnerAdapter2.add("Hiking");
-        spinnerAdapter2.add("Clubbing");
-        spinnerAdapter2.add("Pool");
-        spinnerAdapter2.add("Running");
-        spinnerAdapter2.add("Swimming");
-        spinnerAdapter2.add("Soccer");
-        spinnerAdapter2.add("Hockey");
-        spinnerAdapter2.add("Badminton");
-        spinnerAdapter2.add("Tennis");
-        spinnerAdapter2.add("Dodgeball");
-        spinnerAdapter2.add("None Of The Above");
-        spinnerAdapter2.notifyDataSetChanged();
-*/
 
         final SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMMM");
 
@@ -329,10 +305,6 @@ public class CreateActivity extends AppCompatActivity {
                 EditText additionalNotesText = (EditText) findViewById(R.id.additional_notes_edit_text);
                 String additionalNotes = additionalNotesText.getText().toString();
 
-//                String startTime = startTimePicker.getCurrentHour() +":"+startTimePicker.getCurrentMinute();
-//                String endTime =  endTimePicker.getCurrentHour() + ":"+endTimePicker.getCurrentMinute();
-
-
                 //Determine the latitude and longitude from the address provided
                 Geocoder coder = new Geocoder(getApplicationContext());
 
@@ -346,12 +318,9 @@ public class CreateActivity extends AppCompatActivity {
                 RequestParams params = new RequestParams();
                 params.put("activity_name",activity_name );
                 params.put("activity_type", activityType);
-              //  params.put("max_users", maxUsers);
+                params.put("max_users",plus);
                 params.put("activity_lat", Double.toString(ValidationClass.get_Latitude(address,coder)));
                 params.put("activity_lon", Double.toString(ValidationClass.get_longitude(address,coder)));
-//                params.put("activity_lat", Double.toString(43));
-//                params.put("activity_lon", Double.toString(-72));
-
                 params.put("address",address);
                 params.put("activity_time", startEventTime.getText());
                 params.put("activity_end_time", endEventTime.getText());
@@ -362,13 +331,7 @@ public class CreateActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        //TODO: Test and implement statusCode handler for developers and graceful degradation
                         Log.w("POST ACT SUCCESS", statusCode + ": " + "Response = " + response.toString());
-//                        try{
-//                            Log.w("STATUS SUCCESS: ", response.getString("status"));
-//                        }catch (JSONException e){
-//                            Log.w("HTTP JSONException",e.getMessage().toString());
-//                        }
                     }
 
                     @Override

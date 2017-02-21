@@ -32,6 +32,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
     ListView masterListView;
     Button saveButton;
     public static List categoryList = new ArrayList<Category>();
+    MasterListAdapter masterListAdapter;
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -63,10 +64,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray categoryJSONArray) {
                 Log.w("JSON CATEGORY ARRAY", statusCode + ": " + categoryJSONArray.toString());
-
                 String updateText = String.valueOf(categoryJSONArray.length());
-
-
                 int activitySum;
                 for (int i =0; i < categoryJSONArray.length(); i++){
                     try {
@@ -76,24 +74,19 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
 //                        Log.w("JSON PARSE DEBUG", "Category = " + categoryJSONObject.getString("name"));
                         JSONArray activitiesJSONArray = categoryJSONObject.getJSONArray("activity_type");
 
-                        //Take just the first ActivityType in each category for this page
-
 //                        for (int j=0; j<1; j++){
                         for (int j=0; j< activitiesJSONArray.length(); j++){ //Alternative to loop through every one
                             String activityType = activitiesJSONArray.getJSONObject(j).getString("name");
 //                            Log.w("JSON PARSE DEBUG", "ActivityType = " + activityType + ", " + j);
                             category.addActivityType(activityType);
-
                         }
-
                         categoryList.add(category);
 
                     } catch (JSONException e) {
                         Log.w("GET CATEGORY PARSE FAIL", e.getMessage().toString());
                     }
                 }
-
-
+                masterListAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -120,13 +113,13 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
             saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(WhatDoYouWantToDoToday.this,MapActivity.class);
+                Intent intent = new Intent(WhatDoYouWantToDoToday.this,WhoAreYou.class);
                 WhatDoYouWantToDoToday.this.startActivity(intent);
                 WhatDoYouWantToDoToday.this.finish();
             }
         });
         masterListView = (ListView) findViewById(R.id.category_and_activity_list_view);
-        MasterListAdapter masterListAdapter = new MasterListAdapter(getApplicationContext());
+        masterListAdapter = new MasterListAdapter(getApplicationContext());
         masterListView.setAdapter(masterListAdapter);
     }
 }

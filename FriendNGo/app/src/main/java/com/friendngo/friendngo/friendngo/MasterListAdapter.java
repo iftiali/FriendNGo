@@ -32,15 +32,6 @@ public class MasterListAdapter extends BaseAdapter {
     private RecyclerView.LayoutManager mHorizontallayoutManager;
     private RecyclerView.Adapter mHorizontalAdapter;
     private ArrayList<String> mHorizontalDataset;
-    //TODO: Make this more efficient by using ViewHolder pattern
-    //This is the data structure that will be recycled
-//    private static class ViewHolder {
-//        ImageView categoryImage;
-//        ImageView categoryCheckMark;
-//        TextView categorySubtext;
-//        HorizontalScrollView horizontalScrollView;
-//    }
-
 
     public MasterListAdapter(Context context){
         super();
@@ -67,8 +58,6 @@ public class MasterListAdapter extends BaseAdapter {
         return i;
     }
 
-
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //Inflate the layout
@@ -77,11 +66,7 @@ public class MasterListAdapter extends BaseAdapter {
         final ImageView categoryCheckMark = (ImageView)convertView.findViewById(R.id.master_category_check_mark);
         TextView categorySubtext = (TextView)convertView.findViewById(R.id.category_list_subtext);
 
-
-
-        //HorizontalScrollView horizontalScrollView = (HorizontalScrollView)convertView.findViewById(R.id.horizontal_scroll_view_template);
         mHorizontalDataset = new ArrayList<>();
-
         mHorizontalRecycleView = (RecyclerView)convertView.findViewById(R.id.recycler_view);
         mHorizontalRecycleView.setHasFixedSize(true);
         mHorizontallayoutManager = new LinearLayoutManager(convertView.getContext(),LinearLayoutManager.HORIZONTAL,false);
@@ -139,7 +124,6 @@ public class MasterListAdapter extends BaseAdapter {
             }
         });
 
-
         categorySubtext.setText(category.name);
         categorySubtext.setTextColor(Color.GRAY);
 
@@ -161,17 +145,6 @@ public class MasterListAdapter extends BaseAdapter {
                 }
             }
         }
-
-        //TODO: Add horizontal scroll bars for activity types
-//        //Put in top 3 views for now
-//        View horizontalView1 = layoutInflater.inflate(R.layout.horizontal_layout_item, null);
-//        String activityType1A = category
-//
-//        View horizontalView2 = layoutInflater.inflate(R.layout.horizontal_layout_item, null);
-//        View horizontalView3 = layoutInflater.inflate(R.layout.horizontal_layout_item, null);
-//
-//        horizontalScrollView.addView();
-
         return convertView;
     }
 }

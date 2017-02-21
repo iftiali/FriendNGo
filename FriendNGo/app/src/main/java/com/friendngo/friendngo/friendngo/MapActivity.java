@@ -32,6 +32,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -74,6 +75,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import cz.msebera.android.httpclient.Header;
+import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static android.location.LocationManager.GPS_PROVIDER;
@@ -99,6 +101,10 @@ public class MapActivity extends AppCompatActivity implements
     private boolean last_location_ready = false;
     private boolean gettingGPS = true;
 
+    public static ImageView myProfilePicture;
+    public static EditText myProfileNameEdit;
+    public static EditText myProfileAgeEdit;
+
     //Layout instances
     FrameLayout markup_layout;
     RelativeLayout alpha_layer;
@@ -115,13 +121,16 @@ public class MapActivity extends AppCompatActivity implements
     TextView dateTime;
     Button activityDetailsButton, participateButton;
 
+    File downloadedImage;
+
     //Data Model and Adapters
     public static List activitiesList = new ArrayList<UserActivity>();
     private static ActivityListAdapter adapter;
     Map markerMap = new HashMap();
 
     BottomNavigationView bottomNavigationView;
-    private boolean run_once;
+    private static boolean run_once = true;
+    private String profilePictureURL;
 
     //Fonts Script
     @Override
@@ -148,7 +157,6 @@ public class MapActivity extends AppCompatActivity implements
         participateButton = (Button) findViewById(R.id.banner_participate);
         participateButton.setEnabled(false);
 
-        //TODO: Update all the states check out: https://developer.android.com/guide/topics/resources/drawable-resource.html#StateList
         //OnClick listeners for bottom navigation bar
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -274,6 +282,74 @@ public class MapActivity extends AppCompatActivity implements
         navigationView.setNavigationItemSelectedListener(this);
 
         adapter = new ActivityListAdapter(getApplicationContext());
+
+        //SETUP GET user profile
+        AsyncHttpClient client2 = new AsyncHttpClient();
+        if(SignIn.static_token != null) {
+            client2.addHeader("Authorization","Token "+SignIn.static_token);
+        }
+
+        myProfilePicture = (ImageView) this.findViewById(R.id.drawer_profilepicture);
+        myProfileNameEdit = (EditText) this.findViewById(R.id.drawer_name_input_editView);
+        myProfileAgeEdit = (EditText) this.findViewById(R.id.drawer_age_editText);
+
+//        final MultiSelectSpinner citizenSpinner = (MultiSelectSpinner) this.findViewById(R.id.drawer_citizen_spinner);
+//        final String first_name;
+
+        //GET last known location
+        client2.get(MainActivity.base_host_url + "api/getProfile/", new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.w("MY PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
+
+                //GET The image file at the pictureURL
+                AsyncHttpClient client3 = new AsyncHttpClient();
+                try{
+                    profilePictureURL = response.getString("picture");
+
+                }catch (JSONException e){
+                    Log.w("MY PROFILE JSON FAIL",e.getMessage().toString());
+                }
+                client3.get(MainActivity.base_host_url + profilePictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, File response) {
+                        Log.w("MY IMAGE SUCCESS","Successfully Retrieved The Image");
+                        //Use the downloaded image as the profile picture
+                        Uri uri = Uri.fromFile(response);
+                        myProfilePicture.setImageURI(uri);
+                        downloadedImage = response;
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                        Log.w("MY IMAGE FAIL","Could not retrieve image");
+                    }
+                });
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                Log.w("MYPROFILE SUCCESS ARRAY", statusCode + ": " + timeline.toString());
+
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
+                Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + text);
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
+                Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
+            }
+        });
 
         //TODO: Move ListView Code to it's own activity
 //        listView = (ListView) findViewById(R.id.activity_list);
@@ -499,6 +575,11 @@ public class MapActivity extends AppCompatActivity implements
             @Override
             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
                 Log.w("GET ACTIVITIES FAIL2", "Error Code: " + error_code+ ", Text: "+text);
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
+                Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
             }
         });
     }
@@ -794,23 +875,6 @@ public class MapActivity extends AppCompatActivity implements
                 String montreal_center_point_address="5430 Chemin de la Côte-de-Liesse\n" +
                         "Mont-Royal, QC H4P 1A6";
 
-//<<<<<<< HEAD
-////                Log.w("GPS CITY RESULT", current_city);
-////                Log.w("LAST CITY DEBUG",last_city);
-////                if(last_city.equalsIgnoreCase(current_city) != true){
-//
-//                String distanceFromCityCenter = calculate_Distance(montreal_center_point_address);
-//                Log.w("GPS CITY RESULT", distanceFromCityCenter);
-//                if(Double.valueOf(distanceFromCityCenter)<=30){
-//                        //POST Location
-//                        AsyncHttpClient client = new AsyncHttpClient();
-//                        if (SignIn.static_token != null) {
-//                            client.addHeader("Authorization", "Token " + SignIn.static_token);
-//                        }
-//=======
-
-
-
                 String distanceFromCityCenter = calculate_Distance(montreal_center_point_address);
                 Log.w("GPS CITY RESULT", distanceFromCityCenter);
 
@@ -853,6 +917,11 @@ public class MapActivity extends AppCompatActivity implements
                         @Override
                         public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
                             Log.w("POST LOCATION FAIL", "Error Code: " + error_code + "," + text);
+                        }
+
+                        @Override
+                        public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
+                            Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
                         }
                     });
 
@@ -1011,6 +1080,11 @@ public class MapActivity extends AppCompatActivity implements
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
                     Log.w("GET IMAGE FAIL","Could not retrieve image");
                 }
+
+//                @Override
+//                public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
+//                    Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
+//                }
             });
 
 

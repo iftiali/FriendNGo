@@ -61,11 +61,9 @@ public class Request extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray requests) {
                 Log.w("GET AR JSON ARRAY", statusCode + ": " + requests.toString());
-
                     for (int i = 0; i < requests.length(); i++) {
                         try {
                             JSONObject activity = requests.getJSONObject(i);
-
                             dataModels.add(new RequestModel(
                                     activity.getLong("sender"),
                                     activity.getString("sender_profile"),

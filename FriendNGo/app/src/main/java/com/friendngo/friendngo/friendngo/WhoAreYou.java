@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -87,6 +88,7 @@ public class WhoAreYou extends AppCompatActivity {
         }
         nationalityInputSpinner = (Spinner) findViewById(R.id.citizen_spinner);
         nameInput = (EditText) findViewById(R.id.name_input_editView);
+        ageInput = (EditText) findViewById(R.id.age_editText);
         Locale[] locales = Locale.getAvailableLocales();
         ArrayList<String> languageList = new ArrayList<String>();
 
@@ -94,7 +96,6 @@ public class WhoAreYou extends AppCompatActivity {
             String country = locale.getDisplayLanguage();
             if (country.trim().length()>0 && !languageList.contains(country)) {
                 languageList.add(country);
-
             }
         }
         Collections.sort(languageList);
@@ -104,7 +105,6 @@ public class WhoAreYou extends AppCompatActivity {
                 .setListener(new MultiSelectSpinner.MultiSpinnerListener() {
                     @Override
                     public void onItemsSelected(boolean[] selected) {
-
                     }
                 })
                 .setAllCheckedText("All types")
@@ -170,6 +170,15 @@ public class WhoAreYou extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.w("GET PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
 
+                try{
+                    nameInput.setHint(response.getString("first_name"));
+                    ageInput.setHint(response.getString("age"));
+                    MapActivity.myProfileNameEdit.setHint(response.getString("first_name"));
+                    MapActivity.myProfileAgeEdit.setHint(response.getString("age"));
+                }catch (JSONException e){
+                    Log.w("JSON EXCEPTION", e.getMessage());
+                }
+
                 //GET The image file at the pictureURL
                 AsyncHttpClient client = new AsyncHttpClient();
                 try{
@@ -185,7 +194,10 @@ public class WhoAreYou extends AppCompatActivity {
                         //Use the downloaded image as the profile picture
                         Uri uri = Uri.fromFile(response);
                         profilePicture.setImageURI(uri);
+                        MapActivity.myProfilePicture.setImageURI(uri);
                         downloadedImage = response;
+
+
                     }
 
                     @Override
@@ -228,11 +240,9 @@ public class WhoAreYou extends AppCompatActivity {
 
                   ageInput = (EditText) findViewById(R.id.age_editText);
 
-
                   RequestParams params = new RequestParams();
                   //Adding text params
                   if(MainActivity.cheat_mode==true){
-
                       params.put("first_name","Mr. Delicious");
                       params.put("last_name","Tootles");
                       params.put("phone","444-444-4444");
@@ -240,10 +250,24 @@ public class WhoAreYou extends AppCompatActivity {
                       params.put("home_city","toronto");
                       params.put("home_nationality","Canadian");
                   }else{
-                      params.put("first_name",nameInput.getText());
-                      params.put("last_name",nameInput.getText());
+
+                      String first_name = nameInput.getText().toString();
+                      if(first_name!=null) {
+                          params.put("first_name", first_name);
+                      }
+
+                      String last_name = nameInput.getText().toString();
+                      if(last_name!=null) {
+                          params.put("last_name",last_name );
+                      }
+
                       params.put("phone","444-444-4444");
-                      params.put("age",ageInput.getText());
+                      String age = ageInput.getText().toString();
+                      if(age!=null || age==""){
+                          params.put("age",age);
+                      }
+
+                      //TODO: This is temporary... remove this eventually
                       params.put("home_city","toronto");
                       params.put("home_nationality","Canadian");
                      // params.put("home_nationality",nationalityInput.getText());
@@ -265,6 +289,7 @@ public class WhoAreYou extends AppCompatActivity {
 //                      params.put("picture", downloadedImage);
                   } catch(FileNotFoundException e) {}
 
+                  //TODO: This form needs proper validation
                   //POST Update to profile
                   client.post(MainActivity.base_host_url + "api/postProfile/", params, new JsonHttpResponseHandler() {
 
@@ -289,12 +314,6 @@ public class WhoAreYou extends AppCompatActivity {
                           Log.w("POST PROFILE FAIL", "Headers: " + headers + ", Error Code: " + error_code + ",  " + text);
                       }
                   });
-                  //Close the Activity and Return to the map when finished
-                 // WhoAreYou.this.finish();
-
-                  Intent intent = new Intent(WhoAreYou.this,NewCity.class);
-                  intent.putExtra("signup", "1");
-                  WhoAreYou.this.startActivity(intent);
                   WhoAreYou.this.finish();
               }
           }
@@ -306,6 +325,7 @@ public class WhoAreYou extends AppCompatActivity {
             photo = (Bitmap) data.getExtras().get("data");
 
             profilePicture.setImageBitmap(photo);
+            MapActivity.myProfilePicture.setImageBitmap(photo);
 
             //Preprocess Image for Uploading
             ContextWrapper cw = new ContextWrapper(getApplicationContext());
