@@ -7,8 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.friendngo.scott.friendngo.R;
-
 public class AboutUsActivity extends AppCompatActivity {
 
     @Override
@@ -27,5 +25,4 @@ public class AboutUsActivity extends AppCompatActivity {
             }
         });
     }
-
 }
