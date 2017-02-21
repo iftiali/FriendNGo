@@ -136,7 +136,7 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
-        Log.w("text",MainActivity.categoryList.toString());
+        Log.w("text",WhatDoYouWantToDoToday.categoryList.toString());
 
         plus_minus_textview = (TextView)findViewById(R.id.plus_minus_textview);
         plus_button = (Button)findViewById(R.id.create_plus_button);
@@ -219,7 +219,7 @@ public class CreateActivity extends AppCompatActivity {
                 spinnerAdapter2.clear();
                 String itemSelected =  list.get(position).getText();
                 List categoryArrayList=new ArrayList<Category>();
-                categoryArrayList = MainActivity.categoryList;
+                categoryArrayList = WhatDoYouWantToDoToday.categoryList;
                 Category c = new Category();
 
                 for(int i =0; i<categoryArrayList.size(); i++)
