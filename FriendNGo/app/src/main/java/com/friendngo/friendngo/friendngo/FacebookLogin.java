@@ -45,6 +45,7 @@ public class FacebookLogin extends AppCompatActivity {
     private final int MY_PERMISSIONS_REQUEST_LOCATION = 2;
     private String TOKEN_PREFERENCE = "token_preference";
     int gspEnableFlag = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

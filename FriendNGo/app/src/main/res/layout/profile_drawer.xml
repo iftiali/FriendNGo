@@ -33,18 +33,6 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
-    <Spinner
-        android:hint="Citizenship"
-        android:layout_height="45dp"
-        android:layout_width="match_parent"
-        android:id="@+id/drawer_citizen_spinner"
-        android:gravity="center_vertical"
-        android:padding="10dp"
-        android:background="@android:color/white"
-        android:layout_below="@+id/drawer_name_input_editView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <EditText
         android:hint="Age"
         android:layout_width="match_parent"
@@ -57,8 +45,19 @@
         android:layout_alignStart="@+id/drawer_language_spninner"
         android:gravity="center_vertical"
         android:layout_marginTop="3dp"
-        android:padding="10dp"
-        android:background="@android:color/white" />
+        android:background="@android:color/white"
+        android:paddingLeft="15dp" />
+
+    <ImageView
+
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        app:srcCompat="@drawable/crayon"
+        android:layout_alignTop="@+id/drawer_name_input_editView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/drawer_imageView5"
+        android:adjustViewBounds="true" />
 
     <ImageView
 
@@ -71,7 +70,22 @@
             android:id="@+id/drawer_imageView4"
         android:adjustViewBounds="true" />
 
-        <ImageView
+
+
+    <Spinner
+        android:hint="Citizenship"
+        android:layout_height="45dp"
+        android:layout_width="match_parent"
+        android:id="@+id/drawer_citizen_spinner"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:background="@android:color/white"
+        android:layout_below="@+id/drawer_name_input_editView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="3dp" />
+
+    <ImageView
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginTop="15dp"
@@ -109,7 +123,8 @@
             android:background="@color/white"
             android:layout_below="@+id/drawer_citizen_spinner"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:padding="10dp" />
 
         <ImageView
             android:id="@+id/drawer_imageView"
@@ -134,7 +149,7 @@
             app:civ_shadow_radius="2"
             app:civ_shadow_color="@color/greyish"
         android:layout_below="@+id/textView3"
-        android:layout_margin="10dp"
+        android:layout_margin="15dp"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

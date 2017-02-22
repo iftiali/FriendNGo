@@ -89,9 +89,9 @@ public class WhoAreYou extends AppCompatActivity {
         nationalityInputSpinner = (Spinner) findViewById(R.id.citizen_spinner);
         nameInput = (EditText) findViewById(R.id.name_input_editView);
         ageInput = (EditText) findViewById(R.id.age_editText);
+
         Locale[] locales = Locale.getAvailableLocales();
         ArrayList<String> languageList = new ArrayList<String>();
-
         for (Locale locale : locales) {
             String country = locale.getDisplayLanguage();
             if (country.trim().length()>0 && !languageList.contains(country)) {
@@ -101,7 +101,6 @@ public class WhoAreYou extends AppCompatActivity {
         Collections.sort(languageList);
         MultiSelectSpinner multiSelectSpinner1 = (MultiSelectSpinner) findViewById(R.id.language_spninner);
         multiSelectSpinner1.setItems(languageList)
-
                 .setListener(new MultiSelectSpinner.MultiSpinnerListener() {
                     @Override
                     public void onItemsSelected(boolean[] selected) {
@@ -110,12 +109,9 @@ public class WhoAreYou extends AppCompatActivity {
                 .setAllCheckedText("All types")
                 .setAllUncheckedText("Spoken laguages")
                 .setSelectAll(false)
-
         ;
 
-
         ArrayList<String> countriesList = new ArrayList<String>();
-
         for (Locale locale : locales) {
             String country = locale.getDisplayCountry();
             if (country.trim().length()>0 && !countriesList.contains(country)) {
@@ -124,16 +120,12 @@ public class WhoAreYou extends AppCompatActivity {
         }
 
         Collections.sort(countriesList);
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(WhoAreYou.this,android.R.layout.simple_spinner_item, countriesList);
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         nationalityInputSpinner.setAdapter(adapter);
         nationalityInputSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 Log.w("name",selectedItem);
             }
@@ -196,8 +188,6 @@ public class WhoAreYou extends AppCompatActivity {
                         profilePicture.setImageURI(uri);
                         MapActivity.myProfilePicture.setImageURI(uri);
                         downloadedImage = response;
-
-
                     }
 
                     @Override
