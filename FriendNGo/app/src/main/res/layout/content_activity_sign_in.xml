@@ -12,7 +12,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:ems="10"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -76,7 +76,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/login_password"
         android:textColor="@color/textInput"
