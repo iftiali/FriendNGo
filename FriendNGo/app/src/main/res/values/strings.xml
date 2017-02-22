@@ -4,7 +4,7 @@
     <string name="token">token</string>
     <string name="title_activity_login">Sign in</string>
     <string name="no_messages">Getting Data From Server</string>
-
+    <string name="spinner_title">Select Category</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

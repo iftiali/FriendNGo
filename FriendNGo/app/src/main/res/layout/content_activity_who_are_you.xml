@@ -34,19 +34,18 @@
         android:layout_marginTop="3dp"
         android:padding="10dp"
         android:background="@android:color/white" />
+    <!--android:hint="Citizenship"-->
 
-    <Spinner
+    <io.apptik.widget.multiselectspinner.MultiSelectSpinner
         android:hint="Citizenship"
-        android:layout_height="45dp"
-
         android:layout_width="match_parent"
+        android:layout_height="45dp"
         android:id="@+id/citizen_spinner"
+        android:background="@color/white"
+        android:paddingRight="100dp"
         android:layout_below="@+id/name_input_editView"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_vertical"
-        android:paddingTop="10dp"
-        android:layout_marginTop="3dp"
-        android:background="@android:color/white" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -109,6 +108,7 @@
         android:layout_height="45dp"
         android:id="@+id/language_spninner"
         android:background="@color/white"
+
         android:layout_below="@+id/citizen_spinner"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />

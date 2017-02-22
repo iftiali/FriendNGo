@@ -7,6 +7,8 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.Manifest;
@@ -83,10 +85,13 @@ public class WhoAreYou extends AppCompatActivity {
 
         profilePicture = (ImageView) findViewById(R.id.profilepicture);
 
+
+
         if(MainActivity.cheat_mode==true){
             WhoAreYou.this.finish();
         }
-        nationalityInputSpinner = (Spinner) findViewById(R.id.citizen_spinner);
+       // nationalityInputSpinner = (Spinner) findViewById(R.id.citizen_spinner);
+
         nameInput = (EditText) findViewById(R.id.name_input_editView);
         ageInput = (EditText) findViewById(R.id.age_editText);
         Locale[] locales = Locale.getAvailableLocales();
@@ -99,19 +104,38 @@ public class WhoAreYou extends AppCompatActivity {
             }
         }
         Collections.sort(languageList);
-        MultiSelectSpinner multiSelectSpinner1 = (MultiSelectSpinner) findViewById(R.id.language_spninner);
-        multiSelectSpinner1.setItems(languageList)
+        MultiSelectSpinner multiSelectSpinnerLanguage = (MultiSelectSpinner) findViewById(R.id.language_spninner);
+        multiSelectSpinnerLanguage.setItems(languageList)
 
                 .setListener(new MultiSelectSpinner.MultiSpinnerListener() {
                     @Override
                     public void onItemsSelected(boolean[] selected) {
+
                     }
                 })
+                .setSpinnerItemLayout(R.layout.custom_spinner_item)
                 .setAllCheckedText("All types")
-                .setAllUncheckedText("Spoken laguages")
+                .setAllUncheckedText("Spoken languages")
                 .setSelectAll(false)
 
         ;
+        multiSelectSpinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String  item = (String) parent.getItemAtPosition(position);
+                Log.w("TRYTRY",item);
+                if(item.equals("Spoken languages"))
+                    ((TextView) view).setTextColor(Color.GRAY);
+
+                else
+                    ((TextView) view).setTextColor(Color.BLACK);
+                //Change selected text color
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent ) {
+            }
+        });
 
 
         ArrayList<String> countriesList = new ArrayList<String>();
@@ -124,22 +148,39 @@ public class WhoAreYou extends AppCompatActivity {
         }
 
         Collections.sort(countriesList);
+        MultiSelectSpinner multiSelectSpinnerCitizen_spinner = (MultiSelectSpinner) findViewById(R.id.citizen_spinner);
+        ArrayAdapter<String> countriesListadapter = new ArrayAdapter <String>(this, R.layout.custom_spinner_item, countriesList);
+        multiSelectSpinnerCitizen_spinner.setListAdapter(countriesListadapter)
+                .setListener(new MultiSelectSpinner.MultiSpinnerListener() {
+                    @Override
+                    public void onItemsSelected(boolean[] selected) {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(WhoAreYou.this,android.R.layout.simple_spinner_item, countriesList);
+                    }
+                })
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        nationalityInputSpinner.setAdapter(adapter);
-        nationalityInputSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                .setAllCheckedText("All types")
+                .setAllUncheckedText("Citizenship")
+                .setSelectAll(false)
+
+        ;
+        multiSelectSpinnerCitizen_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-
-                String selectedItem = parent.getItemAtPosition(position).toString();
-                Log.w("name",selectedItem);
+                String  item = (String) parent.getItemAtPosition(position);
+                Log.w("TRYTRY",item);
+                if(item.equals("Citizenship")) {
+                    ((TextView) view).setTextColor(Color.GRAY);
+                    ((TextView) view).setTextSize(18);
+                }
+                else{
+                    ((TextView) view).setTextSize(18);
+                    ((TextView) view).setTextColor(Color.BLACK);
+                //Change selected text color
+                     }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> parent ) {
             }
         });
         //Set OnClick Listener for the profile picture pressed

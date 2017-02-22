@@ -19,91 +19,21 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
+
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/rounded_corners_white"
-                android:layout_margin="7dp">
+                android:layout_height="wrap_content" >
+                <TextView
+                    android:text="Activity Detail"
+                    android:textSize="24sp"
+                    android:textColor="#FFFFFF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/my_city_text_iew"
 
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent">-->
-
-
-                    <com.mikhaellopez.circularimageview.CircularImageView
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:src="@drawable/empty_profile"
-                        android:id="@+id/creator_image"
-                        app:civ_border_color="#EEEEEE"
-                        app:civ_border_width="4dp"
-                        app:civ_shadow="true"
-                        app:civ_shadow_radius="1"
-                        app:civ_shadow_color="@color/greyish"
-                        android:layout_below="@+id/created_by_text"
-                        android:layout_centerHorizontal="true"
-                        android:layout_margin="5dp"
-                        />
-
-                    <TextView
-                        android:id="@+id/activity_detail_creator_name"
-                        android:text="Mark Patterson"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/creator_image"
-                        android:layout_centerHorizontal="true"
-                        android:textSize="16sp"
-                        android:textStyle="normal|bold" />
-
-                    <TextView
-                        android:id="@+id/activity_detail_points"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/activity_list_point"
-                        android:text="10pts"
-                        android:padding="5dp"
-                        android:textColor="@android:color/white"
-                        android:layout_toRightOf="@+id/activity_detail_creator_age"
-                        android:layout_toEndOf="@+id/activity_detail_creator_age"
-                        android:textSize="6sp"
-                        android:layout_alignBottom="@+id/activity_detail_creator_age"
-                        android:layout_alignTop="@+id/activity_detail_creator_age" />
-
-                    <TextView
-                        android:id="@+id/activity_detail_creator_age"
-                        android:text="28 y-o"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/activity_detail_creator_name"
-                        android:layout_alignBottom="@+id/activity_detail_creator_name"
-                        android:layout_toRightOf="@+id/activity_detail_creator_name"
-                        android:layout_toEndOf="@+id/activity_detail_creator_name"
-                        android:layout_margin="5dp"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/created_by_text"
-                        android:text="Created by"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/activity_detail_name"
-                        android:layout_centerHorizontal="true"
-                        android:textSize="14sp" />
-<!--=======-->
-                <!--android:layout_height="wrap_content" >-->
-                <!--<TextView-->
-                    <!--android:text="Activity Details"-->
-                    <!--android:textSize="24sp"-->
-                    <!--android:textColor="#FFFFFF"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/request_text_iew"-->
-<!--&gt;>>>>>> origin/dev4-->
-
-                    <!--android:layout_centerHorizontal="true"-->
-                    <!--android:layout_centerVertical="true"/>-->
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"/>
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 
