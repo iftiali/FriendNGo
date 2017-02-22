@@ -91,6 +91,8 @@ public class SignIn extends AppCompatActivity {
                         static_token = response.get("token").toString();
                         Log.w("POST AUTH SUCCESS2", static_token);
                         Intent intent = new Intent(SignIn.this, MapActivity.class);
+                       // Intent intent = new Intent(SignIn.this, MapActivity.class);
+
                         SignIn.this.startActivity(intent);
                         SignIn.this.finish();
 
@@ -108,7 +110,9 @@ public class SignIn extends AppCompatActivity {
                         static_token = firstEvent.getString("token");
                         Log.w("POST AUTH SUCCESS4", static_token.toString());
 
+                     //   Intent intent = new Intent(SignIn.this, WhatDoYouWantToDoToday.class);
                         Intent intent = new Intent(SignIn.this, MapActivity.class);
+
                         SignIn.this.startActivity(intent);
                         SignIn.this.finish();
 
@@ -175,6 +179,7 @@ public class SignIn extends AppCompatActivity {
                                     static_token = response.get("token").toString();
                                     Log.w("POST AUTH SUCCESS2", static_token);
 
+                                  //  Intent intent = new Intent(SignIn.this, WhatDoYouWantToDoToday.class);
                                     Intent intent = new Intent(SignIn.this, MapActivity.class);
 
                                     SignIn.this.startActivity(intent);
@@ -195,8 +200,8 @@ public class SignIn extends AppCompatActivity {
                                     static_token = firstEvent.getString("token");
                                     Log.w("POST AUTH SUCCESS4", static_token.toString());
 
+                                   // Intent intent = new Intent(SignIn.this, WhatDoYouWantToDoToday.class);
                                     Intent intent = new Intent(SignIn.this, MapActivity.class);
-
                                     SignIn.this.startActivity(intent);
                                     SignIn.this.finish();
 

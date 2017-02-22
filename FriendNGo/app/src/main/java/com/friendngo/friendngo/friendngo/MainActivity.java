@@ -24,7 +24,7 @@ public class MainActivity extends Activity {
     private int SPLASH_DISPLAY_LENGTH = 2000;
     public static String base_host_url = "";
     public static boolean cheat_mode = false;
-    public static List categoryList = new ArrayList<Category>();
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -59,8 +59,8 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-              //  Intent mainIntent = new Intent(MainActivity.this,FacebookLogin.class);
-               Intent mainIntent = new Intent(MainActivity.this,WhoAreYou.class);
+                Intent mainIntent = new Intent(MainActivity.this,FacebookLogin.class);
+              // Intent mainIntent = new Intent(MainActivity.this,WhoAreYou.class);
                 MainActivity.this.startActivity(mainIntent);
                 MainActivity.this.finish();
             }

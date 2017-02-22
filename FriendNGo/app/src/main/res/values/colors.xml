@@ -10,6 +10,7 @@
     <color name="gradientEnd">#FF7500</color>
     <color name="whiteish">#F2F2F2</color>
     <color name="greyish">#BABECD</color>
+
     <color name="light_grey">#757E7D</color>
     <color name="textInput">#777E9D</color>
 </resources>

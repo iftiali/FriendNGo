@@ -31,8 +31,10 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
+        
         android:ems="10"
+        android:inputType="textPassword"
+        android:password="true"
         android:layout_below="@+id/signup_email"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

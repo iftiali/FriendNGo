@@ -42,10 +42,9 @@
         android:layout_height="45dp"
         android:id="@+id/citizen_spinner"
         android:background="@color/white"
-        android:paddingRight="100dp"
+       android:layout_marginLeft="8dp"
         android:layout_below="@+id/name_input_editView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+         />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -110,8 +109,7 @@
         android:background="@color/white"
 
         android:layout_below="@+id/citizen_spinner"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginLeft="8dp" />
 
     <ImageView
         android:layout_width="wrap_content"
