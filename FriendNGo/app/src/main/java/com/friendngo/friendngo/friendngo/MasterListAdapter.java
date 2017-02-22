@@ -90,7 +90,7 @@ public class MasterListAdapter extends BaseAdapter {
         //Set the category image
         Category category = (Category) WhatDoYouWantToDoToday.categoryList.get(position);
         switch (category.name) {
-            case "Arts & Culture":
+            case "Art & Culture":
                 categoryImage.setImageResource(R.drawable.art_exposition);
                 break;
             case "Nightlife":
@@ -99,25 +99,25 @@ public class MasterListAdapter extends BaseAdapter {
             case "Sports":
                 categoryImage.setImageResource(R.drawable.running);
                 break;
-            case "Business":
+            case "Help & Association":
                 categoryImage.setImageResource(R.drawable.handshake);
                 break;
-            case "Date":
+            case "Fun & Crazy":
                 categoryImage.setImageResource(R.drawable.naked_run);
                 break;
-            case "Activities":
+            case "Games":
                 categoryImage.setImageResource(R.drawable.billard);
                 break;
-            case "Outdoors":
+            case "Travel & Road-Trip":
                 categoryImage.setImageResource(R.drawable.backpack);
                 break;
-            case "Camping":
+            case "Nature & Outdoors":
                 categoryImage.setImageResource(R.drawable.camping);
                 break;
-            case "Food and Drink":
+            case "Social Activities":
                 categoryImage.setImageResource(R.drawable.grab_drink);
                 break;
-            case "Networking":
+            case "Professional & Networking":
                 categoryImage.setImageResource(R.drawable.coworking);
                 break;
             default:

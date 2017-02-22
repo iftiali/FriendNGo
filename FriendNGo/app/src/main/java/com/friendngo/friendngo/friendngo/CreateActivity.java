@@ -198,7 +198,7 @@ public class CreateActivity extends AppCompatActivity {
         list.add(new CategorySpinnerModel("Sports",R.drawable.running));
         list.add(new CategorySpinnerModel("Fun & Crazy",R.drawable.naked_run));
         list.add(new CategorySpinnerModel("Games",R.drawable.billard));
-        list.add(new CategorySpinnerModel("Nature & Outdoors",R.drawable.backpack));
+        list.add(new CategorySpinnerModel("Travel & Road-Trip",R.drawable.backpack));
         list.add(new CategorySpinnerModel("Nature & Outdoors",R.drawable.camping));
         list.add(new CategorySpinnerModel("Social Activities",R.drawable.grab_drink));
         list.add(new CategorySpinnerModel("Professional & Networking",R.drawable.coworking));
