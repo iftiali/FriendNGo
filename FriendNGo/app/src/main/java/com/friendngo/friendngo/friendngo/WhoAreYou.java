@@ -146,41 +146,19 @@ public class WhoAreYou extends AppCompatActivity {
 
         Collections.sort(countriesList);
 
-        MultiSelectSpinner multiSelectSpinnerCitizen_spinner = (MultiSelectSpinner) findViewById(R.id.citizen_spinner);
-        ArrayAdapter<String> countriesListadapter = new ArrayAdapter <String>(this, R.layout.custom_spinner_item, countriesList);
-        multiSelectSpinnerCitizen_spinner.setListAdapter(countriesListadapter)
-                .setListener(new MultiSelectSpinner.MultiSpinnerListener() {
-                    @Override
-                    public void onItemsSelected(boolean[] selected) {
-
-                    }
-                })
-
-                .setAllCheckedText("All types")
-                .setAllUncheckedText("Citizenship")
-                .setSelectAll(false)
-                .setMaxSelectedItems(1);
-
-        ;
-        multiSelectSpinnerCitizen_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+       Spinner nationalityInputSpinner = (Spinner)findViewById(R.id.citizen_spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(WhoAreYou.this,android.R.layout.simple_spinner_item, countriesList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        nationalityInputSpinner.setAdapter(adapter);
+        nationalityInputSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String  item = (String) parent.getItemAtPosition(position);
-                Log.w("TRYTRY",item);
-                if(item.equals("Citizenship")) {
-                    ((TextView) view).setTextColor(Color.GRAY);
-                    ((TextView) view).setTextSize(18);
-                }
-                else{
-                    ((TextView) view).setTextSize(18);
-                    ((TextView) view).setTextColor(Color.BLACK);
-                //Change selected text color
-                     }
-
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                Log.w("name",selectedItem);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent ) {
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
         //Set OnClick Listener for the profile picture pressed
