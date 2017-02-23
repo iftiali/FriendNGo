@@ -40,6 +40,7 @@ public class ValidationClass {
             return true;
         }
     }
+
     public final static double get_longitude(String strAddress,Geocoder coder) {
         double locationValue =0;
         List<Address> address;
@@ -63,7 +64,6 @@ public class ValidationClass {
         double locationValue =0;
         List<Address> address;
 
-
         try {
             address = coder.getFromLocationName(strAddress, 5);
             if (address == null) {
@@ -78,5 +78,4 @@ public class ValidationClass {
         }
         return  locationValue;
     }
-
 }

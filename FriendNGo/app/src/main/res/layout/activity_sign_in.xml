@@ -39,5 +39,4 @@
     <include layout="@layout/content_activity_sign_in" />
 
 
-
 </android.support.design.widget.CoordinatorLayout>

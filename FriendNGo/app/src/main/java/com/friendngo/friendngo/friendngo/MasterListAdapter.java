@@ -112,6 +112,7 @@ public class MasterListAdapter extends BaseAdapter {
                 categoryImage.setImageResource(R.drawable.backpack);
                 break;
             case "Nature & Outdoors":
+
                 categoryImage.setImageResource(R.drawable.camping);
                 break;
             case "Social Activities":
@@ -121,7 +122,7 @@ public class MasterListAdapter extends BaseAdapter {
                 categoryImage.setImageResource(R.drawable.coworking);
                 break;
             default:
-                categoryImage.setImageResource(R.drawable.wink);
+                categoryImage.setImageResource(R.drawable.naked_run);
         }
 
         categoryCheckMark.setVisibility(View.INVISIBLE);

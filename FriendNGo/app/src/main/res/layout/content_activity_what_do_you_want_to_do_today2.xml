@@ -32,7 +32,7 @@
         android:layout_below="@+id/textView" />
 
     <TextView
-        android:text="What categories interest you?"
+        android:text="Pick your current interests"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"

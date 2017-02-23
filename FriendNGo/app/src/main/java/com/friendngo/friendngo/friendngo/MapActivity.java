@@ -30,13 +30,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,6 +64,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -76,6 +76,7 @@ import java.util.concurrent.TimeUnit;
 
 import cz.msebera.android.httpclient.Header;
 import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static android.location.LocationManager.GPS_PROVIDER;
@@ -104,10 +105,13 @@ public class MapActivity extends AppCompatActivity implements
     public static EditText myProfileNameEdit;
     public static EditText myProfileAgeEdit;
     public static List categoryList = new ArrayList<Category>();
+
+    public static Spinner citizenshipSpinner;
+    public static Spinner languagesSpinner;
+
     //Layout instances
     FrameLayout markup_layout;
     RelativeLayout alpha_layer;
-    public ListView listView;
     ImageView profilePicture;
     TextView name;
     TextView creator;
@@ -124,7 +128,6 @@ public class MapActivity extends AppCompatActivity implements
 
     //Data Model and Adapters
     public static List activitiesList = new ArrayList<UserActivity>();
-    private static ActivityListAdapter adapter;
     Map markerMap = new HashMap();
 
     BottomNavigationView bottomNavigationView;
@@ -163,7 +166,8 @@ public class MapActivity extends AppCompatActivity implements
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.home_icon:
-                                Log.w("BOTTOM NAV","Home Icon Pressed");
+                                Intent intent = new Intent(MapActivity.this, ActivityListActivity.class);
+                                MapActivity.this.startActivity(intent);
                                 break;
                             case R.id.calendar_icon:
                                 Log.w("BOTTOM NAV","Calendar Icon Pressed");
@@ -280,20 +284,44 @@ public class MapActivity extends AppCompatActivity implements
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        adapter = new ActivityListAdapter(getApplicationContext());
-
         //SETUP GET user profile
         AsyncHttpClient client2 = new AsyncHttpClient();
         if(SignIn.static_token != null) {
             client2.addHeader("Authorization","Token "+SignIn.static_token);
         }
 
+        //Pull up the Views from XML
         myProfilePicture = (ImageView) this.findViewById(R.id.drawer_profilepicture);
         myProfileNameEdit = (EditText) this.findViewById(R.id.drawer_name_input_editView);
         myProfileAgeEdit = (EditText) this.findViewById(R.id.drawer_age_editText);
+        citizenshipSpinner = (Spinner) this.findViewById(R.id.drawer_citizen_spinner);
+        languagesSpinner = (MultiSelectSpinner) this.findViewById(R.id.drawer_language_spninner);
 
-//        final MultiSelectSpinner citizenSpinner = (MultiSelectSpinner) this.findViewById(R.id.drawer_citizen_spinner);
-//        final String first_name;
+        //Spinner for Citizenship
+        String hint_text = "Canadian";
+        Locale[] locales = Locale.getAvailableLocales();
+        ArrayList<String> countriesList = new ArrayList<String>();
+        for (Locale locale : locales) {
+            String country = locale.getDisplayCountry();
+            if (country.trim().length()>0 && !countriesList.contains(country)) {
+                countriesList.add(country);
+            }
+        }
+        Collections.sort(countriesList);
+
+
+
+        //Spinner for Languages
+        String hint_text2 = "English, French";
+        ArrayList<String> languageList = new ArrayList<String>();
+        for (Locale locale : locales) {
+            String language = locale.getDisplayLanguage();
+            if (language.trim().length()>0 && !languageList.contains(language)) {
+                languageList.add(language);
+            }
+        }
+        Collections.sort(languageList);
+
 
         //GET last known location
         client2.get(MainActivity.base_host_url + "api/getProfile/", new JsonHttpResponseHandler() {
@@ -349,30 +377,6 @@ public class MapActivity extends AppCompatActivity implements
                 Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
             }
         });
-
-        //TODO: Move ListView Code to it's own activity
-//        listView = (ListView) findViewById(R.id.activity_list);
-//        if (listView == null) {
-//            Log.w("LIST VIEW ERROR", "List view is null!");
-//        } else {
-//            listView.setAdapter(adapter);
-//
-//            //Here is where we schedule the polling of our activities
-//            ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
-//            scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
-//
-//                //This happens in a seperate thread
-//                public void run() {
-//                    //Now hop back onto main thread to do the actual work
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            update_activities();
-//                        }
-//                    });
-//                }
-//            }, 0, POLLING_PERIOD, TimeUnit.SECONDS);
-//        }
 
         //Here is where we schedule the polling of our activities
         ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
@@ -555,9 +559,6 @@ public class MapActivity extends AppCompatActivity implements
                         Log.w("JSON EXCEPTION:", "Error parsing the getActivities response");
                     }
                 }
-
-                //TODO: Move this to seperate ListView Activity
-//                ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
             }
 
             @Override

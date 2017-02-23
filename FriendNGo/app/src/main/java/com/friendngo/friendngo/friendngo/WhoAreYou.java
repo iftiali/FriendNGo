@@ -94,9 +94,9 @@ public class WhoAreYou extends AppCompatActivity {
 
         nameInput = (EditText) findViewById(R.id.name_input_editView);
         ageInput = (EditText) findViewById(R.id.age_editText);
+
         Locale[] locales = Locale.getAvailableLocales();
         ArrayList<String> languageList = new ArrayList<String>();
-
         for (Locale locale : locales) {
             String country = locale.getDisplayLanguage();
             if (country.trim().length()>0 && !languageList.contains(country)) {
@@ -117,7 +117,6 @@ public class WhoAreYou extends AppCompatActivity {
                 .setAllCheckedText("All types")
                 .setAllUncheckedText("Spoken languages")
                 .setSelectAll(false)
-
         ;
         multiSelectSpinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -137,9 +136,7 @@ public class WhoAreYou extends AppCompatActivity {
             }
         });
 
-
         ArrayList<String> countriesList = new ArrayList<String>();
-
         for (Locale locale : locales) {
             String country = locale.getDisplayCountry();
             if (country.trim().length()>0 && !countriesList.contains(country)) {
@@ -148,6 +145,7 @@ public class WhoAreYou extends AppCompatActivity {
         }
 
         Collections.sort(countriesList);
+
         MultiSelectSpinner multiSelectSpinnerCitizen_spinner = (MultiSelectSpinner) findViewById(R.id.citizen_spinner);
         ArrayAdapter<String> countriesListadapter = new ArrayAdapter <String>(this, R.layout.custom_spinner_item, countriesList);
         multiSelectSpinnerCitizen_spinner.setListAdapter(countriesListadapter)
@@ -161,6 +159,7 @@ public class WhoAreYou extends AppCompatActivity {
                 .setAllCheckedText("All types")
                 .setAllUncheckedText("Citizenship")
                 .setSelectAll(false)
+                .setMaxSelectedItems(1);
 
         ;
         multiSelectSpinnerCitizen_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -177,6 +176,7 @@ public class WhoAreYou extends AppCompatActivity {
                     ((TextView) view).setTextColor(Color.BLACK);
                 //Change selected text color
                      }
+
             }
 
             @Override
@@ -237,8 +237,6 @@ public class WhoAreYou extends AppCompatActivity {
                         profilePicture.setImageURI(uri);
                         MapActivity.myProfilePicture.setImageURI(uri);
                         downloadedImage = response;
-
-
                     }
 
                     @Override
@@ -311,6 +309,9 @@ public class WhoAreYou extends AppCompatActivity {
                       //TODO: This is temporary... remove this eventually
                       params.put("home_city","toronto");
                       params.put("home_nationality","Canadian");
+
+                      params.put("languages","{\"0\":\"English\" , \"1\":\"French\"}");
+//                      Log.w("LANGUAGES DEBUG",lang)
                      // params.put("home_nationality",nationalityInput.getText());
                   }
 

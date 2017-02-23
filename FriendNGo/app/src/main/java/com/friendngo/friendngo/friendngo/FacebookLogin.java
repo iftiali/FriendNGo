@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
-import android.location.LocationListener;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -38,13 +37,12 @@ import cz.msebera.android.httpclient.Header;
 public class FacebookLogin extends AppCompatActivity {
     public static double clat = 0, clon = 0;
     CallbackManager callbackManager;
-    public static boolean using_facebook = false;
     private Button useEmailButton;
-    LocationListener listener;
     LocationManager locationmanager = null;
     private final int MY_PERMISSIONS_REQUEST_LOCATION = 2;
     private String TOKEN_PREFERENCE = "token_preference";
     int gspEnableFlag = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,11 +79,9 @@ public class FacebookLogin extends AppCompatActivity {
             }
             if(gspEnableFlag ==1){
                 getLocationPermission();
-                // Toast.makeText(getApplicationContext(),"Please turn on your gps",Toast.LENGTH_LONG).show();
             }else {
                 Intent mainIntent = new Intent(FacebookLogin.this, Popular.class);
                 FacebookLogin.this.startActivity(mainIntent);
-                // FacebookLogin.this.finish();
             }
         } else {
             //Handler for the button to go to e-mail login
@@ -95,7 +91,6 @@ public class FacebookLogin extends AppCompatActivity {
                 public void onClick(View v) {
                     if(gspEnableFlag ==1){
                         getLocationPermission();
-                       // Toast.makeText(getApplicationContext(),"Please turn on your gps",Toast.LENGTH_LONG).show();
                     }else {
                         Intent mainIntent = new Intent(FacebookLogin.this, SignIn.class);
                         FacebookLogin.this.startActivity(mainIntent);
@@ -103,29 +98,23 @@ public class FacebookLogin extends AppCompatActivity {
                     // FacebookLogin.this.finish();
                 }
             });
-
             //Sets up the callback to the Facebook API for the facebook button
             callbackManager = CallbackManager.Factory.create();
             LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
 
             // Set the permissions that the user should have with the login
             loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
-//          "public_profile", "email", "user_birthday", "user_friends"));
             loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(final LoginResult loginResult) {
-
                     /* Create an Intent that will start the Menu-Activity. */
                     Log.w("FACEBOOK LOGIN", "Success! Token: " + loginResult.getAccessToken().getToken());
-
                     AsyncHttpClient client = new AsyncHttpClient();
                     RequestParams params = new RequestParams();
                     params.put("access_token", loginResult.getAccessToken().getToken());
                     client.post(MainActivity.base_host_url + "api/exchange_token/facebook/", params, new JsonHttpResponseHandler() {
-
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
                             Log.w("SOCIAL SIGN UP SUCCESS", statusCode + ": " + "Response = " + response.toString());
                             try {
                                 SignIn.static_token = response.get("token").toString();
@@ -133,7 +122,6 @@ public class FacebookLogin extends AppCompatActivity {
                                 SharedPreferences.Editor editor = getSharedPreferences(TOKEN_PREFERENCE, MODE_PRIVATE).edit();
                                 editor.putString("token", response.get("token").toString());
                                 editor.commit();
-
                                 Intent mainIntent = new Intent(FacebookLogin.this, MapActivity.class);
                                 FacebookLogin.this.startActivity(mainIntent);
                             } catch (JSONException e) {
@@ -199,12 +187,17 @@ public class FacebookLogin extends AppCompatActivity {
 
     //Parth's Get Last Known Location
     private void getLocationPermission() {
+
         gspEnableFlag = 0;
+
         if (ContextCompat.checkSelfPermission(FacebookLogin.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(FacebookLogin.this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+
                 ActivityCompat.requestPermissions(FacebookLogin.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
+
             } else {
+
                 ActivityCompat.requestPermissions(FacebookLogin.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
             }
 
@@ -214,9 +207,11 @@ public class FacebookLogin extends AppCompatActivity {
             Location location = locationmanager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
             try {
+
                 if (location == null) {
 
                     location = locationmanager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
                 }
 
                 clat = location.getLatitude();
@@ -230,6 +225,7 @@ public class FacebookLogin extends AppCompatActivity {
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
                 gspEnableFlag = 1;
+
             }
         }
     }
