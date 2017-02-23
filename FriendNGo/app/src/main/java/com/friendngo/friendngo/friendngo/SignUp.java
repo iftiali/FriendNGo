@@ -32,6 +32,7 @@ public class SignUp extends AppCompatActivity {
     private EditText passwordEditTextValue;
 
     private SharedPreferences sharedPref;
+    private boolean try_once = true;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -100,7 +101,7 @@ public class SignUp extends AppCompatActivity {
                                             SignIn.static_token = response.get("token").toString();
                                             Log.w("AUTH POST SUCCESS2", SignIn.static_token.toString());
 
-                                            Intent intent = new Intent(SignUp.this, WhoAreYou.class);
+                                            Intent intent = new Intent(SignUp.this, MapActivity.class);
 
                                             SignUp.this.startActivity(intent);
                                             SignUp.this.finish();
@@ -120,7 +121,7 @@ public class SignUp extends AppCompatActivity {
                                             SignIn.static_token = firstEvent.getString("token");
                                             Log.w("AUTH POST SUCCESS", SignIn.static_token.toString());
 
-                                            Intent intent = new Intent(SignUp.this, WhoAreYou.class);
+                                            Intent intent = new Intent(SignUp.this, MapActivity.class);
 
                                             SignUp.this.startActivity(intent);
                                             SignUp.this.finish();
@@ -139,12 +140,11 @@ public class SignUp extends AppCompatActivity {
                                     public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
                                         Log.w("HTTP FAILURE1", "Error Code: " + error_code + ", Text: " + text);
                                         Toast.makeText(SignUp.this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
-
                                     }
 
                                     @Override
                                     public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject jsonObject) {
-                                        Log.w("HTTP FAILURE1", "Error Code: " + error_code + ", JSON: " + jsonObject);
+                                        Log.w("HTTP FAILURE1", "Error Code: " + error_code + ", HEADER: " + headers.toString() + ", JSON: " + jsonObject);
                                         Toast.makeText(SignUp.this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
                                     }
                                 });
@@ -155,9 +155,7 @@ public class SignUp extends AppCompatActivity {
                                 Log.w("HTTP SUCCESS: ", statusCode + ": " + response.toString());
                                 try {
                                     JSONObject firstEvent = response.getJSONObject(0);
-
-                                    Intent intent = new Intent(SignUp.this, WhoAreYou.class);
-
+                                    Intent intent = new Intent(SignUp.this, MapActivity.class);
                                     SignUp.this.startActivity(intent);
                                     SignUp.this.finish();
 
@@ -172,6 +170,11 @@ public class SignUp extends AppCompatActivity {
                             @Override
                             public void onRetry(int retryNo) {
                                 Log.w("RETRY", retryNo + "");
+
+                                if (try_once==true){
+                                    Toast.makeText(SignUp.this, "Check Your Network Connection", Toast.LENGTH_LONG).show();
+                                    try_once=false;
+                                }
                             }
 
                             @Override
@@ -179,12 +182,14 @@ public class SignUp extends AppCompatActivity {
                                 Log.w("HTTP FAILURE2", "Error Code: " + error_code + ", Text: " + text);
                                 if(error_code==409){
                                     Toast.makeText(SignUp.this, "Username Already Exists", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(SignUp.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
                                 }
                             }
 
                             @Override
                             public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject jsonObject) {
-                                Log.w("HTTP FAILURE2", "Error Code: " + error_code + ", JSON: " + jsonObject);
+                                Log.w("HTTP JSON FAILURE2", "Error Code: " + error_code + ", JSON: " + jsonObject);
                                 Toast.makeText(SignUp.this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
                             }
                         });

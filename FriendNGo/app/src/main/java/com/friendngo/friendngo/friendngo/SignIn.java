@@ -69,8 +69,6 @@ public class SignIn extends AppCompatActivity {
         static_username = "";
         //Sets the top heading value
 
-
-
         //Cheat Mode To Go Straight To Map Activity
         if (MainActivity.cheat_mode == true) {
             //Go straight to signing in with default user

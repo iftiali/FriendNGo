@@ -260,6 +260,9 @@ public class WhoAreYou extends AppCompatActivity {
                       //TODO: This is temporary... remove this eventually
                       params.put("home_city","toronto");
                       params.put("home_nationality","Canadian");
+
+                      params.put("languages","{\"0\":\"English\" , \"1\":\"French\"}");
+//                      Log.w("LANGUAGES DEBUG",lang)
                      // params.put("home_nationality",nationalityInput.getText());
                   }
 
