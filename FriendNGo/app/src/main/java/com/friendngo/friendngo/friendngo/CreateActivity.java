@@ -3,11 +3,13 @@ package com.friendngo.friendngo.friendngo;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -35,7 +37,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CreateActivity extends AppCompatActivity {
     boolean validationFlag = false;
-    TextView plus_minus_textview;
+    TextView plus_minus_textview,cancelTextView;
     int plus = 0;
     Button plus_button,minus_button;
     int todayTomorrowFlag =0;
@@ -132,9 +134,7 @@ public class CreateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
-
-
-
+        cancelTextView = (TextView)findViewById(R.id.cancel__text_view);
         plus_minus_textview = (TextView)findViewById(R.id.plus_minus_textview);
         plus_button = (Button)findViewById(R.id.create_plus_button);
         minus_button = (Button)findViewById(R.id.create_minus_button);
@@ -146,7 +146,15 @@ public class CreateActivity extends AppCompatActivity {
                 plus_minus_textview.setText(String.valueOf(plus));
             }
         });
-
+        cancelTextView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Intent intent = new Intent(CreateActivity.this, MapActivity.class);
+                CreateActivity.this.startActivity(intent);
+                CreateActivity.this.finish();
+                return false;
+            }
+        });
         minus_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -25,10 +25,21 @@
                     android:text="Create a new activity"
                     android:textSize="24sp"
                     android:textColor="#FFFFFF"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/request_text_iew"
+                    android:id="@+id/request_text_view"
 
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"/>
+                <TextView
+                    android:text="Cancle"
+                    android:textSize="20sp"
+                    android:textColor="#FFFFFF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/cancel__text_view"
+                    android:layout_alignParentLeft="true"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
