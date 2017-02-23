@@ -1,5 +1,6 @@
 package com.friendngo.friendngo.friendngo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import org.json.JSONObject;
 import java.io.File;
 
 import cz.msebera.android.httpclient.Header;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.friendngo.friendngo.friendngo.MapActivity.activitiesList;
 
@@ -42,6 +44,11 @@ public class ActivityDetails extends AppCompatActivity {
     TextView activityDescription;
     TextView activityAddress;
     Button sendRequestButton;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -103,7 +103,7 @@ public class MapActivity extends AppCompatActivity implements
     public static ImageView myProfilePicture;
     public static EditText myProfileNameEdit;
     public static EditText myProfileAgeEdit;
-
+    public static List categoryList = new ArrayList<Category>();
     //Layout instances
     FrameLayout markup_layout;
     RelativeLayout alpha_layer;
@@ -155,7 +155,7 @@ public class MapActivity extends AppCompatActivity implements
         activityDetailsButton.setEnabled(false);
         participateButton = (Button) findViewById(R.id.banner_participate);
         participateButton.setEnabled(false);
-
+        getActivity();
         //OnClick listeners for bottom navigation bar
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -1033,6 +1033,63 @@ public class MapActivity extends AppCompatActivity implements
     public static void centerOnActivity(String name) {
     //TODO: When you click on a list item, then you should go to its marker on the map... however this is not what the UI suggests therefore leave for later!
         //TODO: Basic solution would be register every marker as a dictionary (or hash map in Java) so that you can reference it by name :)
+    }
+    public void getActivity(){
+        //get Activity name by category
+        //clear category list
+        categoryList.clear();
+        AsyncHttpClient client = new AsyncHttpClient();
+        if(SignIn.static_token != null) {
+            client.addHeader("Authorization","Token "+SignIn.static_token);
+        }
+        //GET last known location
+        client.get(MainActivity.base_host_url + "api/getCategories/", new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.w("GET CATEGORY SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                try{
+                    Log.w("GET CATEGORY", statusCode + ", " + response.getString("last_city"));
+                }catch (JSONException e){
+                    Log.w("GET CATEGORY",e.getMessage().toString());
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray categoryJSONArray) {
+                Log.w("JSON CATEGORY ARRAY", statusCode + ": " + categoryJSONArray.toString());
+
+                for (int i =0; i < categoryJSONArray.length(); i++){
+
+                    try {
+                        JSONObject categoryJSONObject = categoryJSONArray.getJSONObject(i);
+                        Category category = new Category();
+                        category.setName(categoryJSONObject.getString("name"));
+                        JSONArray activitiesJSONArray = categoryJSONObject.getJSONArray("activity_type");
+
+                        for (int j=0; j< activitiesJSONArray.length(); j++){
+                            String activityType = activitiesJSONArray.getJSONObject(j).getString("name");
+                            category.addActivityType(activityType);
+                        }
+                        categoryList.add(category);
+                    } catch (JSONException e) {
+                        Log.w("GET CATEGORY PARSE FAIL", e.getMessage().toString());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
+                Log.w("GET LASTLOC FAILURE2:", "Error Code: " + error_code + ",  " + text);
+            }
+        });
+
     }
 }
 

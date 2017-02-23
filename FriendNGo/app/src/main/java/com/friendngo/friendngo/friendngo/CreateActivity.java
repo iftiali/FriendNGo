@@ -3,7 +3,6 @@ package com.friendngo.friendngo.friendngo;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
@@ -22,10 +21,8 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,13 +30,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
 import cz.msebera.android.httpclient.Header;
-import cz.msebera.android.httpclient.client.utils.DateUtils;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class CreateActivity extends AppCompatActivity {
-
+    boolean validationFlag = false;
     TextView plus_minus_textview;
     int plus = 0;
     Button plus_button,minus_button;
@@ -138,7 +133,7 @@ public class CreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
-        Log.w("text",WhatDoYouWantToDoToday.categoryList.toString());
+
 
         plus_minus_textview = (TextView)findViewById(R.id.plus_minus_textview);
         plus_button = (Button)findViewById(R.id.create_plus_button);
@@ -191,7 +186,6 @@ public class CreateActivity extends AppCompatActivity {
             }
         });
 
-      //  getSupportActionBar().setTitle("Create a new activity");
         final ArrayList<CategorySpinnerModel> list=new ArrayList<>();
         list.add(new CategorySpinnerModel("Art & Culture",R.drawable.art_exposition));
         list.add(new CategorySpinnerModel("Nightlife",R.drawable.concert));
@@ -205,7 +199,7 @@ public class CreateActivity extends AppCompatActivity {
         list.add(new CategorySpinnerModel("Help & Association", R.drawable.handshake));
 
         Spinner category_spinner = (Spinner)findViewById(R.id.category_picker);
-        CategorySpinnerActivity adapter=new CategorySpinnerActivity(CreateActivity.this, R.layout.category_picker,R.id.txt,list);
+        final CategorySpinnerActivity adapter=new CategorySpinnerActivity(CreateActivity.this, R.layout.category_picker,R.id.txt,list);
         category_spinner.setAdapter(adapter);
 
         Spinner activity_type_spinner = (Spinner)findViewById(R.id.activity_type_picker);
@@ -217,20 +211,25 @@ public class CreateActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 spinnerAdapter2.clear();
+
+                Log.w("hello","hello");
                 String itemSelected =  list.get(position).getText();
+
                 List categoryArrayList=new ArrayList<Category>();
-                categoryArrayList = WhatDoYouWantToDoToday.categoryList;
+                categoryArrayList = MapActivity.categoryList;
                 Category c = new Category();
 
                 for(int i =0; i<categoryArrayList.size(); i++)
                 {
+                    Log.w("list size ",categoryArrayList.size()+"");
                     c = (Category) categoryArrayList.get(i);
                     if(itemSelected.equals(c.getName())){
-                    //Log.w("category list", c.getName());
-                    //Log.w("Size",c.getActivityTypeList().size()+"");
+                    Log.w("category list", c.getName());
+
+                    Log.w("Size",c.getActivityTypeList().size()+"");
                     for(int j=0;j<c.getActivityTypeList().size();j++){
                         String activityType = (String) c.getActivityTypeList().get(j);
-                        // Log.w("list list",activityType);
+                         Log.w("list list",activityType);
                         spinnerAdapter2.add(activityType);
                     }}
                 }
@@ -289,10 +288,6 @@ public class CreateActivity extends AppCompatActivity {
                 //Get the items selected by the user and put them into an HTTP reques
                 Spinner activityTypePicker = (Spinner) findViewById(R.id.activity_type_picker);
                 String activityType = activityTypePicker.getSelectedItem().toString();
-
-                // Spinner maxUsersPicker = (Spinner) findViewById(R.id.max_participants_spinner);
-                //String maxUsers = maxUsersPicker.getSelectedItem().toString();
-
                 EditText activityEditText = (EditText) findViewById(R.id.editText);
                 String activity_name = activityEditText.getText().toString();
 
@@ -316,42 +311,56 @@ public class CreateActivity extends AppCompatActivity {
 
                 //Set the status type into the message for the server
                 RequestParams params = new RequestParams();
-                params.put("activity_name",activity_name );
-                params.put("activity_type", activityType);
+                if(activity_name.equals("")){
+                    validationFlag = false;
+                }else {
+                    validationFlag = true;
+                    params.put("activity_name", activity_name);
+                }params.put("activity_type", activityType);
                 params.put("max_users",plus);
-                params.put("activity_lat", Double.toString(ValidationClass.get_Latitude(address,coder)));
-                params.put("activity_lon", Double.toString(ValidationClass.get_longitude(address,coder)));
-                params.put("address",address);
+
+                if(address.equals("")){
+                    validationFlag =false;
+                }else {
+                    validationFlag =true;
+                    params.put("activity_lat", Double.toString(ValidationClass.get_Latitude(address,coder)));
+                    params.put("activity_lon", Double.toString(ValidationClass.get_longitude(address,coder)));
+                    params.put("address", address);
+                }
                 params.put("activity_time", startEventTime.getText());
                 params.put("activity_end_time", endEventTime.getText());
                 params.put("description", activityDescription);
+
                 params.put("additional_notes",additionalNotes);
+                if(validationFlag) {
+                    client.post(MainActivity.base_host_url + "api/postActivity/", params, new JsonHttpResponseHandler() {
 
-                client.post(MainActivity.base_host_url + "api/postActivity/",params, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            Log.w("POST ACT SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                        }
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        Log.w("POST ACT SUCCESS", statusCode + ": " + "Response = " + response.toString());
-                    }
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                            Log.w("POST ACT SUCCESS2", statusCode + ": " + timeline.toString());
+                        }
 
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                        Log.w("POST ACT SUCCESS2", statusCode + ": " + timeline.toString());
-                    }
+                        @Override
+                        public void onRetry(int retryNo) {
+                            // called when request is retried
+                            Log.w("POST ACT RETRY", "" + retryNo);
+                        }
 
-                    @Override
-                    public void onRetry(int retryNo) {
-                        // called when request is retried
-                        Log.w("POST ACT RETRY", "" + retryNo);
-                    }
+                        @Override
+                        public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                            Log.w("POST ACT FAIL", "Error Code: " + error_code + "Text: " + text);
+                        }
+                    });
+                    CreateActivity.this.finish();
+                }else {
+                    Toast.makeText(CreateActivity.this,"Activity name or address field is empty",Toast.LENGTH_LONG).show();
+                }
 
-                    @Override
-                    public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                        Log.w("POST ACT FAIL", "Error Code: " + error_code + "Text: " + text);
-                    }
-                });
-
-                CreateActivity.this.finish();
             }
         });
         }

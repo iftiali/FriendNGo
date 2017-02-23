@@ -4,19 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +37,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_what_do_you_want_to_do_today2);
         //Horizontal recycle view
-        Log.w("Hello","Hello");
+        categoryList.clear();
         AsyncHttpClient client = new AsyncHttpClient();
         if(SignIn.static_token != null) {
             client.addHeader("Authorization","Token "+SignIn.static_token);
@@ -65,9 +58,6 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray categoryJSONArray) {
                 Log.w("JSON CATEGORY ARRAY", statusCode + ": " + categoryJSONArray.toString());
-
-                String updateText = String.valueOf(categoryJSONArray.length());
-                int activitySum;
 
                 for (int i =0; i < categoryJSONArray.length(); i++){
 
