@@ -152,30 +152,34 @@ public class WhoAreYou extends AppCompatActivity {
         Collections.sort(countriesList);
 
        Spinner nationalityInputSpinner = (Spinner)findViewById(R.id.citizen_spinner);
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+                this,R.layout.spinner_item,countriesList);
 
+        nationalityInputSpinner.setAdapter(spinnerArrayAdapter);
+        nationalityInputSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if(position == 0) {
+                    ((TextView) view).setText("Citizen");
+                    ((TextView) view).setTextColor(Color.GRAY);
+
+                }else
+                    ((TextView) view).setTextColor(Color.BLACK);
+                //Change selected text color
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent ) {
+            }
+        });
+        /*
 
         String hint_text = "Citizenship";
         HintSpinner<String> hintSpinner = new HintSpinner<>(
                 nationalityInputSpinner,
 
-                new HintAdapter<String>(this,R.layout.spinner_country_name_text_view ,hint_text,countriesList){
-                    @Override
-                    protected View getCustomView(int position, View convertView, ViewGroup parent) {
-                        // You need to inflate the layout. It will use the layout id form the
-                        // constructor
-                        View view = inflateLayout(parent, false);
-
-                        String citizen = ((TextView) view.findViewById(R.id.country_name_text_view)).getText().toString();
-                            if(citizen.equals("Citizenship")){
-                                ((TextView) view.findViewById(R.id.country_name_text_view)).setTextColor(Color.GRAY);
-                            }else
-                            {
-                                ((TextView) view.findViewById(R.id.country_name_text_view)).setTextColor(Color.BLACK);
-                            }
-
-                        return view;
-                    }
-                },
+                new HintAdapter<>(this,R.layout.custom_spinner_item ,hint_text,countriesList),
                 new HintSpinner.Callback<String>(){
                     @Override
                     public void onItemSelected(int position, String itemAtPosition){
@@ -183,7 +187,7 @@ public class WhoAreYou extends AppCompatActivity {
                     }
                 });
         hintSpinner.init();
-
+*/
 
 
         //Set OnClick Listener for the profile picture pressed
