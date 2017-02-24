@@ -5,8 +5,9 @@
     android:id="@+id/content_activity_what_do_you_want_to_do_today2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="@android:color/white"
+    android:background="@color/whiteish"
     tools:context="com.friendngo.friendngo.friendngo.WhatDoYouWantToDoToday"
     tools:showIn="@layout/activity_what_do_you_want_to_do_today2">
 
@@ -28,7 +29,7 @@
         android:layout_above="@+id/save_categories_button"
         android:id="@+id/category_and_activity_list_view"
         android:scrollbars="horizontal|vertical"
-        android:background="@android:color/white"
+        android:background="@color/whiteish"
         android:layout_below="@+id/textView" />
 
     <TextView
@@ -39,7 +40,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="5dp"
-        android:background="@android:color/white" />
+        android:background="@color/whiteish" />
 
 </RelativeLayout>
 

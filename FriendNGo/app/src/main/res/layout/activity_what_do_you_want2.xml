@@ -4,24 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:attrs="http://schemas.android.com/tools">
-
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/image_frame"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:background="@drawable/what_you_want_to_do_image_backgound">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/running"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:id="@+id/category_image_button" />
-
-    <TextView
-        android:text="Sports"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/category_list_subtext"
-        android:layout_below="@+id/category_image_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="3dp" />
-
     <ImageView
         android:layout_width="15sp"
         android:layout_height="15sp"
@@ -31,6 +25,17 @@
         android:layout_alignTop="@+id/category_image_button"
         android:layout_alignRight="@+id/category_image_button"
         android:layout_alignEnd="@+id/category_image_button" />
+</RelativeLayout>
+    <TextView
+        android:text="Sports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/category_list_subtext"
+        android:layout_below="@+id/image_frame"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="3dp" />
+
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"

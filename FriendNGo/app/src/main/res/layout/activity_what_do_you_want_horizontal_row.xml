@@ -4,17 +4,19 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@color/whiteish"
     android:layout_margin="12dp">
 <RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/brown_button">
     <Button
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:text="Museum"
         android:textSize="12sp"
         android:id="@+id/museum_button"
-        android:background="@drawable/brown_button"
+        android:background="@color/white"
         android:textColor="@android:color/darker_gray"
         android:paddingLeft="6dp"
         android:paddingRight="6dp" />
