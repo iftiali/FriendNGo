@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.support.v4.app.ActivityCompat;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -44,6 +45,8 @@ import cz.msebera.android.httpclient.Header;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
+import me.srodrigo.androidhintspinner.HintAdapter;
+import me.srodrigo.androidhintspinner.HintSpinner;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,6 +58,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Locale;
+
+import static com.friendngo.friendngo.friendngo.MapActivity.citizenshipSpinner;
 
 public class WhoAreYou extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
@@ -147,20 +152,40 @@ public class WhoAreYou extends AppCompatActivity {
         Collections.sort(countriesList);
 
        Spinner nationalityInputSpinner = (Spinner)findViewById(R.id.citizen_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(WhoAreYou.this,android.R.layout.simple_spinner_item, countriesList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        nationalityInputSpinner.setAdapter(adapter);
-        nationalityInputSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
-                Log.w("name",selectedItem);
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+
+        String hint_text = "Citizenship";
+        HintSpinner<String> hintSpinner = new HintSpinner<>(
+                nationalityInputSpinner,
+
+                new HintAdapter<String>(this,R.layout.spinner_country_name_text_view ,hint_text,countriesList){
+                    @Override
+                    protected View getCustomView(int position, View convertView, ViewGroup parent) {
+                        // You need to inflate the layout. It will use the layout id form the
+                        // constructor
+                        View view = inflateLayout(parent, false);
+
+                        String citizen = ((TextView) view.findViewById(R.id.country_name_text_view)).getText().toString();
+                            if(citizen.equals("Citizenship")){
+                                ((TextView) view.findViewById(R.id.country_name_text_view)).setTextColor(Color.GRAY);
+                            }else
+                            {
+                                ((TextView) view.findViewById(R.id.country_name_text_view)).setTextColor(Color.BLACK);
+                            }
+
+                        return view;
+                    }
+                },
+                new HintSpinner.Callback<String>(){
+                    @Override
+                    public void onItemSelected(int position, String itemAtPosition){
+
+                    }
+                });
+        hintSpinner.init();
+
+
+
         //Set OnClick Listener for the profile picture pressed
         profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override

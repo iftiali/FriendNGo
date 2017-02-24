@@ -209,11 +209,11 @@ public class FacebookLogin extends AppCompatActivity {
             try {
 
                 if (location == null) {
-
+                    Log.w("Hello1a","Hello1a");
                     location = locationmanager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
                 }
-
+                Log.w("Hello1b","Hello1b");
                 clat = location.getLatitude();
                 clon = location.getLongitude();
 
@@ -242,10 +242,10 @@ public class FacebookLogin extends AppCompatActivity {
                             try {
 
                                 if (location == null) {
-
+                                    Log.w("Hello2a","Hello2a");
                                     location = locationmanager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                                 }
-
+                                Log.w("Hello2b","Hello2b");
                                 clat = location.getLatitude();
                                 clon = location.getLongitude();
 
