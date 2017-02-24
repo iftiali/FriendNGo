@@ -1,11 +1,15 @@
 package com.friendngo.friendngo.friendngo;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
@@ -14,7 +18,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class ActivityListActivity extends AppCompatActivity {
-
+    BottomNavigationView bottomNavigationView;
     public ListView listView;
     private static ActivityListAdapter adapter;
     private static final int POLLING_PERIOD = 5;
@@ -30,6 +34,8 @@ public class ActivityListActivity extends AppCompatActivity {
 
         //TODO: Move ListView Code to it's own activity
         listView = (ListView) findViewById(R.id.activity_list);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_request_activity);
+
         if (listView == null) {
             Log.w("LIST VIEW ERROR", "List view is null!");
         } else {
@@ -51,7 +57,38 @@ public class ActivityListActivity extends AppCompatActivity {
                 }
             }, 0, POLLING_PERIOD, TimeUnit.SECONDS);
         }
-
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.home_icon:
+                                Intent intent = new Intent(ActivityListActivity.this, MapActivity.class);
+                                ActivityListActivity.this.startActivity(intent);
+                                ActivityListActivity.this.finish();
+                                break;
+                            case R.id.calendar_icon:
+                                Log.w("BOTTOM NAV","Calendar Icon Pressed");
+                                break;
+                            case R.id.notification_icon:
+                                Log.w("BOTTOM NAV","Notifications Icon Pressed");
+                                Intent intentRequest = new Intent(ActivityListActivity.this, Request.class);
+                                ActivityListActivity.this.startActivity(intentRequest);
+                                ActivityListActivity.this.finish();
+                                break;
+                            case R.id.message_icon:
+                                Log.w("BOTTOM NAV","Message Icon Pressed");
+                                break;
+                            case R.id.settings_icon:
+                                Log.w("NAV DEBUG", "Settings Icon Pressed");
+                                break;
+                            default:
+                                Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");
+                                break;
+                        }
+                        return true;
+                    }
+                });
         //TODO: Move this to seperate ListView Activity
 //      ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
     }

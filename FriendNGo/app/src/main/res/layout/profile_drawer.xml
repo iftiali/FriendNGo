@@ -106,13 +106,7 @@
             android:textColor="@android:color/white"
             android:layout_margin="15dp" />
 
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            app:srcCompat="@drawable/crayon"
-            android:id="@+id/drawer_imageView7"
-            android:layout_alignTop="@+id/drawer_name_input_editView"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+
 
         <io.apptik.widget.multiselectspinner.MultiSelectSpinner
             android:hint="Spoken Languages"

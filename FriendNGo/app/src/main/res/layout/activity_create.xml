@@ -33,7 +33,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"/>
                 <TextView
-                    android:text="Cancle"
+                    android:text="Cancel"
                     android:textSize="20sp"
                     android:textColor="#FFFFFF"
                     android:layout_width="wrap_content"

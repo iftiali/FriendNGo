@@ -45,8 +45,7 @@ import cz.msebera.android.httpclient.Header;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
-import me.srodrigo.androidhintspinner.HintAdapter;
-import me.srodrigo.androidhintspinner.HintSpinner;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,7 +58,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Locale;
 
-import static com.friendngo.friendngo.friendngo.MapActivity.citizenshipSpinner;
 
 public class WhoAreYou extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;

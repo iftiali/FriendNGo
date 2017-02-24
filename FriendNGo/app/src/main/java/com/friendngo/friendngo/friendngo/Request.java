@@ -1,12 +1,16 @@
 package com.friendngo.friendngo.friendngo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -25,6 +29,7 @@ import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Request extends AppCompatActivity {
+
 
     ListView list;
     ArrayList<RequestModel> dataModels;
@@ -101,6 +106,10 @@ public class Request extends AppCompatActivity {
                         .setAction("No action", null).show();*/
             }
         });
+
+
+        //TODO: Click should not disable the banner when you click on the banner.
+
 
     }
 

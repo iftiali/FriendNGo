@@ -199,7 +199,9 @@ public class SignIn extends AppCompatActivity {
 
                                     @Override
                                     public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                                        Log.w("POST AUTH FAILURE", "Error Code: " + error_code);
+                                        Log.w("POST AUTH FAILURE2", "Error Code: " + error_code + text);
+                                        Toast.makeText(SignIn.this, "Invalid user", Toast.LENGTH_LONG).show();
+
                                     }
 
                                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {

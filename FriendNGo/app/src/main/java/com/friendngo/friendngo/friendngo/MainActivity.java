@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
         } else if (server_mode == STAGING_SETTING) {
             base_host_url = "http://staging.friendngo.com/";
         } else {
-            base_host_url = "http://test.friendngo.com/";
+            base_host_url = "https://test.friendngo.com/";
         }
 
         FacebookSdk.sdkInitialize(getApplicationContext());
