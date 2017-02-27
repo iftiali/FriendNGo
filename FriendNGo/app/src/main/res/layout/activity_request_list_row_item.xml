@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#F2F2F2"
+    android:background="@color/white"
     android:orientation="horizontal"
    >
 
@@ -101,7 +101,7 @@
                 app:srcCompat="@drawable/france"
                 android:layout_alignParentBottom="true"
                 android:id="@+id/request_flag"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="5dp"
                 android:layout_toLeftOf="@+id/request_point"
                 android:layout_toEndOf="@+id/reqiest_city_name"
                 android:layout_toRightOf="@+id/reqiest_city_name" />
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/request_point"
                 android:text="10pts"
-                android:layout_marginTop="5dp"
+
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/activity_list_point"
                 android:padding="4dp"

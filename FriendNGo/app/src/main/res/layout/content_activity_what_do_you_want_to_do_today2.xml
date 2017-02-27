@@ -5,7 +5,6 @@
     android:id="@+id/content_activity_what_do_you_want_to_do_today2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@color/whiteish"
     tools:context="com.friendngo.friendngo.friendngo.WhatDoYouWantToDoToday"
@@ -23,6 +22,7 @@
         android:textColor="@android:color/white" />
 
     <ListView
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
@@ -30,9 +30,12 @@
         android:id="@+id/category_and_activity_list_view"
         android:scrollbars="horizontal|vertical"
         android:background="@color/whiteish"
-        android:layout_below="@+id/textView" />
+        android:layout_below="@+id/textView"
+        android:divider="@color/whiteish"
+        android:dividerHeight="5dp"/>
 
     <TextView
+        android:layout_marginTop="10dp"
         android:text="Pick your current interests"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
