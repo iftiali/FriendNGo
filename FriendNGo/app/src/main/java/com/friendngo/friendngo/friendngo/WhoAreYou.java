@@ -66,7 +66,7 @@ public class WhoAreYou extends AppCompatActivity {
     EditText nameInput;
     Spinner nationalityInputSpinner;
 
-    EditText ageInput;
+    EditText ageInput,cityInput;
     ImageView profilePicture;
     String pictureURL ="";
     File directory;
@@ -94,19 +94,27 @@ public class WhoAreYou extends AppCompatActivity {
             WhoAreYou.this.finish();
         }
        // nationalityInputSpinner = (Spinner) findViewById(R.id.citizen_spinner);
-
+        cityInput = (EditText)findViewById(R.id.city_input_editView);
         nameInput = (EditText) findViewById(R.id.name_input_editView);
         ageInput = (EditText) findViewById(R.id.age_editText);
 
         Locale[] locales = Locale.getAvailableLocales();
         ArrayList<String> languageList = new ArrayList<String>();
         for (Locale locale : locales) {
-            String country = locale.getDisplayLanguage();
-            if (country.trim().length()>0 && !languageList.contains(country)) {
-                languageList.add(country);
+            String lang = locale.getDisplayLanguage();
+
+            if (lang.trim().length()>0 && !languageList.contains(lang)) {
+                if(lang.equals("English") || lang.equals("French") || lang.equals("Spanish")){
+                    Log.w("Report","report");
+                }else {
+                    languageList.add(lang);
+                }
             }
         }
         Collections.sort(languageList);
+        languageList.add(0,"English");
+        languageList.add(1,"French");
+        languageList.add(2,"Spanish");
         MultiSelectSpinner multiSelectSpinnerLanguage = (MultiSelectSpinner) findViewById(R.id.language_spninner);
         multiSelectSpinnerLanguage.setItems(languageList)
 
@@ -361,6 +369,8 @@ public class WhoAreYou extends AppCompatActivity {
                           Log.w("POST PROFILE FAIL", "Headers: " + headers + ", Error Code: " + error_code + ",  " + text);
                       }
                   });
+                  Intent intent = new Intent(WhoAreYou.this,MyCity.class);
+                  WhoAreYou.this.startActivity(intent);
                   WhoAreYou.this.finish();
               }
           }

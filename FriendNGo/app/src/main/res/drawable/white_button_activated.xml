@@ -2,10 +2,10 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <gradient
-        android:startColor="#007000"
-        android:centerColor="#007000"
-        android:endColor="#007000"
+        android:startColor="@color/textInput"
+        android:centerColor="@color/textInput"
+        android:endColor="@color/textInput"
         android:angle="270" />
     <corners android:radius="5dp" />
-    <stroke android:width="2px" android:color="#007000" />
+    <stroke android:width="2px" android:color="@color/textInput" />
 </shape>

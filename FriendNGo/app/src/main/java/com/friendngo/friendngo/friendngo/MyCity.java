@@ -29,10 +29,10 @@ public class MyCity extends AppCompatActivity {
         setContentView(R.layout.activity_my_city);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        current_city = getIntent().getExtras().getString("currentCity");
+        current_city = "Montreal,Canada";
         my_city_country_name = (TextView)findViewById(R.id.my_city_country_name);
         my_city_country_name.setText(current_city);
-        Log.w("New_City",current_city);
+
         my_city_next = (Button)findViewById(R.id.my_city_next);
         my_city_next.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -340,6 +340,7 @@ public class CreateActivity extends AppCompatActivity {
                 params.put("description", activityDescription);
 
                 params.put("additional_notes",additionalNotes);
+
                 if(validationFlag) {
                     client.post(MainActivity.base_host_url + "api/postActivity/", params, new JsonHttpResponseHandler() {
 
@@ -362,6 +363,11 @@ public class CreateActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
                             Log.w("POST ACT FAIL", "Error Code: " + error_code + "Text: " + text);
+                        }
+
+                        @Override
+                        public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
+                            Log.w("POST ACT FAIL", "Error Code: " + error_code + "JSON: " + json.toString());
                         }
                     });
                     CreateActivity.this.finish();

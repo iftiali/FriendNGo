@@ -7,5 +7,5 @@ android:shape="rectangle">
     android:endColor="#FFFFFF"
     android:angle="270" />
 <corners android:radius="5dp" />
-<stroke android:width="2px" android:color="#007000" />
+<stroke android:width="2px" android:color="@color/textInput" />
 </shape>
