@@ -66,7 +66,7 @@ public class WhoAreYou extends AppCompatActivity {
     EditText nameInput;
     Spinner nationalityInputSpinner;
 
-    EditText ageInput,cityInput;
+    EditText ageInput;
     ImageView profilePicture;
     String pictureURL ="";
     File directory;
@@ -94,7 +94,6 @@ public class WhoAreYou extends AppCompatActivity {
             WhoAreYou.this.finish();
         }
        // nationalityInputSpinner = (Spinner) findViewById(R.id.citizen_spinner);
-        cityInput = (EditText)findViewById(R.id.city_input_editView);
         nameInput = (EditText) findViewById(R.id.name_input_editView);
         ageInput = (EditText) findViewById(R.id.age_editText);
 

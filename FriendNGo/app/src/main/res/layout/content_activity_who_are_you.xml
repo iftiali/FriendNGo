@@ -19,17 +19,7 @@
         android:layout_below="@+id/profilepicture"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:id="@+id/city_input_editView"
-        android:background="@android:color/white"
-        android:hint="City"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dp"
-        android:layout_below="@+id/name_input_editView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+
     <EditText
         android:hint="Age"
         android:layout_width="match_parent"
@@ -53,7 +43,7 @@
         android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:id="@+id/citizen_spinner"
-        android:layout_below="@+id/city_input_editView"
+        android:layout_below="@+id/name_input_editView"
         android:layout_centerHorizontal="true"
         android:gravity="center_vertical"
         android:paddingTop="10dp"

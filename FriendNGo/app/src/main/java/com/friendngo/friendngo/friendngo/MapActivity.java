@@ -174,7 +174,7 @@ public class MapActivity extends AppCompatActivity implements
                                 break;
                             case R.id.notification_icon:
                                 Log.w("BOTTOM NAV","Notifications Icon Pressed");
-                                Intent seeRequest = new Intent(getApplicationContext(), Request.class);
+                                Intent seeRequest = new Intent(getApplicationContext(), ActivityNotifications.class);
                                 startActivity(seeRequest);
                                 break;
                             case R.id.message_icon:

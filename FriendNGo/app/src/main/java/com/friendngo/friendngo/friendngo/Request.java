@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -30,7 +31,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Request extends AppCompatActivity {
 
-
+    Button cancelBtn;
     ListView list;
     ArrayList<RequestModel> dataModels;
     private static ActivityRequestListAdapter adapter;
@@ -45,8 +46,18 @@ public class Request extends AppCompatActivity {
         setContentView(R.layout.activity_request);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        cancelBtn = (Button)findViewById(R.id.request_cancel_text_view);
         list=(ListView)this.findViewById(R.id.request_list);
 
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Request.this,ActivityDetails.class);
+                Request.this.startActivity(intent);
+                Request.this.finish();
+            }
+        });
         dataModels= new ArrayList<>();
         adapter= new ActivityRequestListAdapter(dataModels,getApplicationContext());
         list.setAdapter(adapter);

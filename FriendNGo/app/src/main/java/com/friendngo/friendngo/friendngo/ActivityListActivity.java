@@ -72,7 +72,7 @@ public class ActivityListActivity extends AppCompatActivity {
                                 break;
                             case R.id.notification_icon:
                                 Log.w("BOTTOM NAV","Notifications Icon Pressed");
-                                Intent intentRequest = new Intent(ActivityListActivity.this, Request.class);
+                                Intent intentRequest = new Intent(ActivityListActivity.this, ActivityNotifications.class);
                                 ActivityListActivity.this.startActivity(intentRequest);
                                 ActivityListActivity.this.finish();
                                 break;
