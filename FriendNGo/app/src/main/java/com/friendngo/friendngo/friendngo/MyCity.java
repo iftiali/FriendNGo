@@ -37,6 +37,9 @@ public class MyCity extends AppCompatActivity {
         my_city_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Intent intent = new Intent(MyCity.this,MyStatusActivity.class);
+                MyCity.this.startActivity(intent);
                 MyCity.this.finish();
             }
         });

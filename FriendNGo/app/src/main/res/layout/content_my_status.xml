@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_my_status"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MyStatusActivity"
+    tools:showIn="@layout/activity_my_status"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:weightSum="1">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.4"
+        android:background="@color/whiteish">
+
+        <TextView
+            android:textColor="@color/textInput"
+            android:text="What is your status in your current city?"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4" />
+    </FrameLayout>
+    <FrameLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.2"
+
+        android:background="@color/whiteish">
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <Button
+                android:text="Resident"
+                android:layout_width="match_parent"
+                android:textColor="@color/textInput"
+                android:id="@+id/resident_button_my_status"
+                android:background="@drawable/white_button"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_height="40dp" />
+            <Button
+                android:text="Migrant - New To City"
+                android:layout_width="match_parent"
+                android:textColor="@color/textInput"
+                android:id="@+id/migrant_button_my_status"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/white_button"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_height="40dp" />
+            <Button
+                android:text="Tourist"
+                android:layout_width="match_parent"
+                android:textColor="@color/textInput"
+                android:id="@+id/tourist_button_my_status"
+                android:background="@drawable/white_button"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_height="40dp" />
+            <Button
+                android:text="Student"
+                android:layout_width="match_parent"
+                android:textColor="@color/textInput"
+                android:id="@+id/student_button_my_status"
+                android:background="@drawable/white_button"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_height="40dp" />
+        </LinearLayout>
+    </FrameLayout>
+    <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="0.4"
+    android:background="@color/whiteish">
+        <Button
+            android:text="Next"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:id="@+id/next_button_my_status"
+            android:layout_width="160dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/submit_button"
+            android:textColor="@android:color/white" />
+    </FrameLayout>
+
+</LinearLayout>

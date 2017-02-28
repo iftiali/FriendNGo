@@ -110,6 +110,10 @@
         <activity
             android:name=".ActivityNotifications"
             android:label="@string/title_activity_notifications"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MyStatusActivity"
+            android:label="@string/title_activity_my_status"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

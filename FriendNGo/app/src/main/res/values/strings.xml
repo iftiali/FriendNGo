@@ -50,4 +50,5 @@
     <string name="title_activity_list">ActivityListActivity</string>
     <string name="title_activity_about_us">AboutUsActivity</string>
     <string name="title_activity_notifications">ActivityNotifications</string>
+    <string name="title_activity_my_status">MyStatusActivity</string>
 </resources>
