@@ -32,7 +32,7 @@
         app:itemBackground="@color/white"
         app:itemIconTint="@drawable/bottom_menu_selectors"
         app:itemTextColor="@color/colorPrimary"
-        app:menu="@menu/bottom_navigation_tabs" />
+        app:menu="@menu/bottom_navigation_tabs_list" />
 
     <RelativeLayout
         android:layout_width="match_parent"

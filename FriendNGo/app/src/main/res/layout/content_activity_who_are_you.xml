@@ -28,19 +28,18 @@
         android:id="@+id/age_editText"
         android:inputType="number"
         android:ems="10"
-        android:layout_below="@+id/language_spninner"
-        android:layout_alignLeft="@+id/language_spninner"
-        android:layout_alignStart="@+id/language_spninner"
+        android:layout_below="@+id/language_spinner"
+        android:layout_alignLeft="@+id/language_spinner"
+        android:layout_alignStart="@+id/language_spinner"
         android:gravity="center_vertical"
         android:layout_marginTop="3dp"
         android:padding="10dp"
         android:background="@android:color/white" />
-    <!--android:hint="Citizenship"-->
+
 
     <Spinner
         android:hint="Citizenship"
         android:layout_height="45dp"
-
         android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:id="@+id/citizen_spinner"
@@ -88,7 +87,7 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="Continue"
+        android:text="Next"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -111,31 +110,14 @@
         android:hint="Spoken Languages"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:id="@+id/language_spninner"
+        android:id="@+id/language_spinner"
         android:background="@color/white"
-
+        android:layout_marginTop="3dp"
         android:layout_below="@+id/citizen_spinner"
         android:layout_marginLeft="8dp" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/next"
-        android:layout_alignTop="@+id/citizen_spinner"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/imageView" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        app:srcCompat="@drawable/next"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/citizen_spinner"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/imageView2" />
+
 
 
 

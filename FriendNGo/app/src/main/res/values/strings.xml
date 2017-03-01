@@ -33,6 +33,7 @@
     <string name="VIEW_HOLDER_KEY">VIEW_HOLDER_KEY</string>
     <string name="title_activity_request">Request</string>
     <string name="home_icon_text">Home</string>
+    <string name="list_icon_text">List</string>
     <string name="calendar_icon_text">Calendar</string>
     <string name="notification_icon_text">Notifications</string>
     <string name="message_icon_text">Chat</string>
