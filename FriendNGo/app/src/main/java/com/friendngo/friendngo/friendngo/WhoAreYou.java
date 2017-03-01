@@ -2,16 +2,21 @@ package com.friendngo.friendngo.friendngo;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.Manifest;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -59,20 +64,21 @@ import java.util.Comparator;
 import java.util.Locale;
 
 
-public class WhoAreYou extends AppCompatActivity {
+public class WhoAreYou extends Activity {
     private static final int CAMERA_REQUEST = 1888;
     CircularImageView circularImageView;
     Button continueButton;
     EditText nameInput;
-    Spinner nationalityInputSpinner;
 
+    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
+    private Button btnSelect;
     EditText ageInput;
     ImageView profilePicture;
     String pictureURL ="";
     File directory;
     File downloadedImage;
     File myFile;
-
+    private String userChoosenTask;
     Bitmap photo;
 
     @Override
@@ -96,7 +102,7 @@ public class WhoAreYou extends AppCompatActivity {
        // nationalityInputSpinner = (Spinner) findViewById(R.id.citizen_spinner);
         nameInput = (EditText) findViewById(R.id.name_input_editView);
         ageInput = (EditText) findViewById(R.id.age_editText);
-
+        circularImageView = (CircularImageView)findViewById(R.id.profilepicture);
         Locale[] locales = Locale.getAvailableLocales();
         ArrayList<String> languageList = new ArrayList<String>();
         for (Locale locale : locales) {
@@ -196,17 +202,11 @@ public class WhoAreYou extends AppCompatActivity {
 
 
         //Set OnClick Listener for the profile picture pressed
-        profilePicture.setOnClickListener(new View.OnClickListener() {
+        circularImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Set OnClick Listener for the profile picture button
-                if (Build.VERSION.SDK_INT >= 23) {
-                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                }else {
-                    Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
-                }
+                selectImage();
             }
         });
 
@@ -246,7 +246,7 @@ public class WhoAreYou extends AppCompatActivity {
                         Log.w("GET IMAGE SUCCESS","Successfully Retrieved The Image");
                         //Use the downloaded image as the profile picture
                         Uri uri = Uri.fromFile(response);
-                        profilePicture.setImageURI(uri);
+                        circularImageView.setImageURI(uri);
                         MapActivity.myProfilePicture.setImageURI(uri);
                         downloadedImage = response;
                     }
@@ -276,7 +276,7 @@ public class WhoAreYou extends AppCompatActivity {
         });
 
         get_UserInfo();
-        circularImageView = (CircularImageView)findViewById(R.id.profilepicture);
+
         continueButton = (Button)findViewById(R.id.profile_continue_button);
         continueButton.setOnClickListener(new View.OnClickListener() {
 
@@ -376,7 +376,7 @@ public class WhoAreYou extends AppCompatActivity {
         );
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    /*protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
             photo = (Bitmap) data.getExtras().get("data");
 
@@ -405,7 +405,7 @@ public class WhoAreYou extends AppCompatActivity {
                 }
             }
         }
-    }
+    }*/
 
     private void get_UserInfo() {
         //GET the user info
@@ -447,7 +447,7 @@ public class WhoAreYou extends AppCompatActivity {
         });
     }
 
-    public  boolean isStoragePermissionGranted() {
+    /*public  boolean isStoragePermissionGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED) {
@@ -464,5 +464,109 @@ public class WhoAreYou extends AppCompatActivity {
             Log.v("tag", "Permission is granted");
             return true;
         }
+    }*/
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case ImagePhotoPermission.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if(userChoosenTask.equals("Take Photo"))
+                        cameraIntent();
+                    else if(userChoosenTask.equals("Choose from Library"))
+                        galleryIntent();
+                } else {
+                    //code for deny
+                }
+                break;
+        }
+    }
+    private void selectImage() {
+        final CharSequence[] items = { "Take Photo", "Choose from Library",
+                "Cancel" };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(WhoAreYou.this);
+        builder.setTitle("Add Photo!");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                boolean result=ImagePhotoPermission.checkPermission(WhoAreYou.this);
+
+                if (items[item].equals("Take Photo")) {
+                    userChoosenTask ="Take Photo";
+                    if(result)
+                        cameraIntent();
+
+                } else if (items[item].equals("Choose from Library")) {
+                    userChoosenTask ="Choose from Library";
+                    if(result)
+                        galleryIntent();
+
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+    private void galleryIntent()
+    {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);//
+        startActivityForResult(Intent.createChooser(intent, "Select File"),SELECT_FILE);
+    }
+
+    private void cameraIntent()
+    {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_CAMERA);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == SELECT_FILE)
+                onSelectFromGalleryResult(data);
+            else if (requestCode == REQUEST_CAMERA)
+                onCaptureImageResult(data);
+        }
+    }
+
+    private void onCaptureImageResult(Intent data) {
+        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+        //ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        //thumbnail.compress(Bitmap.CompressFormat.JPEG, 180, bytes);
+
+        File destination = new File(Environment.getExternalStorageDirectory(),
+                System.currentTimeMillis() + ".jpg");
+
+
+        Matrix matrix = new Matrix();
+        matrix.postRotate(270);
+
+        Bitmap rotated = Bitmap.createBitmap(thumbnail, 0, 0,thumbnail.getWidth(),thumbnail.getHeight(),
+                matrix, true);
+        circularImageView.setImageBitmap(rotated);
+    }
+
+    @SuppressWarnings("deprecation")
+    private void onSelectFromGalleryResult(Intent data) {
+
+        Bitmap bm=null;
+        if (data != null) {
+            try {
+                bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Matrix matrix = new Matrix();
+        matrix.postRotate(270);
+
+        Bitmap rotated = Bitmap.createBitmap(bm, 0, 0,bm.getWidth(),bm.getHeight(),
+                matrix, true);
+        circularImageView.setImageBitmap(rotated);
     }
 }
