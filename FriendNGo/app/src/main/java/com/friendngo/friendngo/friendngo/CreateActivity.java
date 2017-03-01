@@ -60,7 +60,7 @@ public class CreateActivity extends AppCompatActivity {
                         .parse(currentDateEndTime);
                 Date end = new SimpleDateFormat("HH:mm", Locale.ENGLISH)
                         .parse(hourOfDay + ":" + minute);
-                if(todayTomorrowFlag == 0){
+               /* if(todayTomorrowFlag == 0){
                 if (start.compareTo(end) > 0) {
                     Toast.makeText(CreateActivity.this,"Selected time is not valid",Toast.LENGTH_LONG).show();
                     currentDateEndTime = sdf.format(new Date());
@@ -79,7 +79,8 @@ public class CreateActivity extends AppCompatActivity {
                 }
                 }else {
                     endEventTime.setText(hourOfDay + ":" + minute);
-                }
+                }*/
+                endEventTime.setText(hourOfDay + ":" + minute);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -220,7 +221,7 @@ public class CreateActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 spinnerAdapter2.clear();
 
-                Log.w("hello","hello");
+
                 String itemSelected =  list.get(position).getText();
 
                 List categoryArrayList=new ArrayList<Category>();
@@ -229,15 +230,15 @@ public class CreateActivity extends AppCompatActivity {
 
                 for(int i =0; i<categoryArrayList.size(); i++)
                 {
-                    Log.w("list size ",categoryArrayList.size()+"");
+
                     c = (Category) categoryArrayList.get(i);
                     if(itemSelected.equals(c.getName())){
-                    Log.w("category list", c.getName());
 
-                    Log.w("Size",c.getActivityTypeList().size()+"");
+
+
                     for(int j=0;j<c.getActivityTypeList().size();j++){
                         String activityType = (String) c.getActivityTypeList().get(j);
-                         Log.w("list list",activityType);
+
                         spinnerAdapter2.add(activityType);
                     }}
                 }
@@ -267,14 +268,16 @@ public class CreateActivity extends AppCompatActivity {
         });
 
         tomorrowButton = (Button)findViewById(R.id.tomorrow_button);
-        try {
-            Calendar cal = Calendar.getInstance();
-            cal.setTime( dateFormat.parse(dateFormat.format(new Date())) );
-            cal.add( Calendar.DATE, 1 );
-            tomorrowButton.setText((String)(dateFormat.format(cal.getTime())));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
+
+            Calendar c = Calendar.getInstance();
+            c.setTime(new Date()); // Now use today date.
+            c.add(Calendar.DATE, 1);
+            String output = dateFormat.format(c.getTime());
+
+            Log.w("Date",output);
+            tomorrowButton.setText(output);
+
 
         tomorrowButton.setOnClickListener(new View.OnClickListener() {
             @Override

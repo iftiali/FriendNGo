@@ -120,7 +120,7 @@ public class WhoAreYou extends Activity {
         languageList.add(0,"English");
         languageList.add(1,"French");
         languageList.add(2,"Spanish");
-        MultiSelectSpinner multiSelectSpinnerLanguage = (MultiSelectSpinner) findViewById(R.id.language_spninner);
+        MultiSelectSpinner multiSelectSpinnerLanguage = (MultiSelectSpinner) findViewById(R.id.language_spinner);
         multiSelectSpinnerLanguage.setItems(languageList)
 
                 .setListener(new MultiSelectSpinner.MultiSpinnerListener() {
