@@ -165,7 +165,7 @@ public class MapActivity extends AppCompatActivity implements
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-                            case R.id.home_icon:
+                            case R.id.list_icon:
                                 Intent intent = new Intent(MapActivity.this, ActivityListActivity.class);
                                 MapActivity.this.startActivity(intent);
                                 break;
