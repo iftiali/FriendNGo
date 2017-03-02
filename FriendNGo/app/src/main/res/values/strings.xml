@@ -52,4 +52,5 @@
     <string name="title_activity_about_us">AboutUsActivity</string>
     <string name="title_activity_notifications">ActivityNotifications</string>
     <string name="title_activity_my_status">MyStatusActivity</string>
+    <string name="title_activity_new_who_are_you">NewWhoAreYouActivity</string>
 </resources>

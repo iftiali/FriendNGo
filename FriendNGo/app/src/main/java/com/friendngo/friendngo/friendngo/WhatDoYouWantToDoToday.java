@@ -94,7 +94,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
        // getSupportActionBar().setTitle("What do you want to do today?");
 
         if(MainActivity.cheat_mode==true){
-            Intent intent = new Intent(WhatDoYouWantToDoToday.this,WhoAreYou.class);
+            Intent intent = new Intent(WhatDoYouWantToDoToday.this,NewWhoAreYouActivity.class);
             WhatDoYouWantToDoToday.this.startActivity(intent);
             WhatDoYouWantToDoToday.this.finish();
         }
@@ -104,7 +104,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(WhatDoYouWantToDoToday.this,WhoAreYou.class);
+                Intent intent = new Intent(WhatDoYouWantToDoToday.this,NewWhoAreYouActivity.class);
                 WhatDoYouWantToDoToday.this.startActivity(intent);
                 WhatDoYouWantToDoToday.this.finish();
             }

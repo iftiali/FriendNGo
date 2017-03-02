@@ -4,26 +4,24 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
-import android.Manifest;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.support.v4.app.ActivityCompat;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -31,7 +29,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
@@ -44,23 +41,18 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
+
 import cz.msebera.android.httpclient.Header;
+
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Locale;
 
 
@@ -74,7 +66,7 @@ public class WhoAreYou extends Activity {
     private Button btnSelect;
     EditText ageInput;
     ImageView profilePicture;
-    String pictureURL ="";
+    String pictureURL = "";
     File directory;
     File downloadedImage;
     File myFile;
@@ -85,41 +77,41 @@ public class WhoAreYou extends Activity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @TargetApi(Build.VERSION_CODES.N)
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_who_are_you);
+       // setContentView(R.layout.activity_who_are_you);
 
-        profilePicture = (ImageView) findViewById(R.id.profilepicture);
+        //profilePicture = (ImageView) findViewById(R.id.profilepicture);
 
 
-
-        if(MainActivity.cheat_mode==true){
+        if (MainActivity.cheat_mode == true) {
             WhoAreYou.this.finish();
         }
-       // nationalityInputSpinner = (Spinner) findViewById(R.id.citizen_spinner);
-        nameInput = (EditText) findViewById(R.id.name_input_editView);
-        ageInput = (EditText) findViewById(R.id.age_editText);
-        circularImageView = (CircularImageView)findViewById(R.id.profilepicture);
+
+     // nameInput = (EditText) findViewById(R.id.name_input_editView);
+       // ageInput = (EditText) findViewById(R.id.age_editText);
+        circularImageView = (CircularImageView) findViewById(R.id.profilepicture);
         Locale[] locales = Locale.getAvailableLocales();
         ArrayList<String> languageList = new ArrayList<String>();
         for (Locale locale : locales) {
             String lang = locale.getDisplayLanguage();
 
-            if (lang.trim().length()>0 && !languageList.contains(lang)) {
-                if(lang.equals("English") || lang.equals("French") || lang.equals("Spanish")){
-                    Log.w("Report","report");
-                }else {
+            if (lang.trim().length() > 0 && !languageList.contains(lang)) {
+                if (lang.equals("English") || lang.equals("French") || lang.equals("Spanish")) {
+
+                } else {
                     languageList.add(lang);
                 }
             }
         }
         Collections.sort(languageList);
-        languageList.add(0,"English");
-        languageList.add(1,"French");
-        languageList.add(2,"Spanish");
+        languageList.add(0, "English");
+        languageList.add(1, "French");
+        languageList.add(2, "Spanish");
         MultiSelectSpinner multiSelectSpinnerLanguage = (MultiSelectSpinner) findViewById(R.id.language_spinner);
         multiSelectSpinnerLanguage.setItems(languageList)
 
@@ -137,9 +129,9 @@ public class WhoAreYou extends Activity {
         multiSelectSpinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String  item = (String) parent.getItemAtPosition(position);
-                Log.w("TRYTRY",item);
-                if(item.equals("Spoken languages"))
+                String item = (String) parent.getItemAtPosition(position);
+                // Log.w("TRYTRY",item);
+                if (item.equals("Spoken languages"))
                     ((TextView) view).setTextColor(Color.GRAY);
 
                 else
@@ -148,57 +140,43 @@ public class WhoAreYou extends Activity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent ) {
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
         ArrayList<String> countriesList = new ArrayList<String>();
         for (Locale locale : locales) {
             String country = locale.getDisplayCountry();
-            if (country.trim().length()>0 && !countriesList.contains(country)) {
+            if (country.trim().length() > 0 && !countriesList.contains(country)) {
                 countriesList.add(country);
             }
         }
 
         Collections.sort(countriesList);
 
-       Spinner nationalityInputSpinner = (Spinner)findViewById(R.id.citizen_spinner);
+        Spinner nationalityInputSpinner = (Spinner) findViewById(R.id.citizen_spinner);
         ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this,R.layout.spinner_item,countriesList);
+                this, R.layout.spinner_item, countriesList);
 
         nationalityInputSpinner.setAdapter(spinnerArrayAdapter);
         nationalityInputSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if(position == 0) {
+                if (position == 0) {
                     ((TextView) view).setText("Citizen");
                     ((TextView) view).setTextColor(Color.GRAY);
 
-                }else
+                } else
                     ((TextView) view).setTextColor(Color.BLACK);
                 //Change selected text color
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent ) {
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        /*
 
-        String hint_text = "Citizenship";
-        HintSpinner<String> hintSpinner = new HintSpinner<>(
-                nationalityInputSpinner,
-
-                new HintAdapter<>(this,R.layout.custom_spinner_item ,hint_text,countriesList),
-                new HintSpinner.Callback<String>(){
-                    @Override
-                    public void onItemSelected(int position, String itemAtPosition){
-
-                    }
-                });
-        hintSpinner.init();
-*/
 
 
         //Set OnClick Listener for the profile picture pressed
@@ -212,8 +190,8 @@ public class WhoAreYou extends Activity {
 
         //SETUP GET user profile
         AsyncHttpClient client = new AsyncHttpClient();
-        if(SignIn.static_token != null) {
-            client.addHeader("Authorization","Token "+SignIn.static_token);
+        if (SignIn.static_token != null) {
+            client.addHeader("Authorization", "Token " + SignIn.static_token);
         }
 
         //GET last known location
@@ -223,37 +201,37 @@ public class WhoAreYou extends Activity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.w("GET PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
 
-                try{
-                    nameInput.setHint(response.getString("first_name"));
-                    ageInput.setHint(response.getString("age"));
-                    MapActivity.myProfileNameEdit.setHint(response.getString("first_name"));
-                    MapActivity.myProfileAgeEdit.setHint(response.getString("age"));
-                }catch (JSONException e){
+                try {
+                    nameInput.setText(response.getString("first_name"));
+                    ageInput.setText(response.getString("age"));
+                  //  MapActivity.myProfileNameEdit.setHint(response.getString("first_name"));
+                   // MapActivity.myProfileAgeEdit.setHint(response.getString("age"));
+                } catch (JSONException e) {
                     Log.w("JSON EXCEPTION", e.getMessage());
                 }
 
                 //GET The image file at the pictureURL
                 AsyncHttpClient client = new AsyncHttpClient();
-                try{
+                try {
                     pictureURL = response.getString("picture");
-                }catch (JSONException e){
-                    Log.w("GET PROFILE JSON FAIL",e.getMessage().toString());
+                } catch (JSONException e) {
+                    Log.w("GET PROFILE JSON FAIL", e.getMessage().toString());
                 }
                 client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, File response) {
-                        Log.w("GET IMAGE SUCCESS","Successfully Retrieved The Image");
+                        Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
                         //Use the downloaded image as the profile picture
                         Uri uri = Uri.fromFile(response);
-                        circularImageView.setImageURI(uri);
-                        MapActivity.myProfilePicture.setImageURI(uri);
+                       // circularImageView.setImageURI(uri);
+                     //   MapActivity.myProfilePicture.setImageURI(uri);
                         downloadedImage = response;
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-                        Log.w("GET IMAGE FAIL","Could not retrieve image");
+                        Log.w("GET IMAGE FAIL", "Could not retrieve image");
                     }
                 });
             }
@@ -270,150 +248,114 @@ public class WhoAreYou extends Activity {
             }
 
             @Override
-            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
+            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
                 Log.w("GET PROFILE FAIL", "Error Code: " + error_code + ",  " + text);
             }
         });
 
         get_UserInfo();
 
-        continueButton = (Button)findViewById(R.id.profile_continue_button);
+        continueButton = (Button) findViewById(R.id.profile_continue_button);
         continueButton.setOnClickListener(new View.OnClickListener() {
 
-              @Override
-              public void onClick(View view) {
+                                              @Override
+                                              public void onClick(View view) {
 
-                  //SETUP POST to profile
-                  AsyncHttpClient client = new AsyncHttpClient();
-                  if(SignIn.static_token != null) {
-                      client.addHeader("Authorization","Token "+SignIn.static_token);
-                  }
+                                                  //SETUP POST to profile
+                                                  AsyncHttpClient client = new AsyncHttpClient();
+                                                  if (SignIn.static_token != null) {
+                                                      client.addHeader("Authorization", "Token " + SignIn.static_token);
+                                                  }
 
-                  ageInput = (EditText) findViewById(R.id.age_editText);
+//                                                  ageInput = (EditText) findViewById(R.id.age_editText);
 
-                  RequestParams params = new RequestParams();
-                  //Adding text params
-                  if(MainActivity.cheat_mode==true){
-                      params.put("first_name","Mr. Delicious");
-                      params.put("last_name","Tootles");
-                      params.put("phone","444-444-4444");
-                      params.put("age","99");
-                      params.put("home_city","toronto");
-                      params.put("home_nationality","Canadian");
-                  }else{
+                                                  RequestParams params = new RequestParams();
+                                                  //Adding text params
+                                                  if (MainActivity.cheat_mode == true) {
+                                                      params.put("first_name", "Mr. Delicious");
+                                                      params.put("last_name", "Tootles");
+                                                      params.put("phone", "444-444-4444");
+                                                      params.put("age", "99");
+                                                      params.put("home_city", "toronto");
+                                                      params.put("home_nationality", "Canadian");
+                                                  } else {
 
-                      String first_name = nameInput.getText().toString();
-                      if(first_name!=null) {
-                          params.put("first_name", first_name);
-                      }
+                                                      String first_name = nameInput.getText().toString();
+                                                      if (first_name != null) {
+                                                          params.put("first_name", first_name);
+                                                      }
 
-                      String last_name = nameInput.getText().toString();
-                      if(last_name!=null) {
-                          params.put("last_name",last_name );
-                      }
+                                                      String last_name = nameInput.getText().toString();
+                                                      if (last_name != null) {
+                                                          params.put("last_name", last_name);
+                                                      }
 
-                      params.put("phone","444-444-4444");
-                      String age = ageInput.getText().toString();
-                      if(age!=null || age==""){
-                          params.put("age",age);
-                      }
+                                                      params.put("phone", "444-444-4444");
+                                                      String age = ageInput.getText().toString();
+                                                      if (age != null || age == "") {
+                                                          params.put("age", age);
+                                                      }
 
-                      //TODO: This is temporary... remove this eventually
-                      params.put("home_city","toronto");
-                      params.put("home_nationality","Canadian");
+                                                      //TODO: This is temporary... remove this eventually
+                                                      params.put("home_city", "toronto");
+                                                      params.put("home_nationality", "Canadian");
 
-                      params.put("languages","{\"0\":\"English\" , \"1\":\"French\"}");
-//                      Log.w("LANGUAGES DEBUG",lang)
-                     // params.put("home_nationality",nationalityInput.getText());
-                  }
+                                                      params.put("languages", "{\"0\":\"English\" , \"1\":\"French\"}");
 
-                  //Adding image params
-                 File myFile = new File(directory + "/picture.jpg");
+                                                  }
 
-//                  //Use to test if file is being saved / loaded properly
-//                  if(myFile.exists()){
-//                      Bitmap myBitmap = BitmapFactory.decodeFile(myFile.getAbsolutePath());
-//                      profilePicture.setImageBitmap(myBitmap);
-//                  }else {
-//                      Log.w("LOAD IMAGE FILE ERROR","Cannot load image :(");
-//                  }
+                                                  //Adding image params
+                                                  File myFile = new File(directory + "/picture.jpg");
 
-                  try {
-                      params.put("picture", myFile);
-//                      params.put("picture", downloadedImage);
-                  } catch(FileNotFoundException e) {}
 
-                  //TODO: This form needs proper validation
-                  //POST Update to profile
-                  client.post(MainActivity.base_host_url + "api/postProfile/", params, new JsonHttpResponseHandler() {
+                                                  try {
+                                                      params.put("picture", myFile);
 
-                      @Override
-                      public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                          Log.w("POST PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
-                      }
+                                                  } catch (FileNotFoundException e) {
+                                                  }
 
-                      @Override
-                      public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                          Log.w("POST PROFILE ARRAY", statusCode + ": " + timeline.toString());
-                      }
+                                                  //TODO: This form needs proper validation
+                                                  //POST Update to profile
+                                                  client.post(MainActivity.base_host_url + "api/postProfile/", params, new JsonHttpResponseHandler() {
 
-                      @Override
-                      public void onRetry(int retryNo) {
-                          // called when request is retried
-                          Log.w("POST PROFILE RETRY", "" + retryNo);
-                      }
+                                                      @Override
+                                                      public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                                          Log.w("POST PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                                                      }
 
-                      @Override
-                      public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                          Log.w("POST PROFILE FAIL", "Headers: " + headers + ", Error Code: " + error_code + ",  " + text);
-                      }
-                  });
-                  Intent intent = new Intent(WhoAreYou.this,MyCity.class);
-                  WhoAreYou.this.startActivity(intent);
-                  WhoAreYou.this.finish();
-              }
-          }
+                                                      @Override
+                                                      public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                                                          Log.w("POST PROFILE ARRAY", statusCode + ": " + timeline.toString());
+                                                      }
+
+                                                      @Override
+                                                      public void onRetry(int retryNo) {
+                                                          // called when request is retried
+                                                          Log.w("POST PROFILE RETRY", "" + retryNo);
+                                                      }
+
+                                                      @Override
+                                                      public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                                                          Log.w("POST PROFILE FAIL", "Headers: " + headers + ", Error Code: " + error_code + ",  " + text);
+                                                      }
+                                                  });
+                                                  Intent intent = new Intent(WhoAreYou.this, MyCity.class);
+                                                  WhoAreYou.this.startActivity(intent);
+                                                  WhoAreYou.this.finish();
+                                              }
+                                          }
         );
     }
 
-    /*protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            photo = (Bitmap) data.getExtras().get("data");
 
-            profilePicture.setImageBitmap(photo);
-            MapActivity.myProfilePicture.setImageBitmap(photo);
-
-            //Preprocess Image for Uploading
-            ContextWrapper cw = new ContextWrapper(getApplicationContext());
-            // path to /data/data/yourapp/app_data/imageDir
-            directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-            // Create imageDir
-            myFile=new File(directory,"picture.jpg");
-
-            FileOutputStream fos = null;
-            try {
-                fos = new FileOutputStream(myFile);
-                // Use the compress method on the BitMap object to write image to the OutputStream
-                photo.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }*/
 
     private void get_UserInfo() {
         //GET the user info
         AsyncHttpClient client = new AsyncHttpClient();
         if (SignIn.static_token != null) {
             client.addHeader("Authorization", "Token " + SignIn.static_token);
-        }else{
-            Log.w("TOKEN ERROR","What happened to the token :(");
+        } else {
+            Log.w("TOKEN ERROR", "What happened to the token :(");
         }
         client.get(MainActivity.base_host_url + "api/getProfile/", new JsonHttpResponseHandler() {
 
@@ -442,7 +384,7 @@ public class WhoAreYou extends Activity {
             @Override
             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
                 Log.w("User info", "Error Code: " + error_code);
-                Log.w("User info",text);
+                Log.w("User info", text);
             }
         });
     }
@@ -470,9 +412,9 @@ public class WhoAreYou extends Activity {
         switch (requestCode) {
             case ImagePhotoPermission.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(userChoosenTask.equals("Take Photo"))
+                    if (userChoosenTask.equals("Take Photo"))
                         cameraIntent();
-                    else if(userChoosenTask.equals("Choose from Library"))
+                    else if (userChoosenTask.equals("Choose from Library"))
                         galleryIntent();
                 } else {
                     //code for deny
@@ -480,25 +422,26 @@ public class WhoAreYou extends Activity {
                 break;
         }
     }
+
     private void selectImage() {
-        final CharSequence[] items = { "Take Photo", "Choose from Library",
-                "Cancel" };
+        final CharSequence[] items = {"Take Photo", "Choose from Library",
+                "Cancel"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(WhoAreYou.this);
         builder.setTitle("Add Photo!");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                boolean result=ImagePhotoPermission.checkPermission(WhoAreYou.this);
+                boolean result = ImagePhotoPermission.checkPermission(WhoAreYou.this);
 
                 if (items[item].equals("Take Photo")) {
-                    userChoosenTask ="Take Photo";
-                    if(result)
+                    userChoosenTask = "Take Photo";
+                    if (result)
                         cameraIntent();
 
                 } else if (items[item].equals("Choose from Library")) {
-                    userChoosenTask ="Choose from Library";
-                    if(result)
+                    userChoosenTask = "Choose from Library";
+                    if (result)
                         galleryIntent();
 
                 } else if (items[item].equals("Cancel")) {
@@ -508,16 +451,15 @@ public class WhoAreYou extends Activity {
         });
         builder.show();
     }
-    private void galleryIntent()
-    {
+
+    private void galleryIntent() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);//
-        startActivityForResult(Intent.createChooser(intent, "Select File"),SELECT_FILE);
+        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
     }
 
-    private void cameraIntent()
-    {
+    private void cameraIntent() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAMERA);
     }
@@ -546,7 +488,7 @@ public class WhoAreYou extends Activity {
         Matrix matrix = new Matrix();
         matrix.postRotate(270);
 
-        Bitmap rotated = Bitmap.createBitmap(thumbnail, 0, 0,thumbnail.getWidth(),thumbnail.getHeight(),
+        Bitmap rotated = Bitmap.createBitmap(thumbnail, 0, 0, thumbnail.getWidth(), thumbnail.getHeight(),
                 matrix, true);
         circularImageView.setImageBitmap(rotated);
     }
@@ -554,7 +496,7 @@ public class WhoAreYou extends Activity {
     @SuppressWarnings("deprecation")
     private void onSelectFromGalleryResult(Intent data) {
 
-        Bitmap bm=null;
+        Bitmap bm = null;
         if (data != null) {
             try {
                 bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
@@ -565,8 +507,12 @@ public class WhoAreYou extends Activity {
         Matrix matrix = new Matrix();
         matrix.postRotate(270);
 
-        Bitmap rotated = Bitmap.createBitmap(bm, 0, 0,bm.getWidth(),bm.getHeight(),
+        Bitmap rotated = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(),
                 matrix, true);
         circularImageView.setImageBitmap(rotated);
     }
+
+
+
+
 }

@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -115,6 +116,14 @@
         <activity
             android:name=".MyStatusActivity"
             android:label="@string/title_activity_my_status"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".WhoAreYou$WhoAreYouActivity"
+            android:label="@string/title_activity_who_are_you"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".NewWhoAreYouActivity"
+            android:label="@string/title_activity_new_who_are_you"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
