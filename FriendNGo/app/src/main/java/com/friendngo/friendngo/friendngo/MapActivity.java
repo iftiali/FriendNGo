@@ -88,6 +88,7 @@ public class MapActivity extends AppCompatActivity implements
         GoogleMap.OnMarkerClickListener {
 
     //Constants
+    TextView other_account;
     private static final int POLLING_PERIOD = 5;
     private final int STARTING_ZOOM = 15;
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 2;
@@ -101,6 +102,8 @@ public class MapActivity extends AppCompatActivity implements
     private double current_gps_longitude;
     private boolean last_location_ready = false;
     private boolean gettingGPS = true;
+
+
     public static ImageView myProfilePicture;
     public static EditText myProfileNameEdit;
     public static EditText myProfileAgeEdit;
@@ -151,6 +154,7 @@ public class MapActivity extends AppCompatActivity implements
         getSupportActionBar().setTitle("FriendNGo");
 
         //Initialize Layout views from their XML
+        other_account = (TextView)findViewById(R.id.other_account);
         alpha_layer = (RelativeLayout) findViewById(R.id.alpha_layer);
         markup_layout = (FrameLayout) findViewById(R.id.markup_layout);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -159,6 +163,13 @@ public class MapActivity extends AppCompatActivity implements
         participateButton = (Button) findViewById(R.id.banner_participate);
         participateButton.setEnabled(false);
         getActivity();
+        other_account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapActivity.this,WhatDoYouWantToDoToday.class);
+                startActivity(intent);
+            }
+        });
         //OnClick listeners for bottom navigation bar
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -291,92 +302,15 @@ public class MapActivity extends AppCompatActivity implements
         }
 
         //Pull up the Views from XML
-        myProfilePicture = (ImageView) this.findViewById(R.id.drawer_profilepicture);
-        myProfileNameEdit = (EditText) this.findViewById(R.id.drawer_name_input_editView);
-        myProfileAgeEdit = (EditText) this.findViewById(R.id.drawer_age_editText);
-        citizenshipSpinner = (Spinner) this.findViewById(R.id.drawer_citizen_spinner);
-        languagesSpinner = (MultiSelectSpinner) this.findViewById(R.id.drawer_language_spninner);
-
-        //Spinner for Citizenship
-        String hint_text = "Canadian";
-        Locale[] locales = Locale.getAvailableLocales();
-        ArrayList<String> countriesList = new ArrayList<String>();
-        for (Locale locale : locales) {
-            String country = locale.getDisplayCountry();
-            if (country.trim().length()>0 && !countriesList.contains(country)) {
-                countriesList.add(country);
-            }
-        }
-        Collections.sort(countriesList);
 
 
 
-        //Spinner for Languages
-        String hint_text2 = "English, French";
-        ArrayList<String> languageList = new ArrayList<String>();
-        for (Locale locale : locales) {
-            String language = locale.getDisplayLanguage();
-            if (language.trim().length()>0 && !languageList.contains(language)) {
-                languageList.add(language);
-            }
-        }
-        Collections.sort(languageList);
+
+
 
 
         //GET last known location
-        client2.get(MainActivity.base_host_url + "api/getProfile/", new JsonHttpResponseHandler() {
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.w("MY PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
-
-                //GET The image file at the pictureURL
-                AsyncHttpClient client3 = new AsyncHttpClient();
-                try{
-                    profilePictureURL = response.getString("picture");
-
-                }catch (JSONException e){
-                    Log.w("MY PROFILE JSON FAIL",e.getMessage().toString());
-                }
-                client3.get(MainActivity.base_host_url + profilePictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, File response) {
-                        Log.w("MY IMAGE SUCCESS","Successfully Retrieved The Image");
-                        //Use the downloaded image as the profile picture
-                        Uri uri = Uri.fromFile(response);
-                        myProfilePicture.setImageURI(uri);
-                        downloadedImage = response;
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-                        Log.w("MY IMAGE FAIL","Could not retrieve image");
-                    }
-                });
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                Log.w("MYPROFILE SUCCESS ARRAY", statusCode + ": " + timeline.toString());
-
-            }
-
-            @Override
-            public void onRetry(int retryNo) {
-                // called when request is retried
-            }
-
-            @Override
-            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + text);
-            }
-
-            @Override
-            public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
-                Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
-            }
-        });
 
         //Here is where we schedule the polling of our activities
         ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
