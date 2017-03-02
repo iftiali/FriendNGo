@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.friendngo.friendngo.friendngo.WhoAreYou">
+    tools:context="com.friendngo.friendngo.friendngo.PointsSystemActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -13,30 +13,32 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/points_system_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="match_parent"
+                android:layout_weight="0.80">
+
                 <TextView
-                    android:text="Who are you?"
+                    android:id="@+id/points_system_heading"
+                    android:text="Points System"
                     android:textSize="24sp"
                     android:textColor="#FFFFFF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/request_text_iew"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
+
         </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout
->
 
-    <include layout="@layout/content_activity_who_are_you" />
+    </android.support.design.widget.AppBarLayout>
 
-
+    <include layout="@layout/content_points_system" />
 
 </android.support.design.widget.CoordinatorLayout>

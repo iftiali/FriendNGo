@@ -22,8 +22,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
@@ -43,15 +41,9 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 
 import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Locale;
 
 public class WhoAreYou extends AppCompatActivity {
@@ -81,7 +73,7 @@ public class WhoAreYou extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_who_are_you);
 
-        profilePicture = (ImageView) findViewById(R.id.profilepicture);
+        profilePicture = (ImageView) findViewById(R.id.messages_profile_picture);
 
         if(MainActivity.cheat_mode==true){
             WhoAreYou.this.finish();
@@ -225,7 +217,7 @@ public class WhoAreYou extends AppCompatActivity {
         });
 
         get_UserInfo();
-        circularImageView = (CircularImageView)findViewById(R.id.profilepicture);
+        circularImageView = (CircularImageView)findViewById(R.id.messages_profile_picture);
         continueButton = (Button)findViewById(R.id.profile_continue_button);
         continueButton.setOnClickListener(new View.OnClickListener() {
 

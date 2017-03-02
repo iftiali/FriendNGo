@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <ImageView
+            android:id="@+id/message_left_picture"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            app:srcCompat="@drawable/empty_profile"/>
+
+        <TextView
+            android:id="@+id/message_left"
+            android:text="Hey, how are you? Are you coming tonight?"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginLeft="56dp"
+            android:background="@color/colorAccent"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/message_time_left"
+            android:layout_below="@id/message_left"
+            android:text="05:10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginLeft="46dp"/>
+    </RelativeLayout>
+</LinearLayout>

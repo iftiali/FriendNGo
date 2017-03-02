@@ -18,13 +18,10 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 
 import java.io.File;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import cz.msebera.android.httpclient.Header;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.friendngo.friendngo.friendngo.MapActivity.activitiesList;
 
 /**
@@ -83,15 +80,15 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.activity_list_row_item, null, true); //Seems equivalent to inflate(R... , parent, false)
-            viewHolder.profilePicture = (ImageView) convertView.findViewById(R.id.profilepicture);
-            viewHolder.creator = (TextView) convertView.findViewById(R.id.created_text);
-            viewHolder.status = (TextView) convertView.findViewById(R.id.status_text);
-            viewHolder.homeCity = (TextView) convertView.findViewById(R.id.home_city_text);
-            viewHolder.nationality = (ImageView) convertView.findViewById(R.id.country_flag);
+            viewHolder.profilePicture = (ImageView) convertView.findViewById(R.id.messages_profile_picture);
+            viewHolder.creator = (TextView) convertView.findViewById(R.id.messages_created_text);
+            viewHolder.status = (TextView) convertView.findViewById(R.id.participants_status_text);
+            viewHolder.homeCity = (TextView) convertView.findViewById(R.id.participants_city_text);
+            viewHolder.nationality = (ImageView) convertView.findViewById(R.id.participants_country_flag);
             viewHolder.points = (TextView) convertView.findViewById(R.id.points);
             viewHolder.category = (ImageView) convertView.findViewById(R.id.activity_type);
             viewHolder.name = (TextView) convertView.findViewById(R.id.activity_name);
-            viewHolder.clock = (ImageView) convertView.findViewById(R.id.clock_image);
+            viewHolder.clock = (ImageView) convertView.findViewById(R.id.messages_clock_image);
             viewHolder.dateTime = (TextView) convertView.findViewById(R.id.activity_time);
             viewHolder.pin = (ImageView) convertView.findViewById(R.id.pin_image);
             viewHolder.distance = (TextView) convertView.findViewById(R.id.distance);
@@ -121,7 +118,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         AsyncHttpClient client = new AsyncHttpClient();
 
         String pictureURL = ((UserActivity)activitiesList.get(position)).getProfilePicURL();
-        final ImageView profilePic = (ImageView) convertView.findViewById(R.id.profilepicture);
+        final ImageView profilePic = (ImageView) convertView.findViewById(R.id.messages_profile_picture);
 
         client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(mContext) {
 

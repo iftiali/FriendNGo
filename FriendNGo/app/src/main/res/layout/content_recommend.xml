@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_recommend"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.friendngo.friendngo.friendngo.RecommendActivity"
+    tools:showIn="@layout/activity_recommend">
+
+    <TextView
+        android:id="@+id/recommend_text_one"
+        android:text="How likely are you to recommend FriendNGo to a friend?"
+        android:layout_width="250dp"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="191dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:textStyle="normal|bold" />
+
+    <FrameLayout
+        android:id="@+id/rating_dots"
+        android:layout_below="@+id/likely_unlikely_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_below="@+id/recommend_linearLayout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:id="@+id/recommend_dot_one"
+                android:layout_width="match_parent"
+                app:srcCompat="@drawable/dot_rating"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:padding="0dp"
+                android:layout_height="20dp" />
+
+            <ImageView
+                android:id="@+id/recommend_dot_two"
+                android:layout_width="match_parent"
+                app:srcCompat="@drawable/dot_rating"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:padding="0dp"
+                android:layout_height="20dp" />
+
+            <ImageView
+                android:id="@+id/recommend_dot_three"
+                android:layout_width="match_parent"
+                app:srcCompat="@drawable/dot_rating"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:padding="0dp"
+                android:layout_height="20dp" />
+
+            <ImageView
+                android:id="@+id/recommend_dot_four"
+                android:layout_width="match_parent"
+                app:srcCompat="@drawable/dot_rating"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:padding="0dp"
+                android:layout_height="20dp" />
+
+            <ImageView
+                android:id="@+id/recommend_dot_five"
+                android:layout_width="match_parent"
+                app:srcCompat="@drawable/dot_rating"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:padding="0dp"
+                android:layout_height="20dp" />
+
+            <ImageView
+                android:id="@+id/recommend_dot_six"
+                android:layout_width="match_parent"
+                app:srcCompat="@drawable/dot_rating"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:padding="0dp"
+                android:layout_height="20dp" />
+
+            <ImageView
+                android:id="@+id/recommend_dot_seven"
+                android:layout_width="match_parent"
+                app:srcCompat="@drawable/dot_selected"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:padding="0dp"
+                android:layout_height="20dp" />
+
+            <ImageView
+                android:id="@+id/recommend_dot_eight"
+                android:layout_width="match_parent"
+                app:srcCompat="@drawable/dot_rating"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:padding="0dp"
+                android:layout_height="20dp" />
+
+            <ImageView
+                android:id="@+id/recommend_dot_nine"
+                android:layout_width="match_parent"
+                app:srcCompat="@drawable/dot_rating"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:padding="0dp"
+                android:layout_height="20dp" />
+
+            <ImageView
+                android:id="@+id/recommend_dot_ten"
+                android:layout_width="match_parent"
+                app:srcCompat="@drawable/dot_rating"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:padding="0dp"
+                android:layout_height="20dp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rating_dots">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/recommend_number_one"
+                android:text="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/recommend_number_two"
+                android:text="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/recommend_number_three"
+                android:text="3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/recommend_number_four"
+                android:text="4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/recommend_number_five"
+                android:text="5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/recommend_number_six"
+                android:text="6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/recommend_number_seven"
+                android:text="7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/recommend_number_eight"
+                android:text="8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/recommend_number_nine"
+                android:text="9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/recommend_number_ten"
+                android:text="10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:textAlignment="center" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/likely_unlikely_text"
+        android:layout_below="@+id/recommend_text_one"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recommend_text_one">
+
+            <TextView
+                android:text="Not likely"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView9"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="6dp" />
+
+            <TextView
+                android:text="Extremely likely"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView6"
+                android:layout_weight="0.69"
+                android:textAlignment="textEnd"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="6dp" />
+        </LinearLayout>
+
+    </FrameLayout>
+    <Button
+        android:id="@+id/recommend_continue_button"
+        android:text="Submit"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/submit_button"
+        android:textColor="@android:color/white"
+        android:layout_margin="15dp" />
+</RelativeLayout>

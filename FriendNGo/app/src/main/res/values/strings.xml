@@ -49,5 +49,19 @@
     <string name="title_activity_details">activity_details</string>
     <string name="title_activity_list">ActivityListActivity</string>
     <string name="title_activity_about_us">AboutUsActivity</string>
+    <string name="title_activity_my_calendar">MyCalendarActivity</string>
+    <string name="title_activity_notifications">NotificationsActivity</string>
+    <string name="title_activity_recommend">RecommendActivity</string>
+    <string name="title_activity_they_are_available">TheyAreAvailableActivity</string>
+    <string name="title_activity_other_user_profile">OtherUserProfileActivity</string>
+    <string name="title_activity_participants">ParticipantsActivity</string>
+    <string name="title_activity_notifications_preferences">NotificationsPreferencesActivity
+    </string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_points_history">PointsHistoryActivity</string>
+    <string name="title_activity_points_system">PointsSystemActivity</string>
+    <string name="title_activity_messages">MessagesActivity</string>
+    <string name="title_activity_messages_open">MessagesOpenActivity</string>
+    <string name="title_activity_filters">FiltersActivity</string>
 
 </resources>

@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,9 +19,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
-
-import static com.friendngo.friendngo.friendngo.MapActivity.activitiesList;
-import static com.friendngo.friendngo.friendngo.R.drawable.add_oval;
 
 /**
  * Created by krishna on 2017-02-07.
@@ -85,7 +81,7 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.activity_request_list_row_item, parent, false);
-            viewHolder.profilePicture = (CircularImageView) convertView.findViewById(R.id.profilepicture);
+            viewHolder.profilePicture = (CircularImageView) convertView.findViewById(R.id.messages_profile_picture);
             viewHolder.name = (TextView) convertView.findViewById(R.id.request_person_name);
             viewHolder.homeCity = (TextView) convertView.findViewById(R.id.reqiest_city_name);
             viewHolder.years = (TextView)convertView.findViewById(R.id.request_years);
@@ -113,7 +109,7 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
 
         //TODO: Change this to get the picture of the SENDER of the request
         String pictureURL = dataModel.getProfileImage();
-        final ImageView profilePic = (CircularImageView) convertView.findViewById(R.id.profilepicture);
+        final ImageView profilePic = (CircularImageView) convertView.findViewById(R.id.messages_profile_picture);
 
         client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(mContext) {
 

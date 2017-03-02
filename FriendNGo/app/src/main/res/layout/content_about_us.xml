@@ -14,57 +14,78 @@
     tools:showIn="@layout/activity_about_us">
 
     <TextView
-        android:text="TextView"
+        android:id="@+id/about_us_text_one"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/about_us_text"
-        tools:text="At FriendNGo We're Totally Awesome. We just want our computers to work."
-        android:layout_margin="15dp"
-        android:textSize="11sp" />
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at consequat nisl. Vivamus enim nisl, accumsan sagittis tortor at, consequat scelerisque leo. Pellentesque porta, nulla sed tincidunt interdum, erat urna vehicula turpis, ac tempor augue ligula tempus leo. "
+        android:padding="12dp"
+        android:layout_marginTop="6dp"
+        android:textSize="11sp"/>
+
 
     <TextView
+        android:id="@+id/about_us_text_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/about_us_text_one"
+        android:layout_centerHorizontal="true"
+        tools:text="Aliquam lobortis eros non mauris posuere, in accumsan erat eleifend. Quisque vehicula sapien at augue euismod gravida. Aenean sed urna ac turpis luctus efficitur vel vitae sapien. Nullam scelerisque vulputate accumsan. Pellentesque ornare semper mi, at molestie justo lacinia elementum. Fusce pulvinar, libero vestibulum viverra pharetra, leo lorem dictum neque, at semper urna ligula nec quam."
+        android:padding="12dp"
+        android:textSize="11sp"/>
+
+    <TextView
+        android:id="@+id/about_us_text_three"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/about_us_text_two"
+        android:layout_centerHorizontal="true"
+        tools:text="Donec molestie mi non feugiat efficitur. Fusce at volutpat justo. Nunc vestibulum risus eros, at varius diam mollis ut. Donec pharetra felis orci, id tempus est varius at. Donec eget malesuada dui. Sed et felis quis nulla pulvinar pharetra id eget lectus. Suspendisse ac erat est."
+        android:padding="12dp"
+        android:textSize="11sp"/>
+
+    <TextView
+        android:id="@+id/about_us_privacy_policy_text"
         android:text="Privacy Policy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/privacy_policy_text"
         android:background="@android:color/white"
         android:layout_marginTop="5dp"
         android:padding="15dp"
-        android:textSize="14sp" />
+        android:textSize="14sp"/>
 
     <TextView
+        android:id="@+id/about_us_terms_and_conditions_text"
         android:text="Terms and Conditions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/privacy_policy_text"
-        android:layout_alignLeft="@+id/privacy_policy_text"
-        android:layout_alignStart="@+id/privacy_policy_text"
-        android:id="@+id/terms_and_conditions_text"
+        android:layout_above="@+id/about_us_privacy_policy_text"
+        android:layout_alignLeft="@+id/about_us_privacy_policy_text"
+        android:layout_alignStart="@+id/about_us_privacy_policy_text"
         android:background="@android:color/white"
         android:padding="15dp"
-        android:textSize="14sp" />
+        android:textSize="14sp"/>
 
     <ImageView
+        android:id="@+id/term_and_conditions_next"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/next"
-        android:layout_alignTop="@+id/terms_and_conditions_text"
+        android:layout_alignTop="@+id/about_us_terms_and_conditions_text"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/term_and_conditions_next" />
+        android:layout_alignParentEnd="true"/>
 
     <ImageView
+        android:id="@+id/about_us_privacy_policy_next"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="16dp"
         android:src="@drawable/next"
-        android:layout_alignTop="@+id/privacy_policy_text"
+        android:layout_alignTop="@+id/about_us_privacy_policy_text"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/privacy_policy_next" />
+        android:layout_alignParentEnd="true"/>
 </RelativeLayout>
