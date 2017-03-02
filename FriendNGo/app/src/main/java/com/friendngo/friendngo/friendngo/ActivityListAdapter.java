@@ -81,7 +81,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.activity_list_row_item, null, true); //Seems equivalent to inflate(R... , parent, false)
             viewHolder.profilePicture = (ImageView) convertView.findViewById(R.id.messages_profile_picture);
-            viewHolder.creator = (TextView) convertView.findViewById(R.id.messages_created_text);
+            viewHolder.creator = (TextView) convertView.findViewById(R.id.paid_event_created_text);
             viewHolder.status = (TextView) convertView.findViewById(R.id.participants_status_text);
             viewHolder.homeCity = (TextView) convertView.findViewById(R.id.participants_city_text);
             viewHolder.nationality = (ImageView) convertView.findViewById(R.id.participants_country_flag);
@@ -89,7 +89,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder.category = (ImageView) convertView.findViewById(R.id.activity_type);
             viewHolder.name = (TextView) convertView.findViewById(R.id.activity_name);
             viewHolder.clock = (ImageView) convertView.findViewById(R.id.messages_clock_image);
-            viewHolder.dateTime = (TextView) convertView.findViewById(R.id.activity_time);
+            viewHolder.dateTime = (TextView) convertView.findViewById(R.id.paid_event_activity_time);
             viewHolder.pin = (ImageView) convertView.findViewById(R.id.pin_image);
             viewHolder.distance = (TextView) convertView.findViewById(R.id.distance);
             viewHolder.info = (RelativeLayout) convertView.findViewById(R.id.row_item);

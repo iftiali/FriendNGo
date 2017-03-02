@@ -11,7 +11,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.friendngo.friendngo.friendngo.AboutUsActivity"
-    tools:showIn="@layout/activity_about_us">
+    tools:showIn="@layout/activity_about_us"
+    android:background="@color/whiteish">
 
     <TextView
         android:id="@+id/about_us_text_one"
@@ -22,28 +23,10 @@
         tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at consequat nisl. Vivamus enim nisl, accumsan sagittis tortor at, consequat scelerisque leo. Pellentesque porta, nulla sed tincidunt interdum, erat urna vehicula turpis, ac tempor augue ligula tempus leo. "
         android:padding="12dp"
         android:layout_marginTop="6dp"
-        android:textSize="11sp"/>
+        android:lineSpacingExtra="6dp"
+        android:lineSpacingMultiplier="1.1"
+        android:textSize="14sp"/>
 
-
-    <TextView
-        android:id="@+id/about_us_text_two"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/about_us_text_one"
-        android:layout_centerHorizontal="true"
-        tools:text="Aliquam lobortis eros non mauris posuere, in accumsan erat eleifend. Quisque vehicula sapien at augue euismod gravida. Aenean sed urna ac turpis luctus efficitur vel vitae sapien. Nullam scelerisque vulputate accumsan. Pellentesque ornare semper mi, at molestie justo lacinia elementum. Fusce pulvinar, libero vestibulum viverra pharetra, leo lorem dictum neque, at semper urna ligula nec quam."
-        android:padding="12dp"
-        android:textSize="11sp"/>
-
-    <TextView
-        android:id="@+id/about_us_text_three"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/about_us_text_two"
-        android:layout_centerHorizontal="true"
-        tools:text="Donec molestie mi non feugiat efficitur. Fusce at volutpat justo. Nunc vestibulum risus eros, at varius diam mollis ut. Donec pharetra felis orci, id tempus est varius at. Donec eget malesuada dui. Sed et felis quis nulla pulvinar pharetra id eget lectus. Suspendisse ac erat est."
-        android:padding="12dp"
-        android:textSize="11sp"/>
 
     <TextView
         android:id="@+id/about_us_privacy_policy_text"

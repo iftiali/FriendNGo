@@ -23,7 +23,7 @@
         android:layout_margin="8dp"/>
 
     <TextView
-        android:id="@+id/messages_created_text"
+        android:id="@+id/paid_event_created_text"
         android:text="Octoberfest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,22 +38,21 @@
     <ImageView
         android:id="@+id/messages_clock_image"
         app:srcCompat="@drawable/clock"
-        android:layout_alignTop="@+id/messages_created_text"
-        android:layout_toRightOf="@id/messages_created_text"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="180dp"
+        android:layout_toLeftOf="@+id/messages_activity_time"
         android:layout_width="16dp"
-        android:layout_height="16dp" />
+        android:layout_height="16dp"
+        android:layout_marginTop="4dp"/>
+
 
     <TextView
         android:id="@+id/messages_activity_time"
         android:text="10 min"
+        android:layout_alignRight="@+id/messages_next_button"
+        android:layout_alignAbove="@+id/messages_next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="8sp"
-        android:layout_alignTop="@+id/messages_clock_image"
-        android:layout_toRightOf="@+id/messages_clock_image"
-        android:layout_marginTop="4dp"/>
+        android:layout_marginTop="8dp"/>
 
     <TextView
         android:id="@+id/messages_created_text_two"
@@ -62,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/messages_profile_picture"
         android:layout_toEndOf="@+id/messages_profile_picture"
-        android:layout_below="@id/messages_created_text"
+        android:layout_below="@id/paid_event_created_text"
         android:paddingLeft="10dp"
         android:layout_marginBottom="5dp"
         android:textSize="12sp"
@@ -74,19 +73,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/messages_created_text_two"
-        android:layout_below="@id/messages_created_text"
+        android:layout_below="@id/paid_event_created_text"
         android:paddingLeft="4dp"
         android:layout_marginBottom="5dp"
         android:textSize="12sp"/>
 
     <ImageView
-        android:layout_alignTop="@+id/messages_created_text_two"
         android:layout_width="12dp"
         android:layout_height="24dp"
         app:srcCompat="@drawable/next"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
         android:id="@+id/messages_next_button"
-        android:layout_marginRight="4dp"/>
+        android:layout_marginRight="4dp" />
 
 </RelativeLayout>

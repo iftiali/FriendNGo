@@ -32,4 +32,14 @@
             </LinearLayout>
         </ScrollView>
     </FrameLayout>
+    <Button
+        android:id="@+id/points_history_save_button"
+        android:text="OKAY"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/submit_button"
+        android:textColor="@android:color/white"
+        android:layout_margin="15dp" />
 </RelativeLayout>

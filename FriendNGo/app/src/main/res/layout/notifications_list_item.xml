@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/messages_profile_picture"
         android:layout_toEndOf="@+id/messages_profile_picture"
-        android:id="@+id/messages_created_text"
+        android:id="@+id/paid_event_created_text"
         android:paddingLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
@@ -45,8 +45,8 @@
 
     <ImageView
         app:srcCompat="@drawable/clock"
-        android:layout_below="@+id/messages_created_text"
-        android:layout_alignLeft="@+id/messages_created_text"
+        android:layout_below="@+id/paid_event_created_text"
+        android:layout_alignLeft="@+id/paid_event_created_text"
         android:id="@+id/messages_clock_image"
 
         android:layout_margin="4dp"
@@ -57,7 +57,7 @@
         android:text="10 min"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/activity_time"
+        android:id="@+id/paid_event_activity_time"
         android:textSize="8sp"
         android:layout_alignTop="@+id/messages_clock_image"
         android:layout_toRightOf="@+id/messages_clock_image"
@@ -68,7 +68,7 @@
         android:layout_width="10dp"
         android:layout_height="25dp"
         app:srcCompat="@drawable/next"
-        android:layout_alignTop="@+id/messages_created_text"
+        android:layout_alignTop="@+id/paid_event_created_text"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/imageView8"

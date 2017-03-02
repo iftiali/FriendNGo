@@ -9,6 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/whiteish"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.friendngo.friendngo.friendngo.PointsSystemActivity"
     tools:showIn="@layout/activity_points_system">
@@ -59,7 +60,8 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_above="@+id/points_save_button">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -291,6 +293,16 @@
                     </RelativeLayout>
                 </LinearLayout>
             </ScrollView>
+            <Button
+                android:id="@+id/points_save_button"
+                android:text="Got it"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/submit_button"
+                android:textColor="@android:color/white"
+                android:layout_margin="15dp" />
         </RelativeLayout>
     </FrameLayout>
 </RelativeLayout>

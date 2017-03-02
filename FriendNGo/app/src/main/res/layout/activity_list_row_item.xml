@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/messages_profile_picture"
         android:layout_toEndOf="@+id/messages_profile_picture"
-        android:id="@+id/messages_created_text"
+        android:id="@+id/paid_event_created_text"
         android:paddingLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="8dp"
@@ -45,11 +45,12 @@
     <!--android:layout_alignParentEnd="true"-->
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="0.2dp"
         android:background="@android:color/darker_gray"
         android:layout_alignBottom="@+id/messages_profile_picture"
         android:id="@+id/separation_bar"
-        android:layout_marginBottom="-12dp" />
+        android:layout_marginBottom="-12dp"
+        />
 
     <ImageView
         app:srcCompat="@drawable/cup"
@@ -89,7 +90,7 @@
         android:text="Fri 20, 10:15pm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/activity_time"
+        android:id="@+id/paid_event_activity_time"
         android:textSize="8sp"
         android:layout_alignTop="@+id/messages_clock_image"
         android:layout_toRightOf="@+id/messages_clock_image"
@@ -101,7 +102,7 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/icon_mapa"
         android:layout_alignTop="@+id/messages_clock_image"
-        android:layout_toRightOf="@+id/activity_time"
+        android:layout_toRightOf="@+id/paid_event_activity_time"
         android:id="@+id/pin_image"
         android:layout_marginLeft="4dp" />
 
@@ -157,7 +158,7 @@
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:paddingBottom="5dp"
-        android:layout_below="@+id/messages_created_text"
+        android:layout_below="@+id/paid_event_created_text"
         android:layout_toRightOf="@+id/participants_dotText"
         android:layout_toEndOf="@+id/participants_dotText" />
 
@@ -170,7 +171,7 @@
         android:textSize="8sp"
         android:layout_toRightOf="@+id/participants_city_text"
         android:layout_toEndOf="@+id/participants_city_text"
-        android:layout_below="@+id/messages_created_text" />
+        android:layout_below="@+id/paid_event_created_text" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -180,7 +181,7 @@
         android:text="10pts"
         android:padding="5dp"
         android:layout_marginBottom="10dp"
-        android:layout_alignTop="@+id/messages_created_text"
+        android:layout_alignTop="@+id/paid_event_created_text"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="7dp"

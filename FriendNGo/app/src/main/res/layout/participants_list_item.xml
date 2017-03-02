@@ -27,8 +27,8 @@
         android:layout_marginLeft="4dp" />
 
     <TextView
-        android:id="@+id/messages_created_text"
-        android:text="Created by Scott Laughlin, 29 y-o"
+        android:id="@+id/paid_event_created_text"
+        android:text="Scott Laughlin, 29 y-o"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/messages_profile_picture"
@@ -36,7 +36,8 @@
         android:paddingLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="8dp"
-        android:textSize="12sp" />
+        android:textSize="13sp"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/participants_status_text"
@@ -67,7 +68,7 @@
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:paddingBottom="5dp"
-        android:layout_below="@+id/messages_created_text"
+        android:layout_below="@+id/paid_event_created_text"
         android:layout_toRightOf="@+id/participants_dotText"
         android:layout_toEndOf="@+id/participants_dotText" />
 
@@ -80,7 +81,7 @@
         android:textSize="8sp"
         android:layout_toRightOf="@+id/participants_city_text"
         android:layout_toEndOf="@+id/participants_city_text"
-        android:layout_below="@+id/messages_created_text" />
+        android:layout_below="@+id/paid_event_created_text" />
 
     <TextView
         android:id="@+id/participants_points"
@@ -90,7 +91,7 @@
         android:text="10pts"
         android:padding="5dp"
         android:layout_marginBottom="10dp"
-        android:layout_alignTop="@+id/messages_created_text"
+        android:layout_alignTop="@+id/paid_event_created_text"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="7dp"

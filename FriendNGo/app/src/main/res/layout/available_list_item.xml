@@ -24,11 +24,10 @@
         app:civ_shadow_radius="0.5"
         app:civ_shadow_color="@color/greyish"
         android:layout_marginTop="14dp"
-        android:layout_marginLeft="6dp"
-        />
+        android:layout_marginLeft="6dp"/>
 
     <TextView
-        android:id="@+id/messages_created_text"
+        android:id="@+id/paid_event_created_text"
         android:text="Stephanie, 28 y-o"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,7 +35,7 @@
         android:paddingLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
-        android:textSize="11sp"
+        android:textSize="14sp"
         android:textStyle="bold"/>
 
     <TextView
