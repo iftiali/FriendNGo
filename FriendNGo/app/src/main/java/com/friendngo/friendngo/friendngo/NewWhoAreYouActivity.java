@@ -196,7 +196,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, final JSONObject response) {
                 Log.w("GET PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
-
+                Log.w("Resporse",response.toString());
                 try {
                     nameInput.setText(response.getString("first_name"));
                     ageInput.setText(response.getString("age"));
