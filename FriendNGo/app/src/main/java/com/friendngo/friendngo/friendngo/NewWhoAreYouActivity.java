@@ -8,13 +8,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -23,26 +20,21 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.mikhaellopez.circularimageview.CircularImageView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
-
 import cz.msebera.android.httpclient.Header;
 import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -54,16 +46,11 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
     EditText nameInput;
 
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-    private Button btnSelect;
     EditText ageInput;
     EditText bioField;
-    ImageView profilePicture;
     String pictureURL = "";
-    File directory;
     File downloadedImage;
-    File myFile;
     private String userChoosenTask;
-    Bitmap photo;
     private String nationality;
 
     @Override
@@ -84,16 +71,8 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
         nextBtn = (Button) findViewById(R.id.profile_continue_button);
         nationality="";
 
-        nextBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(NewWhoAreYouActivity.this, MyCity.class);
-                NewWhoAreYouActivity.this.startActivity(intent);
-                NewWhoAreYouActivity.this.finish();
-            }
-        });
         Locale[] locales = Locale.getAvailableLocales();
-        ArrayList<String> languageList = new ArrayList<String>();
+        final ArrayList<String> languageList = new ArrayList<String>();
         for (Locale locale : locales) {
             String lang = locale.getDisplayLanguage();
 
@@ -111,7 +90,6 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
         languageList.add(2, "Spanish");
         final MultiSelectSpinner multiSelectSpinnerLanguage = (MultiSelectSpinner) findViewById(R.id.language_spinner);
         multiSelectSpinnerLanguage.setItems(languageList)
-
                 .setListener(new MultiSelectSpinner.MultiSpinnerListener() {
                     @Override
                     public void onItemsSelected(boolean[] selected) {
@@ -156,27 +134,6 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
         final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
                 this, R.layout.spinner_item, countriesList);
 
-//        nationalityInputSpinner.setAdapter(spinnerArrayAdapter);
-//        nationalityInputSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//
-//                if (position == 0) {
-//                    ((TextView) view).setText("Citizen");
-//                    ((TextView) view).setTextColor(Color.GRAY);
-//
-//                } else
-//                    ((TextView) view).setTextColor(Color.BLACK);
-//                //Change selected text color
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//            }
-//        });
-
-
-
         //Set OnClick Listener for the profile picture pressed
         circularImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,10 +172,6 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                         bioField.setText(bio);
                     }
                     nationality = response.getString("home_nationality");
-
-//                    TextView tv2 = (TextView) multiSelectSpinnerLanguage.getItemAtPosition(0);
-//                    tv2.setText(response.getString(""));
-
                     nationalityInputSpinner.setAdapter(spinnerArrayAdapter);
                     nationalityInputSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -240,8 +193,6 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                         public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
-
-
                 } catch (JSONException e) {
                     Log.w("JSON EXCEPTION", e.getMessage());
                 }
@@ -287,6 +238,97 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                 Log.w("GET PROFILE FAIL", "Error Code: " + error_code + ",  " + text);
             }
         });
+
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //POST Location
+                AsyncHttpClient client = new AsyncHttpClient();
+                if (SignIn.static_token != null) {
+                    client.addHeader("Authorization", "Token " + SignIn.static_token);
+                }
+
+                RequestParams params = new RequestParams();
+                params.setUseJsonStreamer(true);
+
+                String name_input = nameInput.getText().toString();
+                if(name_input!=null){
+                    params.put("first_name",name_input);
+                }
+
+                String age_input = ageInput.getText().toString();
+                if(age_input!=null){
+                    params.put("age",age_input);
+                }
+
+                String bio_input = bioField.getText().toString();
+                if(bio_input!=null){
+                    params.put("bio",bio_input);
+                }
+
+                if(nationality!=null) {
+                    params.put("home_nationality",nationality);
+                }
+
+                JSONArray languagesArray = new JSONArray();
+                try{
+
+//                //TODO: Populare JSON objects and ARRAY with dynamic data
+//                for(int i =0; i < languages.length; i++){
+//                    JSONObject json_i = new JSONObject();
+//                    json_i.put("name",language_i);
+//                    languagesArray.put(json_i);
+//                }
+
+                    //Test Data
+                    JSONObject englishJSONObject = new JSONObject();
+                    englishJSONObject.put("name","english");
+                    JSONObject frenchJSONObject = new JSONObject();
+                    frenchJSONObject.put("name","french");
+                } catch (JSONException e){
+                    Log.w("JSON Exception", e.toString());
+                }
+
+                params.put("languages",languagesArray);
+                client.post(MainActivity.base_host_url + "api/postProfile2/", params, new JsonHttpResponseHandler() {
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        Log.w("POST PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                        NewWhoAreYouActivity.this.finish();
+
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                        Log.w("POST PROFILE SUCCESS2", statusCode + ": " + timeline.toString());
+                        NewWhoAreYouActivity.this.finish();
+                    }
+
+                    @Override
+                    public void onRetry(int retryNo) {
+                        // called when request is retried
+                        Log.w("POST PROFILE RETRY", "" + retryNo);
+                    }
+
+                    @Override
+                    public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                        Log.w("POST LOCATION FAIL", "Error Code: " + error_code + "," + text);
+                    }
+
+                    @Override
+                    public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
+                        Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
+                    }
+                });
+
+                Intent intent = new Intent(NewWhoAreYouActivity.this, MyCity.class);
+                NewWhoAreYouActivity.this.startActivity(intent);
+            }
+        });
+
+
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
