@@ -65,17 +65,6 @@ public class Popular extends AppCompatActivity {
 //            getSupportActionBar().hide();
         }
 
-        //Set top bar and toolbar
-      //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle("What's up around you?");
-
-//        if(MainActivity.cheat_mode==true){
-//            Intent intent = new Intent(Popular.this,MapActivity.class);
-//            Popular.this.startActivity(intent);
-//            Popular.this.finish();
-//        }
-
         participantsNumber = (TextView)findViewById(R.id.activity_number);
         participantsNumber.setText("9");
         gridAdapter = new GridAdapter(getApplicationContext());
@@ -87,7 +76,7 @@ public class Popular extends AppCompatActivity {
         if(SignIn.static_token != null) {
             client.addHeader("Authorization","Token "+SignIn.static_token);
         }
-        //GET last known location
+        //GET categories
         client.get(MainActivity.base_host_url + "api/getCategories/", new JsonHttpResponseHandler() {
 
             @Override

@@ -355,7 +355,7 @@ public class MapActivity extends AppCompatActivity implements
             public void onSuccess(int statusCode, Header[] headers, JSONArray responseArray) {
                 activitiesList.clear();
 
-                Log.w("ACTIVITIES LIST", responseArray.toString());
+//                Log.w("ACTIVITIES LIST", responseArray.toString());
                 //Cycle through the list of activities and add them to a list
                 for (int i = 0; i < responseArray.length(); i++) {
                     try {
@@ -388,7 +388,7 @@ public class MapActivity extends AppCompatActivity implements
                         try {
                             activityTime = activityTimeFormat.parse(activityTimeString);
                         } catch (ParseException p) {
-                            Log.w("PARSE EXCEPTION", "Something went wrong with DATE parsing"); //TODO: Why is this failing
+//                            Log.w("PARSE EXCEPTION", "Something went wrong with DATE parsing"); //TODO: Why is this failing
                         }
 
                         //Calculate the distance from the user to the activity

@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -16,6 +17,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,7 +27,15 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.mikhaellopez.circularimageview.CircularImageView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
 
+import cz.msebera.android.httpclient.Header;
 import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -52,6 +63,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
     File myFile;
     private String userChoosenTask;
     Bitmap photo;
+    private String nationality;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -68,6 +80,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
         ageInput = (EditText) findViewById(R.id.age_edit_view);
         circularImageView = (CircularImageView) findViewById(R.id.profilepicture);
         nextBtn = (Button) findViewById(R.id.profile_continue_button);
+        nationality="";
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +107,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
         languageList.add(0, "English");
         languageList.add(1, "French");
         languageList.add(2, "Spanish");
-        MultiSelectSpinner multiSelectSpinnerLanguage = (MultiSelectSpinner) findViewById(R.id.language_spinner);
+        final MultiSelectSpinner multiSelectSpinnerLanguage = (MultiSelectSpinner) findViewById(R.id.language_spinner);
         multiSelectSpinnerLanguage.setItems(languageList)
 
                 .setListener(new MultiSelectSpinner.MultiSpinnerListener() {
@@ -137,28 +150,28 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 
         Collections.sort(countriesList);
 
-        Spinner nationalityInputSpinner = (Spinner) findViewById(R.id.citizen_spinner);
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+        final Spinner nationalityInputSpinner = (Spinner) findViewById(R.id.citizen_spinner);
+        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
                 this, R.layout.spinner_item, countriesList);
 
-        nationalityInputSpinner.setAdapter(spinnerArrayAdapter);
-        nationalityInputSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                if (position == 0) {
-                    ((TextView) view).setText("Citizen");
-                    ((TextView) view).setTextColor(Color.GRAY);
-
-                } else
-                    ((TextView) view).setTextColor(Color.BLACK);
-                //Change selected text color
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+//        nationalityInputSpinner.setAdapter(spinnerArrayAdapter);
+//        nationalityInputSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//
+//                if (position == 0) {
+//                    ((TextView) view).setText("Citizen");
+//                    ((TextView) view).setTextColor(Color.GRAY);
+//
+//                } else
+//                    ((TextView) view).setTextColor(Color.BLACK);
+//                //Change selected text color
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
 
 
 
@@ -171,6 +184,95 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
             }
         });
 
+        //SETUP GET user profile
+        AsyncHttpClient client = new AsyncHttpClient();
+        if (SignIn.static_token != null) {
+            client.addHeader("Authorization", "Token " + SignIn.static_token);
+        }
+
+        //GET user profile
+        client.get(MainActivity.base_host_url + "api/getProfile/", new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, final JSONObject response) {
+                Log.w("GET PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
+
+                try {
+                    nameInput.setText(response.getString("first_name"));
+                    ageInput.setText(response.getString("age"));
+                    nationality = response.getString("home_nationality");
+
+//                    TextView tv2 = (TextView) multiSelectSpinnerLanguage.getItemAtPosition(0);
+//                    tv2.setText(response.getString(""));
+
+                    nationalityInputSpinner.setAdapter(spinnerArrayAdapter);
+                    nationalityInputSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            if (position == 0) {
+                                if(nationality=="Choose Citizenship"){
+                                    ((TextView) view).setText("Citizenship");
+                                    ((TextView) view).setTextColor(Color.GRAY);
+                                }else{
+                                    ((TextView) view).setText(nationality);
+                                    ((TextView) view).setTextColor(Color.BLACK);
+                                }
+                            } else {
+                                ((TextView) view).setTextColor(Color.BLACK);
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+                        }
+                    });
+
+
+                } catch (JSONException e) {
+                    Log.w("JSON EXCEPTION", e.getMessage());
+                }
+
+                //GET The image file at the pictureURL
+                AsyncHttpClient client = new AsyncHttpClient();
+                try {
+                    pictureURL = response.getString("picture");
+                } catch (JSONException e) {
+                    Log.w("GET PROFILE JSON FAIL", e.getMessage().toString());
+                }
+                client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, File response) {
+                        Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
+                        //Use the downloaded image as the profile picture
+                        Uri uri = Uri.fromFile(response);
+                        downloadedImage = response;
+                        circularImageView.setImageURI(uri);
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                        Log.w("GET IMAGE FAIL", "Could not retrieve image");
+                    }
+                });
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                Log.w("PROFILE SUCCESS ARRAY", statusCode + ": " + timeline.toString());
+
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                Log.w("GET PROFILE FAIL", "Error Code: " + error_code + ",  " + text);
+            }
+        });
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -243,24 +345,14 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 
     private void onCaptureImageResult(Intent data) {
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-        //ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        //thumbnail.compress(Bitmap.CompressFormat.JPEG, 180, bytes);
 
         File destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
-
-
-        Matrix matrix = new Matrix();
-        matrix.postRotate(270);
-
-        Bitmap rotated = Bitmap.createBitmap(thumbnail, 0, 0, thumbnail.getWidth(), thumbnail.getHeight(),
-                matrix, true);
-        circularImageView.setImageBitmap(rotated);
+        circularImageView.setImageBitmap(thumbnail);
     }
 
     @SuppressWarnings("deprecation")
     private void onSelectFromGalleryResult(Intent data) {
-
         Bitmap bm = null;
         if (data != null) {
             try {
@@ -269,12 +361,12 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        Matrix matrix = new Matrix();
-        matrix.postRotate(270);
-
-        Bitmap rotated = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(),
-                matrix, true);
-        circularImageView.setImageBitmap(rotated);
+//        Matrix matrix = new Matrix();
+////        matrix.postRotate(270);
+//
+//        Bitmap rotated = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(),
+//                matrix, true);
+        circularImageView.setImageBitmap(bm);
     }
 
 }
