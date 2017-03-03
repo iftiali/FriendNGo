@@ -21,11 +21,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
@@ -52,7 +55,8 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
     CircularImageView circularImageView;
     Button nextBtn;
     EditText nameInput;
-
+    AutoCompleteTextView citizenAuto;
+    MultiAutoCompleteTextView spokenLanguage;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private Button btnSelect;
     EditText ageInput;
@@ -76,7 +80,8 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_who_are_you);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        citizenAuto = (AutoCompleteTextView)findViewById(R.id.citizen_spinner);
+        spokenLanguage = (MultiAutoCompleteTextView)findViewById(R.id.language_spinner);
         nameInput = (EditText) findViewById(R.id.name_edit_view);
         ageInput = (EditText) findViewById(R.id.age_edit_view);
         bioField = (EditText) findViewById(R.id.bio_edit_view);
@@ -98,50 +103,15 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
             String lang = locale.getDisplayLanguage();
 
             if (lang.trim().length() > 0 && !languageList.contains(lang)) {
-                if (lang.equals("English") || lang.equals("French") || lang.equals("Spanish")) {
-
-                } else {
-                    languageList.add(lang);
-                }
+//                if (lang.equals("English") || lang.equals("French") || lang.equals("Spanish")) {
+//
+//                } else {
+//                    languageList.add(lang);
+//                }
+                languageList.add(lang);
             }
         }
         Collections.sort(languageList);
-        languageList.add(0, "English");
-        languageList.add(1, "French");
-        languageList.add(2, "Spanish");
-        final MultiSelectSpinner multiSelectSpinnerLanguage = (MultiSelectSpinner) findViewById(R.id.language_spinner);
-        multiSelectSpinnerLanguage.setItems(languageList)
-
-                .setListener(new MultiSelectSpinner.MultiSpinnerListener() {
-                    @Override
-                    public void onItemsSelected(boolean[] selected) {
-
-                    }
-                })
-                .setSpinnerItemLayout(R.layout.custom_spinner_item)
-                .setAllCheckedText("All types")
-                .setAllUncheckedText("Spoken languages")
-
-                .setSelectAll(false)
-        ;
-        multiSelectSpinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String item = (String) parent.getItemAtPosition(position);
-                // Log.w("TRYTRY",item);
-                if (item.equals("Spoken languages"))
-                    ((TextView) view).setTextColor(Color.GRAY);
-
-                else
-                    ((TextView) view).setTextColor(Color.BLACK);
-                //Change selected text color
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
         ArrayList<String> countriesList = new ArrayList<String>();
         for (Locale locale : locales) {
             String country = locale.getDisplayCountry();
@@ -151,21 +121,48 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
         }
 
         Collections.sort(countriesList);
+        ArrayAdapter<String> citizenAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countriesList);
 
-        final Spinner nationalityInputSpinner = (Spinner) findViewById(R.id.citizen_spinner);
-        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this, R.layout.spinner_item, countriesList);
+        citizenAuto.setAdapter(citizenAdapter);
+        citizenAuto.setThreshold(1);
+        ArrayAdapter<String> languageAdapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, languageList);
 
-//        nationalityInputSpinner.setAdapter(spinnerArrayAdapter);
-//        nationalityInputSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+       // spokenLanguage.setThreshold(3);
+        spokenLanguage.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+        spokenLanguage.setAdapter(languageAdapter);
+       // spokenLanguage.setOnItemClickListener((AdapterView.OnItemClickListener) spokenLanguage);
+
+
+
+
+//        languageList.add(0, "English");
+//        languageList.add(1, "French");
+//        languageList.add(2, "Spanish");
+//        final MultiSelectSpinner multiSelectSpinnerLanguage = (MultiSelectSpinner) findViewById(R.id.language_spinner);
+//        multiSelectSpinnerLanguage.setItems(languageList)
+//
+//                .setListener(new MultiSelectSpinner.MultiSpinnerListener() {
+//                    @Override
+//                    public void onItemsSelected(boolean[] selected) {
+//
+//                    }
+//                })
+//                .setSpinnerItemLayout(R.layout.custom_spinner_item)
+//                .setAllCheckedText("All types")
+//                .setAllUncheckedText("Spoken languages")
+//
+//                .setSelectAll(false)
+//        ;
+//        multiSelectSpinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
 //            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//
-//                if (position == 0) {
-//                    ((TextView) view).setText("Citizen");
+//                String item = (String) parent.getItemAtPosition(position);
+//                // Log.w("TRYTRY",item);
+//                if (item.equals("Spoken languages"))
 //                    ((TextView) view).setTextColor(Color.GRAY);
 //
-//                } else
+//                else
 //                    ((TextView) view).setTextColor(Color.BLACK);
 //                //Change selected text color
 //            }
@@ -174,6 +171,20 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 //            public void onNothingSelected(AdapterView<?> parent) {
 //            }
 //        });
+
+//        ArrayList<String> countriesList = new ArrayList<String>();
+//        for (Locale locale : locales) {
+//            String country = locale.getDisplayCountry();
+//            if (country.trim().length() > 0 && !countriesList.contains(country)) {
+//                countriesList.add(country);
+//            }
+//        }
+//
+//        Collections.sort(countriesList);
+
+//        final Spinner nationalityInputSpinner = (Spinner) findViewById(R.id.citizen_spinner);
+//        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
+//                this, R.layout.spinner_item, countriesList);
 
 
 
@@ -214,32 +225,29 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     if(bio != "Message Me To Find Out") {
                         bioField.setText(bio);
                     }
-                    nationality = response.getString("home_nationality");
+//                    nationality = response.getString("home_nationality");
 
-//                    TextView tv2 = (TextView) multiSelectSpinnerLanguage.getItemAtPosition(0);
-//                    tv2.setText(response.getString(""));
-
-                    nationalityInputSpinner.setAdapter(spinnerArrayAdapter);
-                    nationalityInputSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            if (position == 0) {
-                                if(nationality=="Choose Citizenship"){
-                                    ((TextView) view).setText("Citizenship");
-                                    ((TextView) view).setTextColor(Color.GRAY);
-                                }else{
-                                    ((TextView) view).setText(nationality);
-                                    ((TextView) view).setTextColor(Color.BLACK);
-                                }
-                            } else {
-                                ((TextView) view).setTextColor(Color.BLACK);
-                            }
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-                        }
-                    });
+//                    nationalityInputSpinner.setAdapter(spinnerArrayAdapter);
+//                    nationalityInputSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                        @Override
+//                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                            if (position == 0) {
+//                                if(nationality=="Choose Citizenship"){
+//                                    ((TextView) view).setText("Citizenship");
+//                                    ((TextView) view).setTextColor(Color.GRAY);
+//                                }else{
+//                                    ((TextView) view).setText(nationality);
+//                                    ((TextView) view).setTextColor(Color.BLACK);
+//                                }
+//                            } else {
+//                                ((TextView) view).setTextColor(Color.BLACK);
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onNothingSelected(AdapterView<?> parent) {
+//                        }
+//                    });
 
 
                 } catch (JSONException e) {

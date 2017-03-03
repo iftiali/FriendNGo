@@ -27,8 +27,6 @@ public class SignUp extends AppCompatActivity {
 
     private TextView textView;
     private Button signupButton;
-
-    
     private EditText emailEditTextValue;
     private EditText passwordEditTextValue;
 
