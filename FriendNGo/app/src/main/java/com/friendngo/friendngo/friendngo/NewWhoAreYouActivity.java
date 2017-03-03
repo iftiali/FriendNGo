@@ -106,6 +106,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                 .setSpinnerItemLayout(R.layout.custom_spinner_item)
                 .setAllCheckedText("All types")
                 .setAllUncheckedText("Spoken languages")
+
                 .setSelectAll(false)
         ;
         multiSelectSpinnerLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
