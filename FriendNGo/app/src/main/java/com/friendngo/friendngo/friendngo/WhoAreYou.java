@@ -15,18 +15,13 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -63,15 +58,11 @@ public class WhoAreYou extends Activity {
     EditText nameInput;
 
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-    private Button btnSelect;
     EditText ageInput;
-    ImageView profilePicture;
     String pictureURL = "";
     File directory;
     File downloadedImage;
-    File myFile;
     private String userChoosenTask;
-    Bitmap photo;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -83,10 +74,6 @@ public class WhoAreYou extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_who_are_you);
-
-        //profilePicture = (ImageView) findViewById(R.id.profilepicture);
-
 
         if (MainActivity.cheat_mode == true) {
             WhoAreYou.this.finish();
@@ -194,7 +181,7 @@ public class WhoAreYou extends Activity {
             client.addHeader("Authorization", "Token " + SignIn.static_token);
         }
 
-        //GET last known location
+        //GET user profile
         client.get(MainActivity.base_host_url + "api/getProfile/", new JsonHttpResponseHandler() {
 
             @Override
@@ -204,8 +191,6 @@ public class WhoAreYou extends Activity {
                 try {
                     nameInput.setText(response.getString("first_name"));
                     ageInput.setText(response.getString("age"));
-                  //  MapActivity.myProfileNameEdit.setHint(response.getString("first_name"));
-                   // MapActivity.myProfileAgeEdit.setHint(response.getString("age"));
                 } catch (JSONException e) {
                     Log.w("JSON EXCEPTION", e.getMessage());
                 }
@@ -224,8 +209,6 @@ public class WhoAreYou extends Activity {
                         Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
                         //Use the downloaded image as the profile picture
                         Uri uri = Uri.fromFile(response);
-                       // circularImageView.setImageURI(uri);
-                     //   MapActivity.myProfilePicture.setImageURI(uri);
                         downloadedImage = response;
                     }
 
