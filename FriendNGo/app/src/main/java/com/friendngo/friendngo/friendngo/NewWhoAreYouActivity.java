@@ -56,6 +56,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private Button btnSelect;
     EditText ageInput;
+    EditText bioField;
     ImageView profilePicture;
     String pictureURL = "";
     File directory;
@@ -78,6 +79,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 
         nameInput = (EditText) findViewById(R.id.name_edit_view);
         ageInput = (EditText) findViewById(R.id.age_edit_view);
+        bioField = (EditText) findViewById(R.id.bio_edit_view);
         circularImageView = (CircularImageView) findViewById(R.id.profilepicture);
         nextBtn = (Button) findViewById(R.id.profile_continue_button);
         nationality="";
@@ -198,8 +200,20 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                 Log.w("GET PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
 
                 try {
-                    nameInput.setText(response.getString("first_name"));
-                    ageInput.setText(response.getString("age"));
+                    String firstNameString = response.getString("first_name");
+                    if(firstNameString!="anonymous") {
+                        nameInput.setText(firstNameString);
+                    }
+
+                    int age = response.getInt("age");
+                    if(age > 0) {
+                        ageInput.setText(""+age);
+                    }
+
+                    String bio = response.getString("bio");
+                    if(bio != "Message Me To Find Out") {
+                        bioField.setText(bio);
+                    }
                     nationality = response.getString("home_nationality");
 
 //                    TextView tv2 = (TextView) multiSelectSpinnerLanguage.getItemAtPosition(0);
