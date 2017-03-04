@@ -124,6 +124,10 @@
         <activity
             android:name=".NewWhoAreYouActivity"
             android:label="@string/title_activity_new_who_are_you"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MyProfileActivity"
+            android:label="@string/title_activity_my_profile"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
