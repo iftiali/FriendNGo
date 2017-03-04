@@ -355,7 +355,7 @@ public class MapActivity extends AppCompatActivity implements
             public void onSuccess(int statusCode, Header[] headers, JSONArray responseArray) {
                 activitiesList.clear();
 
-//                Log.w("ACTIVITIES LIST", responseArray.toString());
+                Log.w("ACTIVITIES LIST", responseArray.toString());
                 //Cycle through the list of activities and add them to a list
                 for (int i = 0; i < responseArray.length(); i++) {
                     try {
@@ -380,6 +380,7 @@ public class MapActivity extends AppCompatActivity implements
                         String points = activity.getString("points");
                         long creator_pk = activity.getLong("creator_pk");
                         long activity_pk = activity.getLong("id");
+                        JSONArray attendingJSONArray = activity.getJSONArray("attending");
 
                         //Date parsed seperately
                         String activityTimeString = activity.getString("activity_time");
@@ -414,6 +415,15 @@ public class MapActivity extends AppCompatActivity implements
                         DecimalFormat df = new DecimalFormat("#.#");
                         String distance = df.format(km);
 
+                        List attendingList = new ArrayList<JSONObject>();
+
+                        //Parse the JSONArray of attending users
+                        for(int j =0; j<attendingJSONArray.length(); j++){
+                            JSONObject json_j = attendingJSONArray.getJSONObject(j);
+                            attendingList.add(json_j);
+                        }
+
+
                         //Create new UserActivity instance with the data
                         UserActivity userActivity = new UserActivity(
                                 home_city,
@@ -435,7 +445,8 @@ public class MapActivity extends AppCompatActivity implements
                                 creator_pk,
                                 activity_pk,
                                 activityTime, //TODO: Put the end time instead of a copy of the start time
-                                pictureURL);
+                                pictureURL,
+                                attendingList);
 
                         activitiesList.add(userActivity);
 
@@ -566,12 +577,10 @@ public class MapActivity extends AppCompatActivity implements
         Location location = locationManager.getLastKnownLocation(GPS_PROVIDER);
 
         if (location != null) {
-
             //Zoom to last known location if we don't have GPS
             if (gettingGPS) {
                 current_gps_latitude = location.getLatitude();
                 current_gps_longitude = location.getLongitude();
-
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
                 current_location_ready = true;
                 if (last_location_ready == true) {
@@ -581,14 +590,12 @@ public class MapActivity extends AppCompatActivity implements
                         run_once=false;
                     }
                 }
-
                 mMap.setMyLocationEnabled(true);
             }
         }else if(FacebookLogin.clon != 0 && FacebookLogin.clat != 0){
             if (gettingGPS) {
                 current_gps_latitude = FacebookLogin.clat;
                 current_gps_longitude = FacebookLogin.clon;
-
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
                 current_location_ready = true;
                 if (last_location_ready == true) {
@@ -599,7 +606,6 @@ public class MapActivity extends AppCompatActivity implements
                         run_once=false;
                     }
                 }
-
                 mMap.setMyLocationEnabled(true);
             }
         }

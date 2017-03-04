@@ -42,5 +42,4 @@
     <include layout="@layout/content_activity_details" />
 
 
-
 </android.support.design.widget.CoordinatorLayout>

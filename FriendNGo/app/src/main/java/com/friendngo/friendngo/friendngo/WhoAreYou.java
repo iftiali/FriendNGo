@@ -50,7 +50,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
 
-
 public class WhoAreYou extends Activity {
     private static final int CAMERA_REQUEST = 1888;
     CircularImageView circularImageView;

@@ -34,6 +34,7 @@ public class Request extends AppCompatActivity {
     Button cancelBtn;
     ListView list;
     ArrayList<RequestModel> dataModels;
+    ArrayList<RequestModel> URLdataModels;
     private static ActivityRequestListAdapter adapter;
     @Override
     protected void attachBaseContext(Context newBase) {

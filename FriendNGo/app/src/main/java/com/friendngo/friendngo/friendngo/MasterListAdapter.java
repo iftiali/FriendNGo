@@ -34,12 +34,12 @@ public class MasterListAdapter extends BaseAdapter {
     private ArrayList<String> mHorizontalDataset;
     //TODO: Make this more efficient by using ViewHolder pattern
     //This is the data structure that will be recycled
-//    private static class ViewHolder {
-//        ImageView categoryImage;
-//        ImageView categoryCheckMark;
-//        TextView categorySubtext;
-//        HorizontalScrollView horizontalScrollView;
-//    }
+    //    private static class ViewHolder {
+    //        ImageView categoryImage;
+    //        ImageView categoryCheckMark;
+    //        TextView categorySubtext;
+    //        HorizontalScrollView horizontalScrollView;
+    //    }
 
 
     public MasterListAdapter(Context context){

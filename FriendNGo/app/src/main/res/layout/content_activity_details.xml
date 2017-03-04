@@ -235,10 +235,11 @@
                         android:text="Place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
                         android:textColor="#343B59"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp" />
 
                     <TextView
                         android:id="@+id/activity_type_address_text"
@@ -249,18 +250,37 @@
                         android:layout_centerHorizontal="true"
                         android:layout_margin="10dp"
                         />
-
                 </RelativeLayout>
             </FrameLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="7dp">
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:background="@drawable/rounded_corners_white"
+                android:id="@+id/participants_frame_layout">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <TextView
+                        android:text="Participants"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/participants_text"
+                        android:textSize="20sp"
+                        android:textColor="#343B59"
+                        android:layout_marginTop="10dp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/participants_recycler_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/participants_text"
+                        android:layout_centerHorizontal="true"
+                        android:foregroundGravity="center"
+                        />
                 </RelativeLayout>
             </FrameLayout>
             <Button

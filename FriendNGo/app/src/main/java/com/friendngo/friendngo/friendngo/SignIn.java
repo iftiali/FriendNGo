@@ -201,29 +201,22 @@ public class SignIn extends AppCompatActivity {
                                     public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
                                         Log.w("POST AUTH FAILURE2", "Error Code: " + error_code + text);
                                         Toast.makeText(SignIn.this, "Invalid user", Toast.LENGTH_LONG).show();
-
                                     }
-
                                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                                         AsyncHttpClient.log.w("POST AUTH FAILURE", String.valueOf(statusCode));
                                         Toast.makeText(SignIn.this, "Invalid user", Toast.LENGTH_LONG).show();
                                     }
-
                                 });
                             }else{
                                 Toast.makeText(SignIn.this, "Sorry your net connection is fail", Toast.LENGTH_LONG).show();
-
                             }
                         } else {
                             Toast.makeText(SignIn.this, "Invalid Email ", Toast.LENGTH_LONG).show();
-
                         }
                     }else {
                         //message
                         Toast.makeText(SignIn.this, "Email or password is empty ", Toast.LENGTH_LONG).show();
                     }
-
-
                 }
             });
         }
