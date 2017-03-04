@@ -48,7 +48,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="501dp">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/other_user_favourite_image"
@@ -60,36 +60,18 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="20dp" />
-
-            <ImageView
-                android:id="@+id/other_user_picture"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                app:srcCompat="@drawable/empty_profile"
-                android:layout_marginTop="6dp"
-                android:layout_below="@+id/other_user_favourite_image"
-                android:layout_centerHorizontal="true" />
-
-            <TextView
-                android:id="@+id/other_user_name"
-                android:text="Steff Zaharova"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/other_user_picture"
+            <com.mikhaellopez.circularimageview.CircularImageView
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="19dp"
-                android:textStyle="bold"
-                android:textSize="18sp" />
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:src="@drawable/empty_profile"
+                android:id="@+id/other_profile_image"
+                app:civ_border_color="#EEEEEE"
+                app:civ_border_width="4dp"
+                app:civ_shadow="true"/>
 
-            <TextView
-                android:id="@+id/other_user_age"
-                android:text="28 y-o"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="142dp"
-                android:layout_marginTop="200dp"
-                android:textSize="18sp"
-                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/other_user_points"
@@ -98,10 +80,21 @@
                 android:background="@drawable/activity_list_point"
                 android:text="10pts"
                 android:padding="2dp"
+                android:layout_centerHorizontal="true"
                 android:layout_alignBottom="@+id/other_user_age"
-                android:layout_toRightOf="@id/other_user_age"
+
                 android:layout_marginLeft="8dp"
                 android:textColor="@android:color/white" />
+            <TextView
+                android:id="@+id/other_user_age"
+                android:text="28 y-o"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/other_user_points"
+                android:layout_marginTop="200dp"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
 
             <ImageView
                 android:id="@+id/other_user_info"
@@ -132,6 +125,7 @@
                 android:layout_marginTop="6dp"
                 android:layout_below="@+id/other_user_citizenship"
                 android:paddingLeft="10dp"
+                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="10dp"
                 android:textSize="12sp"/>
 
@@ -173,10 +167,20 @@
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="62dp"
-                android:id="@+id/other_account" />
+                android:id="@+id/other_account"
+                android:layout_below="@+id/other_user_about"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/other_user_name"
+                android:text="Steff Zaharova"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_below="@+id/other_profile_image"
+                android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
     </FrameLayout>

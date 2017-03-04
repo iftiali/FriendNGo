@@ -205,7 +205,7 @@ public class SignIn extends AppCompatActivity {
                                     }
 
                                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                                        AsyncHttpClient.log.w("POST AUTH FAILURE", String.valueOf(statusCode));
+                                        Log.w("POST AUTH FAILURE", String.valueOf(statusCode) + errorResponse.toString());
                                         Toast.makeText(SignIn.this, "Invalid user", Toast.LENGTH_LONG).show();
                                     }
 

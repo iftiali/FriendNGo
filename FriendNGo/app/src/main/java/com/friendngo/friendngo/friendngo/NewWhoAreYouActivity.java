@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
@@ -61,6 +62,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
     Boolean selectImageFlag=false;
     EditText bioField;
     String pictureURL = "";
+    Boolean checkValidation=true;
     File destination;
     File downloadedImage;
     private String userChoosenTask;
@@ -167,7 +169,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     else{
                        citizenAuto.setText(nationality);
                    }
-                    Log.w("Language",response.getString("languages"));
+                   // Log.w("Language",response.getString("languages"));
                     JSONArray languagesArray = response.getJSONArray("languages");
                     for(int x = 0;x<languagesArray.length();x++){
                         JSONObject languageNames = languagesArray.getJSONObject(x);
@@ -179,7 +181,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                         }else{
                         langName = langName +","+languageNames.getString("name");
                         }
-                        Log.w("langName",langName);
+                      //  Log.w("langName",langName);
                         spokenLanguage.setText(langName);
                     }
 
@@ -243,21 +245,39 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                 params.setUseJsonStreamer(true);
 
                 String name_input = nameInput.getText().toString();
-                if(name_input!=null){
+                Log.w("name_input",name_input);
+                if(name_input.equals("")){
+                   checkValidation = false;
+                }else
+                {
                     params.put("first_name",name_input);
+                   MapActivity.other_user_name.setText(name_input);
                 }
+                try {
 
-                int age_input =  19;
-                if(age_input != 0){
-                    params.put("age",age_input);
+
+                    int age_input = 0;
+                    age_input = Integer.parseInt(ageInput.getText().toString());
+                    if (age_input != 0) {
+                        params.put("age", age_input);
+                        MapActivity.other_user_age.setText(age_input + "y-o");
+                    } else {
+                        checkValidation = false;
+                    }
+                }catch (Exception e){
+                    checkValidation = false;
                 }
-
                 String bio_input = bioField.getText().toString();
-                if(bio_input!=null){
+                if(bio_input.equals("")){
+                    checkValidation = false;
+                }else {
                     params.put("bio",bio_input);
+                    MapActivity.other_user_about.setText(bio_input);
                 }
-
-                if(nationality!=null) {
+                nationality = citizenAuto.getText().toString();
+                if(nationality.equals("")) {
+                    checkValidation = false;
+                }else{
                     params.put("home_nationality",nationality);
                 }
                // Log.w("Language count",spokenLanguage.getText().toString());
@@ -273,122 +293,120 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 
                     }else {
                         json_i.put("name", elephantList.get(i));
-                        Log.w("Language count",elephantList.get(i));
+                        //Log.w("Language count",elephantList.get(i));
                         languagesArray.put(json_i);
-                        Log.w("Language count",languagesArray.toString());
+                       // Log.w("Language count",languagesArray.toString());
                     }
 
 
                 }
-//            elephantList.clear();
-                    //Test Data
-//                    JSONObject englishJSONObject = new JSONObject();
-//                   // englishJSONObject.put("name","english");
-//                    JSONObject frenchJSONObject = new JSONObject();
-//                    frenchJSONObject .put("name","");
-//                    languagesArray.put(englishJSONObject);
-//                    languagesArray.put(frenchJSONObject);
-//                }
+
                 } catch (JSONException e){
                     Log.w("JSON Exception", e.toString());
                 }
                 params.put("languages",languagesArray);
 
-               client.post(MainActivity.base_host_url + "api/postProfile2/", params, new JsonHttpResponseHandler() {
+                Log.w("Param",params.toString());
+                if(checkValidation) {
+                   client.post(MainActivity.base_host_url + "api/postProfile2/", params, new JsonHttpResponseHandler() {
 //                client.post("http://requestb.in/zzmhq6zz", params, new JsonHttpResponseHandler() {
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        Log.w("POST PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
-//                        NewWhoAreYouActivity.this.finish();
-                        finishProfileFlag=true;
-                        if(finishPictureFlag && finishProfileFlag){
-                            Log.w("Hello","A");
-                            NewWhoAreYouActivity.this.finish();
-                        }
-                    }
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                        Log.w("POST PROFILE SUCCESS2", statusCode + ": " + timeline.toString());
-                       // NewWhoAreYouActivity.this.finish();
-                    }
-
-                    @Override
-                    public void onRetry(int retryNo) {
-                        // called when request is retried
-                        Log.w("POST PROFILE RETRY", "" + retryNo);
-                    }
-
-                    @Override
-                    public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                        Log.w("POST PROFILE FAIL", "Error Code: " + error_code + "," + text);
-                    }
-
-                    @Override
-                    public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
-                        Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
-                    }
-                });
-
-                if(selectImageFlag) {
-                    String root = Environment.getExternalStorageDirectory().toString();
-                    File myDir = new File(root + "/FriendnGo");
-
-                    File file = new File(myDir, imageName);
-                    //Log.w("PICTURE PATH",myFile.toString());
-                    RequestParams paramsProfilePicture = new RequestParams();
-                    // paramsProfilePicture.setUseJsonStreamer(true);
-                    try {
-                        paramsProfilePicture.put("picture", file);
-
-                    } catch (FileNotFoundException e) {
-                    }
-                    client.post(MainActivity.base_host_url + "api/uploadProfilePicture/", paramsProfilePicture, new JsonHttpResponseHandler() {
-                        // client.post("http://requestb.in/zzmhq6zz", params, new JsonHttpResponseHandler() {
 
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            Log.w("POST PROFILE PICTURE", statusCode + ": " + "Response = " + response.toString());
-                            finishPictureFlag = true;
+                            Log.w("POST PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
+//                        NewWhoAreYouActivity.this.finish();
+                            finishProfileFlag = true;
                             if (finishPictureFlag && finishProfileFlag) {
+                          //      Log.w("Hello", "A");
                                 NewWhoAreYouActivity.this.finish();
                             }
                         }
 
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                            Log.w("POST PROFILE PICTURE2", statusCode + ": " + timeline.toString());
-                            //  NewWhoAreYouActivity.this.finish();
+                            Log.w("POST PROFILE SUCCESS2", statusCode + ": " + timeline.toString());
+                            // NewWhoAreYouActivity.this.finish();
                         }
 
                         @Override
                         public void onRetry(int retryNo) {
                             // called when request is retried
-                            Log.w("POST PROFILE PICTURE", "" + retryNo);
+                            Log.w("POST PROFILE RETRY", "" + retryNo);
                         }
 
                         @Override
                         public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                            Log.w("POST PROFILE PICTURE", "Error Code: " + error_code + "," + text);
+                            Log.w("POST PROFILE FAIL", "Error Code: " + error_code + "," + text);
                         }
 
                         @Override
                         public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
-                            Log.w("MY PROFILE PICTURE", "Error Code: " + error_code + ",  " + json.toString());
+                            Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
                         }
                     });
-                }else{
 
-                    finishPictureFlag = true;
-                    if (finishPictureFlag && finishProfileFlag) {
-                        Log.w("Hello","b");
+                    if (selectImageFlag) {
+                        String root = Environment.getExternalStorageDirectory().toString();
+                        File myDir = new File(root + "/FriendnGo");
 
+                        File file = new File(myDir, imageName);
+                        //Log.w("PICTURE PATH",myFile.toString());
+                        RequestParams paramsProfilePicture = new RequestParams();
+                        // paramsProfilePicture.setUseJsonStreamer(true);
+                        try {
+                            paramsProfilePicture.put("picture", file);
+
+                        } catch (FileNotFoundException e) {
+                        }
+                        client.post(MainActivity.base_host_url + "api/uploadProfilePicture/", paramsProfilePicture, new JsonHttpResponseHandler() {
+                            // client.post("http://requestb.in/zzmhq6zz", params, new JsonHttpResponseHandler() {
+
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                Log.w("POST PROFILE PICTURE", statusCode + ": " + "Response = " + response.toString());
+                                finishPictureFlag = true;
+                                if (finishPictureFlag && finishProfileFlag) {
+                                    NewWhoAreYouActivity.this.finish();
+                                }
+                            }
+
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                                Log.w("POST PROFILE PICTURE2", statusCode + ": " + timeline.toString());
+                                //  NewWhoAreYouActivity.this.finish();
+                            }
+
+                            @Override
+                            public void onRetry(int retryNo) {
+                                // called when request is retried
+                                Log.w("POST PROFILE PICTURE", "" + retryNo);
+                            }
+
+                            @Override
+                            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                                Log.w("POST PROFILE PICTURE", "Error Code: " + error_code + "," + text);
+                            }
+
+                            @Override
+                            public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
+                                Log.w("MY PROFILE PICTURE", "Error Code: " + error_code + ",  " + json.toString());
+                            }
+                        });
+                    } else {
+
+                        finishPictureFlag = true;
+                        if (finishPictureFlag && finishProfileFlag) {
+                           // Log.w("Hello", "b");
+
+                        }
                     }
+                    Intent intent = new Intent(NewWhoAreYouActivity.this, MyCity.class);
+                    NewWhoAreYouActivity.this.startActivity(intent);
+                    NewWhoAreYouActivity.this.finish();
+                }else {
+                    Toast.makeText(NewWhoAreYouActivity.this,"Some fileds are Empty",Toast.LENGTH_LONG).show();
                 }
-                Intent intent = new Intent(NewWhoAreYouActivity.this, MyCity.class);
-                NewWhoAreYouActivity.this.startActivity(intent);
-                NewWhoAreYouActivity.this.finish();
+
             }
         });
 
@@ -494,6 +512,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
         circularImageView.setImageBitmap(bm);
     }
     private void SaveImage(Bitmap finalBitmap) {
+        MapActivity.other_user_picture.setImageBitmap(finalBitmap);
         selectImageFlag = true;
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + "/FriendnGo");
