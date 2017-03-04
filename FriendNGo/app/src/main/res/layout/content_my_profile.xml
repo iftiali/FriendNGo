@@ -12,5 +12,167 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MyProfileActivity"
     tools:showIn="@layout/activity_my_profile">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:src="@drawable/empty_profile"
+                android:id="@+id/profile_profilepicture"
+                app:civ_border_color="#EEEEEE"
+                app:civ_border_width="4dp"
+                app:civ_shadow="true"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/profile_profilepicture"
+                android:layout_above="@+id/profile_profile_continue_button">
 
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:hint="Name"
+
+                    android:ems="10"
+                    android:paddingLeft="15dp"
+                    android:background="@color/white"
+                    android:layout_marginTop="3dp"
+                    android:id="@+id/profile_name_edit_view"
+                    android:layout_alignParentTop="true"
+                    />
+                <ImageView
+                    android:id="@+id/profile_name_crayon"
+                    app:srcCompat="@drawable/crayon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:layout_alignBottom="@id/profile_name_edit_view"
+                    android:layout_alignTop="@id/profile_name_edit_view"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    />
+
+                <AutoCompleteTextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:paddingLeft="15dp"
+                    android:hint="Citizenship"
+                    android:layout_below="@+id/profile_name_edit_view"
+                    android:background="@color/white"
+                    android:layout_marginTop="3dp"
+                    android:id="@+id/profile_citizen_spinner"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <MultiAutoCompleteTextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:hint="Spoken languages"
+                    android:paddingLeft="15dp"
+                    android:id="@+id/profile_language_spinner"
+                    android:background="@color/white"
+                    android:layout_marginTop="3dp"
+                    android:layout_below="@+id/profile_citizen_spinner"
+                    />
+                <ImageView
+                    android:id="@+id/profile_profile_citizen_next_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/crayon"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/profile_citizen_spinner"
+                    android:layout_alignBottom="@+id/profile_citizen_spinner"
+                    android:background="@android:color/white" />
+
+                <ImageView
+                    android:id="@+id/profile_languages_next_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/crayon"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/profile_language_spinner"
+                    android:layout_alignBottom="@+id/profile_language_spinner"
+                    android:background="@android:color/white" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:hint="Age"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:paddingLeft="15dp"
+                    android:background="@color/white"
+                    android:layout_marginTop="3dp"
+                    android:id="@+id/profile_age_edit_view"
+                    android:layout_below="@+id/profile_language_spinner"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/crayon"
+                    android:id="@+id/profile_profile_age_crayon"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/profile_age_edit_view"
+                    android:layout_alignBottom="@+id/profile_age_edit_view"
+                    android:background="@android:color/white" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:hint="Bio"
+                    android:lines="3"
+                    android:paddingLeft="15dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@color/white"
+                    android:id="@+id/profile_bio_edit_view"
+                    android:layout_below="@+id/profile_age_edit_view"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/profile_languages_next_image"
+                    android:maxLines="10" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/crayon"
+                    android:id="@+id/imageView"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignBottom="@id/profile_bio_edit_view"
+                    android:layout_alignTop="@+id/profile_bio_edit_view"
+                    android:background="@android:color/white" />
+
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+    <Button
+        android:text="Save"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/profile_profile_continue_button"
+        android:background="@drawable/submit_button"
+        android:textColor="@android:color/white"
+        android:layout_margin="15dp" />
 </RelativeLayout>

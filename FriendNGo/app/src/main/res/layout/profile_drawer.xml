@@ -32,13 +32,11 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/more"
         android:layout_marginRight="12dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_centerVertical="true"
         android:id="@+id/my_profile_dots"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-
-        />
+        android:layout_alignBottom="@+id/textView3" />
    </RelativeLayout>
     <FrameLayout
         android:id="@+id/otheruser_frameLayout1"
