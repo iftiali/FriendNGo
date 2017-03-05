@@ -164,15 +164,9 @@ public class ActivityDetails extends AppCompatActivity {
 
         participantsRecycler = (RecyclerView) this.findViewById(R.id.participants_recycler_view);
         mHorizontallayoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
-
-        //Set Inner Layout Adapters
         participantsRecycler.setLayoutManager(mHorizontallayoutManager);
+        mHorizontalAdapter = new AttendingHorizontalRow((UserActivity)MapActivity.activitiesList.get(activity_index), getApplicationContext());
         participantsRecycler.setAdapter(mHorizontalAdapter);
-
-//        List<> =
-//        int position = 0;
-//
-        mHorizontalAdapter = new AttendingHorizontalRow((UserActivity)MapActivity.activitiesList.get(activity_index));
         participantsRecycler.setHasFixedSize(true);
         //TODO: Build The Layout Adapter
 

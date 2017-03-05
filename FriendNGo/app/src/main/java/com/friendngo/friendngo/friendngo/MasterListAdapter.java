@@ -94,7 +94,7 @@ public class MasterListAdapter extends BaseAdapter {
                 categoryImage.setImageResource(R.drawable.art_exposition);
                 break;
             case "Nightlife":
-                categoryImage.setImageResource(R.drawable.music);
+                categoryImage.setImageResource(R.drawable.concert);
                 break;
             case "Sports":
                 categoryImage.setImageResource(R.drawable.running);

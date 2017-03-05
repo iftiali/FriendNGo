@@ -1,5 +1,6 @@
 package com.friendngo.friendngo.friendngo;
 
+import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -8,10 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by scott on 2017-03-03.
@@ -20,15 +27,16 @@ import org.json.JSONObject;
 public class AttendingHorizontalRow extends RecyclerView.Adapter<AttendingHorizontalRow.ViewHolder> {
 
     private UserActivity userActivity;
+    private Context mContext;
 
-    public AttendingHorizontalRow( UserActivity mDataset) {
+    public AttendingHorizontalRow( UserActivity mDataset, Context mContext) {
         this.userActivity = mDataset;
+        this.mContext = mContext;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public CircularImageView user_image;
         public TextView user_name_text;
-
         public ViewHolder(View itemView) {
             super(itemView);
             user_image = (CircularImageView)itemView.findViewById(R.id.attending_profile_image);
@@ -57,31 +65,32 @@ public class AttendingHorizontalRow extends RecyclerView.Adapter<AttendingHorizo
             } catch (JSONException e){
                 Log.w("JSONException",e.toString());
             }
-            Uri myUri = Uri.parse(url);
 
-            holder.user_image.setImageURI(myUri);
+//            Uri myUri = Uri.parse(url);
+//            holder.user_image.setImageURI(myUri);
             holder.user_name_text.setText(name);
 
 
         //GET The image file at the pictureURL
-//        AsyncHttpClient client = new AsyncHttpClient();
-//
-////        final ImageView profilePic = (CircularImageView) holder.findViewById(R.id.profilepicture);
-//        client.get(MainActivity.base_host_url + mImageURLSet.get(position), new FileAsyncHttpResponseHandler(mContext) {
-//
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, File response) {
-//                Log.w("GET IMAGE SUCCESS","Successfully Retrieved The Image");
-//                //Use the downloaded image as the profile picture
-//                Uri uri = Uri.fromFile(response);
-//                profilePic.setImageURI(uri);
-//            }
-//
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-//                Log.w("GET IMAGE FAIL","Could not retrieve image");
-//            }
-//        });
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        final ViewHolder holder_temp = holder;
+//        final ImageView profilePic = (CircularImageView) holder.findViewById(R.id.profilepicture);
+        client.get(MainActivity.base_host_url + url, new FileAsyncHttpResponseHandler(mContext) {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, File response) {
+                Log.w("GET IMAGE SUCCESS","Successfully Retrieved The Image");
+                //Use the downloaded image as the profile picture
+                Uri uri = Uri.fromFile(response);
+                holder_temp.user_image.setImageURI(uri);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                Log.w("GET IMAGE FAIL","Could not retrieve image");
+            }
+        });
 
 
 
@@ -90,6 +99,7 @@ public class AttendingHorizontalRow extends RecyclerView.Adapter<AttendingHorizo
 
     @Override
     public int getItemCount() {
+
         return userActivity.attendingList.size();
     }
 }
