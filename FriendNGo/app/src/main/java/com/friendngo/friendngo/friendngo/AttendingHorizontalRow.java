@@ -1,24 +1,17 @@
 package com.friendngo.friendngo.friendngo;
 
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
-import java.io.File;
-import java.util.ArrayList;
-
-import cz.msebera.android.httpclient.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by scott on 2017-03-03.
@@ -26,14 +19,10 @@ import cz.msebera.android.httpclient.Header;
 
 public class AttendingHorizontalRow extends RecyclerView.Adapter<AttendingHorizontalRow.ViewHolder> {
 
-    private ArrayList<String> mDataset;
-    private ArrayList<String> mImageURLSet;
-    private int mActivityID;
+    private UserActivity userActivity;
 
-    public AttendingHorizontalRow(int mActivityID, ArrayList<String> mDataset, ArrayList<String> mImageURLSet) {
-        this.mActivityID = mActivityID;
-        this.mDataset = mDataset;
-        this.mImageURLSet = mImageURLSet;
+    public AttendingHorizontalRow( UserActivity mDataset) {
+        this.userActivity = mDataset;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -58,14 +47,20 @@ public class AttendingHorizontalRow extends RecyclerView.Adapter<AttendingHorizo
 
     @Override
     public void onBindViewHolder(AttendingHorizontalRow.ViewHolder holder, int position) {
-            UserActivity userActivity = new UserActivity();
+            JSONObject attendingJSON = (JSONObject) userActivity.attendingList.get(position);
 
-        userActivity = (UserActivity) MapActivity.activitiesList.get(mActivityID);
-            String url = (String) userActivity.attendingList.get(position);
+            String url = "";
+            String name = "";
+            try {
+                url = attendingJSON.getString("picture");
+                name = attendingJSON.getString("first_name");
+            } catch (JSONException e){
+                Log.w("JSONException",e.toString());
+            }
             Uri myUri = Uri.parse(url);
 
             holder.user_image.setImageURI(myUri);
-            holder.user_name_text.setText(mDataset.get(position));
+            holder.user_name_text.setText(name);
 
 
         //GET The image file at the pictureURL
@@ -95,6 +90,6 @@ public class AttendingHorizontalRow extends RecyclerView.Adapter<AttendingHorizo
 
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return userActivity.attendingList.size();
     }
 }

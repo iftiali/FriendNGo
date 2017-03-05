@@ -53,8 +53,8 @@ public class ActivityDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        final int i = getIntent().getIntExtra("Activity Index", 0);
-        final long activity_pk = ((UserActivity)MapActivity.activitiesList.get(i)).getActivity_pk();
+        final int activity_index = getIntent().getIntExtra("Activity Index", 0);
+        final long activity_pk = ((UserActivity)MapActivity.activitiesList.get(activity_index)).getActivity_pk();
         sendRequestButton = (Button)findViewById(R.id.send_request_button);
         sendRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +108,7 @@ public class ActivityDetails extends AppCompatActivity {
             }
         });
         int ii = getIntent().getIntExtra("Activity Index", 0);
-        UserActivity activity = (UserActivity) MapActivity.activitiesList.get(i);
+        UserActivity activity = (UserActivity) MapActivity.activitiesList.get(activity_index);
 
         //GET The image file at the pictureURL
         AsyncHttpClient client = new AsyncHttpClient();
@@ -172,8 +172,8 @@ public class ActivityDetails extends AppCompatActivity {
 //        List<> =
 //        int position = 0;
 //
-//        mHorizontalAdapter = new AttendingHorizontalRow()
-//        participantsRecycler.setHasFixedSize(true);
+        mHorizontalAdapter = new AttendingHorizontalRow((UserActivity)MapActivity.activitiesList.get(activity_index));
+        participantsRecycler.setHasFixedSize(true);
         //TODO: Build The Layout Adapter
 
         //TODO: Figure out how to get the images
