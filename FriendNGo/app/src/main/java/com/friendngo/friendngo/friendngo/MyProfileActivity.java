@@ -2,21 +2,20 @@ package com.friendngo.friendngo.friendngo;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -25,14 +24,17 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.mikhaellopez.circularimageview.CircularImageView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -42,16 +44,16 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 
 import cz.msebera.android.httpclient.Header;
-import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class NewWhoAreYouActivity extends AppCompatActivity {
+public class MyProfileActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     CircularImageView circularImageView;
     Button nextBtn;
+    TextView profile_cancel_text_view,profile_logout_text_view;
     Boolean finishProfileFlag=false;
     Boolean finishPictureFlag=false;
     EditText nameInput;
@@ -59,34 +61,48 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
     MultiAutoCompleteTextView spokenLanguage;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     EditText ageInput;
+    boolean checkValidation = true;
     Boolean selectImageFlag=false;
     EditText bioField;
     String pictureURL = "";
-    Boolean checkValidation=true;
     File destination;
     File downloadedImage;
     private String userChoosenTask;
     private String nationality;
     String imageName;
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_who_are_you);
+        setContentView(R.layout.activity_my_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        citizenAuto = (AutoCompleteTextView)findViewById(R.id.citizen_spinner);
-        spokenLanguage = (MultiAutoCompleteTextView)findViewById(R.id.language_spinner);
-        nameInput = (EditText) findViewById(R.id.name_edit_view);
-        ageInput = (EditText) findViewById(R.id.age_edit_view);
-        bioField = (EditText) findViewById(R.id.bio_edit_view);
-        circularImageView = (CircularImageView) findViewById(R.id.profilepicture);
-        nextBtn = (Button) findViewById(R.id.profile_continue_button);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        profile_cancel_text_view = (TextView)findViewById(R.id.profile_cancel_text_view);
+        profile_logout_text_view = (TextView)findViewById(R.id.profile_logout_text_view);
+        citizenAuto = (AutoCompleteTextView)findViewById(R.id.profile_citizen_spinner);
+        spokenLanguage = (MultiAutoCompleteTextView)findViewById(R.id.profile_language_spinner);
+        nameInput = (EditText) findViewById(R.id.profile_name_edit_view);
+        ageInput = (EditText) findViewById(R.id.profile_age_edit_view);
+        bioField = (EditText) findViewById(R.id.profile_bio_edit_view);
+        circularImageView = (CircularImageView) findViewById(R.id.profile_profilepicture);
+        nextBtn = (Button) findViewById(R.id.profile_profile_continue_button);
         nationality="";
 
+        profile_cancel_text_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyProfileActivity.this.finish();
+            }
+        });
+        profile_logout_text_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginManager.getInstance().logOut();
+
+                Snackbar.make(v, "Logged Out", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
         Locale[] locales = Locale.getAvailableLocales();
         final ArrayList<String> languageList = new ArrayList<String>();
         for (Locale locale : locales) {
@@ -144,12 +160,13 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                         nameInput.setText("");
                     }else{
                         nameInput.setText(firstNameString);
-
+                        MapActivity.other_user_name.setText(firstNameString);
                     }
 
                     int age = response.getInt("age");
                     if(age > 0) {
                         ageInput.setText(""+age);
+                        MapActivity.other_user_age.setText(age+"y-o");
                     }else if (age == 0)
                     {
                         ageInput.setText("");
@@ -160,15 +177,16 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                         bioField.setText("");
                     }else{
                         bioField.setText(bio);
+                        MapActivity.other_user_about.setText(bio);
                     }
 
                     nationality = response.getString("home_nationality");
-                   if(nationality.equals("Choose Citizenship")){
-                       citizenAuto.setText("");
-                   }
+                    if(nationality.equals("Choose Citizenship")){
+                        citizenAuto.setText("");
+                    }
                     else{
-                       citizenAuto.setText(nationality);
-                   }
+                        citizenAuto.setText(nationality);
+                    }
                    // Log.w("Language",response.getString("languages"));
                     JSONArray languagesArray = response.getJSONArray("languages");
                     for(int x = 0;x<languagesArray.length();x++){
@@ -179,9 +197,9 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                                 langName = "";
                             }
                         }else{
-                        langName = langName +","+languageNames.getString("name");
+                            langName = langName +","+languageNames.getString("name");
                         }
-                      //  Log.w("langName",langName);
+                       // Log.w("langName",langName);
                         spokenLanguage.setText(langName);
                     }
 
@@ -245,70 +263,68 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                 params.setUseJsonStreamer(true);
 
                 String name_input = nameInput.getText().toString();
-                Log.w("name_input",name_input);
                 if(name_input.equals("")){
+                    checkValidation = false;
+                }else{
+                    params.put("first_name",name_input);
+                    MapActivity.other_user_name.setText(name_input);
+                }
+                int age_input =0;
+                try{
+                 age_input = Integer.parseInt(ageInput.getText().toString());
+                if(age_input != 0){
+                    params.put("age",age_input);
+                    MapActivity.other_user_age.setText(age_input+"y-o");
+
+                }else{
+                    checkValidation = false;
+                }}catch (Exception e){
+
+                }
+
+                String bio_input = bioField.getText().toString();
+                if(bio_input.equals("")){
                    checkValidation = false;
                 }else
                 {
-                    params.put("first_name",name_input);
-                   MapActivity.other_user_name.setText(name_input);
-                }
-                try {
-
-
-                    int age_input = 0;
-                    age_input = Integer.parseInt(ageInput.getText().toString());
-                    if (age_input != 0) {
-                        params.put("age", age_input);
-                        MapActivity.other_user_age.setText(age_input + "y-o");
-                    } else {
-                        checkValidation = false;
-                    }
-                }catch (Exception e){
-                    checkValidation = false;
-                }
-                String bio_input = bioField.getText().toString();
-                if(bio_input.equals("")){
-                    checkValidation = false;
-                }else {
                     params.put("bio",bio_input);
                     MapActivity.other_user_about.setText(bio_input);
                 }
                 nationality = citizenAuto.getText().toString();
                 if(nationality.equals("")) {
                     checkValidation = false;
-                }else{
+                }else {
                     params.put("home_nationality",nationality);
+
                 }
-               // Log.w("Language count",spokenLanguage.getText().toString());
+                // Log.w("Language count",spokenLanguage.getText().toString());
                 String str = spokenLanguage.getText().toString();
                 List<String> elephantList = Arrays.asList(str.split(","));
                 JSONArray languagesArray = new JSONArray();
                 try{
 
 //                //TODO: Populare JSON objects and ARRAY with dynamic data
-                for(int i =0; i < elephantList.size(); i++){
-                    JSONObject json_i = new JSONObject();
-                    if(elephantList.get(i).replaceAll("\\s+","").equals("")){
+                    for(int i =0; i < elephantList.size(); i++){
+                        JSONObject json_i = new JSONObject();
+                        if(elephantList.get(i).replaceAll("\\s+","").equals("")){
 
-                    }else {
-                        json_i.put("name", elephantList.get(i));
-                        //Log.w("Language count",elephantList.get(i));
-                        languagesArray.put(json_i);
-                       // Log.w("Language count",languagesArray.toString());
+                        }else {
+                            json_i.put("name", elephantList.get(i));
+                           // Log.w("Language count",elephantList.get(i));
+                            languagesArray.put(json_i);
+                          //  Log.w("Language count",languagesArray.toString());
+                        }
+
+
                     }
 
-
-                }
 
                 } catch (JSONException e){
                     Log.w("JSON Exception", e.toString());
                 }
                 params.put("languages",languagesArray);
-
-                Log.w("Param",params.toString());
                 if(checkValidation) {
-                   client.post(MainActivity.base_host_url + "api/postProfile2/", params, new JsonHttpResponseHandler() {
+                    client.post(MainActivity.base_host_url + "api/postProfile2/", params, new JsonHttpResponseHandler() {
 //                client.post("http://requestb.in/zzmhq6zz", params, new JsonHttpResponseHandler() {
 
                         @Override
@@ -317,8 +333,8 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 //                        NewWhoAreYouActivity.this.finish();
                             finishProfileFlag = true;
                             if (finishPictureFlag && finishProfileFlag) {
-                          //      Log.w("Hello", "A");
-                                NewWhoAreYouActivity.this.finish();
+                             //   Log.w("Hello", "A");
+                                MyProfileActivity.this.finish();
                             }
                         }
 
@@ -366,7 +382,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                                 Log.w("POST PROFILE PICTURE", statusCode + ": " + "Response = " + response.toString());
                                 finishPictureFlag = true;
                                 if (finishPictureFlag && finishProfileFlag) {
-                                    NewWhoAreYouActivity.this.finish();
+                                    MyProfileActivity.this.finish();
                                 }
                             }
 
@@ -396,15 +412,14 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 
                         finishPictureFlag = true;
                         if (finishPictureFlag && finishProfileFlag) {
-                           // Log.w("Hello", "b");
+                          //  Log.w("Hello", "b");
 
                         }
                     }
-                    Intent intent = new Intent(NewWhoAreYouActivity.this, MyCity.class);
-                    NewWhoAreYouActivity.this.startActivity(intent);
-                    NewWhoAreYouActivity.this.finish();
-                }else {
-                    Toast.makeText(NewWhoAreYouActivity.this,"Some fileds are Empty",Toast.LENGTH_LONG).show();
+                    MyProfileActivity.this.finish();
+                }else
+                {
+                    Toast.makeText(MyProfileActivity.this,"Some filed are Emply",Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -432,12 +447,12 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
         final CharSequence[] items = {"Take Photo", "Choose from Library",
                 "Cancel"};
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(NewWhoAreYouActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MyProfileActivity.this);
         builder.setTitle("Add Photo!");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                boolean result = ImagePhotoPermission.checkPermission(NewWhoAreYouActivity.this);
+                boolean result = ImagePhotoPermission.checkPermission(MyProfileActivity.this);
 
                 if (items[item].equals("Take Photo")) {
                     userChoosenTask = "Take Photo";

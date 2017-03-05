@@ -14,6 +14,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -53,6 +54,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -86,9 +88,11 @@ public class MapActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener {
-
-    //Constants
+        //Constants
     TextView other_account;
+   public static CircularImageView other_user_picture;
+    public static TextView other_user_name,other_user_age,other_user_about;
+    ImageView my_profile_dots;
     private static final int POLLING_PERIOD = 5;
     private final int STARTING_ZOOM = 15;
     private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 2;
@@ -102,17 +106,8 @@ public class MapActivity extends AppCompatActivity implements
     private double current_gps_longitude;
     private boolean last_location_ready = false;
     private boolean gettingGPS = true;
-
-
-    public static ImageView myProfilePicture;
-    public static EditText myProfileNameEdit;
-    public static EditText myProfileAgeEdit;
     public static List categoryList = new ArrayList<Category>();
-
-    public static Spinner citizenshipSpinner;
-    public static Spinner languagesSpinner;
-
-    //Layout instances
+  //Layout instances
     FrameLayout markup_layout;
     RelativeLayout alpha_layer;
     ImageView profilePicture;
@@ -153,7 +148,14 @@ public class MapActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("FriendNGo");
 
+
+        //nav drawer
+        other_user_picture = (CircularImageView)findViewById(R.id.other_profile_image);
+        other_user_name = (TextView)findViewById(R.id.other_user_name);
+        other_user_age = (TextView)findViewById(R.id.other_user_age);
+        other_user_about = (TextView)findViewById(R.id.other_user_about);
         //Initialize Layout views from their XML
+        my_profile_dots = (ImageView)findViewById(R.id.my_profile_dots);
         other_account = (TextView)findViewById(R.id.other_account);
         alpha_layer = (RelativeLayout) findViewById(R.id.alpha_layer);
         markup_layout = (FrameLayout) findViewById(R.id.markup_layout);
@@ -167,6 +169,14 @@ public class MapActivity extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapActivity.this,WhatDoYouWantToDoToday.class);
+                startActivity(intent);
+            }
+        });
+        //navigate to my profile
+        my_profile_dots.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapActivity.this,MyProfileActivity.class);
                 startActivity(intent);
             }
         });
@@ -271,19 +281,7 @@ public class MapActivity extends AppCompatActivity implements
         });
 
         //REMOVE THIS BUTTON ONCE WE HAVE A FACEBOOK LOGOUT BUTTON
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-                LoginManager.getInstance().logOut();
-
-                Snackbar.make(view, "Logged Out", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+      
 
         //Adds the action bar for the drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
