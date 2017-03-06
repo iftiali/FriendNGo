@@ -91,7 +91,7 @@ public class MapActivity extends AppCompatActivity implements
         //Constants
     TextView other_account;
    public static CircularImageView other_user_picture;
-    public static TextView other_user_name,other_user_age,other_user_about;
+    public static TextView other_user_name,other_user_age,other_user_about,other_user_location;
     ImageView my_profile_dots;
     private static final int POLLING_PERIOD = 5;
     private final int STARTING_ZOOM = 15;
@@ -150,6 +150,7 @@ public class MapActivity extends AppCompatActivity implements
 
 
         //nav drawer
+        other_user_location = (TextView)findViewById(R.id.other_user_location);
         other_user_picture = (CircularImageView)findViewById(R.id.other_profile_image);
         other_user_name = (TextView)findViewById(R.id.other_user_name);
         other_user_age = (TextView)findViewById(R.id.other_user_age);
@@ -392,6 +393,7 @@ public class MapActivity extends AppCompatActivity implements
                         //Calculate the distance from the user to the activity
                         double km;
                         int Radius = 6371;
+
                         double lat1 = current_gps_latitude;//StartP.latitude;
                         double lat2 = latitude;//EndP.latitude;
                         double lon1 = current_gps_longitude;//StartP.longitude;
@@ -567,9 +569,11 @@ public class MapActivity extends AppCompatActivity implements
 
             //Zoom to last known location if we don't have GPS
             if (gettingGPS) {
+                //6-3-2017
                 current_gps_latitude = location.getLatitude();
                 current_gps_longitude = location.getLongitude();
-
+              //  current_gps_latitude = FacebookLogin.clat;
+               // current_gps_longitude = FacebookLogin.clon;
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
                 current_location_ready = true;
                 if (last_location_ready == true) {

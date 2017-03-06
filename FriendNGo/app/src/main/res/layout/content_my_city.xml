@@ -25,9 +25,10 @@
         android:id="@+id/my_city_next" />
 
     <TextView
-        android:text="Where are you?"
+        android:text="Where are you from?"
         android:textColor="@color/greyish"
         android:textSize="16sp"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/my_city_where_are_you"
@@ -35,11 +36,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="95dp" />
 
-    <TextView
+    <EditText
         android:text="Montreal, Canada"
         android:textColor="@color/light_grey"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:hint="City,Country"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/my_city_country_name"
@@ -47,15 +49,23 @@
         android:layout_centerHorizontal="true" />
 
     <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/canada"
+        android:layout_below="@+id/my_city_country_name"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/my_city_flag_image" />
+
+    <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
         app:srcCompat="@drawable/icon_map"
-        android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"
         android:id="@+id/my_city_icon_map"
-        android:layout_alignTop="@+id/my_city_country_name"
+        android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/my_city_country_name"
-        android:layout_toStartOf="@+id/my_city_country_name" />
+        android:layout_toStartOf="@+id/my_city_country_name"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -63,18 +73,9 @@
         app:srcCompat="@drawable/world_map"
         android:id="@+id/imageView3"
         android:layout_above="@+id/my_city_next"
+        android:layout_marginBottom="55dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="50dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/canada"
-        android:layout_below="@+id/my_city_icon_map"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/my_city_flag_image" />
-
 </RelativeLayout>

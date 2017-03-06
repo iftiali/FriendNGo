@@ -52,8 +52,8 @@ public class ActivityNotifications extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.home_icon:
-                                Intent intent = new Intent(ActivityNotifications.this, MapActivity.class);
-                                ActivityNotifications.this.startActivity(intent);
+                             //   Intent intent = new Intent(ActivityNotifications.this, MapActivity.class);
+                              //  ActivityNotifications.this.startActivity(intent);
                                 ActivityNotifications.this.finish();
                                 break;
                             case R.id.calendar_icon:

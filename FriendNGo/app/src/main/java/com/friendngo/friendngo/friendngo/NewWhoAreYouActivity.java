@@ -251,6 +251,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                 }else
                 {
                     params.put("first_name",name_input);
+                    checkValidation = true;
                    MapActivity.other_user_name.setText(name_input);
                 }
                 try {
@@ -259,6 +260,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     int age_input = 0;
                     age_input = Integer.parseInt(ageInput.getText().toString());
                     if (age_input != 0) {
+                        checkValidation = true;
                         params.put("age", age_input);
                         MapActivity.other_user_age.setText(age_input + "y-o");
                     } else {
@@ -272,6 +274,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     checkValidation = false;
                 }else {
                     params.put("bio",bio_input);
+                    checkValidation = true;
                     MapActivity.other_user_about.setText(bio_input);
                 }
                 nationality = citizenAuto.getText().toString();
@@ -279,6 +282,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     checkValidation = false;
                 }else{
                     params.put("home_nationality",nationality);
+                    checkValidation = true;
                 }
                // Log.w("Language count",spokenLanguage.getText().toString());
                 String str = spokenLanguage.getText().toString();
@@ -404,7 +408,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     NewWhoAreYouActivity.this.startActivity(intent);
                     NewWhoAreYouActivity.this.finish();
                 }else {
-                    Toast.makeText(NewWhoAreYouActivity.this,"Some fileds are Empty",Toast.LENGTH_LONG).show();
+                    Toast.makeText(NewWhoAreYouActivity.this,"Some fields are empty",Toast.LENGTH_LONG).show();
                 }
 
             }
