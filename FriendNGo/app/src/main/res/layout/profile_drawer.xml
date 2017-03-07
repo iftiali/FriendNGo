@@ -87,7 +87,7 @@
                 android:textColor="@android:color/white" />
             <TextView
                 android:id="@+id/other_user_age"
-                android:text="28 y-o"
+                android:text="Set Age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/other_user_points"
@@ -152,7 +152,7 @@
 
             <TextView
                 android:id="@+id/other_user_about"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque fringilla nulla non metus commodo dignissim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros felis, fringilla vitae."
+                android:text="You will have a wonderful profile here that is full of whimsy. It may contains lovely things such as what you ate for breakfast today and what you plan on eating for breakfast tomorrow or other such important things in your life."
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -173,7 +173,7 @@
 
             <TextView
                 android:id="@+id/other_user_name"
-                android:text="Steff Zaharova"
+                android:text="Anonymous"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

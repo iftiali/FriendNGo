@@ -622,7 +622,7 @@ public class MapActivity extends AppCompatActivity implements
     //Trigger the check for GPS even before we load the page
     @Override
     public void onStart() {
-
+        Log.w("LIFECYCLE DEBUG", "Calling onStart()");
         super.onStart();
         LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         if (locationManager.isProviderEnabled(GPS_PROVIDER)) {
