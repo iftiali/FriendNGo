@@ -15,17 +15,14 @@ import java.util.ArrayList;
 public class WhatDoyouWantToDoTodayHorizontalRow extends RecyclerView.Adapter<WhatDoyouWantToDoTodayHorizontalRow.ViewHolder>{
 
     private ArrayList<String> mDataset;
-
     public WhatDoyouWantToDoTodayHorizontalRow(ArrayList<String> mDataset) {
         this.mDataset = mDataset;
     }
 
     @Override
     public WhatDoyouWantToDoTodayHorizontalRow.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_what_do_you_want_horizontal_row,parent,false);
         // set the view's size, margins, paddings and layout parameters
-
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
@@ -38,8 +35,8 @@ public class WhatDoyouWantToDoTodayHorizontalRow extends RecyclerView.Adapter<Wh
     holder.museum_button.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //ToDo:HTTP POST the categories and Activity
 
+            //ToDo:HTTP POST the categories and Activity
             if( holder.mImageView.getVisibility()==View.INVISIBLE){
                 holder.mImageView.setVisibility(View.VISIBLE);
             }else {
@@ -53,7 +50,6 @@ public class WhatDoyouWantToDoTodayHorizontalRow extends RecyclerView.Adapter<Wh
     public int getItemCount() {
         return mDataset.size();
     }
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public Button museum_button;

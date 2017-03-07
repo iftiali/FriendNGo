@@ -1,6 +1,10 @@
 package com.friendngo.friendngo.friendngo;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by scott on 2017-01-17.
@@ -29,6 +33,8 @@ public class UserActivity {
     private long creator_PK;
     private Date endTime;
     private String profilePicURL;
+    List attendingList = new ArrayList<JSONObject>();
+
     public  UserActivity(){
     }
     public UserActivity(String home_city,
@@ -50,7 +56,8 @@ public class UserActivity {
                         long creator_PK,
                         long activity_pk,
                         Date endTime,
-                        String profilePicURL) {
+                        String profilePicURL,
+                        List attendingList) {
         this.homeCity = home_city;
         this.homeNationality = home_nationality;
         this.name = name;
@@ -72,6 +79,15 @@ public class UserActivity {
         this.activity_pk = activity_pk;
         this.endTime = endTime;
         this.profilePicURL = profilePicURL;
+        this.attendingList = attendingList;
+    }
+
+    public List getAttendingList() {
+        return attendingList;
+    }
+
+    public void setAttendingList(List attendingList) {
+        this.attendingList = attendingList;
     }
 
     public long getCreator_PK() {

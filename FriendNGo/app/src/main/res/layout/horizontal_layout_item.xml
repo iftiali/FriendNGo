@@ -9,7 +9,6 @@
         android:background="@drawable/blue_button"
         android:textColor="@android:color/darker_gray"
         android:layout_height="30dp"
-
         android:layout_margin="5dp" />
 
     <ImageView

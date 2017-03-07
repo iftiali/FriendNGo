@@ -5,32 +5,27 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.File;
-
 import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-import static com.friendngo.friendngo.friendngo.MapActivity.activitiesList;
 
 public class ActivityDetails extends AppCompatActivity {
-
     FrameLayout requestFrame;
     TextView activityName;
     ImageView creatorPhoto;
@@ -45,6 +40,10 @@ public class ActivityDetails extends AppCompatActivity {
     TextView activityAddress;
     Button sendRequestButton;
 
+    RecyclerView participantsRecycler;
+    private RecyclerView.LayoutManager mHorizontallayoutManager;
+    private RecyclerView.Adapter mHorizontalAdapter;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -54,15 +53,8 @@ public class ActivityDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-
-        //Set top bar and toolbar
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setTitle("Activity Details");
-
-        final int i = getIntent().getIntExtra("Activity Index", 0);
-        final long activity_pk = ((UserActivity)MapActivity.activitiesList.get(i)).getActivity_pk();
-
+        final int activity_index = getIntent().getIntExtra("Activity Index", 0);
+        final long activity_pk = ((UserActivity)MapActivity.activitiesList.get(activity_index)).getActivity_pk();
         sendRequestButton = (Button)findViewById(R.id.send_request_button);
         sendRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +62,6 @@ public class ActivityDetails extends AppCompatActivity {
                 AsyncHttpClient client = new AsyncHttpClient();
                 if(SignIn.static_token != null) {
                     client.addHeader("Authorization","Token "+SignIn.static_token);
-
                 }RequestParams params = new RequestParams();
                 params.put("activity_id",activity_pk);
                 params.put("request_state",0);
@@ -105,9 +96,9 @@ public class ActivityDetails extends AppCompatActivity {
                     }
                 });
                 ActivityDetails.this.finish();
-
             }
         });
+
         requestFrame = (FrameLayout)findViewById(R.id.activity_detail_request_frame);
         requestFrame.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,15 +108,12 @@ public class ActivityDetails extends AppCompatActivity {
             }
         });
         int ii = getIntent().getIntExtra("Activity Index", 0);
-        UserActivity activity = (UserActivity) MapActivity.activitiesList.get(i);
+        UserActivity activity = (UserActivity) MapActivity.activitiesList.get(activity_index);
 
         //GET The image file at the pictureURL
         AsyncHttpClient client = new AsyncHttpClient();
-
         String pictureURL = activity.getProfilePicURL();
-
         creatorPhoto = (ImageView) this.findViewById(R.id.creator_image);
-
         client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
 
             @Override
@@ -146,10 +134,8 @@ public class ActivityDetails extends AppCompatActivity {
         //Get the XML instances for each of the headings
         activityName = (TextView) this.findViewById(R.id.activity_detail_name);
         activityName.setText(activity.getName());
-
         creatorName = (TextView) this.findViewById(R.id.activity_detail_creator_name);
         creatorName.setText(activity.getCreator());
-
         creatorAge = (TextView) this.findViewById(R.id.activity_detail_creator_age);
         creatorAge.setText(activity.getCreatorAge());
 
@@ -174,5 +160,19 @@ public class ActivityDetails extends AppCompatActivity {
 
         activityAddress = (TextView) this.findViewById(R.id.activity_type_address_text);
         activityAddress.setText(activity.getAddress());
+
+
+        participantsRecycler = (RecyclerView) this.findViewById(R.id.participants_recycler_view);
+        mHorizontallayoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
+        participantsRecycler.setLayoutManager(mHorizontallayoutManager);
+        mHorizontalAdapter = new AttendingHorizontalRow((UserActivity)MapActivity.activitiesList.get(activity_index), getApplicationContext());
+        participantsRecycler.setAdapter(mHorizontalAdapter);
+        participantsRecycler.setHasFixedSize(true);
+        //TODO: Build The Layout Adapter
+
+        //TODO: Figure out how to get the images
+
+
+
     }
 }
