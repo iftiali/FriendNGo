@@ -14,7 +14,8 @@
     tools:showIn="@layout/activity_my_profile">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/profile_profile_continue_button">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -34,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_below="@+id/profile_profilepicture"
-                android:layout_above="@+id/profile_profile_continue_button">
+>
 
                 <EditText
                     android:layout_width="match_parent"

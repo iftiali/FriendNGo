@@ -9,9 +9,6 @@
         android:background="@drawable/blue_button"
         android:textColor="@android:color/darker_gray"
         android:layout_height="30dp"
-        android:layout_alignTop="@+id/jogging_button_check"
-        android:layout_toLeftOf="@+id/arts_text"
-        android:layout_toStartOf="@+id/arts_text"
         android:layout_margin="5dp" />
 
     <ImageView

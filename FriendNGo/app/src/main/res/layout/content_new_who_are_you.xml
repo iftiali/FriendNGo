@@ -10,7 +10,8 @@
     tools:showIn="@layout/activity_new_who_are_you">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/profile_continue_button">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -29,8 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@+id/profilepicture"
-            android:layout_above="@+id/profile_continue_button">
+            android:layout_below="@+id/profilepicture">
 
             <EditText
                 android:layout_width="match_parent"
