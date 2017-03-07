@@ -89,6 +89,7 @@ public class MapActivity extends AppCompatActivity implements
         OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener {
         //Constants
+    private static final String My_TAG ="Auther:Parth";
     TextView other_account;
    public static CircularImageView other_user_picture;
     public static TextView other_user_name,other_user_age,other_user_about,other_user_location;
@@ -148,7 +149,7 @@ public class MapActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("FriendNGo");
 
-
+        Log.i(My_TAG,"onCreate invoked");
         //nav drawer
         other_user_location = (TextView)findViewById(R.id.other_user_location);
         other_user_picture = (CircularImageView)findViewById(R.id.other_profile_image);
@@ -166,6 +167,7 @@ public class MapActivity extends AppCompatActivity implements
         participateButton = (Button) findViewById(R.id.banner_participate);
         participateButton.setEnabled(false);
         getActivity();
+        bottomNavigationView.getMenu().getItem(0).setChecked(true);
         other_account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -620,9 +622,9 @@ public class MapActivity extends AppCompatActivity implements
     //Trigger the check for GPS even before we load the page
     @Override
     public void onStart() {
-
+        Log.w(My_TAG,"onStart");
         super.onStart();
-        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+/*        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         if (locationManager.isProviderEnabled(GPS_PROVIDER)) {
 
             //Get the user's permission to use the GPS
@@ -637,11 +639,11 @@ public class MapActivity extends AppCompatActivity implements
             //Get the user to activate his GPS
             Toast.makeText(getApplicationContext(),"Please Activate Your GPS to use FriendNGo", Toast.LENGTH_LONG).show();
             startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), 1);
-        }
+        }*/
     }
 
     //If the user granted permission, then go on to get the location, otherwise remind gim that we need the GPS for his benefit
-    @Override
+   /* @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -664,7 +666,7 @@ public class MapActivity extends AppCompatActivity implements
             // permissions this app might request
         }
     }
-
+*/
     //Code to request GPS updates
     private void getGPSLocation() {
         LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
@@ -1027,6 +1029,32 @@ public class MapActivity extends AppCompatActivity implements
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(My_TAG,"onResume invoked");
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(My_TAG,"onPause invoked");
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(My_TAG,"onStop invoked");
+    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i(My_TAG,"onRestart invoked");
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(My_TAG,"onDestroy invoked");
     }
 }
 

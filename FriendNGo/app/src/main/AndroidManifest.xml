@@ -83,10 +83,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".WhoAreYou"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".ActivityDetails"
             android:label="Activity Details"
             android:screenOrientation="portrait"

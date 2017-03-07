@@ -89,7 +89,7 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
             viewHolder.name = (TextView) convertView.findViewById(R.id.request_person_name);
             viewHolder.homeCity = (TextView) convertView.findViewById(R.id.reqiest_city_name);
             viewHolder.years = (TextView)convertView.findViewById(R.id.request_years);
-           viewHolder.nationality = (ImageView) convertView.findViewById(R.id.request_flag);
+            viewHolder.nationality = (ImageView) convertView.findViewById(R.id.request_flag);
             viewHolder.points = (TextView) convertView.findViewById(R.id.request_point);
             viewHolder.notImageButton =(CircularImageView)convertView.findViewById(R.id.request_delete_image);
             viewHolder.yesImageButton = (CircularImageView)convertView.findViewById(R.id.request_success_image);
@@ -122,6 +122,7 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
                 Log.w("GET IMAGE SUCCESS","Successfully Retrieved The Image");
                 //Use the downloaded image as the profile picture
                 Uri uri = Uri.fromFile(response);
+                //error
                 profilePic.setImageURI(uri);
             }
 
