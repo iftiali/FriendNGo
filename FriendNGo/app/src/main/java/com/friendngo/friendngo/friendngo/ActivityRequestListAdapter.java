@@ -8,22 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.mikhaellopez.circularimageview.CircularImageView;
-
 import java.io.File;
 import java.util.ArrayList;
-
 import cz.msebera.android.httpclient.Header;
-
-import static com.friendngo.friendngo.friendngo.MapActivity.activitiesList;
-import static com.friendngo.friendngo.friendngo.R.drawable.add_oval;
-
 /**
  * Created by krishna on 2017-02-07.
  */

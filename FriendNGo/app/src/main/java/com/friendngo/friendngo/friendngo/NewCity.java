@@ -49,7 +49,6 @@ public class NewCity extends AppCompatActivity {
     private Button touristButton;
     private Button studentButton;
     private Button nextButton;
-    private final int MY_PERMISSIONS_REQUEST_LOCATION = 2;
     private int status = 0;
     private final int RESIDENT = 1;
     private final int MIGRANT = 2;

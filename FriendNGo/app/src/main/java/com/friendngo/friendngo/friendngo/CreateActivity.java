@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Geocoder;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -20,6 +22,14 @@ import android.widget.TimePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.location.places.AutocompletePrediction;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
+import com.google.android.gms.location.places.Places;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -35,8 +45,10 @@ import java.util.Locale;
 import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class CreateActivity extends AppCompatActivity {
+public class CreateActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     boolean validationFlag = false;
+    String autocomplateAddress = null;
+    private static final String TAG ="Auther:Parth";
     TextView plus_minus_textview,cancelTextView;
     int plus = 0;
     Button plus_button,minus_button;
@@ -49,6 +61,11 @@ public class CreateActivity extends AppCompatActivity {
     SimpleDateFormat sdf;
     String currentDateEndTime,currentDateStartTime;
     Calendar c = Calendar.getInstance();
+    protected GoogleApiClient mGoogleApiClient;
+
+    private PlaceAutocompleteAdapter mAdapter;
+    private AutoCompleteTextView mAutocompleteView;
+
     TimePickerDialog.OnTimeSetListener endTimer = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -60,6 +77,7 @@ public class CreateActivity extends AppCompatActivity {
                         .parse(currentDateEndTime);
                 Date end = new SimpleDateFormat("HH:mm", Locale.ENGLISH)
                         .parse(hourOfDay + ":" + minute);
+                //validation for end time
                /* if(todayTomorrowFlag == 0){
                 if (start.compareTo(end) > 0) {
                     Toast.makeText(CreateActivity.this,"Selected time is not valid",Toast.LENGTH_LONG).show();
@@ -134,8 +152,14 @@ public class CreateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, 0 ,CreateActivity.this)
+                .addApi(Places.GEO_DATA_API)
+                .build();
         setContentView(R.layout.activity_create);
         cancelTextView = (TextView)findViewById(R.id.cancel__text_view);
+        mAutocompleteView = (AutoCompleteTextView)
+                findViewById(R.id.address_edit_text);
         plus_minus_textview = (TextView)findViewById(R.id.plus_minus_textview);
         plus_button = (Button)findViewById(R.id.create_plus_button);
         minus_button = (Button)findViewById(R.id.create_minus_button);
@@ -302,8 +326,8 @@ public class CreateActivity extends AppCompatActivity {
                 EditText activityEditText = (EditText) findViewById(R.id.editText);
                 String activity_name = activityEditText.getText().toString();
 
-                EditText addressText = (EditText) findViewById(R.id.address_edit_text);
-                String address = addressText.getText().toString();
+                //EditText addressText = (EditText) findViewById(R.id.address_edit_text);
+                autocomplateAddress = mAutocompleteView.getText().toString();
 
                 EditText descriptionText = (EditText) findViewById(R.id.description_edit_text);
                 String activityDescription = descriptionText.getText().toString();
@@ -322,29 +346,26 @@ public class CreateActivity extends AppCompatActivity {
 
                 //Set the status type into the message for the server
                 RequestParams params = new RequestParams();
-                if(activity_name.equals("")){
-                    validationFlag = false;
-                }else {
-                    validationFlag = true;
+                if(activity_name.equals("") || autocomplateAddress.equals("")) {
+                    Toast.makeText(CreateActivity.this,"Activity name or address field is empty",Toast.LENGTH_LONG).show();
+                }else{
+
                     params.put("activity_name", activity_name);
-                }params.put("activity_type", activityType);
-                params.put("max_users",plus);
 
-                if(address.equals("")){
-                    validationFlag =false;
-                }else {
-                    validationFlag =true;
-                    params.put("activity_lat", Double.toString(ValidationClass.get_Latitude(address,coder)));
-                    params.put("activity_lon", Double.toString(ValidationClass.get_longitude(address,coder)));
-                    params.put("address", address);
-                }
-                params.put("activity_time", startEventTime.getText());
-                params.put("activity_end_time", endEventTime.getText());
-                params.put("description", activityDescription);
+                    params.put("activity_type", activityType);
+                    params.put("max_users",plus);
 
-                params.put("additional_notes",additionalNotes);
 
-                if(validationFlag) {
+                    params.put("activity_lat", Double.toString(ValidationClass.get_Latitude(autocomplateAddress,coder)));
+                    params.put("activity_lon", Double.toString(ValidationClass.get_longitude(autocomplateAddress,coder)));
+                    params.put("address", autocomplateAddress);
+
+                    params.put("activity_time", startEventTime.getText());
+                    params.put("activity_end_time", endEventTime.getText());
+                    params.put("description", activityDescription);
+                    params.put("additional_notes",additionalNotes);
+
+
                     client.post(MainActivity.base_host_url + "api/postActivity/", params, new JsonHttpResponseHandler() {
 
                         @Override
@@ -374,11 +395,90 @@ public class CreateActivity extends AppCompatActivity {
                         }
                     });
                     CreateActivity.this.finish();
-                }else {
-                    Toast.makeText(CreateActivity.this,"Activity name or address field is empty",Toast.LENGTH_LONG).show();
                 }
 
             }
         });
+        //Address Autocomplete
+        mAutocompleteView.setOnItemClickListener(mAutocompleteClickListener);
+        mAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient,null,
+                null);
+        mAutocompleteView.setAdapter(mAdapter);
         }
+    /**
+            * Listener that handles selections from suggestions from the AutoCompleteTextView that
+    * displays Place suggestions.
+    * Gets the place id of the selected item and issues a request to the Places Geo Data API
+    * to retrieve more details about the place.
+    *
+            * @see com.google.android.gms.location.places.GeoDataApi#getPlaceById(com.google.android.gms.common.api.GoogleApiClient,
+                                                                                  * String...)
+    */
+    private AdapterView.OnItemClickListener mAutocompleteClickListener
+            = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            /*
+             Retrieve the place ID of the selected item from the Adapter.
+             The adapter stores each Place suggestion in a AutocompletePrediction from which we
+             read the place ID and title.
+              */
+            final AutocompletePrediction item = mAdapter.getItem(position);
+            final String placeId = item.getPlaceId();
+            final CharSequence primaryText = item.getPrimaryText(null);
+
+            Log.i(TAG, "Autocomplete item selected: " + primaryText);
+
+            /*
+             Issue a request to the Places Geo Data API to retrieve a Place object with additional
+             details about the place.
+              */
+            PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi
+                    .getPlaceById(mGoogleApiClient, placeId);
+            placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
+
+            // Toast.makeText(getApplicationContext(), "Clicked: " + primaryText,Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "Called getPlaceById to get Place details for " + placeId);
+        }
+    };
+    private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback
+            = new ResultCallback<PlaceBuffer>() {
+        @Override
+        public void onResult(PlaceBuffer places) {
+            if (!places.getStatus().isSuccess()) {
+                // Request did not complete successfully
+                Log.e(TAG, "Place query did not complete. Error: " + places.getStatus().toString());
+                places.release();
+                return;
+            }
+            // Get the Place object from the buffer.
+            final com.google.android.gms.location.places.Place place = places.get(0);
+
+            // Format details of the place for display and show it in a TextView.
+             autocomplateAddress = (String) place.getAddress();
+
+            // Display the third party attributions if set.
+           /* final CharSequence thirdPartyAttribution = places.getAttributions();
+            if (thirdPartyAttribution == null) {
+                mPlaceDetailsAttribution.setVisibility(View.GONE);
+            } else {
+                mPlaceDetailsAttribution.setVisibility(View.VISIBLE);
+                mPlaceDetailsAttribution.setText(Html.fromHtml(thirdPartyAttribution.toString()));
+            }
+            */
+            Log.i(TAG, "Place details received: " + place.getName());
+
+            places.release();
+        }
+    };
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.e(TAG, "onConnectionFailed: ConnectionResult.getErrorCode() = "
+                + connectionResult.getErrorCode());
+
+        // TODO(Developer): Check error code and notify the user of error state and resolution.
+        Toast.makeText(this,
+                "Could not connect to Google API Client: Error " + connectionResult.getErrorCode(),
+                Toast.LENGTH_SHORT).show();
+    }
 }

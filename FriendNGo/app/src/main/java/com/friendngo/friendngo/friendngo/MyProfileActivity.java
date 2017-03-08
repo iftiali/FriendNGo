@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,18 +22,15 @@ import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.facebook.login.LoginManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.mikhaellopez.circularimageview.CircularImageView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -44,13 +40,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Random;
-
 import cz.msebera.android.httpclient.Header;
 
 public class MyProfileActivity extends AppCompatActivity {
-    private static final int CAMERA_REQUEST = 1888;
+
     CircularImageView circularImageView;
     Button nextBtn;
     TextView profile_cancel_text_view,profile_logout_text_view;
@@ -65,7 +59,6 @@ public class MyProfileActivity extends AppCompatActivity {
     Boolean selectImageFlag=false;
     EditText bioField;
     String pictureURL = "";
-    File destination;
     File downloadedImage;
     private String userChoosenTask;
     private String nationality;

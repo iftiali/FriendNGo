@@ -9,8 +9,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-import java.util.ArrayList;
-import java.util.List;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
@@ -60,7 +58,7 @@ public class MainActivity extends Activity {
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
                 Intent mainIntent = new Intent(MainActivity.this,FacebookLogin.class);
-              // Intent mainIntent = new Intent(MainActivity.this,MyStatusActivity.class);
+             // Intent mainIntent = new Intent(MainActivity.this,testXML.class);
                 MainActivity.this.startActivity(mainIntent);
                 MainActivity.this.finish();
             }
