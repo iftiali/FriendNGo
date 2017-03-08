@@ -45,7 +45,6 @@ import java.util.Locale;
 import java.util.Random;
 
 import cz.msebera.android.httpclient.Header;
-import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class NewWhoAreYouActivity extends AppCompatActivity {

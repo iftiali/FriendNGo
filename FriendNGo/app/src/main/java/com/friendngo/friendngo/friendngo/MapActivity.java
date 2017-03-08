@@ -77,8 +77,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import cz.msebera.android.httpclient.Header;
-import io.apptik.widget.multiselectspinner.MultiSelectSpinner;
-
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static android.location.LocationManager.GPS_PROVIDER;
