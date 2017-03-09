@@ -23,6 +23,9 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.loopj.android.http.AsyncHttpClient;
@@ -65,6 +68,8 @@ public class FacebookLogin extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
+        //TODO: Why does white bar appear at the top when we logout and come back to this screen??? Fix it!
+
         if (MainActivity.cheat_mode == true) {
             Intent mainIntent = new Intent(FacebookLogin.this, SignIn.class);
             FacebookLogin.this.startActivity(mainIntent);
@@ -80,10 +85,13 @@ public class FacebookLogin extends AppCompatActivity {
             if(gspEnableFlag ==1){
                 getLocationPermission();
             }else {
-                Intent mainIntent = new Intent(FacebookLogin.this, Popular.class);
+                Intent mainIntent = new Intent(FacebookLogin.this, MapActivity.class);
                 FacebookLogin.this.startActivity(mainIntent);
+                FacebookLogin.this.finish(); //Scott: Was there a readon this was commented out???
             }
         } else {
+            //User needs to login
+
             //Handler for the button to go to e-mail login
             useEmailButton = (Button) findViewById(R.id.use_email_button);
             useEmailButton.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +106,7 @@ public class FacebookLogin extends AppCompatActivity {
                     // FacebookLogin.this.finish();
                 }
             });
+
             //Sets up the callback to the Facebook API for the facebook button
             callbackManager = CallbackManager.Factory.create();
             LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
@@ -111,6 +120,7 @@ public class FacebookLogin extends AppCompatActivity {
                     Log.w("FACEBOOK LOGIN", "Success! Token: " + loginResult.getAccessToken().getToken());
                     AsyncHttpClient client = new AsyncHttpClient();
                     RequestParams params = new RequestParams();
+
                     params.put("access_token", loginResult.getAccessToken().getToken());
                     client.post(MainActivity.base_host_url + "api/exchange_token/facebook/", params, new JsonHttpResponseHandler() {
                         @Override
@@ -122,8 +132,24 @@ public class FacebookLogin extends AppCompatActivity {
                                 SharedPreferences.Editor editor = getSharedPreferences(TOKEN_PREFERENCE, MODE_PRIVATE).edit();
                                 editor.putString("token", response.get("token").toString());
                                 editor.commit();
+
+//                                //TODO: User Facbook Profile to setup default profile
+//                                new GraphRequest(
+//                                        AccessToken.getCurrentAccessToken(),
+//                                        "...?fields={fieldname_of_type_ProfilePictureSource}",
+//                                        null,
+//                                        HttpMethod.GET,
+//                                        new GraphRequest.Callback() {
+//                                            public void onCompleted(GraphResponse response) {
+//                                            /* handle the result */
+//                                            Log.w("FACEBOOK GRAPH RESPONSE",response.toString());
+//                                            }
+//                                        }
+//                                ).executeAsync();
+
                                 Intent mainIntent = new Intent(FacebookLogin.this, MapActivity.class);
                                 FacebookLogin.this.startActivity(mainIntent);
+                                FacebookLogin.this.finish(); //Scott: Was there a reason we skipped this???
                             } catch (JSONException e) {
                                 Log.w("SOCIAL SIGN UP FAIL: ", e.getMessage().toString());
                             }
@@ -170,7 +196,6 @@ public class FacebookLogin extends AppCompatActivity {
                 }
             });
         }
-
     }
 
     @Override
@@ -209,11 +234,9 @@ public class FacebookLogin extends AppCompatActivity {
             try {
 
                 if (location == null) {
-                   // Log.w("Hello1a","Hello1a");
                     location = locationmanager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
                 }
-//                Log.w("Hello1b","Hello1b");
                 clat = location.getLatitude();
                 clon = location.getLongitude();
 
@@ -225,7 +248,6 @@ public class FacebookLogin extends AppCompatActivity {
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
              //   gspEnableFlag = 1;
-
             }
         }
     }
@@ -242,10 +264,8 @@ public class FacebookLogin extends AppCompatActivity {
                             try {
 
                                 if (location == null) {
-                                  //  Log.w("Hello2a","Hello2a");
                                     location = locationmanager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                                 }
-                                //Log.w("Hello2b","Hello2b");
                                 clat = location.getLatitude();
                                 clon = location.getLongitude();
 

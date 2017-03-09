@@ -94,6 +94,12 @@ public class MyProfileActivity extends AppCompatActivity {
 
                 Snackbar.make(v, "Logged Out", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
+                Intent intent = new Intent(MyProfileActivity.this, FacebookLogin.class);
+                MyProfileActivity.this.startActivity(intent);
+                MyProfileActivity.this.finish();
+
+
             }
         });
         Locale[] locales = Locale.getAvailableLocales();
@@ -211,7 +217,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, File response) {
-                        Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
+                        Log.w("GET IMAGE SUCCESS5", "Successfully Retrieved The Image");
                         //Use the downloaded image as the profile picture
                         Uri uri = Uri.fromFile(response);
                         downloadedImage = response;

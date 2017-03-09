@@ -72,10 +72,11 @@ public class MapActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener {
-        //Constants
-    private static final String My_TAG ="Auther:Parth";
+
+    //Constants
+    private static final String My_TAG ="Author:Parth";
     TextView other_account;
-   public static CircularImageView other_user_picture;
+    public static CircularImageView other_user_picture;
     public static TextView other_user_name,other_user_age,other_user_about,other_user_location;
     ImageView my_profile_dots;
     private static final int POLLING_PERIOD = 5;
@@ -92,7 +93,8 @@ public class MapActivity extends AppCompatActivity implements
     private boolean last_location_ready = false;
     private boolean gettingGPS = true;
     public static List categoryList = new ArrayList<Category>();
-  //Layout instances
+
+    //Layout instances
     FrameLayout markup_layout;
     RelativeLayout alpha_layer;
     ImageView profilePicture;
@@ -186,6 +188,8 @@ public class MapActivity extends AppCompatActivity implements
                                 startActivity(seeRequest);
                                 break;
                             case R.id.message_icon:
+                                Intent seeMessage = new Intent(getApplicationContext(), ActivityMessage.class);
+                                startActivity(seeMessage);
                                 Log.w("BOTTOM NAV","Message Icon Pressed");
                                 break;
                             case R.id.settings_icon:
@@ -941,7 +945,7 @@ public class MapActivity extends AppCompatActivity implements
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, File response) {
-                    Log.w("GET IMAGE SUCCESS","Successfully Retrieved The Image");
+                    Log.w("GET IMAGE SUCCESS1","Successfully Retrieved The Image");
                     //Use the downloaded image as the profile picture
                     Uri uri = Uri.fromFile(response);
 //                    profilePicture = (ImageView) markup_layout.findViewById(R.id.banner_profilepicture);
