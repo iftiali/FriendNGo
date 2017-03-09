@@ -199,11 +199,10 @@
         android:layout_below="@+id/max_participants_relative"
         android:id="@+id/address_text" />
 
-    <EditText
+        <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-
         android:padding="10dp"
         android:background="@color/white"
         android:textSize="16sp"

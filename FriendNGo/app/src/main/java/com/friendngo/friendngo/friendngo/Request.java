@@ -3,35 +3,25 @@ package com.friendngo.friendngo.friendngo;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-
+import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Request extends AppCompatActivity {
 
-    Button cancelBtn;
+    TextView cancelBtn;
     ListView list;
     ArrayList<RequestModel> dataModels;
     ArrayList<RequestModel> URLdataModels;
@@ -48,7 +38,7 @@ public class Request extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        cancelBtn = (Button)findViewById(R.id.request_cancel_text_view);
+        cancelBtn = (TextView)findViewById(R.id.request_cancel_text_view);
         list=(ListView)this.findViewById(R.id.request_list);
 
         cancelBtn.setOnClickListener(new View.OnClickListener() {

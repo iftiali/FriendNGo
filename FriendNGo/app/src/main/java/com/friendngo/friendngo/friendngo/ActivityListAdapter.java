@@ -13,18 +13,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
-
 import java.io.File;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import cz.msebera.android.httpclient.Header;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 import static com.friendngo.friendngo.friendngo.MapActivity.activitiesList;
 
 /**

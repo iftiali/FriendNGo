@@ -8,16 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.mikhaellopez.circularimageview.CircularImageView;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.File;
-
 import cz.msebera.android.httpclient.Header;
 
 /**

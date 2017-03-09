@@ -8,22 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
-
 import cz.msebera.android.httpclient.Header;
-
-import static com.friendngo.friendngo.friendngo.MapActivity.activitiesList;
-import static com.friendngo.friendngo.friendngo.R.drawable.add_oval;
-
 /**
  * Created by krishna on 2017-02-07.
  */
@@ -113,6 +107,7 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
 
         //TODO: Change this to get the picture of the SENDER of the request
         String pictureURL = dataModel.getProfileImage();
+
         final ImageView profilePic = (CircularImageView) convertView.findViewById(R.id.profilepicture);
 
         client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(mContext) {
@@ -120,10 +115,12 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
             @Override
             public void onSuccess(int statusCode, Header[] headers, File response) {
                 Log.w("GET IMAGE SUCCESS2","Successfully Retrieved The Image");
+                Picasso.with(mContext).load(response).into(profilePic);
                 //Use the downloaded image as the profile picture
-                Uri uri = Uri.fromFile(response);
+               // Uri uri = Uri.fromFile(response);
                 //error
-                profilePic.setImageURI(uri);
+              //  Picasso.with(mContext).load(uri).into(profilePic);
+              //  profilePic.setImageURI(uri);
             }
 
             @Override

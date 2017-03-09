@@ -43,12 +43,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-
 import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class NewWhoAreYouActivity extends AppCompatActivity {
-    private static final int CAMERA_REQUEST = 1888;
+
     CircularImageView circularImageView;
     Button nextBtn;
     Boolean finishProfileFlag=false;
@@ -62,7 +61,6 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
     EditText bioField;
     String pictureURL = "";
     Boolean checkValidation=true;
-    File destination;
     File downloadedImage;
     private String userChoosenTask;
     private String nationality;
@@ -111,7 +109,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 
         citizenAuto.setAdapter(citizenAdapter);
         citizenAuto.setThreshold(1);
-        ArrayAdapter<String> languageAdapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, languageList);
+        ArrayAdapter<String> languageAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, languageList);
         spokenLanguage.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
         spokenLanguage.setAdapter(languageAdapter);
         //Set OnClick Listener for the profile picture pressed

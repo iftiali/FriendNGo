@@ -146,7 +146,8 @@ public class SignIn extends AppCompatActivity {
                     //Log.w("error", String.valueOf(isEmailValid));
                     if (isNullCheck) {
                         if (isEmailValid) {
-                            flag = isInternetOn();
+                           // flag = isInternetOn();
+                            flag = true;
                             if (flag) {
 
                                // Toast.makeText(SignIn.this, " Network connection is ok ", Toast.LENGTH_LONG).show();
