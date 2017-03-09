@@ -521,7 +521,9 @@ public class MapActivity extends AppCompatActivity implements
 
             @Override
             public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
-                Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
+                if(json!=null){
+                    Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
+                }
             }
         });
     }

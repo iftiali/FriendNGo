@@ -134,18 +134,24 @@ public class FacebookLogin extends AppCompatActivity {
                                 editor.commit();
 
 //                                //TODO: User Facbook Profile to setup default profile
-//                                new GraphRequest(
-//                                        AccessToken.getCurrentAccessToken(),
-//                                        "...?fields={fieldname_of_type_ProfilePictureSource}",
-//                                        null,
-//                                        HttpMethod.GET,
-//                                        new GraphRequest.Callback() {
-//                                            public void onCompleted(GraphResponse response) {
-//                                            /* handle the result */
-//                                            Log.w("FACEBOOK GRAPH RESPONSE",response.toString());
-//                                            }
-//                                        }
-//                                ).executeAsync();
+                                Bundle params2 = new Bundle();
+                                params2.putString("fields","id,email,picture.type(large),birthday,hometown");
+                                new GraphRequest(
+                                        AccessToken.getCurrentAccessToken(), "me",
+                                        params2,
+                                        HttpMethod.GET,
+                                        new GraphRequest.Callback() {
+                                            public void onCompleted(GraphResponse response) {
+                                            /* handle the result */
+                                                if(response!=null){
+                                                    Log.w("FACEBOOK GRAPH RESPONSE",response.toString());
+                                                } else {
+                                                    Log.w("FACEBOOK GRAPH ERROR", "TRY AGAIN!!!");
+                                                }
+
+                                            }
+                                        }
+                                ).executeAsync();
 
                                 Intent mainIntent = new Intent(FacebookLogin.this, MapActivity.class);
                                 FacebookLogin.this.startActivity(mainIntent);
