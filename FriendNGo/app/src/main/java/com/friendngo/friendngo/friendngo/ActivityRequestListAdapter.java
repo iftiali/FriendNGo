@@ -119,7 +119,7 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, File response) {
-                Log.w("GET IMAGE SUCCESS","Successfully Retrieved The Image");
+                Log.w("GET IMAGE SUCCESS2","Successfully Retrieved The Image");
                 //Use the downloaded image as the profile picture
                 Uri uri = Uri.fromFile(response);
                 //error
