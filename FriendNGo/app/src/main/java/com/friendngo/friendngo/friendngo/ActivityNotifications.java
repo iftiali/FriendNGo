@@ -31,6 +31,7 @@ public class ActivityNotifications extends AppCompatActivity {
     ArrayList<RequestModel> dataModels;
     BottomNavigationView bottomNavigationView;
     private static ActivityRequestListAdapter adapter;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -42,6 +43,7 @@ public class ActivityNotifications extends AppCompatActivity {
         setContentView(R.layout.activity_notifications);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Log.w("NOTIFICATION DEBUG","Notification onCreate()");
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_request_activity);
         bottomNavigationView.getMenu().getItem(0).setChecked(false);
@@ -135,9 +137,6 @@ public class ActivityNotifications extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 RequestModel dataModel= dataModels.get(position);
-
-                /*Snackbar.make(view, dataModel.getName()+"\n"+dataModel.getType()+" API: "+dataModel.getVersion_number(), Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();*/
             }
         });
     }

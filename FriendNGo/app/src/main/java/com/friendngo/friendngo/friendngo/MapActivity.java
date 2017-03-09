@@ -500,7 +500,8 @@ public class MapActivity extends AppCompatActivity implements
                 //death crash
                 Log.w("GET ACTIVITIES FAIL2", "Error Code: " + error_code+ ", Text: "+text);
             }
-//death crash
+
+            //death crash
             @Override
             public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
                 if(json!=null){

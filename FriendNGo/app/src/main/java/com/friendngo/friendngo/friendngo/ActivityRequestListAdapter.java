@@ -66,16 +66,11 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
     @Override
     public View getView(final int position, View convertView, ViewGroup parent)
     {
-        // Get the data item for this position
         RequestModel dataModel = getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
         final ViewHolder viewHolder; // view lookup cache stored in tag
-
         final View result;
-
         if (convertView == null) {
-
-
+            
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.activity_request_list_row_item, parent, false);
