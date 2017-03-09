@@ -66,7 +66,7 @@ import java.util.concurrent.TimeUnit;
 import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import static android.location.LocationManager.GPS_PROVIDER;
-
+//death crash
 public class MapActivity extends AppCompatActivity implements
 
         NavigationView.OnNavigationItemSelectedListener,
@@ -107,7 +107,6 @@ public class MapActivity extends AppCompatActivity implements
     TextView dateTime;
     Button activityDetailsButton, participateButton;
 
-    File downloadedImage;
 
     //Data Model and Adapters
     public static List activitiesList = new ArrayList<UserActivity>();
@@ -115,7 +114,7 @@ public class MapActivity extends AppCompatActivity implements
 
     BottomNavigationView bottomNavigationView;
     private static boolean run_once = true;
-    private String profilePictureURL;
+
 
     //Fonts Script
     @Override
@@ -133,7 +132,7 @@ public class MapActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("FriendNGo");
 
-        Log.i(My_TAG,"onCreate invoked");
+        Log.i(My_TAG,"onCreate invoked Map");
         //nav drawer
         other_user_location = (TextView)findViewById(R.id.other_user_location);
         other_user_picture = (CircularImageView)findViewById(R.id.other_profile_image);
@@ -150,6 +149,7 @@ public class MapActivity extends AppCompatActivity implements
         activityDetailsButton.setEnabled(false);
         participateButton = (Button) findViewById(R.id.banner_participate);
         participateButton.setEnabled(false);
+        //death crash
         getActivity();
         bottomNavigationView.getMenu().getItem(0).setChecked(true);
         other_account.setOnClickListener(new View.OnClickListener() {
@@ -218,6 +218,7 @@ public class MapActivity extends AppCompatActivity implements
         if (SignIn.static_token != null) {
             client.addHeader("Authorization", "Token " + SignIn.static_token);
         }
+        //death crash
         //GET last known location
         client.get(MainActivity.base_host_url + "api/getLastLocation/", new JsonHttpResponseHandler() {
 
@@ -285,19 +286,7 @@ public class MapActivity extends AppCompatActivity implements
         if(SignIn.static_token != null) {
             client2.addHeader("Authorization","Token "+SignIn.static_token);
         }
-
-        //Pull up the Views from XML
-
-
-
-
-
-
-
-        //GET last known location
-
-
-        //Here is where we schedule the polling of our activities
+       //Here is where we schedule the polling of our activities
         ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
         scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
 
@@ -305,8 +294,10 @@ public class MapActivity extends AppCompatActivity implements
             public void run() {
                 //Now hop back onto main thread to do the actual work
                 runOnUiThread(new Runnable() {
+                    //death crash
                     @Override
                     public void run() {
+                        //death crash
                         update_activities();
                     }
                 });
@@ -319,11 +310,13 @@ public class MapActivity extends AppCompatActivity implements
         //GET the activities list
         AsyncHttpClient client = new AsyncHttpClient();
         if (SignIn.static_token != null) {
+            //death crash
             client.addHeader("Authorization", "Token " + SignIn.static_token);
         } else {
+            //death crash
             Log.w("TOKEN ERROR", "What happened to the token :(");
         }
-
+        //death crash
         client.get(MainActivity.base_host_url + "api/getActivities/", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -500,9 +493,10 @@ public class MapActivity extends AppCompatActivity implements
 
             @Override
             public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                //death crash
                 Log.w("GET ACTIVITIES FAIL2", "Error Code: " + error_code+ ", Text: "+text);
             }
-
+//death crash
             @Override
             public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
                 Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
@@ -614,7 +608,7 @@ public class MapActivity extends AppCompatActivity implements
     //Trigger the check for GPS even before we load the page
     @Override
     public void onStart() {
-        Log.w(My_TAG,"onStart");
+        Log.w(My_TAG,"onStart map");
 
         super.onStart();
 /*        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
@@ -835,11 +829,12 @@ public class MapActivity extends AppCompatActivity implements
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        Log.w("MAP PINS","Pin clicked!");
+      //  Log.w("MAP PINS","Pin clicked!");
         int i = (int) markerMap.get(marker.getTitle());
         if(i != -1) {
             alpha_layer.setVisibility(View.VISIBLE);
             markup_layout.setVisibility(View.VISIBLE);
+
 
             //Activate the buttons
             activityDetailsButton.setEnabled(true);
@@ -867,7 +862,7 @@ public class MapActivity extends AppCompatActivity implements
             });
 
             UserActivity act = (UserActivity) activitiesList.get(i);
-            Log.w("address",act.getAddress());
+            //Log.w("address",act.getAddress());
 
             //Connect the Views To their XML
             profilePicture = (ImageView) markup_layout.findViewById(R.id.banner_profilepicture);
@@ -900,7 +895,7 @@ public class MapActivity extends AppCompatActivity implements
             Log.w("CREATING BANNER",act.getCategory());
             switch(act.getCategory()){
                 case "Art & Culture":
-                    Log.w("CREATING BANNER","IN ART");
+                 //   Log.w("CREATING BANNER","IN ART");
                     category.setImageResource(R.drawable.art_exposition);
                     break;
                 case "Nightlife":
@@ -910,7 +905,7 @@ public class MapActivity extends AppCompatActivity implements
                     category.setImageResource(R.drawable.running);
                     break;
                 case "Professional & Networking":
-                    Log.w("CREATING BANNER","IN Networking");
+                  //  Log.w("CREATING BANNER","IN Networking");
                     category.setImageResource(R.drawable.coworking); //TODO: Update when properly spliced
                     break;
                 case "Fun & Crazy":
@@ -920,7 +915,7 @@ public class MapActivity extends AppCompatActivity implements
                     category.setImageResource(R.drawable.billard);
                     break;
                 case "Nature & Outdoors":
-                    Log.w("CREATING BANNER","IN OUTDOORS");
+                    //Log.w("CREATING BANNER","IN OUTDOORS");
                     category.setImageResource(R.drawable.backpack);
                     break;
                 case "Travel & Road-Trip":
@@ -933,7 +928,7 @@ public class MapActivity extends AppCompatActivity implements
                     category.setImageResource(R.drawable.handshake);
                     break;
                 default:
-                    Log.w("CREATING BANNER","IN DEFAULT");
+                    //Log.w("CREATING BANNER","IN DEFAULT");
                     category.setImageResource(R.drawable.art_exposition);
             }
 
@@ -969,11 +964,15 @@ public class MapActivity extends AppCompatActivity implements
     public void getActivity(){
         //get Activity name by category
         //clear category list
+        //death crash
         categoryList.clear();
         AsyncHttpClient client = new AsyncHttpClient();
+        //death crash
         if(SignIn.static_token != null) {
+            //death crash
             client.addHeader("Authorization","Token "+SignIn.static_token);
         }
+        //death crash
         //GET last known location
         client.get(MainActivity.base_host_url + "api/getCategories/", new JsonHttpResponseHandler() {
 
@@ -1027,27 +1026,27 @@ public class MapActivity extends AppCompatActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(My_TAG,"onResume invoked");
+        Log.i(My_TAG,"onResume invoked map");
     }
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i(My_TAG,"onPause invoked");
+        Log.i(My_TAG,"onPause invoked map");
     }
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i(My_TAG,"onStop invoked");
+        Log.i(My_TAG,"onStop invoked map");
     }
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.i(My_TAG,"onRestart invoked");
+        Log.i(My_TAG,"onRestart invoked map ");
     }
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(My_TAG,"onDestroy invoked");
+        Log.i(My_TAG,"onDestroy invoked map");
     }
 }
 
