@@ -58,6 +58,7 @@ public class ActivityMessage extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray chatJsonArray) {
+
                 Log.w("GET MESSAGES SUCCESS-2", statusCode + ": " + chatJsonArray.toString());
                 for (int i =0; i < chatJsonArray.length(); i++){
                     try {
@@ -71,7 +72,19 @@ public class ActivityMessage extends AppCompatActivity {
                                 chatJSONObject.getString("activity_id")
 
                         );
-                    chatList.add(chatModel);
+                     if(!chatList.isEmpty()){
+                         for(int zz =0;zz<chatList.size();zz++){
+                             if(chatList.get(zz).getactivityID().equals( chatJSONObject.getString("activity_id"))){
+                                 Log.i("No need to add","No need to add");
+                                 chatList.remove(zz);
+                                 chatList.add(chatModel);
+                             }else{
+                                 chatList.add(chatModel);
+                             }
+                         }
+                     }else {
+                        chatList.add(chatModel);
+                     }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
