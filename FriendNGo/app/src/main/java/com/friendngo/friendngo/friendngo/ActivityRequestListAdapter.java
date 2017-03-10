@@ -109,24 +109,7 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
         String pictureURL = dataModel.getProfileImage();
 
         final ImageView profilePic = (CircularImageView) convertView.findViewById(R.id.profilepicture);
-<<<<<<< HEAD
-
-        client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(mContext) {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, File response) {
-                Log.w("GET IMAGE SUCCESS2","Successfully Retrieved The Image");
-                Picasso.with(mContext).load(response).into(profilePic);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-                Log.w("GET IMAGE FAIL","Could not retrieve image");
-            }
-        });
-=======
         Picasso.with(mContext).load(MainActivity.base_host_url + pictureURL).into(profilePic);
->>>>>>> dev6
 
         viewHolder.notImageButton.setImageResource(R.drawable.not);
         viewHolder.yesImageButton.setImageResource(R.drawable.yes);
@@ -161,7 +144,7 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
                     client.addHeader("Authorization", "Token " + SignIn.static_token);
                 }
 
-                Log.w("REQUESTS DEBUG ID:", dataModel.getRequest_id() + "");
+                Log.w("REQUESTS DEBUG ID", dataModel.getRequest_id() + "");
                 RequestParams params = new RequestParams();
                 params.put("request_state","2");
                 params.put("id",dataModel.getRequest_id());

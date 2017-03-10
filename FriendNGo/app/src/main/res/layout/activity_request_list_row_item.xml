@@ -95,29 +95,26 @@
                 android:layout_toEndOf="@+id/request_resident"
                 android:id="@+id/reqiest_city_name" />
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                app:srcCompat="@drawable/france"
-                android:layout_alignParentBottom="true"
-                android:id="@+id/request_flag"
-                android:layout_marginBottom="5dp"
-                android:layout_toLeftOf="@+id/request_point"
-                android:layout_toEndOf="@+id/reqiest_city_name"
-                android:layout_toRightOf="@+id/reqiest_city_name"
-                />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/request_point"
-                android:text="10pts"
-                android:layout_marginLeft="10dp"
+                android:text="9pts"
                 android:background="@drawable/activity_list_point"
                 android:padding="4dp"
+                android:textColor="@android:color/white"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/request_years"
-                 />
+                android:layout_toLeftOf="@+id/request_delete_image"
+                android:layout_toStartOf="@+id/request_delete_image" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:srcCompat="@drawable/france"
+                android:id="@+id/request_flag"
+                android:layout_below="@+id/request_point"
+                android:layout_toLeftOf="@+id/request_delete_image"
+                android:layout_toStartOf="@+id/request_delete_image" />
 
         </RelativeLayout>
     </FrameLayout>
