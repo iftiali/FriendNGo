@@ -500,10 +500,13 @@ public class MapActivity extends AppCompatActivity implements
                 //death crash
                 Log.w("GET ACTIVITIES FAIL2", "Error Code: " + error_code+ ", Text: "+text);
             }
-//death crash
+
+            //death crash
             @Override
             public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
-                Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
+                if(json!=null){
+                    Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
+                }
             }
         });
     }
@@ -1055,5 +1058,3 @@ public class MapActivity extends AppCompatActivity implements
         Log.i(My_TAG,"onDestroy invoked map");
     }
 }
-
-

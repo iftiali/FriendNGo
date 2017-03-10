@@ -79,7 +79,8 @@ public class Request extends AppCompatActivity {
                                     activity.getInt("sender_age"),
                                     activity.getString("sender_home_city"),
                                     activity.getString("sender_home_nationality"),
-                                    activity.getString("sender_points")));
+                                    activity.getString("sender_points"),
+                                    activity.getLong("id")));
                         } catch (JSONException e) {
                             Log.w("GET REQUEST FAIL1: ", e.getMessage().toString());
                         }

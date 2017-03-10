@@ -30,6 +30,7 @@ public class SignIn extends AppCompatActivity {
     //private SharedPreferences sharedPref;
     public static String static_token;
     public static String static_username;
+    public static String static_profile_image_url;
 
     @Override
     protected void attachBaseContext(Context newBase) {

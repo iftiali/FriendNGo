@@ -14,6 +14,16 @@ public class RequestModel {
     int request_state;
     long sender_id;
 
+    public long getRequest_id() {
+        return request_id;
+    }
+
+    public void setRequest_id(long request_id) {
+        this.request_id = request_id;
+    }
+
+    long request_id;
+
     public long getSender_id() {
         return sender_id;
     }
@@ -22,7 +32,7 @@ public class RequestModel {
         this.sender_id = sender_id;
     }
 
-    public RequestModel(long sender_id, String profileImage, String name, int request_state, int year, String homeCity, String nationality, String points ) {
+    public RequestModel(long sender_id, String profileImage, String name, int request_state, int year, String homeCity, String nationality, String points, long request_id) {
         this.sender_id = sender_id;
         this.profileImage = profileImage;
         this.name=name;
@@ -31,6 +41,7 @@ public class RequestModel {
         this.nationality=nationality;
         this.points=points;
         this.request_state=request_state;
+        this.request_id = request_id;
     }
 
     public void setPoints(String points) {
