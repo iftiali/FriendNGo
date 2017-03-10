@@ -109,6 +109,7 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
         String pictureURL = dataModel.getProfileImage();
 
         final ImageView profilePic = (CircularImageView) convertView.findViewById(R.id.profilepicture);
+<<<<<<< HEAD
 
         client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(mContext) {
 
@@ -123,6 +124,9 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
                 Log.w("GET IMAGE FAIL","Could not retrieve image");
             }
         });
+=======
+        Picasso.with(mContext).load(MainActivity.base_host_url + pictureURL).into(profilePic);
+>>>>>>> dev6
 
         viewHolder.notImageButton.setImageResource(R.drawable.not);
         viewHolder.yesImageButton.setImageResource(R.drawable.yes);
