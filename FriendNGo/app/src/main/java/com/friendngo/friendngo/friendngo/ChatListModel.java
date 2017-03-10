@@ -5,14 +5,15 @@ package com.friendngo.friendngo.friendngo;
  */
 
 public class ChatListModel {
-    private String category,activityName,personName,personLastMessage,timeCreatedAgo;
+    private String category,activityName,personName,personLastMessage,timeCreatedAgo,activityID;
 
-    public ChatListModel(String category, String activityName, String personName,String personLastMessage,String timeCreatedAgo) {
+    public ChatListModel(String category, String activityName, String personName,String personLastMessage,String timeCreatedAgo,String activityID) {
         this.category = category;
         this.activityName = activityName;
         this.personName = personName;
         this.personLastMessage = personLastMessage;
         this.timeCreatedAgo = timeCreatedAgo;
+        this.activityID = activityID;
     }
     public String getCategory() {
         return category;
@@ -50,5 +51,12 @@ public class ChatListModel {
 
     public void settimeCreatedAgo(String timeCreatedAgo) {
         this.timeCreatedAgo = timeCreatedAgo;
+    }
+    public String getactivityID() {
+        return activityID;
+    }
+
+    public void setactivityID(String activityID) {
+        this.activityID= activityID;
     }
 }

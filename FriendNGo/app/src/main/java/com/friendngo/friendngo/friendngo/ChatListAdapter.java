@@ -1,13 +1,18 @@
 package com.friendngo.friendngo.friendngo;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -16,11 +21,12 @@ import java.util.List;
  * Created by krishna on 2017-03-09.
  */
 
-public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyViewHolder> {
+public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyViewHolder>  {
     private List<ChatListModel> ChatList;
-
-    public ChatListAdapter(List<ChatListModel> ChatList) {
+    Context mContext;
+    public ChatListAdapter(List<ChatListModel> ChatList,Context mContext) {
         this.ChatList= ChatList;
+        this.mContext=mContext;
     }
 
     @Override
@@ -33,7 +39,7 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        ChatListModel chatListView = ChatList.get(position);
+        final ChatListModel chatListView = ChatList.get(position);
         holder.paid_event_created_text.setText(chatListView.getActivityName());
 
         holder.messages_created_text_person_name.setText(chatListView.getPersonName()+":");
@@ -84,6 +90,16 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyView
             case "Help & Association":
                 holder.profilePicture.setImageResource(R.drawable.coworking);
         }
+        holder.relativeCLick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Activityid","acaca");
+                Intent intent = new Intent(mContext,ChatRoomActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("activityID",chatListView.getactivityID());
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 
@@ -95,8 +111,10 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyView
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView paid_event_created_text, messages_created_text_person_name, messages_created_text_message,messages_activity_time;
         ImageView profilePicture;
+        RelativeLayout relativeCLick;
         public MyViewHolder(View view) {
             super(view);
+            relativeCLick= (RelativeLayout)view.findViewById(R.id.relativeCLick);
             profilePicture = (ImageView)view.findViewById(R.id.paid_event_profile_picture);
             paid_event_created_text = (TextView) view.findViewById(R.id.paid_event_created_text);
             messages_created_text_person_name = (TextView) view.findViewById(R.id.messages_created_text_person_name);

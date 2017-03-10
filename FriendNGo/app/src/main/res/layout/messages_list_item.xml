@@ -9,7 +9,10 @@
     android:padding="5dp"
     android:background="@color/white">
 
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/relativeCLick">
     <ImageView
         android:id="@+id/paid_event_profile_picture"
         android:layout_width="40dp"
@@ -83,5 +86,5 @@
         android:layout_centerVertical="true"
         android:id="@+id/messages_next_button"
         android:layout_marginRight="4dp" />
-
+</RelativeLayout>
 </RelativeLayout>

@@ -33,10 +33,11 @@ public class ActivityMessage extends AppCompatActivity {
         setSupportActionBar(toolbar);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-        mAdapter = new ChatListAdapter(chatList);
+        mAdapter = new ChatListAdapter(chatList,getApplicationContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
         recyclerView.setAdapter(mAdapter);
 
 
@@ -66,7 +67,8 @@ public class ActivityMessage extends AppCompatActivity {
                                 chatJSONObject.getString("activity_name"),
                                 chatJSONObject.getString("sender_name"),
                                 chatJSONObject.getString("message"),
-                                chatJSONObject.getString("created_ago")
+                                chatJSONObject.getString("created_ago"),
+                                chatJSONObject.getString("activity_id")
 
                         );
                     chatList.add(chatModel);

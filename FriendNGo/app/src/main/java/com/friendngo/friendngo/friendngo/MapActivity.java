@@ -976,7 +976,7 @@ public class MapActivity extends AppCompatActivity implements
             //death crash
             client.addHeader("Authorization","Token "+SignIn.static_token);
         }else{
-            Log.i(My_TAG,"Null token map");
+            Log.i(My_TAG,"token null"+"Map");
         }
         //death crash
         //GET last known location

@@ -142,6 +142,10 @@
         <activity
             android:name=".ActivityMessage"
             android:label="@string/title_activity_message"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ChatRoomActivity"
+            android:label="@string/title_activity_chat_room"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
