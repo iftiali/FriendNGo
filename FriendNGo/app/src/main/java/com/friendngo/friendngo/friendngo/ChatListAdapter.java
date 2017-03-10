@@ -93,10 +93,10 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyView
         holder.relativeCLick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Activityid","acaca");
                 Intent intent = new Intent(mContext,ChatRoomActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("activityID",chatListView.getactivityID());
+                intent.putExtra("activityName",chatListView.getActivityName());
                 mContext.startActivity(intent);
             }
         });

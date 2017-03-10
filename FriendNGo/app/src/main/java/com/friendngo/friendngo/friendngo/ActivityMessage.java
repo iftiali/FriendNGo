@@ -21,7 +21,8 @@ import cz.msebera.android.httpclient.Header;
 
 
 public class ActivityMessage extends AppCompatActivity {
-
+    public static String user_Id=null;
+    public static String user_Name=null;
     private List<ChatListModel> chatList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ChatListAdapter mAdapter;
@@ -107,6 +108,49 @@ public class ActivityMessage extends AppCompatActivity {
             @Override
             public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
                 Log.w("GET MESSAGES FAIL", "Error Code: " + error_code + ",  " + json.toString());
+            }
+        });
+
+
+
+
+        client.get(MainActivity.base_host_url + "api/getSelfIdentity", new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                Log.w("GET identity SUCCESS", statusCode + ": " + "Response = " + response.toString());
+
+                try {
+                  user_Id = response.getString("id");
+                  user_Name = response.getString("first_name");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray chatJsonArray) {
+
+                Log.w("GET identity SUCCESS-2", statusCode + ": " + chatJsonArray.toString());
+
+
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+                Log.w("GET idetity  RETRY", "" + retryNo);
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                Log.w("GET identity FAIL", "Error Code: " + error_code + "," + text);
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
+                Log.w("GET identity FAIL", "Error Code: " + error_code + ",  " + json.toString());
             }
         });
 
