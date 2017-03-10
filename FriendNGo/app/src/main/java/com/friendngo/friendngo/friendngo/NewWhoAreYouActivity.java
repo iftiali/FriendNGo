@@ -84,6 +84,10 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
         nextBtn = (Button) findViewById(R.id.profile_continue_button);
         nationality="";
 
+        if(FacebookLogin.facebook_profile_pic != null) {
+            circularImageView.setImageURI(FacebookLogin.facebook_profile_pic);
+        }
+
         Locale[] locales = Locale.getAvailableLocales();
         final ArrayList<String> languageList = new ArrayList<String>();
         for (Locale locale : locales) {
@@ -186,29 +190,33 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     Log.w("JSON EXCEPTION", e.getMessage());
                 }
 
-                //GET The image file at the pictureURL
-                AsyncHttpClient client = new AsyncHttpClient();
-                try {
-                    pictureURL = response.getString("picture");
-                } catch (JSONException e) {
-                    Log.w("GET PROFILE JSON FAIL", e.getMessage().toString());
+
+                //GET Profile image from backend if not available from Facebook
+                if(FacebookLogin.facebook_profile_pic == null) {
+                    //GET The image file at the pictureURL
+                    AsyncHttpClient client = new AsyncHttpClient();
+                    try {
+                        pictureURL = response.getString("picture");
+                    } catch (JSONException e) {
+                        Log.w("GET PROFILE JSON FAIL", e.getMessage().toString());
+                    }
+                    client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, File response) {
+                            Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
+                            //Use the downloaded image as the profile picture
+                            Uri uri = Uri.fromFile(response);
+                            downloadedImage = response;
+                            circularImageView.setImageURI(uri);
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                            Log.w("GET IMAGE FAIL", "Could not retrieve image");
+                        }
+                    });
                 }
-                client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
-
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, File response) {
-                        Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
-                        //Use the downloaded image as the profile picture
-                        Uri uri = Uri.fromFile(response);
-                        downloadedImage = response;
-                        circularImageView.setImageURI(uri);
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-                        Log.w("GET IMAGE FAIL", "Could not retrieve image");
-                    }
-                });
             }
 
             @Override
