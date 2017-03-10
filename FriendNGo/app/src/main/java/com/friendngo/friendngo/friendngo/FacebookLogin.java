@@ -144,11 +144,15 @@ public class FacebookLogin extends AppCompatActivity {
                                             public void onCompleted(GraphResponse response) {
                                             /* handle the result */
                                                 if(response!=null){
+                                                    try{
+                                                        SignIn.static_profile_image_url = response.getJSONObject().getJSONObject("picture").getJSONObject("data").getString("url");
+                                                    } catch (JSONException e){
+                                                        Log.w("JSON PARSE ERROR", e.toString());
+                                                    }
                                                     Log.w("FACEBOOK GRAPH RESPONSE",response.toString());
                                                 } else {
                                                     Log.w("FACEBOOK GRAPH ERROR", "TRY AGAIN!!!");
                                                 }
-
                                             }
                                         }
                                 ).executeAsync();

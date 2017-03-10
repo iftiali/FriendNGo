@@ -1056,5 +1056,3 @@ public class MapActivity extends AppCompatActivity implements
         Log.i(My_TAG,"onDestroy invoked map");
     }
 }
-
-
