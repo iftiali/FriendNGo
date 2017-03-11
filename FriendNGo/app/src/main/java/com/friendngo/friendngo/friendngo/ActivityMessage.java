@@ -65,7 +65,7 @@ public class ActivityMessage extends AppCompatActivity {
                     try {
                         JSONObject chatJSONObject = chatJsonArray.getJSONObject(i);
                         ChatListModel chatModel = new ChatListModel(
-                               chatJSONObject.getString("category_name"),
+                                chatJSONObject.getString("category_name"),
                                 chatJSONObject.getString("activity_name"),
                                 chatJSONObject.getString("sender_name"),
                                 chatJSONObject.getString("message"),
