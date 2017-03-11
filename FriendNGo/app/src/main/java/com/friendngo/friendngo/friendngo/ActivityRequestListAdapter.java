@@ -2,8 +2,6 @@ package com.friendngo.friendngo.friendngo;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,29 +10,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
-/**
- * Created by krishna on 2017-02-07.
- */
 
 public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> implements View.OnClickListener{
-
     private ArrayList<RequestModel> dataSet;
     Context mContext;
 
@@ -60,14 +47,11 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
 
     @Override
     public void onClick(View v) {
-
         int position=(Integer) v.getTag();
         Object object= getItem(position);
         RequestModel dataModel=(RequestModel) object;
-
         switch (v.getId())
         {
-
         }
     }
 
@@ -76,11 +60,10 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
     @Override
     public View getView(final int position, View convertView, ViewGroup parent)
     {
-        final RequestModel dataModel = getItem(position);
+        RequestModel dataModel = getItem(position);
         final ViewHolder viewHolder; // view lookup cache stored in tag
         final View result;
         if (convertView == null) {
-            
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.activity_request_list_row_item, parent, false);
@@ -132,22 +115,23 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
             Log.w("DATABASE ERROR","Old records... like the beatles");
         }
 
+        final RequestModel buttonData = dataModel;
        viewHolder.notImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewHolder.notImageButton.setImageResource(R.drawable.delete_red);
                 viewHolder.yesImageButton.setImageResource(R.drawable.yes);
 
-                //TODO: Call backend to post request state
+                //TODO: Call backend to post request
                 AsyncHttpClient client = new AsyncHttpClient();
                 if (SignIn.static_token != null) {
                     client.addHeader("Authorization", "Token " + SignIn.static_token);
                 }
 
-                Log.w("REQUESTS DEBUG ID", dataModel.getRequest_id() + "");
+                Log.w("REQUESTS DEBUG ID", buttonData.getRequest_id() + "");
                 RequestParams params = new RequestParams();
                 params.put("request_state","2");
-                params.put("id",dataModel.getRequest_id());
+                params.put("request_id",buttonData.getRequest_id());
                 params.setUseJsonStreamer(true);
 
                     client.post(MainActivity.base_host_url + "api/updateActivityRequest/", params, new JsonHttpResponseHandler() {
@@ -193,9 +177,10 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
                     client.addHeader("Authorization", "Token " + SignIn.static_token);
                 }
 
+                Log.w("REQUESTS DEBUG ID", buttonData.getRequest_id() + "");
                 RequestParams params = new RequestParams();
                 params.put("request_state","1");
-                params.put("id",dataModel.getSender_id());
+                params.put("request_id",buttonData.getRequest_id());
                 params.setUseJsonStreamer(true);
 
                 client.post(MainActivity.base_host_url + "api/updateActivityRequest/", params, new JsonHttpResponseHandler() {
