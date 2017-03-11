@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -29,11 +32,19 @@ import com.facebook.HttpMethod;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URI;
 import java.util.Arrays;
 import cz.msebera.android.httpclient.Header;
 
@@ -45,6 +56,8 @@ public class FacebookLogin extends AppCompatActivity {
     private final int MY_PERMISSIONS_REQUEST_LOCATION = 2;
     private String TOKEN_PREFERENCE = "token_preference";
     int gspEnableFlag = 0;
+    public static Uri facebook_profile_pic;
+    public static String facebook_birthday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +146,6 @@ public class FacebookLogin extends AppCompatActivity {
                                 editor.putString("token", response.get("token").toString());
                                 editor.commit();
 
-//                                //TODO: User Facbook Profile to setup default profile
                                 Bundle params2 = new Bundle();
                                 params2.putString("fields","id,email,picture.type(large),birthday,hometown");
                                 new GraphRequest(
@@ -146,6 +158,80 @@ public class FacebookLogin extends AppCompatActivity {
                                                 if(response!=null){
                                                     try{
                                                         SignIn.static_profile_image_url = response.getJSONObject().getJSONObject("picture").getJSONObject("data").getString("url");
+
+                                                        AsyncHttpClient client = new AsyncHttpClient();
+                                                        client.get(SignIn.static_profile_image_url, new FileAsyncHttpResponseHandler(getApplicationContext()) {
+
+                                                            @Override
+                                                            public void onSuccess(int statusCode, Header[] headers, File response) {
+                                                                Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
+                                                                //Use the downloaded image as the profile picture
+                                                                facebook_profile_pic = Uri.fromFile(response);
+//                                                                try {
+//                                                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(FacebookLogin.this.getContentResolver(), facebook_profile_pic);
+
+                                                                    //POST the download picture to django!
+                                                                    AsyncHttpClient client = new AsyncHttpClient();
+                                                                    if (SignIn.static_token != null) {
+                                                                        client.addHeader("Authorization", "Token " + SignIn.static_token);
+                                                                    }
+
+                                                                    File file = new File(facebook_profile_pic.getPath());
+                                                                    //Log.w("PICTURE PATH",myFile.toString());
+                                                                    RequestParams paramsProfilePicture = new RequestParams();
+                                                                    // paramsProfilePicture.(true);
+                                                                    try {
+                                                                        paramsProfilePicture.put("picture", file);
+
+                                                                    } catch (FileNotFoundException e) {
+                                                                    }
+                                                                    client.post(MainActivity.base_host_url + "api/uploadProfilePicture/", paramsProfilePicture, new JsonHttpResponseHandler() {
+                                                                        // client.post("http://requestb.in/zzmhq6zz", params, new JsonHttpResponseHandler() {
+
+                                                                        @Override
+                                                                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                                                            Log.w("POST PROFILE PICTURE", statusCode + ": " + "Response = " + response.toString());
+                                                                        }
+
+                                                                        @Override
+                                                                        public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                                                                            Log.w("POST PROFILE PICTURE2", statusCode + ": " + timeline.toString());
+                                                                            //  NewWhoAreYouActivity.this.finish();
+                                                                        }
+
+                                                                        @Override
+                                                                        public void onRetry(int retryNo) {
+                                                                            // called when request is retried
+                                                                            Log.w("POST PROFILE PICTURE", "" + retryNo);
+                                                                        }
+
+                                                                        @Override
+                                                                        public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                                                                            Log.w("POST PROFILE PICTURE", "Error Code: " + error_code + "," + text);
+                                                                        }
+
+                                                                        @Override
+                                                                        public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
+                                                                            Log.w("MY PROFILE PICTURE", "Error Code: " + error_code + ",  " + json.toString());
+                                                                        }
+                                                                    });
+
+
+
+//                                                                } catch (){ //Catch for bitmap parsing
+//                                                                    Log.w("IOEXCEPTION", e.toString());
+//                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                                                                Log.w("GET IMAGE FAIL", "Could not retrieve image");
+                                                            }
+                                                        });
+
+                                                        //TODO: Post the url or the image to django somewhere...
+
+
                                                     } catch (JSONException e){
                                                         Log.w("JSON PARSE ERROR", e.toString());
                                                     }

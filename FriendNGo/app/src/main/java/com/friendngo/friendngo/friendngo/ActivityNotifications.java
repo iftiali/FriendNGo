@@ -114,7 +114,11 @@ public class ActivityNotifications extends AppCompatActivity {
                                 activity.getString("sender_home_city"),
                                 activity.getString("sender_home_nationality"),
                                 activity.getString("sender_points"),
+<<<<<<< HEAD
                                 activity.getLong("pk")));
+=======
+                                activity.getInt("id")));
+>>>>>>> scott
                     } catch (JSONException e) {
                         Log.w("GET REQUEST FAIL1: ", e.getMessage().toString());
                     }
