@@ -384,6 +384,7 @@ public class MapActivity extends AppCompatActivity implements
                         double lon2 = longitude;//EndP.longitude;
                         double dLat = Math.toRadians(lat2 - lat1);
                         double dLon = Math.toRadians(lon2 - lon1);
+                        boolean isPaid = activity.getBoolean("is_paid");
                         double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
                                 + Math.cos(Math.toRadians(lat1))
                                 * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
@@ -429,6 +430,7 @@ public class MapActivity extends AppCompatActivity implements
                                 activity_pk,
                                 activityTime, //TODO: Put the end time instead of a copy of the start time
                                 pictureURL,
+                                isPaid,
                                 attendingList);
 
                         activitiesList.add(userActivity);
