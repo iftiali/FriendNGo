@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
+import com.mikhaellopez.circularimageview.CircularImageView;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import cz.msebera.android.httpclient.Header;
@@ -29,14 +33,15 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
     Context mContext;
 
     //Maps each list row item to one Activity
-    public ActivityListAdapter(Context context){
+    public ActivityListAdapter(Context context) {
         super(context, R.layout.activity_list_row_item, activitiesList);
         this.mContext = context;
     }
 
     //This is the data structure that will be recycled
     private static class ViewHolder {
-        ImageView profilePicture;
+        TextView paid_event_created_text,paid_event_activity_time,paid_event_distance;
+
         TextView name;
         TextView creator;
         TextView status;
@@ -44,39 +49,39 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         ImageView nationality;
         TextView points;
         ImageView category;
-        ImageView clock;
+        ImageView clock,paid_event_clock,paid_event_pin_image,paid_event_activity_type;
         TextView dateTime;
         ImageView pin;
         TextView distance;
         RelativeLayout info;
         Button addActivityButton;
+        RelativeLayout freeEvent,paidEventRelativeLayout;
     }
 
     //Process a click on a row item
     @Override
     public void onClick(View v) {
-        Log.w("ADAPTER","List Item Clicked... adapter onClick(View v) was called");
+        Log.w("ADAPTER", "List Item Clicked... adapter onClick(View v) was called");
         int position = (Integer) v.getTag(R.string.POSITION_KEY);
         Object object = getItem(position);
-        UserActivity userActivity = (UserActivity)object;
-        Log.w("ADAPTER","Item = " + userActivity.getName());
+        UserActivity userActivity = (UserActivity) object;
+        Log.w("ADAPTER", "Item = " + userActivity.getName());
         MapActivity.centerOnActivity(userActivity.getName());
     }
 
     //Creates the View instance for the row from xml OR recycles it if already available
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent)
-    {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         UserActivity userActivity = getItem(position);
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
         final View result;
-        if(convertView == null) {
+        if (convertView == null) {
 
             //View needs to be inflated from xml
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.activity_list_row_item, null, true); //Seems equivalent to inflate(R... , parent, false)
-            viewHolder.profilePicture = (ImageView) convertView.findViewById(R.id.profilepicture);
+            viewHolder.freeEvent = (RelativeLayout) convertView.findViewById(R.id.freeEventRelativeLayout);
             viewHolder.creator = (TextView) convertView.findViewById(R.id.created_text);
             viewHolder.status = (TextView) convertView.findViewById(R.id.status_text);
             viewHolder.homeCity = (TextView) convertView.findViewById(R.id.home_city_text);
@@ -91,36 +96,113 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder.info = (RelativeLayout) convertView.findViewById(R.id.row_item);
             viewHolder.addActivityButton = (Button) convertView.findViewById(R.id.add_activity_button);
 
-            convertView.setTag(R.string.VIEW_HOLDER_KEY,viewHolder); //This associates the viewHolder to the convertView
+            //paind event
+
+            viewHolder.paidEventRelativeLayout = (RelativeLayout)convertView.findViewById(R.id.paidEventRelativeLayout);
+            viewHolder.paid_event_created_text = (TextView)convertView.findViewById(R.id.paid_event_created_text);
+            viewHolder.paid_event_clock = (ImageView)convertView.findViewById(R.id.paid_event_clock);
+            viewHolder.paid_event_pin_image = (ImageView)convertView.findViewById(R.id.paid_event_pin_image);
+            viewHolder.paid_event_activity_time = (TextView)convertView.findViewById(R.id.paid_event_activity_time);
+            viewHolder.paid_event_distance = (TextView)convertView.findViewById(R.id.paid_event_distance);
+            viewHolder.paid_event_activity_type = (ImageView)convertView.findViewById(R.id.paid_event_activity_type);
+            convertView.setTag(R.string.VIEW_HOLDER_KEY, viewHolder); //This associates the viewHolder to the convertView
         } else {
             //Recycle old view -> More Efficient
             viewHolder = (ViewHolder) convertView.getTag(R.string.VIEW_HOLDER_KEY);
         }
+        if(userActivity.getisPaid()){
+            Log.w("Hello","Event is Paid");
+            viewHolder.freeEvent.setVisibility(View.GONE);
+            viewHolder.paidEventRelativeLayout.setVisibility(View.VISIBLE);
+            //GET The image file at the pictureURL
+            AsyncHttpClient client = new AsyncHttpClient();
 
-        //Here is where we map our model data to our View instance
-        viewHolder.name.setText(userActivity.getName());
-        viewHolder.name.setTextColor(Color.GRAY);
-        viewHolder.creator.setText("Created by "+userActivity.getCreator());
-        viewHolder.creator.setTextColor(Color.GRAY);
+            String pictureURL = ((UserActivity) activitiesList.get(position)).getProfilePicURL();
+            Log.w("Hello",pictureURL);
+            final ImageView profilePic = (ImageView) convertView.findViewById(R.id.paid_event_profile_picture);
+
+            client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(mContext) {
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, File response) {
+                    Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
+                    //Use the downloaded image as the profile picture
+                    Uri uri = Uri.fromFile(response);
+                    profilePic.setImageURI(uri);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                    Log.w("GET IMAGE FAIL", "Could not retrieve image");
+                }
+            });
+            viewHolder.paid_event_created_text.setText(userActivity.getName());
+            viewHolder.paid_event_created_text.setTextColor(Color.GRAY);
+            viewHolder.paid_event_clock.setImageResource(R.drawable.clock);
+            viewHolder.paid_event_pin_image .setImageResource(R.drawable.icon_mapa);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd, HH:mma");
+            viewHolder.paid_event_activity_time.setText(dateFormat.format(userActivity.getActivityTime()));
+            viewHolder.paid_event_activity_time.setTextColor(Color.GRAY);
+            viewHolder.paid_event_distance.setText(userActivity.getAddress().toString());
+            viewHolder.paid_event_distance.setTextColor(Color.GRAY);
+            switch (userActivity.getCategory()) {
+                case "Art & Culture":
+                    viewHolder.paid_event_activity_type.setImageResource(R.drawable.art_exposition);
+                    break;
+                case "Nightlife":
+                    viewHolder.paid_event_activity_type.setImageResource(R.drawable.music);
+                    break;
+                case "Sports":
+                    viewHolder.paid_event_activity_type.setImageResource(R.drawable.running);
+                    break;
+                case "Professional & Networking":
+                    viewHolder.paid_event_activity_type.setImageResource(R.drawable.coworking);
+                    break;
+                case "Fun & Crazy":
+                    viewHolder.paid_event_activity_type.setImageResource(R.drawable.naked_run);
+                    break;
+                case "Games":
+                    viewHolder.paid_event_activity_type.setImageResource(R.drawable.billard);
+                    break;
+                case "Travel & Road-Trip":
+                    viewHolder.paid_event_activity_type.setImageResource(R.drawable.backpack);
+                    break;
+                case "Nature & Outdoors":
+                    viewHolder.paid_event_activity_type.setImageResource(R.drawable.camping);
+                    break;
+                case "Social Activities":
+                    viewHolder.paid_event_activity_type.setImageResource(R.drawable.grab_drink);
+                    break;
+                case "Help & Association":
+                    viewHolder.paid_event_activity_type.setImageResource(R.drawable.coworking);
+            }
+        }else {
+            viewHolder.freeEvent.setVisibility(View.VISIBLE);
+            viewHolder.paidEventRelativeLayout.setVisibility(View.GONE);
+            //Here is where we map our model data to our View instance
+            viewHolder.name.setText(userActivity.getName());
+            viewHolder.name.setTextColor(Color.GRAY);
+            viewHolder.creator.setText("Created by " + userActivity.getCreator());
+            viewHolder.creator.setTextColor(Color.GRAY);
 //        viewHolder.profilePicture.setImageResource(R.drawable.scott);
-        viewHolder.status.setText("Resident" + ", ");
-        viewHolder.status.setTextColor(Color.GRAY);
-        viewHolder.homeCity.setText(userActivity.getHomeCity());
-        viewHolder.homeCity.setTextColor(Color.GRAY);
-        viewHolder.nationality.setImageResource(R.drawable.canada); //TODO: Get flag from nationalities
-        viewHolder.points.setText(userActivity.getPoints()+"pts");
+            viewHolder.status.setText("Resident" + ", ");
+            viewHolder.status.setTextColor(Color.GRAY);
+            viewHolder.homeCity.setText(userActivity.getHomeCity());
+            viewHolder.homeCity.setTextColor(Color.GRAY);
+            viewHolder.nationality.setImageResource(R.drawable.canada); //TODO: Get flag from nationalities
+            viewHolder.points.setText(userActivity.getPoints() + "pts");
 
         //GET The image file at the pictureURL
         AsyncHttpClient client = new AsyncHttpClient();
 
-        String pictureURL = ((UserActivity)activitiesList.get(position)).getProfilePicURL();
+        String pictureURL = ((UserActivity) activitiesList.get(position)).getProfilePicURL();
         final ImageView profilePic = (ImageView) convertView.findViewById(R.id.profilepicture);
 
         client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(mContext) {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, File response) {
-                Log.w("GET IMAGE SUCCESS","Successfully Retrieved The Image");
+                Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
                 //Use the downloaded image as the profile picture
                 Uri uri = Uri.fromFile(response);
                 profilePic.setImageURI(uri);
@@ -128,11 +210,11 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-                Log.w("GET IMAGE FAIL","Could not retrieve image");
+                Log.w("GET IMAGE FAIL", "Could not retrieve image");
             }
         });
 
-        switch(userActivity.getCategory()){
+        switch (userActivity.getCategory()) {
             case "Art & Culture":
                 viewHolder.category.setImageResource(R.drawable.art_exposition);
                 break;
@@ -169,12 +251,12 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         viewHolder.dateTime.setText(dateFormat.format(userActivity.getActivityTime()));
         viewHolder.dateTime.setTextColor(Color.GRAY);
         viewHolder.pin.setImageResource(R.drawable.pin);
-        viewHolder.distance.setText( userActivity.getDistance()+" km away");
+        viewHolder.distance.setText(userActivity.getDistance() + " km away");
         viewHolder.distance.setTextColor(Color.GRAY);
         viewHolder.info.setOnClickListener(this);
         viewHolder.info.setTag(R.string.POSITION_KEY, position);
 
-        if(viewHolder.addActivityButton != null) {
+        if (viewHolder.addActivityButton != null) {
             viewHolder.addActivityButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -185,8 +267,12 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
                 }
             });
         }
+        }
         return convertView;
     }
+
+
+
 }
 
 

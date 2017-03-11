@@ -10,9 +10,13 @@
     android:layout_marginRight="5dp"
     android:layout_marginBottom="5dp"
     android:padding="5dp"
-
     android:background="@drawable/activity_list_rounded_edges">
 
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    android:id="@+id/freeEventRelativeLayout">
 
     <com.mikhaellopez.circularimageview.CircularImageView
         android:layout_width="40dp"
@@ -189,6 +193,147 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="7dp"
         android:textColor="@android:color/white" />
+</RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:visibility="visible"
+        android:id="@+id/paidEventRelativeLayout"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+        <LinearLayout
 
+            android:id="@+id/paid_event_linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <TableRow
+             android:layout_width="match_parent"
+            android:weightSum="1"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/separation_bar_two"
+                android:layout_width="10dp"
+                android:layout_weight=".10"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="0.90"
+                android:padding="4dp">
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/paid_event_profile_picture"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/empty_profile"
+                    app:civ_border_color="#EEEEEE"
+                    app:civ_border_width="2dp"
+                    app:civ_shadow="true"
+                    app:civ_shadow_radius="0.5"
+                    app:civ_shadow_color="@color/greyish"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginLeft="4dp"/>
+
+                <TextView
+                    android:id="@+id/paid_event_created_text"
+                    android:text="Open Bar Blitz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/paid_event_profile_picture"
+                    android:layout_toEndOf="@+id/paid_event_profile_picture"
+                    android:paddingLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/paid_event_clock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/clock"
+                    android:layout_below="@+id/paid_event_status_text" />
+
+                <TextView
+                    android:id="@+id/paid_event_activity_time"
+                    android:text="Fri 20, 10:15pm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/paid_event_status_text"
+                    android:textSize="10sp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginRight="8dp"/>
+
+                <ImageView
+                    android:id="@+id/paid_event_pin_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/icon_mapa"
+                    android:layout_below="@+id/paid_event_status_text"
+                    android:layout_toRightOf="@+id/paid_event_activity_time"
+                    android:layout_marginLeft="4dp" />
+
+                <Button
+                    android:id="@+id/add_activity_button_paid"
+                    android:layout_below="@+id/paid_event_activity_type"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:textColor="@android:color/white"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/checked"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp" />
+
+                <ImageView
+                    app:srcCompat="@drawable/checkmark"
+                    android:id="@+id/paid_event_certified"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_alignTop="@+id/paid_event_status_text"
+                    android:layout_toRightOf="@+id/paid_event_status_text"
+                    android:layout_marginLeft="7dp"/>
+
+                <ImageView
+                    app:srcCompat="@drawable/music"
+                    android:id="@+id/paid_event_activity_type"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignTop="@+id/paid_event_created_text"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="7dp"/>
+
+                <TextView
+                    android:text="Event certified by FriendNGo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/paid_event_status_text"
+                    android:paddingLeft="10dp"
+                    android:textSize="13sp"
+                    android:layout_toRightOf="@+id/paid_event_profile_picture"
+                    android:layout_toEndOf="@+id/paid_event_profile_picture"
+                    android:layout_below="@+id/paid_event_created_text" />
+
+                <TextView
+                    android:id="@+id/paid_event_distance"
+                    android:text="1122 Rue Sainte Catherine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:layout_alignBottom="@+id/paid_event_pin_image"
+                    android:layout_toRightOf="@+id/paid_event_pin_image"
+                    android:layout_toEndOf="@+id/paid_event_pin_image" />
+
+            </RelativeLayout>
+        </TableRow>
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

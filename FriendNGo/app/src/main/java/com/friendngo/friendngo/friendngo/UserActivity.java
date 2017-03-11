@@ -33,6 +33,7 @@ public class UserActivity {
     private long creator_PK;
     private Date endTime;
     private String profilePicURL;
+    private Boolean isPaid;
     List attendingList = new ArrayList<JSONObject>();
 
     public  UserActivity(){
@@ -57,6 +58,7 @@ public class UserActivity {
                         long activity_pk,
                         Date endTime,
                         String profilePicURL,
+                        Boolean isPaid,
                         List attendingList) {
         this.homeCity = home_city;
         this.homeNationality = home_nationality;
@@ -79,6 +81,7 @@ public class UserActivity {
         this.activity_pk = activity_pk;
         this.endTime = endTime;
         this.profilePicURL = profilePicURL;
+        this.isPaid = isPaid;
         this.attendingList = attendingList;
     }
 
@@ -272,4 +275,10 @@ public class UserActivity {
     public void setcLongitude(double clongitude) {
         this.clongitude = clongitude;
     }
+    public boolean getisPaid() {
+        return isPaid;
+    }
+
+    public void setisPaid(boolean isPaid) {
+        this.isPaid = isPaid; }
 }
