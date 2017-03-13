@@ -288,7 +288,7 @@
                     android:textColor="@android:color/white"
                     android:layout_marginRight="8dp"
                     android:layout_marginTop="6dp"
-                    android:background="@drawable/checked"
+                    android:background="@drawable/add_oval"
                     android:layout_width="42dp"
                     android:layout_height="42dp" />
 
@@ -302,7 +302,7 @@
                     android:layout_marginLeft="7dp"/>
 
                 <ImageView
-                    app:srcCompat="@drawable/music"
+                    app:srcCompat="@drawable/concert"
                     android:id="@+id/paid_event_activity_type"
                     android:layout_width="48dp"
                     android:layout_height="48dp"

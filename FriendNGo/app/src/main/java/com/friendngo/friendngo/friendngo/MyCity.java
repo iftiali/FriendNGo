@@ -63,13 +63,13 @@ public class MyCity extends AppCompatActivity {
                     client.post(MainActivity.base_host_url + "api/postHomeCity/", params, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            Log.w("POST PROFILE CITY SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                            Log.w("POST PROFILE CITY", statusCode + ": " + "Response = " + response.toString());
                             MapActivity.other_user_location.setText("Resident "+currentCityArray[0]);
                         }
 
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                            Log.w("POST PROFILE CITY SUCCESS2", statusCode + ": " + timeline.toString());
+                            Log.w("POST PROFILE CITY", statusCode + ": " + timeline.toString());
                             // NewWhoAreYouActivity.this.finish();
                         }
 

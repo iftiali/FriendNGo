@@ -56,8 +56,8 @@ public class ChatRoomActivity extends AppCompatActivity {
         chat_room_Canecl = (TextView)findViewById(R.id.my_activity_text_view_cancel);
          activityID = getIntent().getExtras().getString("activityID");
          activityName= getIntent().getExtras().getString("activityName");
-         receiverId = ActivityMessage.user_Id;
-         receiverName = ActivityMessage.user_Name;
+         receiverId = MapActivity.selfIdentify;
+         receiverName = MapActivity.selfName;
         Log.w("activityID",activityID +":"+activityName+":"+receiverId+":"+receiverName);
         chat_room_Activity_name.setText(activityName);
         chat_room_Canecl.setOnClickListener(new View.OnClickListener() {
