@@ -8,8 +8,7 @@
     android:paddingTop="24dp"
     android:background="@color/whiteish"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.friendngo.friendngo.friendngo.WhoAreYou"
-    tools:showIn="@layout/activity_who_are_you">
+    tools:context="com.friendngo.friendngo.friendngo.WhoAreYou">
 
     <EditText
         android:layout_width="match_parent"
@@ -19,7 +18,6 @@
         android:hint="Username"
         android:gravity="center_vertical"
         android:paddingLeft="15dp"
-        android:layout_paddingTop="16dp"
         android:layout_marginTop="14dp"
         android:layout_below="@+id/messages_profile_picture"
         android:layout_alignParentLeft="true"
@@ -162,7 +160,4 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/imageView2" />
-
-
-
 </RelativeLayout>

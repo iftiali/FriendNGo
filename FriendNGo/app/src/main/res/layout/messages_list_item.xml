@@ -9,7 +9,6 @@
     android:padding="5dp"
     android:background="@color/white">
 
-<<<<<<< HEAD
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,19 +19,6 @@
         android:layout_height="40dp"
         android:src="@drawable/empty_profile"
         android:background="@android:color/transparent"
-=======
-
-    <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/messages_profile_picture"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/empty_profile"
-        app:civ_border_color="#EEEEEE"
-        app:civ_border_width="2dp"
-        app:civ_shadow="true"
-        app:civ_shadow_radius="0.5"
-        app:civ_shadow_color="@color/greyish"
->>>>>>> origin/yulia2
         android:layout_margin="8dp"/>
 
     <TextView
@@ -40,13 +26,8 @@
         android:text="Octoberfest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
         android:layout_toRightOf="@+id/paid_event_profile_picture"
         android:layout_toEndOf="@+id/paid_event_profile_picture"
-=======
-        android:layout_toRightOf="@+id/messages_profile_picture"
-        android:layout_toEndOf="@+id/messages_profile_picture"
->>>>>>> origin/yulia2
         android:paddingLeft="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
@@ -66,32 +47,18 @@
         android:id="@+id/messages_activity_time"
         android:text="10 min"
         android:layout_alignRight="@+id/messages_next_button"
-<<<<<<< HEAD
-
-=======
-        android:layout_alignAbove="@+id/messages_next_button"
->>>>>>> origin/yulia2
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="8sp"
         android:layout_marginTop="8dp"/>
 
     <TextView
-<<<<<<< HEAD
         android:id="@+id/messages_created_text_person_name"
         android:text="cvizcarra92:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/paid_event_profile_picture"
         android:layout_toEndOf="@+id/paid_event_profile_picture"
-=======
-        android:id="@+id/messages_created_text_two"
-        android:text="cvizcarra92:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/messages_profile_picture"
-        android:layout_toEndOf="@+id/messages_profile_picture"
->>>>>>> origin/yulia2
         android:layout_below="@id/paid_event_created_text"
         android:paddingLeft="10dp"
         android:layout_marginBottom="5dp"
@@ -99,19 +66,11 @@
         android:textStyle="bold"/>
 
     <TextView
-<<<<<<< HEAD
         android:id="@+id/messages_created_text_message"
         android:text="Hi, how are you? what is ..."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/messages_created_text_person_name"
-=======
-        android:id="@+id/messages_created_text_three"
-        android:text="Hi, how are you? what is ..."
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/messages_created_text_two"
->>>>>>> origin/yulia2
         android:layout_below="@id/paid_event_created_text"
         android:paddingLeft="4dp"
         android:layout_marginBottom="5dp"
@@ -126,9 +85,5 @@
         android:layout_centerVertical="true"
         android:id="@+id/messages_next_button"
         android:layout_marginRight="4dp" />
-<<<<<<< HEAD
 </RelativeLayout>
-=======
-
->>>>>>> origin/yulia2
 </RelativeLayout>
