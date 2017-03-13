@@ -83,10 +83,10 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.activity_list_row_item, null, true); //Seems equivalent to inflate(R... , parent, false)
             viewHolder.freeEvent = (RelativeLayout) convertView.findViewById(R.id.freeEventRelativeLayout);
-//            viewHolder.creator = (TextView) convertView.findViewById(R.id.created_text);
+            viewHolder.creator = (TextView) convertView.findViewById(R.id.created_text);
             viewHolder.status = (TextView) convertView.findViewById(R.id.participants_status_text);
-//            viewHolder.homeCity = (TextView) convertView.findViewById(R.id.home_city_text);
-//            viewHolder.nationality = (ImageView) convertView.findViewById(R.id.country_flag);
+            viewHolder.homeCity = (TextView) convertView.findViewById(R.id.home_city_text);
+            viewHolder.nationality = (ImageView) convertView.findViewById(R.id.country_flag);
             viewHolder.points = (TextView) convertView.findViewById(R.id.points);
             viewHolder.category = (ImageView) convertView.findViewById(R.id.activity_type);
             viewHolder.name = (TextView) convertView.findViewById(R.id.activity_name);
