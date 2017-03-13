@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/row__paid_event_item"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/activity_list_rounded_edges">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_weight="50"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:id="@+id/separation_bar_two"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="4dp">
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/empty_profile"
+                android:id="@+id/messages_profile_picture"
+                app:civ_border_color="#EEEEEE"
+                app:civ_border_width="2dp"
+                app:civ_shadow="true"
+                app:civ_shadow_radius="0.5"
+                app:civ_shadow_color="@color/greyish"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="4dp"
+                />
+
+            <TextView
+                android:text="Open Bar Blitz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/messages_profile_picture"
+                android:layout_toEndOf="@+id/messages_profile_picture"
+                android:id="@+id/paid_event_created_text"
+                android:paddingLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/paid_event_clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/clock"
+                android:layout_below="@+id/paid_event_status_text" />
+
+            <TextView
+                android:text="Fri 20, 10:15pm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/paid_event_activity_time"
+                android:layout_below="@+id/paid_event_status_text"
+                android:textSize="10sp"
+                android:layout_toRightOf="@+id/messages_clock_image"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginRight="8dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/icon_mapa"
+                android:layout_below="@+id/paid_event_status_text"
+                android:layout_alignTop="@+id/messages_clock_image"
+                android:layout_toRightOf="@+id/paid_event_activity_time"
+                android:id="@+id/pin_image"
+                android:layout_marginLeft="4dp" />
+
+            <TextView
+                android:text="1122 Rue Sainte Catherine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/pin_image"
+                android:layout_toRightOf="@+id/pin_image"
+                android:layout_toEndOf="@+id/pin_image"
+                android:id="@+id/distance"
+                android:textSize="10sp"
+                android:layout_marginTop="4dp" />
+
+            <Button
+                android:text="+"
+                android:id="@+id/add_activity_button"
+                android:layout_below="@+id/paid_event_activity_type"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:textColor="@android:color/white"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/add_oval"
+                android:layout_width="32dp"
+                android:layout_height="32dp" />
+
+            <TextView
+                android:text="Event certified by FriendNGo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/paid_event_status_text"
+                android:layout_below="@+id/paid_event_created_text"
+                android:paddingLeft="10dp"
+                android:textSize="13sp"
+                android:layout_marginBottom="18dp"
+                android:layout_toRightOf="@+id/messages_profile_picture"
+                android:layout_toEndOf="@+id/messages_profile_picture" />
+
+            <ImageView
+                app:srcCompat="@drawable/checkmark"
+                android:id="@+id/paid_event_certified"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignTop="@+id/paid_event_status_text"
+                android:layout_toRightOf="@+id/paid_event_status_text"
+                android:layout_marginLeft="7dp"/>
+
+            <ImageView
+                app:srcCompat="@drawable/music"
+                android:id="@+id/paid_event_activity_type"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignTop="@+id/paid_event_created_text"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="7dp"/>
+
+        </RelativeLayout>
+
+    </>
+
+
+
+</RelativeLayout>

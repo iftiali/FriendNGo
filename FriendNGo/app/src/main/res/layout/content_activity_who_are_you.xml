@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_activity_who_are_you"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="24dp"
+    android:background="@color/whiteish"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.friendngo.friendngo.friendngo.WhoAreYou"
+    tools:showIn="@layout/activity_who_are_you">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/name_input_editView"
+        android:background="@android:color/white"
+        android:hint="Username"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:layout_paddingTop="16dp"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/messages_profile_picture"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:hint="Age"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/age_editText"
+        android:inputType="number"
+        android:ems="10"
+        android:layout_below="@+id/language_spninner"
+        android:layout_alignLeft="@+id/language_spninner"
+        android:layout_alignStart="@+id/language_spninner"
+        android:gravity="center_vertical"
+        android:layout_marginTop="3dp"
+        android:padding="10dp"
+        android:background="@android:color/white" />
+
+    <TextView
+        android:text="Bio"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/bio_editText"
+        android:layout_below="@+id/age_editText"
+        android:gravity="center_vertical"
+        android:layout_marginTop="3dp"
+        android:padding="10dp"
+        android:background="@android:color/white" />
+
+    <TextView
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tincidunt, ligula eget convallis mattis, mi eros tincidunt erat, sit amet porttitor ante metus sit amet arcu. "
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bio_editText_two"
+        android:layout_below="@+id/bio_editText"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="16dp"
+        android:background="@android:color/white" />
+
+    <Spinner
+        android:hint="Citizenship"
+        android:layout_height="45dp"
+        android:layout_width="match_parent"
+        android:id="@+id/citizen_spinner"
+        android:layout_below="@+id/name_input_editView"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical"
+        android:paddingTop="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:background="@android:color/white" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        app:srcCompat="@drawable/crayon"
+        android:layout_alignTop="@+id/age_editText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/imageView4" />
+
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/next"
+        android:layout_alignTop="@+id/citizen_spinner"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/imageView6" />
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/empty_profile"
+        android:id="@+id/messages_profile_picture"
+        app:civ_border_color="#EEEEEE"
+        app:civ_border_width="4dp"
+        app:civ_shadow="true"
+        app:civ_shadow_radius="2"
+        app:civ_shadow_color="@color/greyish"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:text="Next"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/profile_continue_button"
+        android:background="@drawable/submit_button"
+        android:textColor="@android:color/white"
+        android:layout_margin="15dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        app:srcCompat="@drawable/crayon"
+        android:id="@+id/imageView7"
+        android:layout_alignTop="@+id/name_input_editView"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <io.apptik.widget.multiselectspinner.MultiSelectSpinner
+        android:hint="Spoken Languages"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/language_spninner"
+        android:background="@color/white"
+        android:layout_below="@+id/citizen_spinner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/next"
+        android:layout_alignTop="@+id/citizen_spinner"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/imageView" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        app:srcCompat="@drawable/next"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/citizen_spinner"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/imageView2" />
+
+
+
+</RelativeLayout>

@@ -5,11 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-<<<<<<< HEAD
-    tools:context=".ActivityNotifications">
-=======
-    tools:context="com.friendngo.friendngo.friendngo.NotificationsActivity">
->>>>>>> origin/yulia2
+    tools:context="com.friendngo.friendngo.friendngo.MessagesOpenActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -17,57 +13,26 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-<<<<<<< HEAD
-            android:id="@+id/toolbar"
+            android:id="@+id/open_messages_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-=======
-            android:id="@+id/notifications_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            android:weightSum="1">
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.80">
 
-
->>>>>>> origin/yulia2
                 <TextView
-                    android:text="Notifications"
+                    android:text="Open Message"
                     android:textSize="24sp"
                     android:textColor="#FFFFFF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-<<<<<<< HEAD
-                    android:id="@+id/my_city_text_iew"
-
+                    android:id="@+id/open_messages_heading"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
-        </android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_activity_notifications" />
-
-
-=======
-                    android:id="@+id/notifications_heading"
-
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-
-
-                    />
+                    android:layout_centerVertical="true" />
             </RelativeLayout>
 
 
@@ -75,7 +40,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_notifications" />
->>>>>>> origin/yulia2
+    <include layout="@layout/content_messages_open" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/_available_row_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="5dp"
+    android:padding="5dp"
+    android:background="@drawable/activity_list_rounded_edges">
+
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/messages_profile_picture"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/empty_profile"
+        app:civ_border_color="#EEEEEE"
+        app:civ_border_width="2dp"
+        app:civ_shadow="true"
+        app:civ_shadow_radius="0.5"
+        app:civ_shadow_color="@color/greyish"
+        android:layout_marginTop="14dp"
+        android:layout_marginLeft="6dp"/>
+
+    <TextView
+        android:id="@+id/paid_event_created_text"
+        android:text="Stephanie, 28 y-o"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/messages_profile_picture"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="14sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/available_created_text_two"
+        android:text="Interested in Sports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/messages_profile_picture"
+        android:paddingLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="11sp"
+        android:layout_marginTop="28dp"
+        />
+    <TextView
+        android:id="@+id/available_resident_location"
+        android:text="Resident Montreal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/available_created_text_two"
+        android:layout_toEndOf="@+id/messages_profile_picture"
+        android:paddingLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="11sp"/>
+
+    <ImageView
+        android:id="@+id/available_country_flag"
+        app:srcCompat="@drawable/canada"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_alignBottom="@+id/available_resident_location"
+        android:layout_toEndOf="@+id/available_dotText_location"
+        android:layout_toRightOf="@+id/available_dotText_location" />
+
+
+    <TextView
+        android:id="@+id/available_dotText_location"
+        android:text="   ·   "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="normal|bold"
+        android:textSize="8sp"
+        android:layout_toRightOf="@+id/available_resident_location"
+        android:layout_alignBaseline="@+id/available_resident_location"
+        android:layout_alignBottom="@+id/available_user_preference_button"/>
+
+    <ImageView
+        android:id="@+id/available_user_preference_button"
+        android:layout_alignParentRight="true"
+        android:textColor="@android:color/white"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/sports"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="36dp"/>
+
+    <TextView
+        android:id="@+id/available_points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/activity_list_point"
+        android:text="10pts"
+        android:padding="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="7dp"
+        android:layout_marginTop="7dp"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

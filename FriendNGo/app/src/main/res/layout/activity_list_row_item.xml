@@ -22,68 +22,66 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/empty_profile"
-        android:id="@+id/profilepicture"
+        android:id="@+id/messages_profile_picture"
         app:civ_border_color="#EEEEEE"
         app:civ_border_width="2dp"
         app:civ_shadow="true"
         app:civ_shadow_radius="0.5"
         app:civ_shadow_color="@color/greyish"
+        android:layout_marginTop="6dp"
+        android:layout_marginLeft="4dp"
         />
 
     <TextView
-        android:text="Created by scottLaughlin, 29 y-o"
+        android:text="Created by Scott Laughlin, 29 y-o"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_toRightOf="@+id/profilepicture"
-        android:layout_toEndOf="@+id/profilepicture"
-        android:id="@+id/created_text"
+        android:layout_toRightOf="@+id/messages_profile_picture"
+        android:layout_toEndOf="@+id/messages_profile_picture"
+        android:id="@+id/paid_event_created_text"
         android:paddingLeft="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:textSize="8sp" />
+        android:layout_marginBottom="8dp"
+        android:textSize="12sp" />
 
 
     <!--android:layout_alignParentRight="true"-->
     <!--android:layout_alignParentEnd="true"-->
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.2dp"
         android:background="@android:color/darker_gray"
-        android:layout_alignBottom="@+id/profilepicture"
-
+        android:layout_alignBottom="@+id/messages_profile_picture"
         android:id="@+id/separation_bar"
-        android:layout_marginBottom="-5dp" />
+        android:layout_marginBottom="-12dp"
+        />
 
     <ImageView
         app:srcCompat="@drawable/cup"
         android:id="@+id/activity_type"
         android:layout_below="@+id/separation_bar"
-        android:layout_alignLeft="@+id/profilepicture"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="6dp"
-        android:layout_width="32dp"
-        android:layout_height="32dp" />
+        android:layout_marginTop="12dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp" />
 
     <TextView
         android:text="OctoberFest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/separation_bar"
-        android:layout_toRightOf="@+id/profilepicture"
-        android:layout_toEndOf="@+id/profilepicture"
+        android:layout_toRightOf="@+id/messages_profile_picture"
+        android:layout_toEndOf="@+id/messages_profile_picture"
         android:id="@+id/activity_name"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="28dp"
         android:paddingLeft="10dp"
-        android:textSize="14sp"
-        android:textAllCaps="false" />
+        android:textSize="16sp"
+        android:textStyle="bold"/>
 
     <ImageView
         app:srcCompat="@drawable/clock"
         android:layout_below="@+id/activity_type"
-        android:layout_alignLeft="@+id/profilepicture"
-        android:id="@+id/clock_image"
-        android:layout_marginTop="4dp"
+        android:layout_alignLeft="@+id/messages_profile_picture"
+        android:id="@+id/messages_clock_image"
         android:layout_margin="4dp"
         android:layout_width="16dp"
         android:layout_height="16dp" />
@@ -96,19 +94,19 @@
         android:text="Fri 20, 10:15pm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/activity_time"
+        android:id="@+id/paid_event_activity_time"
         android:textSize="8sp"
-        android:layout_alignTop="@+id/clock_image"
-        android:layout_toRightOf="@+id/clock_image"
-        android:layout_toEndOf="@+id/clock_image"
+        android:layout_alignTop="@+id/messages_clock_image"
+        android:layout_toRightOf="@+id/messages_clock_image"
+        android:layout_toEndOf="@+id/messages_clock_image"
         android:layout_marginTop="4dp" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/pin"
-        android:layout_alignTop="@+id/clock_image"
-        android:layout_toRightOf="@+id/activity_time"
+        app:srcCompat="@drawable/icon_mapa"
+        android:layout_alignTop="@+id/messages_clock_image"
+        android:layout_toRightOf="@+id/paid_event_activity_time"
         android:id="@+id/pin_image"
         android:layout_marginLeft="4dp" />
 
@@ -126,7 +124,7 @@
     <Button
         android:text="+"
         android:id="@+id/add_activity_button"
-        android:layout_alignBottom="@+id/pin_image"
+        android:layout_alignTop="@+id/activity_name"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:textColor="@android:color/white"
@@ -139,56 +137,55 @@
         android:text="Resident, "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/status_text"
+        android:id="@+id/participants_status_text"
         android:paddingLeft="10dp"
-        android:textSize="8sp"
-        android:layout_alignBaseline="@+id/home_city_text"
-        android:layout_alignBottom="@+id/home_city_text"
-        android:layout_toRightOf="@+id/profilepicture"
-        android:layout_toEndOf="@+id/profilepicture" />
+        android:textSize="10sp"
+        android:layout_alignBaseline="@+id/participants_city_text"
+        android:layout_alignBottom="@+id/participants_city_text"
+        android:layout_toRightOf="@+id/messages_profile_picture"
+        android:layout_toEndOf="@+id/messages_profile_picture" />
 
     <TextView
         android:text="Montreal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/home_city_text"
-        android:textSize="8sp"
-        android:layout_alignBaseline="@+id/dotText"
-        android:layout_alignBottom="@+id/dotText"
-        android:layout_toRightOf="@+id/status_text"
-        android:layout_toEndOf="@+id/status_text" />
+        android:id="@+id/participants_city_text"
+        android:textSize="10sp"
+        android:layout_alignBaseline="@+id/participants_dotText"
+        android:layout_alignBottom="@+id/participants_dotText"
+        android:layout_toRightOf="@+id/participants_status_text"
+        android:layout_toEndOf="@+id/participants_status_text" />
 
     <ImageView
         app:srcCompat="@drawable/canada"
-        android:id="@+id/country_flag"
+        android:id="@+id/participants_country_flag"
         android:layout_width="15dp"
         android:layout_height="15dp"
         android:paddingBottom="5dp"
-        android:layout_below="@+id/created_text"
-        android:layout_toRightOf="@+id/dotText"
-        android:layout_toEndOf="@+id/dotText" />
+        android:layout_below="@+id/paid_event_created_text"
+        android:layout_toRightOf="@+id/participants_dotText"
+        android:layout_toEndOf="@+id/participants_dotText" />
 
     <TextView
         android:text="   ·   "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/dotText"
+        android:id="@+id/participants_dotText"
         android:textStyle="normal|bold"
         android:textSize="8sp"
-        android:layout_toRightOf="@+id/home_city_text"
-        android:layout_toEndOf="@+id/home_city_text"
-        android:layout_below="@+id/created_text" />
+        android:layout_toRightOf="@+id/participants_city_text"
+        android:layout_toEndOf="@+id/participants_city_text"
+        android:layout_below="@+id/paid_event_created_text" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:id="@+id/points"
         android:background="@drawable/activity_list_point"
         android:text="10pts"
         android:padding="5dp"
         android:layout_marginBottom="10dp"
-        android:layout_alignBottom="@+id/separation_bar"
+        android:layout_alignTop="@+id/paid_event_created_text"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="7dp"

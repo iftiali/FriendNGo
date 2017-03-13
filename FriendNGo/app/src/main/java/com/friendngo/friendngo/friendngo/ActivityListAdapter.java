@@ -21,7 +21,13 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+<<<<<<< HEAD
 import cz.msebera.android.httpclient.Header;
+=======
+
+import cz.msebera.android.httpclient.Header;
+
+>>>>>>> origin/yulia2
 import static com.friendngo.friendngo.friendngo.MapActivity.activitiesList;
 
 /**
@@ -82,16 +88,24 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.activity_list_row_item, null, true); //Seems equivalent to inflate(R... , parent, false)
+<<<<<<< HEAD
             viewHolder.freeEvent = (RelativeLayout) convertView.findViewById(R.id.freeEventRelativeLayout);
             viewHolder.creator = (TextView) convertView.findViewById(R.id.created_text);
             viewHolder.status = (TextView) convertView.findViewById(R.id.status_text);
             viewHolder.homeCity = (TextView) convertView.findViewById(R.id.home_city_text);
             viewHolder.nationality = (ImageView) convertView.findViewById(R.id.country_flag);
+=======
+            viewHolder.profilePicture = (ImageView) convertView.findViewById(R.id.messages_profile_picture);
+            viewHolder.creator = (TextView) convertView.findViewById(R.id.paid_event_created_text);
+            viewHolder.status = (TextView) convertView.findViewById(R.id.participants_status_text);
+            viewHolder.homeCity = (TextView) convertView.findViewById(R.id.participants_city_text);
+            viewHolder.nationality = (ImageView) convertView.findViewById(R.id.participants_country_flag);
+>>>>>>> origin/yulia2
             viewHolder.points = (TextView) convertView.findViewById(R.id.points);
             viewHolder.category = (ImageView) convertView.findViewById(R.id.activity_type);
             viewHolder.name = (TextView) convertView.findViewById(R.id.activity_name);
-            viewHolder.clock = (ImageView) convertView.findViewById(R.id.clock_image);
-            viewHolder.dateTime = (TextView) convertView.findViewById(R.id.activity_time);
+            viewHolder.clock = (ImageView) convertView.findViewById(R.id.messages_clock_image);
+            viewHolder.dateTime = (TextView) convertView.findViewById(R.id.paid_event_activity_time);
             viewHolder.pin = (ImageView) convertView.findViewById(R.id.pin_image);
             viewHolder.distance = (TextView) convertView.findViewById(R.id.distance);
             viewHolder.info = (RelativeLayout) convertView.findViewById(R.id.row_item);
@@ -225,8 +239,13 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         //GET The image file at the pictureURL
         AsyncHttpClient client = new AsyncHttpClient();
 
+<<<<<<< HEAD
         String pictureURL = ((UserActivity) activitiesList.get(position)).getProfilePicURL();
         final ImageView profilePic = (ImageView) convertView.findViewById(R.id.profilepicture);
+=======
+        String pictureURL = ((UserActivity)activitiesList.get(position)).getProfilePicURL();
+        final ImageView profilePic = (ImageView) convertView.findViewById(R.id.messages_profile_picture);
+>>>>>>> origin/yulia2
 
         client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(mContext) {
 

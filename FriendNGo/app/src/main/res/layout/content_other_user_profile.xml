@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_other_user_profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.friendngo.friendngo.friendngo.OtherUserProfileActivity"
+    tools:showIn="@layout/activity_other_user_profile">
+
+    <FrameLayout
+        android:id="@+id/otheruser_frameLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/whiteish"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/other_user_favourite_image"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:srcCompat="@drawable/favorite"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp" />
+
+            <ImageView
+                android:id="@+id/other_user_picture"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                app:srcCompat="@drawable/empty_profile"
+                android:layout_marginTop="6dp"
+                android:layout_below="@+id/other_user_favourite_image"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/other_user_name"
+                android:text="Steff Zaharova"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/other_user_picture"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="19dp"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/other_user_age"
+                android:text="28 y-o"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="142dp"
+                android:layout_marginTop="200dp"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/other_user_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/activity_list_point"
+                android:text="10pts"
+                android:padding="2dp"
+                android:layout_alignBottom="@+id/other_user_age"
+                android:layout_toRightOf="@id/other_user_age"
+                android:layout_marginLeft="8dp"
+                android:textColor="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/other_user_info"
+                android:layout_toRightOf="@id/other_user_points"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:srcCompat="@drawable/info"
+                android:layout_alignBottom="@+id/other_user_age"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="1dp" />
+
+            <TextView
+                android:id="@+id/other_user_citizenship"
+                android:text="Citizenship"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="238dp"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/other_user_location"
+                android:text="Resident Montreal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="136dp"
+                android:layout_marginTop="6dp"
+                android:layout_below="@+id/other_user_citizenship"
+                android:paddingLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="12sp"/>
+
+            <ImageView
+                android:id="@+id/other_user_country_flag"
+                app:srcCompat="@drawable/canada"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignBottom="@+id/other_user_location"
+                android:layout_toEndOf="@+id/other_user_dotText"
+                android:layout_toRightOf="@+id/other_user_dotText" />
+
+
+            <TextView
+                android:id="@+id/other_user_dotText"
+                android:text="   ·   "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="normal|bold"
+                android:textSize="8sp"
+                android:layout_toRightOf="@+id/other_user_location"
+                android:layout_alignBaseline="@+id/other_user_location"
+                android:layout_alignBottom="@+id/other_user_location"/>
+
+            <TextView
+                android:id="@+id/other_user_about"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque fringilla nulla non metus commodo dignissim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eros felis, fringilla vitae."
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:padding="4dp"
+                android:layout_marginBottom="24dp"
+                android:layout_below="@+id/other_user_location"
+                android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/other_user_frameLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/otheruser_frameLayout1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/other_user_select"
+                android:text="Select a common interest to create an activity with this user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textAlignment="center"
+                android:padding="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:textSize="14dp"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/other_user_RelativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:layout_below="@+id/other_user_frameLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical" />
+        </HorizontalScrollView>
+    </RelativeLayout>
+
+
+</RelativeLayout>
