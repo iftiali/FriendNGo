@@ -148,7 +148,6 @@
             android:label="@string/title_activity_chat_room"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".MyCalendarActivity"
             android:label="@string/title_activity_my_calendar"
@@ -213,6 +212,12 @@
             android:name=".FiltersActivity"
             android:label="@string/title_activity_filters"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MySpecialGroup"
+            android:label="@string/title_activity_my_special_group"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
+
 </manifest>

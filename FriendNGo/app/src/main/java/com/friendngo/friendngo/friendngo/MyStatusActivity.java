@@ -1,6 +1,7 @@
 package com.friendngo.friendngo.friendngo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -90,6 +91,8 @@ public class MyStatusActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MyStatusActivity.this, MySpecialGroup.class);
+                MyStatusActivity.this.startActivity(intent);
                 MyStatusActivity.this.finish();
             }
         });

@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -69,7 +71,7 @@ public class ActivityDetails extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
+                        Toast.makeText(ActivityDetails.this, "Request Sent", Toast.LENGTH_LONG).show();
                         //TODO: Test and implement statusCode handler for developers and graceful degradation
                         Log.w("POST AR SUCCESS", statusCode + ": " + "Response = " + response.toString());
                         try{

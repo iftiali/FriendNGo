@@ -97,7 +97,7 @@
                 android:padding="16dp" />
 
             <ToggleButton
-                android:id="@+id/notifications_toggle_button"
+                android:id="@+id/notifications_toggle_button2"
                 android:text="ToggleButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                 android:padding="16dp" />
 
             <ToggleButton
-                android:id="@+id/notifications_toggle_button"
+                android:id="@+id/notifications_toggle_button3"
                 android:text="ToggleButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -153,7 +153,7 @@
                 android:padding="16dp" />
 
             <ToggleButton
-                android:id="@+id/notifications_toggle_button"
+                android:id="@+id/notifications_toggle_button4"
                 android:text="ToggleButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -182,7 +182,7 @@
                 android:padding="16dp" />
 
             <ToggleButton
-                android:id="@+id/notifications_toggle_button"
+                android:id="@+id/notifications_toggle_button5"
                 android:text="ToggleButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -210,7 +210,7 @@
                 android:padding="16dp" />
 
             <ToggleButton
-                android:id="@+id/notifications_toggle_button"
+                android:id="@+id/notifications_toggle_button6"
                 android:text="ToggleButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
