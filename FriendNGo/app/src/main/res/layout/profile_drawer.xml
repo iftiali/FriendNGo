@@ -27,6 +27,31 @@
         android:layout_centerVertical="true"
         android:layout_marginBottom="30dp"/>
 
+    <TextView
+        android:text="Bio"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/drawer_bio_editText"
+        android:layout_below="@+id/drawer_age_editText"
+        android:gravity="center_vertical"
+        android:layout_marginTop="3dp"
+        android:padding="10dp"
+        android:background="@android:color/white" />
+
+    <TextView
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tincidunt, ligula eget convallis mattis, mi eros tincidunt erat, sit amet porttitor ante metus sit amet arcu. "
+        android:textSize="16sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/drawer_bio_editText_two"
+        android:layout_below="@+id/drawer_bio_editText"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="16dp"
+        android:background="@android:color/white" />
+
     <ImageView
         android:layout_width="20dp"
         android:layout_height="20dp"
@@ -184,10 +209,4 @@
 
         </RelativeLayout>
     </FrameLayout>
-
-
-
-
-
-
 </RelativeLayout>

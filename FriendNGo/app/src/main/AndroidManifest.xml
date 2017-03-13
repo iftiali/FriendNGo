@@ -138,15 +138,81 @@
             android:label="@string/title_activity_my_profile"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".testXML" />
         <activity
             android:name=".ActivityMessage"
             android:label="@string/title_activity_message"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ChatRoomActivity"
             android:label="@string/title_activity_chat_room"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".MyCalendarActivity"
+            android:label="@string/title_activity_my_calendar"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".NotificationsActivity"
+            android:label="@string/title_activity_notifications"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RecommendActivity"
+            android:label="@string/title_activity_recommend"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.friendngo.scott.friendngo.TheyAreAvailableActivity"
+            android:label="@string/title_activity_they_are_available"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".OtherUserProfileActivity"
+            android:label="@string/title_activity_other_user_profile"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ParticipantsActivity"
+            android:label="@string/title_activity_participants"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".NotificationsPreferencesActivity"
+            android:label="@string/title_activity_notifications_preferences"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PointsHistoryActivity"
+            android:label="@string/title_activity_points_history"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PointsSystemActivity"
+            android:label="@string/title_activity_points_system"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MessagesActivity"
+            android:label="@string/title_activity_messages"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MessagesOpenActivity"
+            android:label="@string/title_activity_messages_open"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FiltersActivity"
+            android:label="@string/title_activity_filters"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
-
 </manifest>

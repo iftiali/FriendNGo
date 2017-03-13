@@ -77,6 +77,8 @@ public class MapActivity extends AppCompatActivity implements
     private static final String My_TAG ="Author:Parth";
     TextView other_account;
     public static CircularImageView other_user_picture;
+    public static String selfIdentify=null;
+    public static String selfName=null;
     public static TextView other_user_name,other_user_age,other_user_about,other_user_location;
     ImageView my_profile_dots;
     private static final int POLLING_PERIOD = 5;
@@ -153,6 +155,7 @@ public class MapActivity extends AppCompatActivity implements
         participateButton.setEnabled(false);
         //death crash
         getActivity();
+        getSelfIdentify();
         bottomNavigationView.getMenu().getItem(0).setChecked(true);
         other_account.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -309,6 +312,51 @@ public class MapActivity extends AppCompatActivity implements
         }, 0, POLLING_PERIOD, TimeUnit.SECONDS);
     }
 
+    private void getSelfIdentify() {
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        if (SignIn.static_token != null) {
+            client.addHeader("Authorization", "Token " + SignIn.static_token);
+        }
+
+        client.get(MainActivity.base_host_url + "api/getSelfIdentity", new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                Log.w("GET identity SUCCESS", statusCode + ": " + "Response = " + response.toString());
+
+                try {
+                    selfIdentify = response.getString("id");
+                    selfName = response.getString("first_name");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray chatJsonArray) {
+                Log.w("GET identity SUCCESS-2", statusCode + ": " + chatJsonArray.toString());
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+                Log.w("GET idetity  RETRY", "" + retryNo);
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                Log.w("GET identity FAIL", "Error Code: " + error_code + "," + text);
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
+                Log.w("GET identity FAIL", "Error Code: " + error_code + ",  " + json.toString());
+            }
+        });
+    }
+
     ////////////////// GETs the activities list and processes them ////////////////////////////////////
     private void update_activities() {
         //GET the activities list
@@ -363,6 +411,15 @@ public class MapActivity extends AppCompatActivity implements
                         long creator_pk = activity.getLong("creator_pk");
                         long activity_pk = activity.getLong("id");
                         JSONArray attendingJSONArray = activity.getJSONArray("attending");
+                        JSONArray requests_received = activity.getJSONArray("requests_received");
+                        int request_state = -1;
+                        if(requests_received.length()>0){
+                            JSONObject request = requests_received.getJSONObject(0);
+                            request_state = request.getInt("request_state");
+                        } else{
+                            Log.w("REQUESTS EMPTY", "Yup... that happened... ");
+                        }
+
 
                         //Date parsed seperately
                         String activityTimeString = activity.getString("activity_time");
@@ -407,7 +464,6 @@ public class MapActivity extends AppCompatActivity implements
                             attendingList.add(json_j);
                         }
 
-
                         //Create new UserActivity instance with the data
                         UserActivity userActivity = new UserActivity(
                                 home_city,
@@ -431,7 +487,8 @@ public class MapActivity extends AppCompatActivity implements
                                 activityTime, //TODO: Put the end time instead of a copy of the start time
                                 pictureURL,
                                 isPaid,
-                                attendingList);
+                                attendingList,
+                                request_state);
 
                         activitiesList.add(userActivity);
 

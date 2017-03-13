@@ -47,7 +47,6 @@
         android:id="@+id/messages_activity_time"
         android:text="10 min"
         android:layout_alignRight="@+id/messages_next_button"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="8sp"

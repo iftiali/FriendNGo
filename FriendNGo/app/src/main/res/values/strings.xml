@@ -54,9 +54,21 @@
     <string name="title_activity_my_status">MyStatusActivity</string>
     <string name="title_activity_new_who_are_you">NewWhoAreYouActivity</string>
     <string name="title_activity_my_profile">MyProfileActivity</string>
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_my_calendar">MyCalendarActivity</string>
+    <string name="title_activity_recommend">RecommendActivity</string>
+    <string name="title_activity_they_are_available">TheyAreAvailableActivity</string>
+    <string name="title_activity_other_user_profile">OtherUserProfileActivity</string>
+    <string name="title_activity_participants">ParticipantsActivity</string>
+    <string name="title_activity_notifications_preferences">NotificationsPreferencesActivity
+    </string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_points_history">PointsHistoryActivity</string>
+    <string name="title_activity_points_system">PointsSystemActivity</string>
+    <string name="title_activity_messages">MessagesActivity</string>
+    <string name="title_activity_messages_open">MessagesOpenActivity</string>
+    <string name="title_activity_filters">FiltersActivity</string>
 
     <!--added for address-->
     <string name="place_details">&lt;b&gt;%1$s&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Place Id: %2$s&lt;/i&gt;&lt;br/&gt;Address: %3$s&lt;br/&gt;Phone: %4$s&lt;br/&gt;Website: %5$s</string>

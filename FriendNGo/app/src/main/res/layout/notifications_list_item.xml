@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/notifications_row_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="5dp"
+    android:padding="5dp"
+
+    android:background="@drawable/activity_list_rounded_edges">
+
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/empty_profile"
+        android:id="@+id/messages_profile_picture"
+        app:civ_border_color="#EEEEEE"
+        app:civ_border_width="2dp"
+        app:civ_shadow="true"
+        app:civ_shadow_radius="0.5"
+        app:civ_shadow_color="@color/greyish"
+        android:layout_margin="8dp"
+        />
+
+    <TextView
+        android:text="User and 2 other users sent you requests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/messages_profile_picture"
+        android:layout_toEndOf="@+id/messages_profile_picture"
+        android:id="@+id/paid_event_created_text"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="11sp" />
+
+
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_alignParentEnd="true"-->
+
+    <ImageView
+        app:srcCompat="@drawable/clock"
+        android:layout_below="@+id/paid_event_created_text"
+        android:layout_alignLeft="@+id/paid_event_created_text"
+        android:id="@+id/messages_clock_image"
+
+        android:layout_margin="4dp"
+        android:layout_width="16dp"
+        android:layout_height="16dp" />
+
+    <TextView
+        android:text="10 min"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/paid_event_activity_time"
+        android:textSize="8sp"
+        android:layout_alignTop="@+id/messages_clock_image"
+        android:layout_toRightOf="@+id/messages_clock_image"
+        android:layout_toEndOf="@+id/messages_clock_image"
+        android:layout_marginTop="4dp" />
+
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="25dp"
+        app:srcCompat="@drawable/next"
+        android:layout_alignTop="@+id/paid_event_created_text"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/imageView8"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="6dp"/>
+
+
+</RelativeLayout>

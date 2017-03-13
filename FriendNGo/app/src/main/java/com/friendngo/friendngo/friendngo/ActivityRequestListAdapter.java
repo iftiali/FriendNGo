@@ -67,7 +67,7 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.activity_request_list_row_item, parent, false);
-            viewHolder.profilePicture = (CircularImageView) convertView.findViewById(R.id.profilepicture);
+            viewHolder.profilePicture = (CircularImageView) convertView.findViewById(R.id.messages_profile_picture);
             viewHolder.name = (TextView) convertView.findViewById(R.id.request_person_name);
             viewHolder.homeCity = (TextView) convertView.findViewById(R.id.reqiest_city_name);
             viewHolder.years = (TextView)convertView.findViewById(R.id.request_years);
@@ -90,7 +90,6 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
 
         //TODO: Change this to get the picture of the SENDER of the request
         String pictureURL = dataModel.getProfileImage();
-
         final ImageView profilePic = (CircularImageView) convertView.findViewById(R.id.profilepicture);
         Picasso.with(mContext).load(MainActivity.base_host_url + pictureURL).into(profilePic);
 

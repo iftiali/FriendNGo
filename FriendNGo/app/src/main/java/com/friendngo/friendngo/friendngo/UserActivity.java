@@ -35,9 +35,11 @@ public class UserActivity {
     private String profilePicURL;
     private Boolean isPaid;
     List attendingList = new ArrayList<JSONObject>();
+    private int request_state;
 
     public  UserActivity(){
     }
+
     public UserActivity(String home_city,
                         String home_nationality,
                         String name,
@@ -59,7 +61,8 @@ public class UserActivity {
                         Date endTime,
                         String profilePicURL,
                         Boolean isPaid,
-                        List attendingList) {
+                        List attendingList,
+                        int request_state) {
         this.homeCity = home_city;
         this.homeNationality = home_nationality;
         this.name = name;
@@ -83,6 +86,39 @@ public class UserActivity {
         this.profilePicURL = profilePicURL;
         this.isPaid = isPaid;
         this.attendingList = attendingList;
+        this.request_state = request_state;
+    }
+
+    public double getClatitude() {
+        return clatitude;
+    }
+
+    public void setClatitude(double clatitude) {
+        this.clatitude = clatitude;
+    }
+
+    public double getClongitude() {
+        return clongitude;
+    }
+
+    public void setClongitude(double clongitude) {
+        this.clongitude = clongitude;
+    }
+
+    public Boolean getPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(Boolean paid) {
+        isPaid = paid;
+    }
+
+    public int getRequest_state() {
+        return request_state;
+    }
+
+    public void setRequest_state(int request_state) {
+        this.request_state = request_state;
     }
 
     public List getAttendingList() {

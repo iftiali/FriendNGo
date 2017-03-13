@@ -55,6 +55,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         TextView distance;
         RelativeLayout info;
         Button addActivityButton;
+        Button paidAddActivityButton;
         RelativeLayout freeEvent,paidEventRelativeLayout;
     }
 
@@ -82,22 +83,22 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.activity_list_row_item, null, true); //Seems equivalent to inflate(R... , parent, false)
             viewHolder.freeEvent = (RelativeLayout) convertView.findViewById(R.id.freeEventRelativeLayout);
-            viewHolder.creator = (TextView) convertView.findViewById(R.id.created_text);
-            viewHolder.status = (TextView) convertView.findViewById(R.id.status_text);
-            viewHolder.homeCity = (TextView) convertView.findViewById(R.id.home_city_text);
-            viewHolder.nationality = (ImageView) convertView.findViewById(R.id.country_flag);
+//            viewHolder.creator = (TextView) convertView.findViewById(R.id.created_text);
+            viewHolder.status = (TextView) convertView.findViewById(R.id.participants_status_text);
+//            viewHolder.homeCity = (TextView) convertView.findViewById(R.id.home_city_text);
+//            viewHolder.nationality = (ImageView) convertView.findViewById(R.id.country_flag);
             viewHolder.points = (TextView) convertView.findViewById(R.id.points);
             viewHolder.category = (ImageView) convertView.findViewById(R.id.activity_type);
             viewHolder.name = (TextView) convertView.findViewById(R.id.activity_name);
-            viewHolder.clock = (ImageView) convertView.findViewById(R.id.clock_image);
-            viewHolder.dateTime = (TextView) convertView.findViewById(R.id.activity_time);
+            viewHolder.clock = (ImageView) convertView.findViewById(R.id.messages_clock_image);
+            viewHolder.dateTime = (TextView) convertView.findViewById(R.id.paid_event_activity_time);
             viewHolder.pin = (ImageView) convertView.findViewById(R.id.pin_image);
             viewHolder.distance = (TextView) convertView.findViewById(R.id.distance);
             viewHolder.info = (RelativeLayout) convertView.findViewById(R.id.row_item);
             viewHolder.addActivityButton = (Button) convertView.findViewById(R.id.add_activity_button);
+            viewHolder.paidAddActivityButton = (Button) convertView.findViewById(R.id.add_activity_button_paid);
 
-            //paind event
-
+            //paid event
             viewHolder.paidEventRelativeLayout = (RelativeLayout)convertView.findViewById(R.id.paidEventRelativeLayout);
             viewHolder.paid_event_created_text = (TextView)convertView.findViewById(R.id.paid_event_created_text);
             viewHolder.paid_event_clock = (ImageView)convertView.findViewById(R.id.paid_event_clock);
@@ -105,6 +106,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder.paid_event_activity_time = (TextView)convertView.findViewById(R.id.paid_event_activity_time);
             viewHolder.paid_event_distance = (TextView)convertView.findViewById(R.id.paid_event_distance);
             viewHolder.paid_event_activity_type = (ImageView)convertView.findViewById(R.id.paid_event_activity_type);
+
             convertView.setTag(R.string.VIEW_HOLDER_KEY, viewHolder); //This associates the viewHolder to the convertView
         } else {
             //Recycle old view -> More Efficient
@@ -175,6 +177,21 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
                     break;
                 case "Help & Association":
                     viewHolder.paid_event_activity_type.setImageResource(R.drawable.coworking);
+                    break;
+                default:
+                    Log.w("CASE FAILURE", "Invalid Case for category");
+                    break;
+            }
+
+            Log.w("OVAL DEBUG", userActivity.getRequest_state()+"");
+            if(userActivity.getRequest_state()==0){
+                viewHolder.paidAddActivityButton.setBackgroundResource(R.drawable.edit_oval);
+            }
+            if(userActivity.getRequest_state()==1){
+                viewHolder.paidAddActivityButton.setBackgroundResource(R.drawable.success);
+            }
+            if(userActivity.getRequest_state()==2){
+                viewHolder.paidAddActivityButton.setBackgroundResource(R.drawable.delete_red);
             }
         }else {
             viewHolder.freeEvent.setVisibility(View.VISIBLE);
@@ -182,7 +199,8 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             //Here is where we map our model data to our View instance
             viewHolder.name.setText(userActivity.getName());
             viewHolder.name.setTextColor(Color.GRAY);
-            viewHolder.creator.setText("Created by " + userActivity.getCreator());
+            Log.w("CREATED BY",userActivity.getCreator());
+           viewHolder.creator.setText("Created by " + userActivity.getCreator().toString());
             viewHolder.creator.setTextColor(Color.GRAY);
 //        viewHolder.profilePicture.setImageResource(R.drawable.scott);
             viewHolder.status.setText("Resident" + ", ");
@@ -192,12 +210,24 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder.nationality.setImageResource(R.drawable.canada); //TODO: Get flag from nationalities
             viewHolder.points.setText(userActivity.getPoints() + "pts");
 
+            if(userActivity.getRequest_state()==0){
+                viewHolder.addActivityButton.setBackgroundResource(R.drawable.edit_oval);
+                viewHolder.addActivityButton.setText("");
+            }
+            if(userActivity.getRequest_state()==1){
+                viewHolder.addActivityButton.setBackgroundResource(R.drawable.success);
+                viewHolder.addActivityButton.setText("");
+            }
+            if(userActivity.getRequest_state()==2){
+                viewHolder.addActivityButton.setBackgroundResource(R.drawable.delete_red);
+                viewHolder.addActivityButton.setText("");
+            }
+
         //GET The image file at the pictureURL
         AsyncHttpClient client = new AsyncHttpClient();
 
         String pictureURL = ((UserActivity) activitiesList.get(position)).getProfilePicURL();
         final ImageView profilePic = (ImageView) convertView.findViewById(R.id.profilepicture);
-
         client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(mContext) {
 
             @Override
@@ -255,6 +285,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         viewHolder.distance.setTextColor(Color.GRAY);
         viewHolder.info.setOnClickListener(this);
         viewHolder.info.setTag(R.string.POSITION_KEY, position);
+
 
         if (viewHolder.addActivityButton != null) {
             viewHolder.addActivityButton.setOnClickListener(new View.OnClickListener() {

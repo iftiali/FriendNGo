@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/about_us_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -23,12 +23,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
                 <TextView
+                    android:id="@+id/about_us_heading"
                     android:text="About Us"
                     android:textSize="24sp"
                     android:textColor="#FFFFFF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/about_us_heading"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>
