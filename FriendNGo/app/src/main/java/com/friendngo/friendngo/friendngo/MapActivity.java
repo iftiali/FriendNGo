@@ -184,6 +184,7 @@ public class MapActivity extends AppCompatActivity implements
                                 break;
                             case R.id.calendar_icon:
                                 Log.w("BOTTOM NAV","Calendar Icon Pressed");
+                                Toast.makeText(getApplicationContext(), "Calarndar Not Available in Beta", Toast.LENGTH_LONG).show();
                                 break;
                             case R.id.notification_icon:
                                 Log.w("BOTTOM NAV","Notifications Icon Pressed");
@@ -196,7 +197,7 @@ public class MapActivity extends AppCompatActivity implements
                                 Log.w("BOTTOM NAV","Message Icon Pressed");
                                 break;
                             case R.id.settings_icon:
-                                Log.w("NAV DEBUG", "Settings Icon Pressed");
+                                Toast.makeText(getApplicationContext(), "Settings Not Available in Beta", Toast.LENGTH_LONG).show();
                                 break;
                             default:
                                 Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");

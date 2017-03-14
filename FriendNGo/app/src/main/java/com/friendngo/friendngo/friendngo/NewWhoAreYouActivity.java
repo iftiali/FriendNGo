@@ -86,6 +86,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 
         if(FacebookLogin.facebook_profile_pic != null) {
             circularImageView.setImageURI(FacebookLogin.facebook_profile_pic);
+            MapActivity.other_user_picture.setImageURI(FacebookLogin.facebook_profile_pic);
         }
 
         Locale[] locales = Locale.getAvailableLocales();
@@ -209,6 +210,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                             Uri uri = Uri.fromFile(response);
                             downloadedImage = response;
                             circularImageView.setImageURI(uri);
+                            MapActivity.other_user_picture.setImageURI(uri);
                         }
 
                         @Override

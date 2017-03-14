@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -59,6 +60,7 @@ public class ActivityNotifications extends AppCompatActivity {
                                 ActivityNotifications.this.finish();
                                 break;
                             case R.id.calendar_icon:
+                                Toast.makeText(getApplicationContext(), "Calarndar Not Available in Beta", Toast.LENGTH_LONG).show();
                                 Log.w("BOTTOM NAV","Calendar Icon Pressed");
                                 break;
                             case R.id.notification_icon:
@@ -71,6 +73,7 @@ public class ActivityNotifications extends AppCompatActivity {
                                 Log.w("BOTTOM NAV","Message Icon Pressed");
                                 break;
                             case R.id.settings_icon:
+                                Toast.makeText(getApplicationContext(), "Settings Not Available in Beta", Toast.LENGTH_LONG).show();
                                 Log.w("NAV DEBUG", "Settings Icon Pressed");
                                 break;
                             default:
