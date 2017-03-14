@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.hardware.camera2.params.Face;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -14,6 +15,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -94,7 +96,7 @@ public class MapActivity extends AppCompatActivity implements
     private double current_gps_longitude;
     private boolean last_location_ready = false;
     private boolean gettingGPS = true;
-    public static List categoryList = new ArrayList<Category>();
+
 
     //Layout instances
     FrameLayout markup_layout;
@@ -111,11 +113,13 @@ public class MapActivity extends AppCompatActivity implements
     TextView dateTime;
     Button activityDetailsButton, participateButton;
 
+    //new updates
+    boolean isNewUpateReadyState = false;
 
     //Data Model and Adapters
     public static List activitiesList = new ArrayList<UserActivity>();
     Map markerMap = new HashMap();
-
+    public static List categoryList = new ArrayList<Category>();
     BottomNavigationView bottomNavigationView;
     private static boolean run_once = true;
 
@@ -154,6 +158,7 @@ public class MapActivity extends AppCompatActivity implements
         participateButton = (Button) findViewById(R.id.banner_participate);
         participateButton.setEnabled(false);
         //death crash
+        checkForNewUpdate();
         getActivity();
         getSelfIdentify();
         bottomNavigationView.getMenu().getItem(0).setChecked(true);
@@ -276,7 +281,7 @@ public class MapActivity extends AppCompatActivity implements
         });
 
         //REMOVE THIS BUTTON ONCE WE HAVE A FACEBOOK LOGOUT BUTTON
-      
+
 
         //Adds the action bar for the drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -435,9 +440,9 @@ public class MapActivity extends AppCompatActivity implements
                         double km;
                         int Radius = 6371;
 
-                        double lat1 = current_gps_latitude;//StartP.latitude;
+                        double lat1 = FacebookLogin.clat;//StartP.latitude;
                         double lat2 = latitude;//EndP.latitude;
-                        double lon1 = current_gps_longitude;//StartP.longitude;
+                        double lon1 = FacebookLogin.clon;//StartP.longitude;
                         double lon2 = longitude;//EndP.longitude;
                         double dLat = Math.toRadians(lat2 - lat1);
                         double dLon = Math.toRadians(lon2 - lon1);
@@ -620,17 +625,17 @@ public class MapActivity extends AppCompatActivity implements
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
+
         Location location = locationManager.getLastKnownLocation(GPS_PROVIDER);
 
         if (location != null) {
             //Zoom to last known location if we don't have GPS
             if (gettingGPS) {
-                //6-3-2017
-                current_gps_latitude = location.getLatitude();
-                current_gps_longitude = location.getLongitude();
-              //  current_gps_latitude = FacebookLogin.clat;
-               // current_gps_longitude = FacebookLogin.clon;
-
+             // current_gps_latitude = location.getLatitude();
+               // current_gps_longitude = location.getLongitude();
+               current_gps_latitude = FacebookLogin.clat;
+               current_gps_longitude = FacebookLogin.clon;
+                Log.i(My_TAG,current_gps_latitude+":"+current_gps_longitude);
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
                 current_location_ready = true;
                 if (last_location_ready == true) {
@@ -662,6 +667,7 @@ public class MapActivity extends AppCompatActivity implements
         else {
             Log.w("LOCATION ERROR", "Last Known Location is null!!!");
         }
+
     }
 
 
@@ -672,12 +678,12 @@ public class MapActivity extends AppCompatActivity implements
     }
 
     //Trigger the check for GPS even before we load the page
-    @Override
+   /* @Override
     public void onStart() {
         Log.w(My_TAG,"onStart map");
 
         super.onStart();
-/*        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         if (locationManager.isProviderEnabled(GPS_PROVIDER)) {
 
             //Get the user's permission to use the GPS
@@ -692,11 +698,11 @@ public class MapActivity extends AppCompatActivity implements
             //Get the user to activate his GPS
             Toast.makeText(getApplicationContext(),"Please Activate Your GPS to use FriendNGo", Toast.LENGTH_LONG).show();
             startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), 1);
-        }*/
+        }
     }
 
     //If the user granted permission, then go on to get the location, otherwise remind gim that we need the GPS for his benefit
-   /* @Override
+    @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -719,9 +725,9 @@ public class MapActivity extends AppCompatActivity implements
             // permissions this app might request
         }
     }
-*/
+
     //Code to request GPS updates
-    private void getGPSLocation() {
+   private void getGPSLocation() {
         LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
@@ -733,9 +739,10 @@ public class MapActivity extends AppCompatActivity implements
 ////////////////////////////////// USING GPS CODE //////////////////////////////////////////////////
                 //Here is where we receive the location update
                 public void onLocationChanged(Location location) {
-                    current_gps_latitude = FacebookLogin.clat;
-                    current_gps_longitude = FacebookLogin.clon;
 
+                    current_gps_latitude = location.getLatitude();
+                    current_gps_longitude = location.getLongitude();
+                    Log.i(My_TAG,current_gps_latitude+":"+current_gps_longitude);
                     if (gettingGPS) {
                       // Toast.makeText(getApplicationContext(), "GPS Coordinates = " + current_gps_latitude + "," + current_gps_longitude, Toast.LENGTH_LONG).show();
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
@@ -765,7 +772,7 @@ public class MapActivity extends AppCompatActivity implements
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         }
     }
-
+*/
     private String calculate_Distance(String strAddress){
         Geocoder coder = new Geocoder(this);
         List<Address> address;
@@ -780,9 +787,9 @@ public class MapActivity extends AppCompatActivity implements
             location.getLatitude();
             location.getLongitude();
             int Radius = 6371;
-            double lat1 = current_gps_latitude;//StartP.latitude;
+            double lat1 = FacebookLogin.clat;//StartP.latitude;
             double lat2 = location.getLatitude();//EndP.latitude;
-            double lon1 = current_gps_longitude;//StartP.longitude;
+            double lon1 = FacebookLogin.clon;//StartP.longitude;
             double lon2 = location.getLongitude();//EndP.longitude;
             double dLat = Math.toRadians(lat2 - lat1);
             double dLon = Math.toRadians(lon2 - lon1);
@@ -1040,7 +1047,7 @@ public class MapActivity extends AppCompatActivity implements
         }else{
             Log.i(My_TAG,"token null"+"Map");
         }
-        //death crash
+
         //GET last known location
         client.get(MainActivity.base_host_url + "api/getCategories/", new JsonHttpResponseHandler() {
 
@@ -1116,4 +1123,54 @@ public class MapActivity extends AppCompatActivity implements
         super.onDestroy();
         Log.i(My_TAG,"onDestroy invoked map");
     }
+    public boolean checkForNewUpdate(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        //death crash
+        if(SignIn.static_token != null) {
+            //death crash
+            client.addHeader("Authorization","Token "+SignIn.static_token);
+        }else{
+            Log.i(My_TAG,"token null"+"Map");
+        }
+        client.get(MainActivity.base_host_url + "api/getCategories/", new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.w("GET NEW UPDATE READY", statusCode + ": " + "Response = " + response.toString());
+                try{
+                    Log.w("GET NEW UPDATE READY", statusCode + ", " + response.getBoolean("must_update"));
+                    isNewUpateReadyState = response.getBoolean("must_update");
+                }catch (JSONException e){
+                    Log.w("GET NEW UPDATE READY",e.getMessage().toString());
+                }
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray categoryJSONArray) {
+                Log.w("JSON NEW UPDATE READY", statusCode + ": " + categoryJSONArray.toString());
+
+
+
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                Log.w("POST NEW UPDATE READY", "Error Code: " + error_code + "," + text);
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
+                Log.w("MY NEW UPDATE READY", "Error Code: " + error_code + ",  " + json.toString());
+            }
+        });
+        return true;
+    }
 }
+//
+
+

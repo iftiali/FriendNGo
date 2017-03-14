@@ -52,7 +52,8 @@ public class FacebookLogin extends AppCompatActivity {
     public static double clat = 0, clon = 0;
     CallbackManager callbackManager;
     private Button useEmailButton;
-    LocationManager locationmanager = null;
+    GPSTracker gps;
+
     private final int MY_PERMISSIONS_REQUEST_LOCATION = 2;
     private String TOKEN_PREFERENCE = "token_preference";
     int gspEnableFlag = 0;
@@ -323,28 +324,45 @@ public class FacebookLogin extends AppCompatActivity {
             }
 
         } else {
+            gps = new GPSTracker(FacebookLogin.this);
 
-            locationmanager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            Location location = locationmanager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            // check if GPS enabled
+            if(gps.canGetLocation()){
 
-            try {
+                clat = gps.getLatitude();
+                clon = gps.getLongitude();
 
-                if (location == null) {
-                    location = locationmanager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-                }
-                clat = location.getLatitude();
-                clon = location.getLongitude();
-
-            } catch (Exception e) {
-
-                e.printStackTrace();
-                Toast.makeText(FacebookLogin.this, "turn on your gps please", Toast.LENGTH_LONG).show();
-                Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(i);
-             //   gspEnableFlag = 1;
+                // \n is for new line
+               // Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
+                 //       + clat + "\nLong: " + clon, Toast.LENGTH_LONG).show();
+            }else{
+                // can't get location
+                // GPS or Network is not enabled
+                // Ask user to enable GPS/network in settings
+                Toast.makeText(FacebookLogin.this,"Please enable your GPS in settings",Toast.LENGTH_LONG).show();
             }
+//            locationmanager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//
+//            Location location = locationmanager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//
+//            try {
+//
+//                if (location == null) {
+//                    location = locationmanager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+//
+//                }
+//                clat = location.getLatitude();
+//                clon = location.getLongitude();
+//
+//            } catch (Exception e) {
+//
+//                e.printStackTrace();
+//                Toast.makeText(FacebookLogin.this, "turn on your gps please", Toast.LENGTH_LONG).show();
+//                Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(i);
+//             //   gspEnableFlag = 1;
+          //  }
         }
     }
 
@@ -355,19 +373,22 @@ public class FacebookLogin extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     if (ContextCompat.checkSelfPermission(FacebookLogin.this, Manifest.permission.ACCESS_FINE_LOCATION) == (PackageManager.PERMISSION_GRANTED)) {
                         {
-                            LocationManager locationmanager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                            Location location = locationmanager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                            try {
+                            gps = new GPSTracker(FacebookLogin.this);
 
-                                if (location == null) {
-                                    location = locationmanager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                                }
-                                clat = location.getLatitude();
-                                clon = location.getLongitude();
+                            // check if GPS enabled
+                            if(gps.canGetLocation()){
 
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                Toast.makeText(FacebookLogin.this, "Network not found", Toast.LENGTH_LONG).show();
+                                clat = gps.getLatitude();
+                                clon = gps.getLongitude();
+
+                                // \n is for new line
+                             //   Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
+                               //         + clat + "\nLong: " + clon, Toast.LENGTH_LONG).show();
+                            }else{
+                                // can't get location
+                                // GPS or Network is not enabled
+                                // Ask user to enable GPS/network in settings
+                                Toast.makeText(FacebookLogin.this,"Please enable your GPS in settings",Toast.LENGTH_LONG).show();
                             }
                         }
                     } else {
