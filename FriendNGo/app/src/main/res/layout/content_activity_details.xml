@@ -27,8 +27,17 @@
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/rounded_corners_white"
                 android:layout_margin="7dp">
-
                 <RelativeLayout
+                android:id="@+id/activity_detail_paid_event"
+                android:visibility="visible"
+                android:background="@drawable/holifest"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                    </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/activity_detail_free_event"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 

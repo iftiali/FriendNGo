@@ -35,6 +35,9 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.sql.Time;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,6 +54,7 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
     private static final String TAG ="Auther:Parth";
     TextView plus_minus_textview,cancelTextView;
     int plus = 0;
+    Calendar tomorrowDate;
     Button plus_button,minus_button;
     int todayTomorrowFlag =0;
     public ArrayList<CategorySpinnerModel> cust_category = new ArrayList<CategorySpinnerModel>();
@@ -62,6 +66,11 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
     String currentDateEndTime,currentDateStartTime;
     Calendar c = Calendar.getInstance();
     protected GoogleApiClient mGoogleApiClient;
+    Date start;
+    Date end;
+    Calendar starttimeCalender,endtimecalendar;
+    String startparseDateForDatabase = null;
+    String endparseDateForDatabase = null;
 
     private PlaceAutocompleteAdapter mAdapter;
     private AutoCompleteTextView mAutocompleteView;
@@ -73,9 +82,9 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
             currentDateEndTime = sdf.format(new Date());
 
             try {
-                Date start = new SimpleDateFormat("HH:mm", Locale.ENGLISH)
+                 start = new SimpleDateFormat("HH:mm", Locale.ENGLISH)
                         .parse(currentDateEndTime);
-                Date end = new SimpleDateFormat("HH:mm", Locale.ENGLISH)
+                 end = new SimpleDateFormat("HH:mm", Locale.ENGLISH)
                         .parse(hourOfDay + ":" + minute);
                 //validation for end time
                /* if(todayTomorrowFlag == 0){
@@ -99,10 +108,16 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                     endEventTime.setText(hourOfDay + ":" + minute);
                 }*/
                 endEventTime.setText(hourOfDay + ":" + minute);
+                endtimecalendar = Calendar.getInstance();
+                endtimecalendar.add(Calendar.HOUR_OF_DAY, hourOfDay);
+                endtimecalendar.add(Calendar.MINUTE,minute);
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+
         }
+
     };
 
     TimePickerDialog.OnTimeSetListener startTimer = new TimePickerDialog.OnTimeSetListener() {
@@ -113,9 +128,9 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
             currentDateStartTime = sdf.format(new Date());
 
             try {
-                Date start = new SimpleDateFormat("HH:mm", Locale.ENGLISH)
+                start = new SimpleDateFormat("HH:mm", Locale.ENGLISH)
                         .parse(currentDateStartTime);
-                Date end = new SimpleDateFormat("HH:mm", Locale.ENGLISH)
+                end = new SimpleDateFormat("HH:mm", Locale.ENGLISH)
                         .parse(hourOfDay + ":" + minute);
                 if(todayTomorrowFlag ==0){
                 if (start.compareTo(end) > 0) {
@@ -135,13 +150,21 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                     Toast.makeText(CreateActivity.this,"Selected time is not valid",Toast.LENGTH_LONG).show();
                     currentDateStartTime = sdf.format(new Date());
                 }}else{
+
                     startEventTime.setText(hourOfDay + ":" + minute);
+                   // startparseDateForDatabase = sdfFordatabase.
                 }
+                starttimeCalender = Calendar.getInstance();
+                starttimeCalender.add(Calendar.HOUR_OF_DAY, hourOfDay);
+                starttimeCalender.add(Calendar.MINUTE,minute);
+
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
         }
+
     };
 
     @Override
@@ -292,12 +315,10 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
         });
 
         tomorrowButton = (Button)findViewById(R.id.tomorrow_button);
-
-
-            Calendar c = Calendar.getInstance();
-            c.setTime(new Date()); // Now use today date.
-            c.add(Calendar.DATE, 1);
-            String output = dateFormat.format(c.getTime());
+            tomorrowDate = Calendar.getInstance();
+            tomorrowDate.setTime(new Date()); // Now use today date.
+            tomorrowDate.add(Calendar.DATE, 1);
+            String output = dateFormat.format(tomorrowDate.getTime());
 
             Log.w("Date",output);
             tomorrowButton.setText(output);
@@ -309,6 +330,8 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                 todayTomorrowFlag = 1;
                 tomorrowButton.setActivated(true);
                 tomorrowButton.setTextColor(Color.WHITE);
+                Log.w("hello tomorrow",tomorrowDate.getTime()+"");
+                Log.w("hello tomorrow",tomorrowDate.get(Calendar.MONTH)+"");
                 tomorrowButton.setBackgroundResource(R.drawable.white_button_activated);
                 todayButton.setActivated(false);
                 todayButton.setTextColor(Color.BLACK);
@@ -349,6 +372,7 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                 if(activity_name.equals("") || autocomplateAddress.equals("")) {
                     Toast.makeText(CreateActivity.this,"Activity name or address field is empty",Toast.LENGTH_LONG).show();
                 }else{
+                   ;
 
                     params.put("activity_name", activity_name);
 
@@ -359,9 +383,37 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                     params.put("activity_lat", Double.toString(ValidationClass.get_Latitude(autocomplateAddress,coder)));
                     params.put("activity_lon", Double.toString(ValidationClass.get_longitude(autocomplateAddress,coder)));
                     params.put("address", autocomplateAddress);
+                   // SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");2017-03-14'T'11:24:00'Z'
+                    String[] monthNames = new String[12];
+                    monthNames[0] ="01";
+                    monthNames[1] ="02";
+                    monthNames[2] ="03";
+                    monthNames[3] ="04";
+                    monthNames[4] ="05";
+                    monthNames[5] ="06";
+                    monthNames[6] ="07";
+                    monthNames[7] ="08";
+                    monthNames[8] ="09";
+                    monthNames[9] ="10";
+                    monthNames[10] ="11";
+                    monthNames[11] ="12";
+                    if(todayTomorrowFlag == 1) {
+                        tomorrowDate.add(Calendar.DATE, 1);
+                        //  Log.w("Start Event", tomorrowDate.get(Calendar.YEAR)+"-"+monthNames[tomorrowDate.get(Calendar.MONTH)]+"-"+tomorrowDate.get(Calendar.DATE)+"'T'"+endEventTime.getText().toString()+":00'Z'");
+                        endparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + endEventTime.getText().toString() + ":00.000000Z";
+                    }else{
+                        endparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + endEventTime.getText().toString() + ":00.000000Z";
+                    }
 
-                    params.put("activity_time", startEventTime.getText());
-                    params.put("activity_end_time", endEventTime.getText());
+                    if(todayTomorrowFlag == 0) {
+                        tomorrowDate.add(Calendar.DATE, -1);
+                        //Log.w("Start Event", tomorrowDate.get(Calendar.YEAR)+"-"+monthNames[tomorrowDate.get(Calendar.MONTH)]+"-"+tomorrowDate.get(Calendar.DATE)+"'T'"+startEventTime.getText().toString()+":00'Z'");
+                        startparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + startEventTime.getText().toString() + ":00.000000Z";
+                    }else{
+                        startparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + startEventTime.getText().toString() + ":00.000000Z";
+                    }
+                    params.put("activity_time",startparseDateForDatabase);
+                    params.put("activity_end_time",endparseDateForDatabase);
                     params.put("description", activityDescription);
                     params.put("additional_notes",additionalNotes);
 
@@ -481,4 +533,6 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                 "Could not connect to Google API Client: Error " + connectionResult.getErrorCode(),
                 Toast.LENGTH_SHORT).show();
     }
+
+
 }
