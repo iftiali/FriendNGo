@@ -217,6 +217,10 @@
             android:name=".MySpecialGroup"
             android:label="@string/title_activity_my_special_group"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ActivityDetailPaidEvent"
+            android:label="@string/title_activity_detail_paid_event"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

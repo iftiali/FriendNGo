@@ -1,12 +1,12 @@
 package com.friendngo.friendngo.friendngo;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,46 +20,46 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.File;
+
 import cz.msebera.android.httpclient.Header;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-
-public class ActivityDetails extends AppCompatActivity {
-    FrameLayout requestFrame;
-    TextView activityName;
-    ImageView creatorPhoto;
-    TextView creatorName;
-    TextView creatorAge;
-    TextView creatorStatus;
-    TextView creatorHome;
-    ImageView creatorFlag;
-    TextView activityDate;
-    TextView activityTime;
-    TextView activityDescription;
-    TextView activityAddress;
+public class ActivityDetailPaidEvent extends AppCompatActivity {
+    RelativeLayout activity_detail_free_event;
+    TextView activity_detail_creator_name;
+    TextView detail_paid_event_address;
+    TextView detail_paid_date;
+    TextView detail_event_endStartTime;
     Button sendRequestButton;
-
+    FrameLayout requestFrame;
+    TextView activity_detail_paid_description_text;
 
     RecyclerView participantsRecycler;
     private RecyclerView.LayoutManager mHorizontallayoutManager;
     private RecyclerView.Adapter mHorizontalAdapter;
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        setContentView(R.layout.activity_detail_paid_event);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        activity_detail_paid_description_text= (TextView) this.findViewById(R.id.activity_detail_paid_description_text);
+        activity_detail_free_event = (RelativeLayout)findViewById(R.id.activity_detail_free_event);
+        activity_detail_creator_name = (TextView)findViewById(R.id.activity_detail_creator_name);
+        detail_paid_event_address = (TextView)findViewById(R.id.detail_paid_event_address);
+        detail_paid_date = (TextView)findViewById(R.id.detail_paid_date);
+        detail_event_endStartTime = (TextView)findViewById(R.id.detail_event_endStartTime);
+        sendRequestButton = (Button)findViewById(R.id.send_request_button_paid_event);
+        requestFrame = (FrameLayout)findViewById(R.id.activity_detail_request_frame);
         final int activity_index = getIntent().getIntExtra("Activity Index", 0);
         final long activity_pk = ((UserActivity)MapActivity.activitiesList.get(activity_index)).getActivity_pk();
-        sendRequestButton = (Button)findViewById(R.id.send_request_button);
+
         sendRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +73,7 @@ public class ActivityDetails extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        Toast.makeText(ActivityDetails.this, "Request Sent", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Request Sent", Toast.LENGTH_LONG).show();
                         //TODO: Test and implement statusCode handler for developers and graceful degradation
                         Log.w("POST AR SUCCESS", statusCode + ": " + "Response = " + response.toString());
                         try{
@@ -99,11 +99,9 @@ public class ActivityDetails extends AppCompatActivity {
                         Log.w("POST AR FAILURE", "Error Code: " + error_code+", text: "+text);
                     }
                 });
-                ActivityDetails.this.finish();
+                ActivityDetailPaidEvent.this.finish();
             }
         });
-
-        requestFrame = (FrameLayout)findViewById(R.id.activity_detail_request_frame);
         requestFrame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,13 +109,11 @@ public class ActivityDetails extends AppCompatActivity {
                 startActivity(seeRequest);
             }
         });
-
         UserActivity activity = (UserActivity) MapActivity.activitiesList.get(activity_index);
 
-        //GET The image file at the pictureURL
         AsyncHttpClient client = new AsyncHttpClient();
         String pictureURL = activity.getProfilePicURL();
-        creatorPhoto = (ImageView) this.findViewById(R.id.creator_image);
+
         client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
 
             @Override
@@ -126,7 +122,8 @@ public class ActivityDetails extends AppCompatActivity {
                 //Use the downloaded image as the profile picture
                 Uri uri = Uri.fromFile(response);
 //                    profilePicture = (ImageView) markup_layout.findViewById(R.id.banner_profilepicture);
-                creatorPhoto.setImageURI(uri);
+                //creatorPhoto.setImageURI(uri);
+              //  activity_detail_free_event.setBackground();
             }
 
             @Override
@@ -135,48 +132,20 @@ public class ActivityDetails extends AppCompatActivity {
             }
         });
 
-        //Get the XML instances for each of the headings
-        activityName = (TextView) this.findViewById(R.id.activity_detail_name);
-        activityName.setText(activity.getName());
-        creatorName = (TextView) this.findViewById(R.id.activity_detail_creator_name);
-        creatorName.setText(activity.getCreator());
-        creatorAge = (TextView) this.findViewById(R.id.activity_detail_creator_age);
-        creatorAge.setText(activity.getCreatorAge());
-
-        creatorStatus = (TextView) this.findViewById(R.id.activity_detail_creator_status);
-        creatorStatus.setText(activity.getCreatorStatus()+",");
-
-        creatorHome = (TextView) this.findViewById(R.id.activity_detail_creator_home);
-        Log.w("HOME CITY DEBUG", activity.getHomeCity());
-        creatorHome.setText(" " + activity.getHomeCity());
-
-        creatorFlag = (ImageView) this.findViewById(R.id.activity_detail_creator_flag);
-        creatorFlag.setImageResource(R.drawable.canada);
-
-        activityTime = (TextView) this.findViewById(R.id.activity_detail_date);
-        activityTime.setText("7:30 PM - 10:30 PM");//TODO: Include a custom Time object
-
-        activityDate = (TextView) this.findViewById(R.id.activity_detail_time);
-        activityTime.setText("Feb 7th, 2017 ");
-
-        activityDescription = (TextView) this.findViewById(R.id.activity_detail_description_text);
-        activityDescription.setText(activity.getDescription());
-
-        activityAddress = (TextView) this.findViewById(R.id.activity_type_address_text);
-        activityAddress.setText(activity.getAddress());
+        activity_detail_creator_name.setText(activity.getName());
+        detail_paid_event_address.setText(activity.getAddress());
+        activity_detail_paid_description_text.setText(activity.getDescription());
+        detail_paid_date.setText("Feb 7th, 2017 ");
+        detail_event_endStartTime.setText("7:30 PM - 10:30 PM");//TODO: Include a custom Time object
 
 
-        participantsRecycler = (RecyclerView) this.findViewById(R.id.participants_recycler_view);
+        participantsRecycler = (RecyclerView) this.findViewById(R.id.participants_recycler_view_paid_event);
         mHorizontallayoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
         participantsRecycler.setLayoutManager(mHorizontallayoutManager);
         mHorizontalAdapter = new AttendingHorizontalRow((UserActivity)MapActivity.activitiesList.get(activity_index), getApplicationContext());
         participantsRecycler.setAdapter(mHorizontalAdapter);
         participantsRecycler.setHasFixedSize(true);
-        //TODO: Build The Layout Adapter
-
-        //TODO: Figure out how to get the images
-
-
 
     }
+
 }

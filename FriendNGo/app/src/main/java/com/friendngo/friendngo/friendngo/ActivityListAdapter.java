@@ -193,6 +193,16 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             if(userActivity.getRequest_state()==2){
                 viewHolder.paidAddActivityButton.setBackgroundResource(R.drawable.delete_red);
             }
+
+            viewHolder.paidEventRelativeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext,ActivityDetailPaidEvent.class);
+                    intent.putExtra("Activity Index", position);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(intent);
+                }
+            });
         }else {
             viewHolder.freeEvent.setVisibility(View.VISIBLE);
             viewHolder.paidEventRelativeLayout.setVisibility(View.GONE);

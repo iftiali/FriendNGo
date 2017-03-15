@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_activity_detail_paid_event"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.friendngo.friendngo.friendngo.ActivityDetailPaidEvent"
+    tools:showIn="@layout/activity_detail_paid_event">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <FrameLayout
+                android:id="@+id/creator_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/rounded_corners_white">
+
+                <RelativeLayout
+                    android:id="@+id/activity_detail_free_event"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/holifest"
+                    android:layout_height="250dp">
+
+
+                    <TextView
+                        android:id="@+id/activity_detail_creator_name"
+                        android:text="Mark Patterson"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        android:textStyle="normal|bold"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="69dp" />
+
+                    <TextView
+                        android:text="Address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:layout_below="@+id/activity_detail_creator_name"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="8dp"
+                        android:id="@+id/detail_paid_event_address" />
+
+                    <TextView
+                        android:text="TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:textStyle="normal|bold"
+                        android:layout_below="@+id/detail_paid_event_address"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="23dp"
+                        android:id="@+id/detail_paid_date" />
+
+                    <TextView
+                        android:text="TextView"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:textStyle="normal|bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="165dp"
+                        android:id="@+id/detail_event_endStartTime" />
+
+
+                </RelativeLayout>
+            </FrameLayout>
+            <FrameLayout
+                android:id="@+id/activity_detail_paid_request_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/creator_frame"
+                android:layout_margin="7dp"
+                android:background="@drawable/rounded_corners_white">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/activity_detail_paid_request_heading"
+                        android:text="See request"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textColor="#343B59"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true" />
+
+                </RelativeLayout>
+            </FrameLayout>
+            <FrameLayout
+                android:id="@+id/activity_detail_paid_description_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/creator_frame"
+                android:layout_margin="7dp"
+                android:background="@drawable/rounded_corners_white">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/activity_detail_paid_description_heading"
+                        android:text="Description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:textSize="20sp"
+                        android:textColor="#343B59" />
+
+                    <TextView
+                        android:id="@+id/activity_detail_paid_description_text"
+                        android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:layout_below="@+id/activity_detail_paid_description_heading"
+                        android:layout_centerHorizontal="true" />
+                </RelativeLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded_corners_white"
+                android:layout_margin="7dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/activity_detail_paid_place_heading"
+                        android:text="Place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#343B59"
+                        android:textSize="20sp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp" />
+
+                    <TextView
+                        android:id="@+id/activity_detail_paid_address_text"
+                        android:text="5846 Upper Lachine Road, H4A 2B5"
+                        android:layout_below="@id/activity_detail_paid_place_heading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="10dp"
+                        />
+                </RelativeLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="7dp"
+                android:background="@drawable/rounded_corners_white"
+                android:id="@+id/activity_detail_paid_participants_frame_layout">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:text="Participants"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/participants_text_paid_event"
+                        android:textSize="20sp"
+                        android:textColor="#343B59"
+                        android:layout_marginTop="10dp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/participants_recycler_view_paid_event"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/participants_text_paid_event"
+                        android:layout_centerHorizontal="true"
+                        android:foregroundGravity="center"
+                        />
+                </RelativeLayout>
+            </FrameLayout>
+            <Button
+                android:text="REQUEST TO JOIN ACTIVITY"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/send_request_button_paid_event"
+                android:layout_margin="10dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/submit_button"/>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

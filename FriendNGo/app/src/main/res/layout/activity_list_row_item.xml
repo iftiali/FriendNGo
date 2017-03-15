@@ -201,8 +201,8 @@
         android:id="@+id/paidEventRelativeLayout"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_toRightOf="@+id/freeEventRelativeLayout"
+        android:layout_toEndOf="@+id/freeEventRelativeLayout">
         <LinearLayout
 
             android:id="@+id/paid_event_linear"
@@ -289,8 +289,8 @@
                         android:layout_marginRight="8dp"
                         android:layout_marginTop="6dp"
                         android:background="@drawable/add_oval"
-                        android:layout_width="42dp"
-                        android:layout_height="42dp" />
+                        android:layout_width="32dp"
+                        android:layout_height="32dp" />
 
                     <ImageView
                         app:srcCompat="@drawable/checkmark"
