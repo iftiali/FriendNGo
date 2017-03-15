@@ -1,6 +1,7 @@
 package com.friendngo.friendngo.friendngo;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +40,7 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
     Button sendRequestButton;
     FrameLayout requestFrame;
     TextView activity_detail_paid_description_text;
-
+    ImageView detail_event_background_image;
     RecyclerView participantsRecycler;
     private RecyclerView.LayoutManager mHorizontallayoutManager;
     private RecyclerView.Adapter mHorizontalAdapter;
@@ -56,7 +58,8 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
         detail_paid_date = (TextView)findViewById(R.id.detail_paid_date);
         detail_event_endStartTime = (TextView)findViewById(R.id.detail_event_endStartTime);
         sendRequestButton = (Button)findViewById(R.id.send_request_button_paid_event);
-        requestFrame = (FrameLayout)findViewById(R.id.activity_detail_request_frame);
+        requestFrame = (FrameLayout)findViewById(R.id.activity_detail_paid_request_frame);
+        detail_event_background_image = (ImageView) this.findViewById(R.id.detail_event_background_image);
         final int activity_index = getIntent().getIntExtra("Activity Index", 0);
         final long activity_pk = ((UserActivity)MapActivity.activitiesList.get(activity_index)).getActivity_pk();
 
@@ -121,9 +124,7 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
                 Log.w("GET IMAGE SUCCESS","Successfully Retrieved The Image");
                 //Use the downloaded image as the profile picture
                 Uri uri = Uri.fromFile(response);
-//                    profilePicture = (ImageView) markup_layout.findViewById(R.id.banner_profilepicture);
-                //creatorPhoto.setImageURI(uri);
-              //  activity_detail_free_event.setBackground();
+                detail_event_background_image.setImageURI(uri);
             }
 
             @Override
