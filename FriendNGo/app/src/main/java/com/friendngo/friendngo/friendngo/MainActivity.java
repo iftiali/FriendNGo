@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
     private final int STAGING_SETTING = 1;
     private final int TEST_SETTING = 2;
 
-    private int server_mode = TEST_SETTING;
+    private int server_mode = PRODUCTION_SETTING;
     private int SPLASH_DISPLAY_LENGTH = 2000;
     public static String base_host_url = "";
     public static boolean cheat_mode = false;
@@ -44,9 +44,9 @@ public class MainActivity extends Activity {
         }
 
         if(server_mode == PRODUCTION_SETTING){
-            base_host_url = "http://api.friendngo.com/";
+            base_host_url = "https://api.friendngo.com/";
         } else if (server_mode == STAGING_SETTING) {
-            base_host_url = "http://staging.friendngo.com/";
+            base_host_url = "https://staging.friendngo.com/";
         } else {
             base_host_url = "https://test.friendngo.com/";
         }
