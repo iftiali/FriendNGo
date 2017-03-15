@@ -291,7 +291,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
 
 
             if (viewHolder.addActivityButton != null) {
-                viewHolder.addActivityButton.setOnClickListener(new View.OnClickListener() {
+                viewHolder.freeEvent.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(mContext, ActivityDetails.class);
