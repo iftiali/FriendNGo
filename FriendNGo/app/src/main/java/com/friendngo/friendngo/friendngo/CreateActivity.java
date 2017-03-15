@@ -54,6 +54,7 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
     private static final String TAG ="Auther:Parth";
     TextView plus_minus_textview,cancelTextView;
     int plus = 0;
+    String itemSelectedInCategory = null;
     Calendar tomorrowDate;
     Button plus_button,minus_button;
     int todayTomorrowFlag =0;
@@ -74,7 +75,7 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
 
     private PlaceAutocompleteAdapter mAdapter;
     private AutoCompleteTextView mAutocompleteView;
-
+    Geocoder coder =null;
     TimePickerDialog.OnTimeSetListener endTimer = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -254,7 +255,7 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
         list.add(new CategorySpinnerModel("Professional & Networking",R.drawable.coworking));
         list.add(new CategorySpinnerModel("Help & Association", R.drawable.handshake));
 
-        Spinner category_spinner = (Spinner)findViewById(R.id.category_picker);
+        final Spinner category_spinner = (Spinner)findViewById(R.id.category_picker);
         final CategorySpinnerActivity adapter=new CategorySpinnerActivity(CreateActivity.this, R.layout.category_picker,R.id.txt,list);
         category_spinner.setAdapter(adapter);
 
@@ -269,7 +270,7 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                 spinnerAdapter2.clear();
 
 
-                String itemSelected =  list.get(position).getText();
+                itemSelectedInCategory =  list.get(position).getText();
 
                 List categoryArrayList=new ArrayList<Category>();
                 categoryArrayList = MapActivity.categoryList;
@@ -279,7 +280,7 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                 {
 
                     c = (Category) categoryArrayList.get(i);
-                    if(itemSelected.equals(c.getName())){
+                    if(itemSelectedInCategory.equals(c.getName())){
 
 
 
@@ -346,8 +347,10 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                 //Get the items selected by the user and put them into an HTTP reques
                 Spinner activityTypePicker = (Spinner) findViewById(R.id.activity_type_picker);
                 String activityType = activityTypePicker.getSelectedItem().toString();
+
                 EditText activityEditText = (EditText) findViewById(R.id.editText);
                 String activity_name = activityEditText.getText().toString();
+
 
                 //EditText addressText = (EditText) findViewById(R.id.address_edit_text);
                 autocomplateAddress = mAutocompleteView.getText().toString();
@@ -359,7 +362,7 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                 String additionalNotes = additionalNotesText.getText().toString();
 
                 //Determine the latitude and longitude from the address provided
-                Geocoder coder = new Geocoder(getApplicationContext());
+
 
                 //POST new activity to the server
                 AsyncHttpClient client = new AsyncHttpClient();
@@ -369,21 +372,24 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
 
                 //Set the status type into the message for the server
                 RequestParams params = new RequestParams();
-                if(activity_name.equals("") || autocomplateAddress.equals("")) {
-                    Toast.makeText(CreateActivity.this,"Activity name or address field is empty",Toast.LENGTH_LONG).show();
+                if(activity_name.equals("") || autocomplateAddress.equals("") || validationFlag) {
+                    Toast.makeText(CreateActivity.this,"Activity name or address field is invalid/empty ",Toast.LENGTH_LONG).show();
                 }else{
-                   ;
 
+                    params.put("category",itemSelectedInCategory);
                     params.put("activity_name", activity_name);
 
                     params.put("activity_type", activityType);
                     params.put("max_users",plus);
 
-
-                    params.put("activity_lat", Double.toString(ValidationClass.get_Latitude(autocomplateAddress,coder)));
-                    params.put("activity_lon", Double.toString(ValidationClass.get_longitude(autocomplateAddress,coder)));
-                    params.put("address", autocomplateAddress);
-                   // SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");2017-03-14'T'11:24:00'Z'
+                    try {
+                        params.put("activity_lat", Double.toString(ValidationClass.get_Latitude(autocomplateAddress, coder)));
+                        params.put("activity_lon", Double.toString(ValidationClass.get_longitude(autocomplateAddress, coder)));
+                        params.put("address", autocomplateAddress);
+                    }catch (Exception e){
+                        Toast.makeText(getApplicationContext(),"invalid address",Toast.LENGTH_SHORT).show();
+                    }
+                    // SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");2017-03-14'T'11:24:00'Z'
                     String[] monthNames = new String[12];
                     monthNames[0] ="01";
                     monthNames[1] ="02";
@@ -452,10 +458,29 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
             }
         });
         //Address Autocomplete
+        coder = new Geocoder(getApplicationContext());
         mAutocompleteView.setOnItemClickListener(mAutocompleteClickListener);
         mAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient,null,
                 null);
         mAutocompleteView.setAdapter(mAdapter);
+        mAutocompleteView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!mAutocompleteView.getText().toString().equals("")){
+                    try{
+                        validationFlag = false;
+                    ValidationClass.get_Latitude(autocomplateAddress, coder);
+                    ValidationClass.get_longitude(autocomplateAddress, coder);
+                   // Toast.makeText(getApplicationContext(),"Focus off",Toast.LENGTH_SHORT).show();
+                    }catch (Exception e){
+                        validationFlag = true;
+                        Toast.makeText(getApplicationContext(),"Invalid address",Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+            }
+        });
         }
     /**
             * Listener that handles selections from suggestions from the AutoCompleteTextView that

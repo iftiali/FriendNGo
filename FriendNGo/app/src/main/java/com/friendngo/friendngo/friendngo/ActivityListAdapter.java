@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -238,8 +239,8 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
 
             String pictureURL = ((UserActivity) activitiesList.get(position)).getProfilePicURL();
             final ImageView profilePic = (ImageView) convertView.findViewById(R.id.profilepicture);
-
-            client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(mContext) {
+            Picasso.with(mContext).load(MainActivity.base_host_url + pictureURL).into(profilePic);
+           /* client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(mContext) {
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, File response) {
@@ -253,7 +254,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
                     Log.w("GET IMAGE FAIL", "Could not retrieve image");
                 }
-            });
+            });*/
 
             switch (userActivity.getCategory()) {
                 case "Art & Culture":

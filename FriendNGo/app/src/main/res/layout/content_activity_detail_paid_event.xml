@@ -37,6 +37,9 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="250dp"
+                        android:scaleType="fitXY"
+                        android:adjustViewBounds="true"
+                        android:layout_centerInParent="true"
                         app:srcCompat="@drawable/holifest"
                         android:id="@+id/detail_event_background_image"
                         android:layout_alignParentLeft="true"

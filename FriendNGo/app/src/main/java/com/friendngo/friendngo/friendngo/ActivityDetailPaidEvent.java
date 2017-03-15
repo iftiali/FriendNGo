@@ -60,6 +60,7 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
         sendRequestButton = (Button)findViewById(R.id.send_request_button_paid_event);
         requestFrame = (FrameLayout)findViewById(R.id.activity_detail_paid_request_frame);
         detail_event_background_image = (ImageView) this.findViewById(R.id.detail_event_background_image);
+        detail_event_background_image.setScaleType(ImageView.ScaleType.FIT_XY);
         final int activity_index = getIntent().getIntExtra("Activity Index", 0);
         final long activity_pk = ((UserActivity)MapActivity.activitiesList.get(activity_index)).getActivity_pk();
 
