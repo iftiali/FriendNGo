@@ -80,6 +80,7 @@ public class MapActivity extends AppCompatActivity implements
     TextView other_account;
     public static CircularImageView other_user_picture;
     public static String selfIdentify=null;
+    public static int versionNumber = 3;
     public static String selfName=null;
     public static TextView other_user_name,other_user_age,other_user_about,other_user_location;
     ImageView my_profile_dots;
@@ -114,7 +115,7 @@ public class MapActivity extends AppCompatActivity implements
     Button activityDetailsButton, participateButton;
 
     //new updates
-    boolean isNewUpateReadyState = false;
+
 
     //Data Model and Adapters
     public static List activitiesList = new ArrayList<UserActivity>();
@@ -158,7 +159,7 @@ public class MapActivity extends AppCompatActivity implements
         participateButton = (Button) findViewById(R.id.banner_participate);
         participateButton.setEnabled(false);
         //death crash
-        checkForNewUpdate();
+        checkForNewVersion();
         getActivity();
         getSelfIdentify();
         bottomNavigationView.getMenu().getItem(0).setChecked(true);
@@ -1123,7 +1124,7 @@ public class MapActivity extends AppCompatActivity implements
         super.onDestroy();
         Log.i(My_TAG,"onDestroy invoked map");
     }
-    public boolean checkForNewUpdate(){
+    public boolean checkForNewVersion(){
         AsyncHttpClient client = new AsyncHttpClient();
         //death crash
         if(SignIn.static_token != null) {
@@ -1132,14 +1133,21 @@ public class MapActivity extends AppCompatActivity implements
         }else{
             Log.i(My_TAG,"token null"+"Map");
         }
-        client.get(MainActivity.base_host_url + "api/getCategories/", new JsonHttpResponseHandler() {
+        client.get(MainActivity.base_host_url + "api/getVersionStatus/"+versionNumber, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.w("GET NEW UPDATE READY", statusCode + ": " + "Response = " + response.toString());
                 try{
-                    Log.w("GET NEW UPDATE READY", statusCode + ", " + response.getBoolean("must_update"));
-                    isNewUpateReadyState = response.getBoolean("must_update");
+
+                    //versionNumber = response.getDouble("must_update");
+
+                    if(response.getBoolean("is_deprecated")){
+                        /*Keys for version_code
+                        created_at_timestamp,is_deprecated,application_notes*/
+                       // Log.w("VERSION NUMBER",response.getString("application_notes"));
+                        Toast.makeText(getApplicationContext(),response.getString("application_notes"),Toast.LENGTH_LONG).show();
+                    }
                 }catch (JSONException e){
                     Log.w("GET NEW UPDATE READY",e.getMessage().toString());
                 }
