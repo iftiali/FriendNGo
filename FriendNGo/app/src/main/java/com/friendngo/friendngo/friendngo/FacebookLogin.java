@@ -5,12 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -35,7 +33,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,8 +40,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URI;
 import java.util.Arrays;
 import cz.msebera.android.httpclient.Header;
 
@@ -57,7 +52,6 @@ public class FacebookLogin extends AppCompatActivity {
     private String TOKEN_PREFERENCE = "token_preference";
     int gspEnableFlag = 0;
     public static Uri facebook_profile_pic;
-    public static String facebook_birthday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +62,7 @@ public class FacebookLogin extends AppCompatActivity {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+
         getLocationPermission();
         setContentView(R.layout.activity_facebook_login);
 
@@ -82,7 +77,6 @@ public class FacebookLogin extends AppCompatActivity {
         }
 
         //TODO: Why does white bar appear at the top when we logout and come back to this screen??? Fix it!
-
         if (MainActivity.cheat_mode == true) {
             Intent mainIntent = new Intent(FacebookLogin.this, SignIn.class);
             FacebookLogin.this.startActivity(mainIntent);
@@ -90,6 +84,7 @@ public class FacebookLogin extends AppCompatActivity {
 
         //If the user is logged in then go straight to the New City Activity
         if (isLoggedIn()) {
+            MainActivity.new_user = false;
             SharedPreferences prefs = getSharedPreferences(TOKEN_PREFERENCE, MODE_PRIVATE);
             String shared_preference_token = prefs.getString("token", null);
             if (shared_preference_token != null) {
@@ -116,7 +111,6 @@ public class FacebookLogin extends AppCompatActivity {
                         Intent mainIntent = new Intent(FacebookLogin.this, SignIn.class);
                         FacebookLogin.this.startActivity(mainIntent);
                     }
-                    // FacebookLogin.this.finish();
                 }
             });
 
@@ -215,23 +209,13 @@ public class FacebookLogin extends AppCompatActivity {
                                                                             Log.w("MY PROFILE PICTURE", "Error Code: " + error_code + ",  " + json.toString());
                                                                         }
                                                                     });
-
-
-
-//                                                                } catch (){ //Catch for bitmap parsing
-//                                                                    Log.w("IOEXCEPTION", e.toString());
-//                                                                }
                                                             }
-
                                                             @Override
                                                             public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
                                                                 Log.w("GET IMAGE FAIL", "Could not retrieve image");
                                                             }
                                                         });
-
                                                         //TODO: Post the url or the image to django somewhere...
-
-
                                                     } catch (JSONException e){
                                                         Log.w("JSON PARSE ERROR", e.toString());
                                                     }

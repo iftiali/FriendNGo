@@ -22,6 +22,7 @@ public class MainActivity extends Activity {
     private int SPLASH_DISPLAY_LENGTH = 2000;
     public static String base_host_url = "";
     public static boolean cheat_mode = false;
+    public static boolean new_user = true;
 
     @Override
     protected void attachBaseContext(Context newBase) {

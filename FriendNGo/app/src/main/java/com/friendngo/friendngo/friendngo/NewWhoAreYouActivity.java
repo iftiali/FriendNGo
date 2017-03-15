@@ -411,7 +411,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 
                         }
                     }
-                    Intent intent = new Intent(NewWhoAreYouActivity.this, MyCity.class);
+                    Intent intent = new Intent(NewWhoAreYouActivity.this, MySpecialGroup.class);
                     NewWhoAreYouActivity.this.startActivity(intent);
                     NewWhoAreYouActivity.this.finish();
                 }else {

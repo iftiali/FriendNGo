@@ -3,6 +3,7 @@ package com.friendngo.friendngo.friendngo;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -96,6 +97,7 @@ public class MapActivity extends AppCompatActivity implements
     private boolean gettingGPS = true;
     public static List categoryList = new ArrayList<Category>();
 
+
     //Layout instances
     FrameLayout markup_layout;
     RelativeLayout alpha_layer;
@@ -164,6 +166,7 @@ public class MapActivity extends AppCompatActivity implements
                 startActivity(intent);
             }
         });
+
         //navigate to my profile
         my_profile_dots.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,6 +175,7 @@ public class MapActivity extends AppCompatActivity implements
                 startActivity(intent);
             }
         });
+
         //OnClick listeners for bottom navigation bar
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -216,13 +220,79 @@ public class MapActivity extends AppCompatActivity implements
             }
         });
 
+
+        //GET user profile
+        AsyncHttpClient client = new AsyncHttpClient();
+        if (SignIn.static_token != null) {
+            client.addHeader("Authorization", "Token " + SignIn.static_token);
+        }
+        client.get(MainActivity.base_host_url + "api/getProfile/", new JsonHttpResponseHandler() {
+
+            //GET user profile
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, final JSONObject response) {
+                Log.w("GET PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                Log.w("Response",response.toString());
+                String langName = null;
+                try {
+                    String firstNameString = response.getString("first_name");
+                    MapActivity.other_user_name.setText(firstNameString);
+
+                    int age = response.getInt("age");
+                    if(age > 0) {
+                        MapActivity.other_user_age.setText(age + " y-o");
+                    } else if(age <= 0)
+                    {
+                        MapActivity.other_user_age.setText("X y-o");
+                    }
+
+                    String bio = response.getString("bio");
+                    MapActivity.other_user_about.setText(bio);
+
+                    String cityString = response.getString("home_city");
+                    other_user_location.setText("Resident, " + cityString);
+                } catch (JSONException e) {
+                    Log.w("JSON EXCEPTION", e.getMessage());
+                }
+
+                String pictureURL="";
+                //GET Profile image from backend if not available from Facebook
+                if(FacebookLogin.facebook_profile_pic == null) {
+                    //GET The image file at the pictureURL
+                    AsyncHttpClient client = new AsyncHttpClient();
+                    try {
+                        pictureURL = response.getString("picture");
+                    } catch (JSONException e) {
+                        Log.w("GET PROFILE JSON FAIL", e.getMessage().toString());
+                    }
+                    client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, File response) {
+                            Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
+                            //Use the downloaded image as the profile picture
+                            Uri uri = Uri.fromFile(response);
+                            MapActivity.other_user_picture.setImageURI(uri);
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                            Log.w("GET IMAGE FAIL", "Could not retrieve image");
+                        }
+                    });
+                }
+            }
+        });
+
+        if(FacebookLogin.facebook_profile_pic != null) {
+            MapActivity.other_user_picture.setImageURI(FacebookLogin.facebook_profile_pic);
+        }
+
         //Setup the Map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         //GET last known location setup
-        AsyncHttpClient client = new AsyncHttpClient();
         if (SignIn.static_token != null) {
             client.addHeader("Authorization", "Token " + SignIn.static_token);
         }
@@ -870,15 +940,20 @@ public class MapActivity extends AppCompatActivity implements
                             Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
                         }
                     });
+                    Intent intent;
 
                     Log.w("GPS CITY RESULT", "New City Detected");
-                    Intent intent;
                         if (MainActivity.cheat_mode == true) {
                             intent = new Intent(MapActivity.this, NewCity.class);
                         } else {
-                            intent = new Intent(MapActivity.this, NewCity.class);
+
+                            if (MainActivity.new_user == true) {
+                                intent = new Intent(MapActivity.this, NewCity.class);
+                                MapActivity.this.startActivity(intent);
+                            } else {
+                                Log.w("PROFILE DEBUG", "PROFILE ALREADY CREATED");
+                            }
                         }
-                    MapActivity.this.startActivity(intent);
                     }
                 else{
                         Toast.makeText(getApplicationContext(), current_city, Toast.LENGTH_LONG).show();

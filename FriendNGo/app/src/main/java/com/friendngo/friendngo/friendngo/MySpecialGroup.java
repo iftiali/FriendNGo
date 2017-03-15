@@ -2,6 +2,7 @@ package com.friendngo.friendngo.friendngo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,6 +32,7 @@ public class MySpecialGroup extends AppCompatActivity {
     private Button next_button;
     private TextView no_code_text;
     private EditText code_edit_text;
+    public static String PROFILE_CREATED_PREFERENCE = "profile_created";
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -68,6 +70,11 @@ public class MySpecialGroup extends AppCompatActivity {
                         Toast.makeText(MySpecialGroup.this, "Code Accepted!", Toast.LENGTH_LONG).show();
                         Log.w("POST CODE SUCCESS", statusCode + ": " + "Response = " + response.toString());
                         finish();
+                        //TODO: Create A Flag Here
+//                        SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
+//                        editor.putString("is_profile_created","true");
+//                        editor.commit();
+                        MainActivity.new_user = false;
                     }
 
                     @Override
@@ -97,6 +104,10 @@ public class MySpecialGroup extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 finish();
+                //TODO: Create A Flag Here
+                SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
+                editor.putString("is_profile_created","true");
+                editor.commit();
                 return false;
             }
         });
