@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -29,6 +31,7 @@ public class ActivityMessage extends AppCompatActivity {
     private List<ChatListModel> chatList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ChatListAdapter mAdapter;
+    private TextView emptyView;
     BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class ActivityMessage extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
+        emptyView = (TextView) findViewById(R.id.empty_view);
         mAdapter = new ChatListAdapter(chatList,getApplicationContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -52,7 +55,8 @@ public class ActivityMessage extends AppCompatActivity {
         }
 
 
-
+        recyclerView.setVisibility(View.GONE);
+        emptyView.setVisibility(View.VISIBLE);
         client.get(MainActivity.base_host_url + "api/getMessages/", new JsonHttpResponseHandler() {
 
             @Override
@@ -87,6 +91,7 @@ public class ActivityMessage extends AppCompatActivity {
                                  chatList.add(chatModel);
                              }
                          }
+
                      }else {
                         chatList.add(chatModel);
                      }
@@ -95,6 +100,8 @@ public class ActivityMessage extends AppCompatActivity {
                     }
 
                 }
+                recyclerView.setVisibility(View.VISIBLE);
+                emptyView.setVisibility(View.GONE);
                 mAdapter.notifyDataSetChanged();
             }
 
@@ -114,6 +121,7 @@ public class ActivityMessage extends AppCompatActivity {
                 Log.w("GET MESSAGES FAIL", "Error Code: " + error_code + ",  " + json.toString());
             }
         });
+
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_request_activity);
         bottomNavigationView.getMenu().getItem(0).setChecked(false);
         bottomNavigationView.getMenu().getItem(3).setChecked(true);

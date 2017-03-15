@@ -23,8 +23,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="0dp"
+
         app:itemBackground="@color/white"
         app:itemIconTint="@drawable/bottom_menu_selectors"
         app:itemTextColor="@color/colorPrimary"
         app:menu="@menu/bottom_navigation_tabs" />
+    <TextView
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="Join an activity to send a message to participants"/>
 </RelativeLayout>
