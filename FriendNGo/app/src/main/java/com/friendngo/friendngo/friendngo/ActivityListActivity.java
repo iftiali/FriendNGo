@@ -74,7 +74,9 @@ public class ActivityListActivity extends AppCompatActivity {
                                 ActivityListActivity.this.finish();
                                 break;
                             case R.id.message_icon:
-                                Log.w("BOTTOM NAV","Message Icon Pressed");
+                                Intent intent = new Intent(ActivityListActivity.this, ActivityMessage.class);
+                                ActivityListActivity.this.startActivity(intent);
+                                ActivityListActivity.this.finish();
                                 break;
                             case R.id.settings_icon:
                                 Log.w("NAV DEBUG", "Settings Icon Pressed");

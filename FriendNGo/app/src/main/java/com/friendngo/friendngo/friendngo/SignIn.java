@@ -3,6 +3,7 @@ package com.friendngo.friendngo.friendngo;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -149,8 +150,8 @@ public class SignIn extends AppCompatActivity {
                     //Log.w("error", String.valueOf(isEmailValid));
                     if (isNullCheck) {
                         if (isEmailValid) {
-                           // flag = isInternetOn();
-                            flag = true;
+                            flag = isOnline();
+
                             if (flag) {
 
                                // Toast.makeText(SignIn.this, " Network connection is ok ", Toast.LENGTH_LONG).show();
@@ -213,7 +214,7 @@ public class SignIn extends AppCompatActivity {
                                     }
                                 });
                             }else{
-                                Toast.makeText(SignIn.this, "Sorry your net connection is fail", Toast.LENGTH_LONG).show();
+                                Toast.makeText(SignIn.this, "Sorry! Not connected to internet", Toast.LENGTH_LONG).show();
                             }
                         } else {
                             Toast.makeText(SignIn.this, "Invalid Email ", Toast.LENGTH_LONG).show();
@@ -226,34 +227,17 @@ public class SignIn extends AppCompatActivity {
             });
         }
     }
-    public final boolean isInternetOn() {
 
-        // get Connectivity Manager object to check connection
-        ConnectivityManager connec =
-                (ConnectivityManager) getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
-
-        try {
-            // Check for network connections
-            if (connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
-                    connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                    connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
-                    connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED) {
-
-
-                return true;
-
-            } else if (
-                    connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
-                            connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED) {
-
-
-                return false;
-            }
-        } catch (NullPointerException e){
-            Log.w("NETWORK STATE ERROR", "NULL POINTER FOR NETWORK STATE");
-            return true;
-        }
-        return false;
+    public boolean isOnline() {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        return (networkInfo != null && networkInfo.isConnected());
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isOnline();
+        Log.i("on resume","onResume invoked map");
+    }
 }

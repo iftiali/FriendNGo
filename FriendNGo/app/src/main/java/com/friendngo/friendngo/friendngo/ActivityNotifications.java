@@ -70,7 +70,9 @@ public class ActivityNotifications extends AppCompatActivity {
                                 ActivityNotifications.this.finish();
                                 break;
                             case R.id.message_icon:
-                                Log.w("BOTTOM NAV","Message Icon Pressed");
+                                Intent intent = new Intent(ActivityNotifications.this, ActivityMessage.class);
+                                ActivityNotifications.this.startActivity(intent);
+                                ActivityNotifications.this.finish();
                                 break;
                             case R.id.settings_icon:
                                 Toast.makeText(getApplicationContext(), "Settings Not Available in Beta", Toast.LENGTH_LONG).show();

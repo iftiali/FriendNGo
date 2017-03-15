@@ -202,8 +202,6 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             Log.w("CREATED BY",userActivity.getCreator());
            viewHolder.creator.setText("Created by " + userActivity.getCreator().toString());
             viewHolder.creator.setTextColor(Color.GRAY);
-
-            
 //        viewHolder.profilePicture.setImageResource(R.drawable.scott);
             viewHolder.status.setText("Resident" + ", ");
             viewHolder.status.setTextColor(Color.GRAY);

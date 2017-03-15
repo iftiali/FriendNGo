@@ -33,6 +33,7 @@ dependencies {
     compile 'com.mikhaellopez:circularimageview:3.0.2'
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
     compile 'com.loopj.android:android-async-http:1.4.9'
+    compile 'com.google.android.gms:play-services-location:10.2.0'
     compile 'com.google.android.gms:play-services-maps:10.2.0'
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.google.android.gms:play-services-places:10.2.0'
