@@ -1,12 +1,17 @@
 package com.friendngo.friendngo.friendngo;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -24,6 +29,7 @@ public class ActivityMessage extends AppCompatActivity {
     private List<ChatListModel> chatList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ChatListAdapter mAdapter;
+    BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +114,45 @@ public class ActivityMessage extends AppCompatActivity {
                 Log.w("GET MESSAGES FAIL", "Error Code: " + error_code + ",  " + json.toString());
             }
         });
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_request_activity);
+        bottomNavigationView.getMenu().getItem(0).setChecked(false);
+        bottomNavigationView.getMenu().getItem(3).setChecked(true);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.home_icon:
+                                //   Intent intent = new Intent(ActivityNotifications.this, MapActivity.class);
+                                //  ActivityNotifications.this.startActivity(intent);
+                                ActivityMessage.this.finish();
+                                break;
+                            case R.id.calendar_icon:
+                                Toast.makeText(getApplicationContext(), "Calarndar Not Available in Beta", Toast.LENGTH_LONG).show();
+                                Log.w("BOTTOM NAV","Calendar Icon Pressed");
+                                break;
+                            case R.id.notification_icon:
+                                Log.w("BOTTOM NAV","Notifications Icon Pressed");
+                                Intent intentRequest = new Intent(ActivityMessage.this, ActivityNotifications.class);
+                                ActivityMessage.this.startActivity(intentRequest);
+                                ActivityMessage.this.finish();
+                                break;
+                            case R.id.message_icon:
+//                                Intent intent = new Intent(ActivityMessage.this, ActivityMessage.class);
+//                                ActivityMessage.this.startActivity(intent);
+//                                ActivityMessage.this.finish();
+                                break;
+                            case R.id.settings_icon:
+                                Toast.makeText(getApplicationContext(), "Settings Not Available in Beta", Toast.LENGTH_LONG).show();
+                                Log.w("NAV DEBUG", "Settings Icon Pressed");
+                                break;
+                            default:
+                                Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");
+                                break;
+                        }
+                        return true;
+                    }
+                });
     }
 
 }

@@ -494,7 +494,7 @@ public class MapActivity extends AppCompatActivity implements
                             JSONObject request = requests_received.getJSONObject(0);
                             request_state = request.getInt("request_state");
                         } else{
-                            Log.w("REQUESTS EMPTY", "Yup... that happened... ");
+                           // Log.w("REQUESTS EMPTY", "Yup... that happened... ");
                         }
 
 

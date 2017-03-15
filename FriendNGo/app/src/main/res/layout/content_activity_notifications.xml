@@ -17,7 +17,12 @@
         android:layout_height="wrap_content"
         android:divider="@color/whiteish"
         android:dividerHeight="5dp"/>
-
+    <TextView android:id="@+id/emptyElement"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="You will receive a notification when someone tries to join an activity you created"/>
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation_request_activity"
         android:layout_width="match_parent"

@@ -17,4 +17,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical" />
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation_request_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="0dp"
+        app:itemBackground="@color/white"
+        app:itemIconTint="@drawable/bottom_menu_selectors"
+        app:itemTextColor="@color/colorPrimary"
+        app:menu="@menu/bottom_navigation_tabs" />
 </RelativeLayout>

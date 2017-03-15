@@ -88,6 +88,7 @@ public class ActivityNotifications extends AppCompatActivity {
 
         //list of request
         list=(ListView)this.findViewById(R.id.request_list);
+        list.setEmptyView(findViewById(R.id.emptyElement));
         dataModels= new ArrayList<>();
         adapter= new ActivityRequestListAdapter(dataModels,getApplicationContext());
         list.setAdapter(adapter);
