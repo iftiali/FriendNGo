@@ -116,7 +116,7 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
         UserActivity activity = (UserActivity) MapActivity.activitiesList.get(activity_index);
 
         AsyncHttpClient client = new AsyncHttpClient();
-        String pictureURL = activity.getProfilePicURL();
+        String pictureURL = activity.getEventPictureUrl();
 
         client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
 

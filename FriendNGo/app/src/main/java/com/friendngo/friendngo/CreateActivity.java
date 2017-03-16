@@ -474,7 +474,8 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                    // Toast.makeText(getApplicationContext(),"Focus off",Toast.LENGTH_SHORT).show();
                     }catch (Exception e){
                         validationFlag = true;
-                        Toast.makeText(getApplicationContext(),"Invalid address",Toast.LENGTH_SHORT).show();
+
+                        Toast.makeText(getApplicationContext(),"Invalid address ",Toast.LENGTH_SHORT).show();
                     }
 
 

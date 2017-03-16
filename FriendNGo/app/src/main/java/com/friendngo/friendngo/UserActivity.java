@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Created by scott on 2017-01-17.
@@ -34,6 +35,7 @@ public class UserActivity {
     private Date endTime;
     private String profilePicURL;
     private Boolean isPaid;
+    private String eventPictureURL;
     List attendingList = new ArrayList<JSONObject>();
     private int request_state;
 
@@ -62,7 +64,8 @@ public class UserActivity {
                         String profilePicURL,
                         Boolean isPaid,
                         List attendingList,
-                        int request_state) {
+                        int request_state,
+                        String eventPictureURL) {
         this.homeCity = home_city;
         this.homeNationality = home_nationality;
         this.name = name;
@@ -87,6 +90,7 @@ public class UserActivity {
         this.isPaid = isPaid;
         this.attendingList = attendingList;
         this.request_state = request_state;
+        this.eventPictureURL = eventPictureURL;
     }
 
     public double getClatitude() {
@@ -317,4 +321,11 @@ public class UserActivity {
 
     public void setisPaid(boolean isPaid) {
         this.isPaid = isPaid; }
+
+    public String getEventPictureUrl() {
+        return eventPictureURL;
+    }
+
+    public void setEventPictureURL(String eventPictureURL) {
+        this.eventPictureURL = eventPictureURL; }
 }
