@@ -11,7 +11,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@color/whiteish"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.friendngo.friendngo.friendngo.MessagesOpenActivity"
+    tools:context="com.friendngo.friendngo.MessagesOpenActivity"
     tools:showIn="@layout/activity_messages_open">
 
     <FrameLayout

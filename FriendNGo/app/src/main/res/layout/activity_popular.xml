@@ -5,7 +5,7 @@
     android:id="@+id/activity_popular"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.friendngo.friendngo.friendngo.Popular">
+    tools:context="com.friendngo.friendngo.Popular">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@color/white"
-    tools:context="com.friendngo.friendngo.friendngo.NewCity"
+    tools:context="com.friendngo.friendngo.NewCity"
     tools:showIn="@layout/activity_new_city">
     <Button
         android:text="Next"

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@color/whiteish"
-    tools:context="com.friendngo.friendngo.friendngo.WhatDoYouWantToDoToday"
+    tools:context="com.friendngo.friendngo.WhatDoYouWantToDoToday"
     tools:showIn="@layout/activity_what_do_you_want_to_do_today2">
 
     <Button
