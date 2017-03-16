@@ -72,7 +72,8 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
     Calendar starttimeCalender,endtimecalendar;
     String startparseDateForDatabase = null;
     String endparseDateForDatabase = null;
-
+    double placeLong = 0;
+    double placelant = 0;
     private PlaceAutocompleteAdapter mAdapter;
     private AutoCompleteTextView mAutocompleteView;
     Geocoder coder =null;
@@ -382,13 +383,11 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                     params.put("activity_type", activityType);
                     params.put("max_users",plus);
 
-                    try {
-                        params.put("activity_lat", Double.toString(ValidationClass.get_Latitude(autocomplateAddress, coder)));
-                        params.put("activity_lon", Double.toString(ValidationClass.get_longitude(autocomplateAddress, coder)));
+
+                        params.put("activity_lat", placelant);
+                        params.put("activity_lon", placeLong);
                         params.put("address", autocomplateAddress);
-                    }catch (Exception e){
-                        Toast.makeText(getApplicationContext(),"invalid address",Toast.LENGTH_SHORT).show();
-                    }
+
                     // SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");2017-03-14'T'11:24:00'Z'
                     String[] monthNames = new String[12];
                     monthNames[0] ="01";
@@ -463,25 +462,25 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
         mAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient,null,
                 null);
         mAutocompleteView.setAdapter(mAdapter);
-        mAutocompleteView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!mAutocompleteView.getText().toString().equals("")){
-                    try{
-                        validationFlag = false;
-                    ValidationClass.get_Latitude(autocomplateAddress, coder);
-                    ValidationClass.get_longitude(autocomplateAddress, coder);
-                   // Toast.makeText(getApplicationContext(),"Focus off",Toast.LENGTH_SHORT).show();
-                    }catch (Exception e){
-                        validationFlag = true;
-
-                        Toast.makeText(getApplicationContext(),"Invalid address ",Toast.LENGTH_SHORT).show();
-                    }
-
-
-                }
-            }
-        });
+//        mAutocompleteView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if(!mAutocompleteView.getText().toString().equals("")){
+//                    try{
+//                        validationFlag = false;
+//                    ValidationClass.get_Latitude(autocomplateAddress, coder);
+//                    ValidationClass.get_longitude(autocomplateAddress, coder);
+//                   // Toast.makeText(getApplicationContext(),"Focus off",Toast.LENGTH_SHORT).show();
+//                    }catch (Exception e){
+//                        validationFlag = true;
+//
+//                        Toast.makeText(getApplicationContext(),"Invalid address ",Toast.LENGTH_SHORT).show();
+//                    }
+//
+//
+//                }
+//            }
+//        });
         }
     /**
             * Listener that handles selections from suggestions from the AutoCompleteTextView that
@@ -544,8 +543,10 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                 mPlaceDetailsAttribution.setText(Html.fromHtml(thirdPartyAttribution.toString()));
             }
             */
-            Log.i(TAG, "Place details received: " + place.getName());
-
+            placelant = place.getLatLng().latitude;
+            placeLong = place.getLatLng().longitude;
+            //Log.i(TAG, "Place details received: " + place.getName());
+            //Log.i(TAG,"Place details lan and log"+place.getLatLng().latitude+"log"+place.getLatLng().longitude);
             places.release();
         }
     };
