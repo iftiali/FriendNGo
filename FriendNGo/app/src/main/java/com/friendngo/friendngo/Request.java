@@ -24,7 +24,7 @@ public class Request extends AppCompatActivity {
     TextView cancelBtn;
     ListView list;
     ArrayList<RequestModel> dataModels;
-    ArrayList<RequestModel> URLdataModels;
+
     private static ActivityRequestListAdapter adapter;
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -67,7 +67,7 @@ public class Request extends AppCompatActivity {
             }
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray requests) {
-                Log.w("GET AR JSON ARRAY", statusCode + ": " + requests.toString());
+                Log.w("GET REQUEST SUCCESS-A", statusCode + ": " + requests.toString());
                     for (int i = 0; i < requests.length(); i++) {
                         try {
                             JSONObject activity = requests.getJSONObject(i);

@@ -373,7 +373,7 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
 
                 //Set the status type into the message for the server
                 RequestParams params = new RequestParams();
-                if(activity_name.equals("") || autocomplateAddress.equals("") || validationFlag) {
+                if(activity_name.equals("") || autocomplateAddress.equals("") || placeLong == 0 || placelant == 0) {
                     Toast.makeText(CreateActivity.this,"Activity name or address field is invalid/empty ",Toast.LENGTH_LONG).show();
                 }else{
 

@@ -93,6 +93,7 @@ public class SignUp extends AppCompatActivity {
 
                                         Log.w("AUTH POST SUCCESS", statusCode + ": " + "Response = " + response.toString());
                                         try {
+                                            MainActivity.new_user = true;
                                             SignIn.static_username = emailEditTextValue.getText().toString();
                                             SignIn.static_token = response.get("token").toString();
                                             Log.w("AUTH POST SUCCESS2", SignIn.static_token.toString());
@@ -112,6 +113,7 @@ public class SignUp extends AppCompatActivity {
                                         Log.w("AUTH POST SUCCESS?", statusCode + ": " + response.toString());
                                         try {
                                             JSONObject firstEvent = response.getJSONObject(0);
+                                            MainActivity.new_user = true;
 
                                             SignIn.static_username = emailEditTextValue.getText().toString();
                                             SignIn.static_token = firstEvent.getString("token");
@@ -150,6 +152,8 @@ public class SignUp extends AppCompatActivity {
                             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                                 Log.w("HTTP SUCCESS: ", statusCode + ": " + response.toString());
                                 try {
+                                    MainActivity.new_user = true;
+
                                     JSONObject firstEvent = response.getJSONObject(0);
                                     Intent intent = new Intent(SignUp.this, MapActivity.class);
                                     SignUp.this.startActivity(intent);

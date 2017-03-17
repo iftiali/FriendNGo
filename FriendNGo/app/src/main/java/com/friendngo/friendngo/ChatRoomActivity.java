@@ -1,6 +1,7 @@
 package com.friendngo.friendngo;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -33,7 +34,7 @@ public class ChatRoomActivity extends AppCompatActivity {
     ImageView chat_room_three_dots;
     String receiverName = null;
     private static final int POLLING_PERIOD = 5;
-    private Button chatSendButton;
+    private ImageView chatSendButton;
     private EditText chatEditMsg;
     private ChatRoomAdapter adapter;
     private ArrayList<ChatRoomModel> chatHistory;
@@ -49,7 +50,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         messagesContainer = (ListView) findViewById(R.id.messagesContainer);
-        chatSendButton = (Button) findViewById(R.id.chatSendButton);
+        chatSendButton = (ImageView) findViewById(R.id.chatSendButton);
         chatEditMsg =(EditText) findViewById(R.id.messageEdit);
         chat_room_Activity_name = (TextView)findViewById(R.id.my_activity_text_view_name);
         chat_room_three_dots = (ImageView)findViewById(R.id.my_activity_dots);

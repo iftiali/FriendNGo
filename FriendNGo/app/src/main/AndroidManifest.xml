@@ -163,11 +163,7 @@
             android:label="@string/title_activity_recommend"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.friendngo.scott.friendngo.TheyAreAvailableActivity"
-            android:label="@string/title_activity_they_are_available"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".OtherUserProfileActivity"
             android:label="@string/title_activity_other_user_profile"
@@ -196,16 +192,6 @@
         <activity
             android:name=".PointsSystemActivity"
             android:label="@string/title_activity_points_system"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".MessagesActivity"
-            android:label="@string/title_activity_messages"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".MessagesOpenActivity"
-            android:label="@string/title_activity_messages_open"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
