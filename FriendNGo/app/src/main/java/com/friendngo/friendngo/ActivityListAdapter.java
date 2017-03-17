@@ -118,8 +118,8 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             //GET The image file at the pictureURL
             AsyncHttpClient client = new AsyncHttpClient();
 
-            String pictureURL = ((UserActivity) activitiesList.get(position)).getProfilePicURL();
-            Log.w("Hello",pictureURL);
+            String pictureURL = ((UserActivity) activitiesList.get(position)).getEventPictureUrl();
+           // Log.w("Hello",pictureURL);
             final ImageView profilePic = (ImageView) convertView.findViewById(R.id.paid_event_profile_picture);
 
             client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(mContext) {
@@ -304,7 +304,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(mContext, ActivityDetails.class);
-                        intent.putExtra("Activity Index", position);
+                            intent.putExtra("Activity Index", position);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContext.startActivity(intent);
                     }

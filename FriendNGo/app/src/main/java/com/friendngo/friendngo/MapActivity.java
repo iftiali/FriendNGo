@@ -44,6 +44,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.StreetViewPanoramaCamera;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -476,7 +477,7 @@ public class MapActivity extends AppCompatActivity implements
                         double latitude = activity.getDouble("activity_lat");
                         double longitude = activity.getDouble("activity_lon");
                         String address = activity.getString("address");
-
+                        String eventPictureURl =  activity.getString("event_picture");
                         //Parse all the JSON for the creator
                         String creator = activity.getString("creator");
                         String creator_age = activity.getString("creator_age");
@@ -565,7 +566,8 @@ public class MapActivity extends AppCompatActivity implements
                                 pictureURL,
                                 isPaid,
                                 attendingList,
-                                request_state);
+                                request_state,
+                                eventPictureURl);
 
                         activitiesList.add(userActivity);
 

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/whiteish"
     android:fitsSystemWindows="true"
-    tools:context="com.friendngo.friendngo.friendngo.WhatDoYouWantToDoToday">
+    tools:context="com.friendngo.friendngo.WhatDoYouWantToDoToday">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
