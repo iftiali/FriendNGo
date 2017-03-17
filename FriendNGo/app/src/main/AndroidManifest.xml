@@ -39,7 +39,6 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -164,11 +163,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.friendngo.scott.friendngo.TheyAreAvailableActivity"
-            android:label="@string/title_activity_they_are_available"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".OtherUserProfileActivity"
             android:label="@string/title_activity_other_user_profile"
             android:screenOrientation="portrait"
@@ -223,5 +217,4 @@
             android:label="@string/title_activity_detail_paid_event"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
-
 </manifest>
