@@ -50,8 +50,8 @@ public class ActivityMessage extends AppCompatActivity {
         if (SignIn.static_token != null) {
             client.addHeader("Authorization", "Token " + SignIn.static_token);
         }
-      //  recyclerView.setVisibility(View.GONE);
-        //emptyView.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+        emptyView.setVisibility(View.VISIBLE);
         client.get(MainActivity.base_host_url + "api/getMessages/", new JsonHttpResponseHandler() {
 
             @Override
@@ -89,8 +89,8 @@ public class ActivityMessage extends AppCompatActivity {
                          }
 
                      }else {
-                        // recyclerView.setVisibility(View.VISIBLE);
-                      //   emptyView.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                         emptyView.setVisibility(View.GONE);
                         chatList.add(chatModel);
                      }
                     } catch (JSONException e) {
