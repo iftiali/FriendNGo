@@ -18,6 +18,7 @@
     android:layout_height="match_parent"
     android:layout_margin="7dp"
     android:dividerHeight="10.0sp"
+    android:layout_above="@+id/bottom_navigation_request_activity"
     android:divider="@android:color/transparent"
     android:layout_below="@id/navigation_drawer_header_include"
     />

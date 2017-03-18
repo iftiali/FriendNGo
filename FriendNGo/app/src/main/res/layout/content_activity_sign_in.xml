@@ -42,24 +42,26 @@
         android:text="my password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/forgot_text"
-        android:layout_toRightOf="@+id/forgot_text"
-        android:layout_toEndOf="@+id/forgot_text"
         android:id="@+id/forgot_link"
         android:clickable="true"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorAccent"
+        android:layout_alignBaseline="@+id/forgot_text"
+        android:layout_alignBottom="@+id/forgot_text"
+        android:layout_toRightOf="@+id/forgot_text"
+        android:layout_toEndOf="@+id/forgot_text" />
 
     <TextView
         android:text="I forgot "
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/forgot_text"
+        android:textColor="@color/textInput"
+        android:layout_marginTop="51dp"
+        android:layout_marginLeft="18dp"
         android:layout_below="@+id/login_password"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="@color/textInput"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginStart="18dp" />
 
     <TextView
         android:text="Create An Account"
@@ -89,5 +91,15 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:padding="15dp" />
+
+    <CheckBox
+        android:id="@+id/checkBoxRememberME"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/forgot_link"
+        android:layout_alignLeft="@+id/forgot_text"
+        android:layout_alignStart="@+id/forgot_text"
+        android:text="Remember me"
+        android:textColor="@color/textInput" />
 
 </RelativeLayout>
