@@ -165,11 +165,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".OtherUserProfileActivity"
-            android:label="@string/title_activity_other_user_profile"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".ParticipantsActivity"
             android:label="@string/title_activity_participants"
             android:screenOrientation="portrait"

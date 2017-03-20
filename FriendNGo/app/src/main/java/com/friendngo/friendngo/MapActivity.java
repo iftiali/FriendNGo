@@ -82,7 +82,7 @@ public class MapActivity extends AppCompatActivity implements
     TextView other_account;
     public static CircularImageView other_user_picture;
     public static String selfIdentify=null;
-    public static int versionNumber = 3;
+    public static int versionNumber = 4;
     public static String selfName=null;
     public static TextView other_user_name,other_user_age,other_user_about,other_user_location;
     ImageView my_profile_dots;
