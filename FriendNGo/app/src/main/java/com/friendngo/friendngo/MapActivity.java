@@ -1009,15 +1009,57 @@ public class MapActivity extends AppCompatActivity implements
             participateButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(MapActivity.this,ActivityDetails.class);
-                    intent.putExtra("Activity Index",j);
-                    MapActivity.this.startActivity(intent);
+//                    Intent intent = new Intent(MapActivity.this,ActivityDetails.class);
+//                    intent.putExtra("Activity Index",j);
+//                    MapActivity.this.startActivity(intent);
+                    AsyncHttpClient client = new AsyncHttpClient();
+                    if(SignIn.static_token != null) {
+                        client.addHeader("Authorization","Token "+SignIn.static_token);
+                    }RequestParams params = new RequestParams();
+                    params.put("activity_id",j);
+                    params.put("request_state",0);
+                    client.post(MainActivity.base_host_url + "api/postActivityRequest/",params, new JsonHttpResponseHandler() {
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            //Toast.makeText(ActivityDetails.this, "Request Sent", Toast.LENGTH_LONG).show();
+                            //TODO: Test and implement statusCode handler for developers and graceful degradation
+                            Log.w("POST AR SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                            try{
+                                Log.w("POST AR SUCCESS2", response.getString("status"));
+                            }catch (JSONException e){
+                                Log.w("POST AR FAIL",e.getMessage().toString());
+                            }
+                        }
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                            Log.w("POST AR ARRSUCCESS", statusCode + ": " + timeline.toString());
+                        }
+
+                        @Override
+                        public void onRetry(int retryNo) {
+                            // called when request is retried
+                            Log.w("POST AR RETRY",""+ retryNo);
+                        }
+
+                        @Override
+                        public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
+                            Log.w("POST AR FAILURE", "Error Code: " + error_code+", text: "+text);
+                        }
+                    });
                 }
             });
 
             UserActivity act = (UserActivity) activitiesList.get(i);
             //Log.w("address",act.getAddress());
-
+            if(MapActivity.userID == act.getcreator_PK()){
+                participateButton.setBackgroundResource(R.drawable.activity_markup_participate_button_grey);
+                participateButton.setEnabled(false);
+            }else{
+                participateButton.setBackgroundResource(R.drawable.activity_markup_participate_button);
+                participateButton.setEnabled(true);
+            }
             //Connect the Views To their XML
             profilePicture = (ImageView) markup_layout.findViewById(R.id.banner_profilepicture);
             creator = (TextView) markup_layout.findViewById(R.id.banner_created_text);
