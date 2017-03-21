@@ -3,6 +3,7 @@ package com.friendngo.friendngo;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -63,6 +64,7 @@ public class ActivityDetails extends AppCompatActivity {
         sendRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Hello ji",Toast.LENGTH_LONG).show();
                 AsyncHttpClient client = new AsyncHttpClient();
                 if(SignIn.static_token != null) {
                     client.addHeader("Authorization","Token "+SignIn.static_token);
@@ -113,7 +115,11 @@ public class ActivityDetails extends AppCompatActivity {
         });
 
         UserActivity activity = (UserActivity) MapActivity.activitiesList.get(activity_index);
-
+        Log.d("HELLO CREATER NAME", activity.getcreator_PK()+"");
+        if(MapActivity.userID == activity.getcreator_PK()){
+            sendRequestButton.setBackgroundResource(R.drawable.submit_button_grey);
+            sendRequestButton.setEnabled(false);
+        }
         //GET The image file at the pictureURL
         AsyncHttpClient client = new AsyncHttpClient();
         String pictureURL = activity.getProfilePicURL();

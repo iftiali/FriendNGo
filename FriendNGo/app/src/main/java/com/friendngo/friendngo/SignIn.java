@@ -179,7 +179,7 @@ public class SignIn extends AppCompatActivity {
                                 static_token = response.get("token").toString();
                                 Log.w("POST AUTH SUCCESS2", static_token);
                                 if(checkBoxRememberMe.isEnabled()){
-                                    Log.d("Hello","I am working");
+
                                     SharedPreferences pref = getApplicationContext().getSharedPreferences("EmailToken", 0); // 0 - for private mode
                                     SharedPreferences.Editor editor = pref.edit();
                                     editor.putString("token", static_token);

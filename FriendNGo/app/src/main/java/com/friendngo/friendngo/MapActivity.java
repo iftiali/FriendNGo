@@ -88,7 +88,7 @@ public class MapActivity extends AppCompatActivity implements
     ImageView my_profile_dots;
     private static final int POLLING_PERIOD = 5;
     private final int STARTING_ZOOM = 15;
-    private final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 2;
+
 
     //Map and location variables
     private GoogleMap mMap;
@@ -126,7 +126,7 @@ public class MapActivity extends AppCompatActivity implements
     public static List categoryList = new ArrayList<Category>();
     BottomNavigationView bottomNavigationView;
     private static boolean run_once = true;
-
+    public  static int userID=0;
 
     //Fonts Script
     @Override
@@ -240,8 +240,10 @@ public class MapActivity extends AppCompatActivity implements
             public void onSuccess(int statusCode, Header[] headers, final JSONObject response) {
                 Log.w("GET PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
                 Log.w("Response",response.toString());
-                String langName = null;
+
                 try {
+                    Log.d("user id",response.getInt("id")+"");
+                    userID = response.getInt("id");
                     String firstNameString = response.getString("first_name");
                     MapActivity.other_user_name.setText(firstNameString);
 
@@ -1021,7 +1023,7 @@ public class MapActivity extends AppCompatActivity implements
             creator = (TextView) markup_layout.findViewById(R.id.banner_created_text);
             status = (TextView) markup_layout.findViewById(R.id.banner_status_text);
             homeCity = (TextView) markup_layout.findViewById(R.id.banner_home_city_text);
-            nationality = (ImageView) markup_layout.findViewById(R.id.banner_country_flag);
+           // nationality = (ImageView) markup_layout.findViewById(R.id.banner_country_flag);
             points = (TextView) markup_layout.findViewById(R.id.banner_points);
             category = (ImageView) markup_layout.findViewById(R.id.banner_activity_type);
             name = (TextView) markup_layout.findViewById(R.id.banner_activity_name);
@@ -1031,13 +1033,13 @@ public class MapActivity extends AppCompatActivity implements
             name.setText(act.getName());
             name.setTextColor(Color.GRAY);
             creator.setText("Created by "+act.getCreator());
-            creator.setTextColor(Color.GRAY);
+            creator.setTextColor(Color.BLACK);
             profilePicture.setImageResource(R.drawable.empty_profile);
             status.setText("Resident" + ", ");
             status.setTextColor(Color.GRAY);
             homeCity.setText(act.getHomeCity());
             homeCity.setTextColor(Color.GRAY);
-            nationality.setImageResource(R.drawable.canada); //TODO: Get flag from nationalities
+           // nationality.setImageResource(R.drawable.canada); //TODO: Get flag from nationalities
             points.setText(act.getPoints()+"pts");
             clock.setImageResource(R.drawable.clock);
             SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd, HH:mma");

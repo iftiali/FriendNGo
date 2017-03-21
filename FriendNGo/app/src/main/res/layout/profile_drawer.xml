@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_profile_layout"
@@ -7,6 +8,7 @@
     android:layout_height="match_parent"
     android:background="@color/whiteish">
     <RelativeLayout
+        android:layout_below="@id/drawer_profile_layout"
         android:id="@+id/nav_profile_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -95,14 +97,14 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginBottom="1dp" />
 
-            <ImageView
-                android:id="@+id/other_user_country_flag"
-                app:srcCompat="@drawable/canada"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_alignBottom="@+id/other_user_location"
-                android:layout_toEndOf="@+id/other_user_dotText"
-                android:layout_toRightOf="@+id/other_user_dotText" />
+            <!--<ImageView-->
+                <!--android:id="@+id/other_user_country_flag"-->
+                <!--app:srcCompat="@drawable/canada"-->
+                <!--android:layout_width="15dp"-->
+                <!--android:layout_height="15dp"-->
+                <!--android:layout_alignBottom="@+id/other_user_location"-->
+                <!--android:layout_toEndOf="@+id/other_user_dotText"-->
+                <!--android:layout_toRightOf="@+id/other_user_dotText" />-->
 
 
             <TextView

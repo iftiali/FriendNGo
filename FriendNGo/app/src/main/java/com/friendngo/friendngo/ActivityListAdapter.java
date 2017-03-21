@@ -112,14 +112,14 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder = (ViewHolder) convertView.getTag(R.string.VIEW_HOLDER_KEY);
         }
         if(userActivity.getisPaid()){
-            Log.w("Hello","Event is Paid");
+
             viewHolder.freeEvent.setVisibility(View.GONE);
             viewHolder.paidEventRelativeLayout.setVisibility(View.VISIBLE);
             //GET The image file at the pictureURL
             AsyncHttpClient client = new AsyncHttpClient();
 
             String pictureURL = ((UserActivity) activitiesList.get(position)).getEventPictureUrl();
-           // Log.w("Hello",pictureURL);
+
             final ImageView profilePic = (ImageView) convertView.findViewById(R.id.paid_event_profile_picture);
 
             client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(mContext) {

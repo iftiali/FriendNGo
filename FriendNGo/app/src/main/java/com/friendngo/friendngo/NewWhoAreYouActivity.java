@@ -328,7 +328,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 //                        NewWhoAreYouActivity.this.finish();
                             finishProfileFlag = true;
                             if (finishPictureFlag && finishProfileFlag) {
-                          //      Log.w("Hello", "A");
+
                                 NewWhoAreYouActivity.this.finish();
                             }
                         }

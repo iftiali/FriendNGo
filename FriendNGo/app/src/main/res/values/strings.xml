@@ -76,4 +76,5 @@
     <string name="title_activity_chat_room">ChatRoomActivity</string>
     <string name="title_activity_my_special_group">MySpecialGroup</string>
     <string name="title_activity_detail_paid_event">ActivityDetailPaidEvent</string>
+    <string name="title_activity_nav_try">NavTry</string>
 </resources>

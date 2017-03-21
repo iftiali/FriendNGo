@@ -96,7 +96,7 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                     endEventTime.setText(currentDateEndTime);
                 } else if (start.compareTo(end) < 0) {
 
-                    //Log.w("Hello",currentDateEndTime+":" +hourOfDay + ":" + minute);
+
                     endEventTime.setText(hourOfDay + ":" + minute);
                 } else if (start.compareTo(end) == 0) {
                     endEventTime.setText(hourOfDay + ":" + minute);
@@ -139,22 +139,22 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
 
                     Toast.makeText(CreateActivity.this,"Selected time is not valid",Toast.LENGTH_LONG).show();
                     currentDateStartTime = sdf.format(new Date());
-                    //Log.w("Hello1",currentDateStartTime+":" +hourOfDay + ":" + minute);
+
                     startEventTime.setText(currentDateStartTime);
                 } else if (start.compareTo(end) < 0) {
-                    //Log.w("Hello2",currentDateStartTime+":" +hourOfDay + ":" + minute);
+
                     startEventTime.setText(hourOfDay + ":" + minute);
                 } else if (start.compareTo(end) == 0) {
                     startEventTime.setText(hourOfDay + ":" + minute);
                 } else {
                     startEventTime.setText(currentDateStartTime);
-                    //Log.w("Hello4",currentDateStartTime+":" +hourOfDay + ":" + minute);
+
                     Toast.makeText(CreateActivity.this,"Selected time is not valid",Toast.LENGTH_LONG).show();
                     currentDateStartTime = sdf.format(new Date());
                 }}else{
 
                     startEventTime.setText(hourOfDay + ":" + minute);
-                   // startparseDateForDatabase = sdfFordatabase.
+
                 }
                 starttimeCalender = Calendar.getInstance();
                 starttimeCalender.add(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -332,8 +332,7 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                 todayTomorrowFlag = 1;
                 tomorrowButton.setActivated(true);
                 tomorrowButton.setTextColor(Color.WHITE);
-                Log.w("hello tomorrow",tomorrowDate.getTime()+"");
-                Log.w("hello tomorrow",tomorrowDate.get(Calendar.MONTH)+"");
+
                 tomorrowButton.setBackgroundResource(R.drawable.white_button_activated);
                 todayButton.setActivated(false);
                 todayButton.setTextColor(Color.BLACK);
