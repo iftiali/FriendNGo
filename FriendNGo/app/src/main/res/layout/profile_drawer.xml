@@ -8,11 +8,19 @@
     android:layout_height="match_parent"
     android:background="@color/whiteish">
     <RelativeLayout
-        android:layout_below="@id/drawer_profile_layout"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/colorPrimary"
+        android:id="@+id/relative_profile"/>
+    <RelativeLayout
+        android:layout_below="@id/relative_profile"
         android:id="@+id/nav_profile_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
+
         <TextView
+
             android:text="My profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,7 +38,7 @@
 
         <ImageView
             android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_height="match_parent"
             app:srcCompat="@drawable/more"
             android:layout_marginRight="12dp"
             android:layout_centerVertical="true"
@@ -44,8 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/nav_profile_text"
-        android:background="@color/whiteish"
-        >
+        android:background="@color/whiteish">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -93,6 +100,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 app:srcCompat="@drawable/info"
+
                 android:layout_alignBottom="@+id/other_user_age"
                 android:layout_marginLeft="8dp"
                 android:layout_marginBottom="1dp" />

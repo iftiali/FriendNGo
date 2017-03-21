@@ -77,4 +77,6 @@
     <string name="title_activity_my_special_group">MySpecialGroup</string>
     <string name="title_activity_detail_paid_event">ActivityDetailPaidEvent</string>
     <string name="title_activity_nav_try">NavTry</string>
+    <string name="title_activity_list_with_navigation_drawer">ActivityListWithNAvigationDrawer
+    </string>
 </resources>
