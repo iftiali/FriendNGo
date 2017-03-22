@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content" >
                 <TextView
                     android:text="Create a new activity"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"

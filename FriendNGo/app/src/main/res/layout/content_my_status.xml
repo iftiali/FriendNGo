@@ -27,11 +27,9 @@
             android:id="@+id/textView4" />
     </FrameLayout>
     <FrameLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.2"
-
         android:background="@color/whiteish">
         <LinearLayout
             android:gravity="center_vertical"
