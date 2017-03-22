@@ -419,6 +419,8 @@ public class MyProfileActivity extends AppCompatActivity {
 
                         }
                     }
+                    Intent intent = new Intent(getApplicationContext(),MyCity.class);
+                    MyProfileActivity.this.startActivity(intent);
                     MyProfileActivity.this.finish();
                 }else
                 {

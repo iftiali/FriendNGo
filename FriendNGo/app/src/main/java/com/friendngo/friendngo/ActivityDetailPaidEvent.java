@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -137,8 +138,8 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
         activity_detail_creator_name.setText(activity.getName());
         detail_paid_event_address.setText(activity.getAddress());
         activity_detail_paid_description_text.setText(activity.getDescription());
-        detail_paid_date.setText("Feb 7th, 2017 ");
-        detail_event_endStartTime.setText("7:30 PM - 10:30 PM");//TODO: Include a custom Time object
+        detail_paid_date.setText(ValidationClass.getFormattedDate(activity.getActivityTime()));
+        detail_event_endStartTime.setText(ValidationClass.getFormattedTime(activity.getActivityTime())+"-"+ValidationClass.getFormattedTime(activity.getActivityEndTime()));
 
 
         participantsRecycler = (RecyclerView) this.findViewById(R.id.participants_recycler_view_paid_event);

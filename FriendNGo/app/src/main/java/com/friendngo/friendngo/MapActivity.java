@@ -144,7 +144,6 @@ public class MapActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("FriendNGo");
 
-        Log.i(My_TAG,"onCreate invoked Map");
         //nav drawer
         other_user_location = (TextView)findViewById(R.id.other_user_location);
         other_user_picture = (CircularImageView)findViewById(R.id.other_profile_image);
@@ -161,7 +160,7 @@ public class MapActivity extends AppCompatActivity implements
         activityDetailsButton.setEnabled(false);
         participateButton = (Button) findViewById(R.id.banner_participate);
         participateButton.setEnabled(false);
-        //death crash
+
         checkForNewVersion();
         getActivity();
         getSelfIdentify();
@@ -194,24 +193,24 @@ public class MapActivity extends AppCompatActivity implements
                                 MapActivity.this.startActivity(intent);
                                 break;
                             case R.id.calendar_icon:
-                                Log.w("BOTTOM NAV","Calendar Icon Pressed");
+                              //  Log.w("BOTTOM NAV","Calendar Icon Pressed");
                                 Toast.makeText(getApplicationContext(), "Calarndar Not Available in Beta", Toast.LENGTH_LONG).show();
                                 break;
                             case R.id.notification_icon:
-                                Log.w("BOTTOM NAV","Notifications Icon Pressed");
+                               // Log.w("BOTTOM NAV","Notifications Icon Pressed");
                                 Intent seeRequest = new Intent(getApplicationContext(), ActivityNotifications.class);
                                 startActivity(seeRequest);
                                 break;
                             case R.id.message_icon:
                                 Intent seeMessage = new Intent(getApplicationContext(), ActivityMessage.class);
                                 startActivity(seeMessage);
-                                Log.w("BOTTOM NAV","Message Icon Pressed");
+                               // Log.w("BOTTOM NAV","Message Icon Pressed");
                                 break;
                             case R.id.settings_icon:
                                 Toast.makeText(getApplicationContext(), "Settings Not Available in Beta", Toast.LENGTH_LONG).show();
                                 break;
                             default:
-                                Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");
+                                //Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");
                                 break;
                         }
                         return true;
@@ -239,10 +238,8 @@ public class MapActivity extends AppCompatActivity implements
             @Override
             public void onSuccess(int statusCode, Header[] headers, final JSONObject response) {
                 Log.w("GET PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
-                Log.w("Response",response.toString());
 
                 try {
-                    Log.d("user id",response.getInt("id")+"");
                     userID = response.getInt("id");
                     String firstNameString = response.getString("first_name");
                     MapActivity.other_user_name.setText(firstNameString);
@@ -314,13 +311,11 @@ public class MapActivity extends AppCompatActivity implements
                 Log.w("GET LASTLOC SUCCESS", statusCode + ": " + "Response = " + response.toString());
 
                 try {
-                    Log.w("GET LOCATION: ", statusCode + ", " + response.getString("last_city"));
                     last_city = response.getString("last_city");
                     last_location_ready = true;
 
                     if (current_location_ready == true) {
                         if(run_once==true){
-                            Log.w("Location","2");
                             update_city();
                         run_once=false;
                         }
@@ -503,14 +498,21 @@ public class MapActivity extends AppCompatActivity implements
 
                         //Date parsed seperately
                         String activityTimeString = activity.getString("activity_time");
-                        SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
+                        SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                         Date activityTime = new Date();
                         try {
                             activityTime = activityTimeFormat.parse(activityTimeString);
                         } catch (ParseException p) {
-//                            Log.w("PARSE EXCEPTION", "Something went wrong with DATE parsing"); //TODO: Why is this failing
+                           Log.w("PARSE EXCEPTION", "Something went wrong with DATE parsing"+p.toString()); //TODO: Why is this failing
                         }
-
+                        String activityEndTimeString = activity.getString("activity_end_time");
+                        SimpleDateFormat activityEndTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                        Date activityEndTime = new Date();
+                        try {
+                            activityEndTime = activityEndTimeFormat.parse(activityEndTimeString);
+                        } catch (ParseException p) {
+                            Log.w("PARSE EXCEPTION", "Something went wrong with DATE parsing"+p.toString()); //TODO: Why is this failing
+                        }
                         //Calculate the distance from the user to the activity
                         double km;
                         int Radius = 6371;
@@ -554,6 +556,7 @@ public class MapActivity extends AppCompatActivity implements
                                 creator_status,
                                 maxUsers,
                                 activityTime,
+                                activityEndTime,
                                 address,
                                 description,
                                 distance,
@@ -711,12 +714,12 @@ public class MapActivity extends AppCompatActivity implements
                // current_gps_longitude = location.getLongitude();
                current_gps_latitude = FacebookLogin.clat;
                current_gps_longitude = FacebookLogin.clon;
-                Log.i(My_TAG,current_gps_latitude+":"+current_gps_longitude);
+
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
                 current_location_ready = true;
                 if (last_location_ready == true) {
                     if(run_once==true) {
-                        Log.w("Location","3");
+
                         update_city();
                         run_once=false;
                     }
@@ -732,7 +735,7 @@ public class MapActivity extends AppCompatActivity implements
                 if (last_location_ready == true) {
 
                     if(run_once==true) {
-                        Log.w("Location","4");
+
                         update_city();
                         run_once=false;
                     }
@@ -753,102 +756,7 @@ public class MapActivity extends AppCompatActivity implements
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    //Trigger the check for GPS even before we load the page
-   /* @Override
-    public void onStart() {
-        Log.w(My_TAG,"onStart map");
 
-        super.onStart();
-        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-        if (locationManager.isProviderEnabled(GPS_PROVIDER)) {
-
-            //Get the user's permission to use the GPS
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_FINE_LOCATION);
-            }else{
-                getGPSLocation();
-            }
-        }else{
-            //Get the user to activate his GPS
-            Toast.makeText(getApplicationContext(),"Please Activate Your GPS to use FriendNGo", Toast.LENGTH_LONG).show();
-            startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), 1);
-        }
-    }
-
-    //If the user granted permission, then go on to get the location, otherwise remind gim that we need the GPS for his benefit
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.w("GPS CHECK SUCCESS4: ", "AWESOME!");
-                    getGPSLocation();
-                } else {
-
-                    Toast.makeText(this,"FriendNGo needs your location to serve you exciting local events",Toast.LENGTH_LONG).show();
-                    ActivityCompat.requestPermissions(this,
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                            MY_PERMISSIONS_REQUEST_FINE_LOCATION);
-                }
-                return;
-            }
-            // other 'case' lines to check for other
-            // permissions this app might request
-        }
-    }
-
-    //Code to request GPS updates
-   private void getGPSLocation() {
-        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSIONS_REQUEST_FINE_LOCATION);
-        } else {
-            final LocationListener locationListener = new LocationListener() {
-
-////////////////////////////////// USING GPS CODE //////////////////////////////////////////////////
-                //Here is where we receive the location update
-                public void onLocationChanged(Location location) {
-
-                    current_gps_latitude = location.getLatitude();
-                    current_gps_longitude = location.getLongitude();
-                    Log.i(My_TAG,current_gps_latitude+":"+current_gps_longitude);
-                    if (gettingGPS) {
-                      // Toast.makeText(getApplicationContext(), "GPS Coordinates = " + current_gps_latitude + "," + current_gps_longitude, Toast.LENGTH_LONG).show();
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
-                        gettingGPS = false;
-                        current_location_ready = true;
-                        if (last_location_ready == true) {
-                            if(run_once==true) {
-                                Log.w("Location","1");
-                                update_city();
-                                run_once=false;
-                            }
-                        }
-                    }
-                }
-
-                public void onStatusChanged(String provider, int status, Bundle extras) {
-                }
-
-                public void onProviderEnabled(String provider) {
-                }
-
-                public void onProviderDisabled(String provider) {
-                }
-            };
-
-            // Register the listener with the Location Manager to receive location updates
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-        }
-    }
-*/
     private String calculate_Distance(String strAddress){
         Geocoder coder = new Geocoder(this);
         List<Address> address;
@@ -1052,7 +960,7 @@ public class MapActivity extends AppCompatActivity implements
             });
 
             UserActivity act = (UserActivity) activitiesList.get(i);
-            //Log.w("address",act.getAddress());
+
             if(MapActivity.userID == act.getcreator_PK()){
                 participateButton.setBackgroundResource(R.drawable.activity_markup_participate_button_grey);
                 participateButton.setEnabled(false);
@@ -1088,10 +996,10 @@ public class MapActivity extends AppCompatActivity implements
             dateTime.setText(dateFormat.format(act.getActivityTime()));
             dateTime.setTextColor(Color.GRAY);
 
-            Log.w("CREATING BANNER",act.getCategory());
+
             switch(act.getCategory()){
                 case "Art & Culture":
-                 //   Log.w("CREATING BANNER","IN ART");
+
                     category.setImageResource(R.drawable.art_exposition);
                     break;
                 case "Nightlife":
@@ -1101,7 +1009,7 @@ public class MapActivity extends AppCompatActivity implements
                     category.setImageResource(R.drawable.running);
                     break;
                 case "Professional & Networking":
-                  //  Log.w("CREATING BANNER","IN Networking");
+
                     category.setImageResource(R.drawable.coworking); //TODO: Update when properly spliced
                     break;
                 case "Fun & Crazy":
@@ -1111,7 +1019,7 @@ public class MapActivity extends AppCompatActivity implements
                     category.setImageResource(R.drawable.billard);
                     break;
                 case "Nature & Outdoors":
-                    //Log.w("CREATING BANNER","IN OUTDOORS");
+
                     category.setImageResource(R.drawable.backpack);
                     break;
                 case "Travel & Road-Trip":
@@ -1124,7 +1032,7 @@ public class MapActivity extends AppCompatActivity implements
                     category.setImageResource(R.drawable.handshake);
                     break;
                 default:
-                    //Log.w("CREATING BANNER","IN DEFAULT");
+
                     category.setImageResource(R.drawable.art_exposition);
             }
 
@@ -1140,7 +1048,7 @@ public class MapActivity extends AppCompatActivity implements
                     Log.w("GET IMAGE SUCCESS1","Successfully Retrieved The Image");
                     //Use the downloaded image as the profile picture
                     Uri uri = Uri.fromFile(response);
-//                    profilePicture = (ImageView) markup_layout.findViewById(R.id.banner_profilepicture);
+//
                     profilePicture.setImageURI(uri);
                 }
 
@@ -1160,12 +1068,12 @@ public class MapActivity extends AppCompatActivity implements
     public void getActivity(){
         //get Activity name by category
         //clear category list
-        //death crash
+
         categoryList.clear();
         AsyncHttpClient client = new AsyncHttpClient();
         //death crash
         if(SignIn.static_token != null) {
-            //death crash
+
             client.addHeader("Authorization","Token "+SignIn.static_token);
         }else{
             Log.i(My_TAG,"token null"+"Map");
@@ -1248,9 +1156,9 @@ public class MapActivity extends AppCompatActivity implements
     }
     public boolean checkForNewVersion(){
         AsyncHttpClient client = new AsyncHttpClient();
-        //death crash
+
         if(SignIn.static_token != null) {
-            //death crash
+
             client.addHeader("Authorization","Token "+SignIn.static_token);
         }else{
             Log.i(My_TAG,"token null"+"Map");

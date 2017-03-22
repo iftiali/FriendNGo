@@ -18,6 +18,7 @@ public class UserActivity {
     private String creatorStatus;
     private int maxUsers;
     private Date activityTime;
+    private Date activityEndTime;
     private String distance;
     private String points;
     private long activity_pk;
@@ -50,6 +51,7 @@ public class UserActivity {
                         String creatorStatus,
                         int maxUsers,
                         Date activityTime,
+                        Date activityEndTime,
                         String address,
                         String description,
                         String distance,
@@ -75,6 +77,7 @@ public class UserActivity {
         this.maxUsers = maxUsers;
 //        this.createdTime = createdTime;
         this.activityTime = activityTime;
+        this.activityEndTime= activityEndTime;
         this.address = address;
         this.description = description;
         this.distance =distance;
@@ -267,7 +270,12 @@ public class UserActivity {
 //    public void setCreatedTime(SimpleDateFormat createdTime) {
 //        this.createdTime = createdTime;
 //    }
-
+    public Date getActivityEndTime() {
+    return activityEndTime;
+    }
+    public void setActivityEndTime(Date activityEndTime) {
+        this.activityEndTime = activityEndTime;
+    }
     public Date getActivityTime() {
         return activityTime;
     }
