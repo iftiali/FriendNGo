@@ -84,7 +84,7 @@ public class MapActivity extends AppCompatActivity implements
     public static String selfIdentify=null;
     public static int versionNumber = 4;
     public static String selfName=null;
-    public static TextView other_user_name,other_user_age,other_user_about,other_user_location;
+    public static TextView other_user_name,other_user_age,other_user_about,other_user_location,other_user_citizenship;
     ImageView my_profile_dots;
     private static final int POLLING_PERIOD = 5;
     private final int STARTING_ZOOM = 15;
@@ -150,6 +150,7 @@ public class MapActivity extends AppCompatActivity implements
         other_user_name = (TextView)findViewById(R.id.other_user_name);
         other_user_age = (TextView)findViewById(R.id.other_user_age);
         other_user_about = (TextView)findViewById(R.id.other_user_about);
+        other_user_citizenship = (TextView)findViewById(R.id.other_user_citizenship);
         //Initialize Layout views from their XML
         my_profile_dots = (ImageView)findViewById(R.id.my_profile_dots);
         other_account = (TextView)findViewById(R.id.other_account);
@@ -251,7 +252,7 @@ public class MapActivity extends AppCompatActivity implements
                     {
                         MapActivity.other_user_age.setText("X y-o");
                     }
-
+                    other_user_citizenship.setText(response.getString("home_nationality"));
                     String bio = response.getString("bio");
                     MapActivity.other_user_about.setText(bio);
 

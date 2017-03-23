@@ -185,8 +185,8 @@ public class SignIn extends AppCompatActivity {
                                     editor.putString("token", static_token);
                                     editor.commit();
                                 }
-                                // Intent intent = new Intent(SignIn.this, NewWhoAreYouActivity.class);
                                 Intent intent = new Intent(SignIn.this, MapActivity.class);
+                              //  Intent intent = new Intent(SignIn.this, ReportIssue.class);
                                 SignIn.this.startActivity(intent);
                                 SignIn.this.finish();
 

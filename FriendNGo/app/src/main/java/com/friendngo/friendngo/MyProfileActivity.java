@@ -42,12 +42,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.logging.ErrorManager;
+
 import cz.msebera.android.httpclient.Header;
 
 public class MyProfileActivity extends AppCompatActivity {
 
     CircularImageView circularImageView;
     Button nextBtn;
+    Locale[] locales ;
     TextView profile_cancel_text_view,profile_logout_text_view;
     Boolean finishProfileFlag=false;
     Boolean finishPictureFlag=false;
@@ -63,6 +66,7 @@ public class MyProfileActivity extends AppCompatActivity {
     File downloadedImage;
     private String userChoosenTask;
     private String nationality;
+    String errorMessage = "Some fields are empty";
     String imageName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +110,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
             }
         });
-        Locale[] locales = Locale.getAvailableLocales();
+        locales = Locale.getAvailableLocales();
         final ArrayList<String> languageList = new ArrayList<String>();
         for (Locale locale : locales) {
             String lang = locale.getDisplayLanguage();
@@ -265,48 +269,64 @@ public class MyProfileActivity extends AppCompatActivity {
                 RequestParams params = new RequestParams();
                 params.setUseJsonStreamer(true);
 
+
+
                 String name_input = nameInput.getText().toString();
-                if(name_input.equals("")){
-                    checkValidation = false;
+
+//                if(name_input.equals("") || ageInput.getText().toString().equals("") || citizenAuto.getText().toString().equals("") ||  spokenLanguage.getText().toString() ){
+//
+//                }
+                if(name_input.equals("") || ageInput.getText().toString().equals("") || citizenAuto.getText().toString().equals("") || spokenLanguage.getText().toString().equals("") || bioField.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_LONG).show();
+                    errorMessage = "Some fields are empty";
                 }else{
+
+
                     params.put("first_name",name_input);
                     MapActivity.other_user_name.setText(name_input);
-                }
-                int age_input =0;
-                try{
-                 age_input = Integer.parseInt(ageInput.getText().toString());
-                if(age_input != 0){
-                    params.put("age",age_input);
-                    MapActivity.other_user_age.setText(age_input+"y-o");
+                    boolean checkAgeValidation = false;
 
-                }else{
-                    checkValidation = false;
-                }}catch (Exception e){
-
-                }
-
-                String bio_input = bioField.getText().toString();
-                if(bio_input.equals("")){
-                   checkValidation = false;
-                }else
-                {
+                    String bio_input = bioField.getText().toString();
                     params.put("bio",bio_input);
                     MapActivity.other_user_about.setText(bio_input);
-                }
-                nationality = citizenAuto.getText().toString();
-                if(nationality.equals("")) {
-                    checkValidation = false;
-                }else {
-                    params.put("home_nationality",nationality);
 
-                }
+                     nationality = citizenAuto.getText().toString();
+                     Locale[] nameCompare = Locale.getAvailableLocales();
+                      boolean compareCountryName = false;
+                      for(Locale locale:nameCompare){
+                        String cc = locale.getDisplayCountry();
+                        if(cc.equals(nationality)){
+                            compareCountryName = true;
+                          params.put("home_nationality",nationality);
+                            break;
+                        }else{
+                            Log.d("hello message",errorMessage);
+                            compareCountryName = false;
+                            errorMessage = "Country name in not valid";
+                        }
+                    }
+                    int age_input = 0;
+                    age_input = Integer.parseInt(ageInput.getText().toString());
+                    Log.d("Hello",age_input+"");
+                    if( age_input <13 || age_input > 120){
+                        checkAgeValidation = false;
+                        // Log.d("Hello",age_input+"");
+                        errorMessage ="Age should be between 13 and 120 ";
+                    }else{
+                        checkAgeValidation= true;
+                        params.put("age", age_input);
+                        MapActivity.other_user_age.setText(age_input + "y-o");
+                    }
+                    //params.put("home_nationality",nationality);
+
+
                 // Log.w("Language count",spokenLanguage.getText().toString());
                 String str = spokenLanguage.getText().toString();
                 List<String> elephantList = Arrays.asList(str.split(","));
                 JSONArray languagesArray = new JSONArray();
                 try{
 
-//                //TODO: Populare JSON objects and ARRAY with dynamic data
+
                     for(int i =0; i < elephantList.size(); i++){
                         JSONObject json_i = new JSONObject();
                         if(elephantList.get(i).replaceAll("\\s+","").equals("")){
@@ -326,106 +346,108 @@ public class MyProfileActivity extends AppCompatActivity {
                     Log.w("JSON Exception", e.toString());
                 }
                 params.put("languages",languagesArray);
-                if(checkValidation) {
-                    client.post(MainActivity.base_host_url + "api/postProfile2/", params, new JsonHttpResponseHandler() {
+            Log.d("hello",checkAgeValidation+":"+compareCountryName);
+               if(compareCountryName && checkAgeValidation) {
+
+                   client.post(MainActivity.base_host_url + "api/postProfile2/", params, new JsonHttpResponseHandler() {
 //                client.post("http://requestb.in/zzmhq6zz", params, new JsonHttpResponseHandler() {
 
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            Log.w("POST PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                       @Override
+                       public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                           Log.w("POST PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
 //                        NewWhoAreYouActivity.this.finish();
-                            finishProfileFlag = true;
-                            if (finishPictureFlag && finishProfileFlag) {
+                           finishProfileFlag = true;
+                           if (finishPictureFlag && finishProfileFlag) {
 
-                                MyProfileActivity.this.finish();
-                            }
-                        }
+                               MyProfileActivity.this.finish();
+                           }
+                       }
 
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                            Log.w("POST PROFILE SUCCESS2", statusCode + ": " + timeline.toString());
-                            // NewWhoAreYouActivity.this.finish();
-                        }
+                       @Override
+                       public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                           Log.w("POST PROFILE SUCCESS2", statusCode + ": " + timeline.toString());
+                           // NewWhoAreYouActivity.this.finish();
+                       }
 
-                        @Override
-                        public void onRetry(int retryNo) {
-                            // called when request is retried
-                            Log.w("POST PROFILE RETRY", "" + retryNo);
-                        }
+                       @Override
+                       public void onRetry(int retryNo) {
+                           // called when request is retried
+                           Log.w("POST PROFILE RETRY", "" + retryNo);
+                       }
 
-                        @Override
-                        public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                            Log.w("POST PROFILE FAIL", "Error Code: " + error_code + "," + text);
-                        }
+                       @Override
+                       public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                           Log.w("POST PROFILE FAIL", "Error Code: " + error_code + "," + text);
+                       }
 
-                        @Override
-                        public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
-                            Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
-                        }
-                    });
+                       @Override
+                       public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
+                           Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
+                       }
+                   });
 
-                    if (selectImageFlag) {
-                        String root = Environment.getExternalStorageDirectory().toString();
-                        File myDir = new File(root + "/FriendnGo");
+                   if (selectImageFlag) {
+                       String root = Environment.getExternalStorageDirectory().toString();
+                       File myDir = new File(root + "/FriendnGo");
 
-                        File file = new File(myDir, imageName);
-                        //Log.w("PICTURE PATH",myFile.toString());
-                        RequestParams paramsProfilePicture = new RequestParams();
-                        // paramsProfilePicture.setUseJsonStreamer(true);
-                        try {
-                            paramsProfilePicture.put("picture", file);
+                       File file = new File(myDir, imageName);
+                       //Log.w("PICTURE PATH",myFile.toString());
+                       RequestParams paramsProfilePicture = new RequestParams();
+                       // paramsProfilePicture.setUseJsonStreamer(true);
+                       try {
+                           paramsProfilePicture.put("picture", file);
 
-                        } catch (FileNotFoundException e) {
-                        }
-                        client.post(MainActivity.base_host_url + "api/uploadProfilePicture/", paramsProfilePicture, new JsonHttpResponseHandler() {
-                            // client.post("http://requestb.in/zzmhq6zz", params, new JsonHttpResponseHandler() {
+                       } catch (FileNotFoundException e) {
+                       }
+                       client.post(MainActivity.base_host_url + "api/uploadProfilePicture/", paramsProfilePicture, new JsonHttpResponseHandler() {
+                           // client.post("http://requestb.in/zzmhq6zz", params, new JsonHttpResponseHandler() {
 
-                            @Override
-                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                                Log.w("POST PROFILE PICTURE", statusCode + ": " + "Response = " + response.toString());
-                                finishPictureFlag = true;
-                                if (finishPictureFlag && finishProfileFlag) {
-                                    MyProfileActivity.this.finish();
-                                }
-                            }
+                           @Override
+                           public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                               Log.w("POST PROFILE PICTURE", statusCode + ": " + "Response = " + response.toString());
+                               finishPictureFlag = true;
+                               if (finishPictureFlag && finishProfileFlag) {
+                                   MyProfileActivity.this.finish();
+                               }
+                           }
 
-                            @Override
-                            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                                Log.w("POST PROFILE PICTURE2", statusCode + ": " + timeline.toString());
-                                //  NewWhoAreYouActivity.this.finish();
-                            }
+                           @Override
+                           public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                               Log.w("POST PROFILE PICTURE2", statusCode + ": " + timeline.toString());
+                               //  NewWhoAreYouActivity.this.finish();
+                           }
 
-                            @Override
-                            public void onRetry(int retryNo) {
-                                // called when request is retried
-                                Log.w("POST PROFILE PICTURE", "" + retryNo);
-                            }
+                           @Override
+                           public void onRetry(int retryNo) {
+                               // called when request is retried
+                               Log.w("POST PROFILE PICTURE", "" + retryNo);
+                           }
 
-                            @Override
-                            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                                Log.w("POST PROFILE PICTURE", "Error Code: " + error_code + "," + text);
-                            }
+                           @Override
+                           public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                               Log.w("POST PROFILE PICTURE", "Error Code: " + error_code + "," + text);
+                           }
 
-                            @Override
-                            public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
-                                Log.w("MY PROFILE PICTURE", "Error Code: " + error_code + ",  " + json.toString());
-                            }
-                        });
-                    } else {
+                           @Override
+                           public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
+                               Log.w("MY PROFILE PICTURE", "Error Code: " + error_code + ",  " + json.toString());
+                           }
+                       });
+                   } else {
 
-                        finishPictureFlag = true;
-                        if (finishPictureFlag && finishProfileFlag) {
-                          //  Log.w("Hello", "b");
+                       finishPictureFlag = true;
+                       if (finishPictureFlag && finishProfileFlag) {
+                           //  Log.w("Hello", "b");
 
-                        }
-                    }
-                    Intent intent = new Intent(getApplicationContext(),MyCity.class);
-                    MyProfileActivity.this.startActivity(intent);
-                    MyProfileActivity.this.finish();
-                }else
-                {
-                    Toast.makeText(MyProfileActivity.this,"Some filed are Emply",Toast.LENGTH_LONG).show();
-                }
+                       }
+                   }
+                   Intent intent = new Intent(getApplicationContext(), MyCity.class);
+                   MyProfileActivity.this.startActivity(intent);
+                   MyProfileActivity.this.finish();
+               }else {
+                   Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_LONG).show();
+               }
+            }
 
             }
         });

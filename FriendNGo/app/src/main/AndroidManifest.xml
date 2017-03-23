@@ -197,6 +197,10 @@
             android:name=".ActivityDetailPaidEvent"
             android:label="@string/title_activity_detail_paid_event"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ReportIssue"
+            android:label="@string/title_activity_report_issue"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

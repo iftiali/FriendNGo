@@ -79,4 +79,5 @@
     <string name="title_activity_nav_try">NavTry</string>
     <string name="title_activity_list_with_navigation_drawer">ActivityListWithNAvigationDrawer
     </string>
+    <string name="title_activity_report_issue">ReportIssue</string>
 </resources>
