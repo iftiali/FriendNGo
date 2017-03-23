@@ -75,8 +75,11 @@ public class ActivityNotifications extends AppCompatActivity {
                                 ActivityNotifications.this.finish();
                                 break;
                             case R.id.settings_icon:
-                                Toast.makeText(getApplicationContext(), "Settings Not Available in Beta", Toast.LENGTH_LONG).show();
-                                Log.w("NAV DEBUG", "Settings Icon Pressed");
+//                                Toast.makeText(getApplicationContext(), "Settings Not Available in Beta", Toast.LENGTH_LONG).show();
+//                                Log.w("NAV DEBUG", "Settings Icon Pressed");
+                                Intent intentSetting = new Intent(ActivityNotifications.this, ReportIssue.class);
+                                ActivityNotifications.this.startActivity(intentSetting );
+                                ActivityNotifications.this.finish();
                                 break;
                             default:
                                 Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");

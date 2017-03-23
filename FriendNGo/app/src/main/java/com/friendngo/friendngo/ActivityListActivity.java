@@ -78,7 +78,9 @@ public class ActivityListActivity extends AppCompatActivity {
                                 ActivityListActivity.this.finish();
                                 break;
                             case R.id.settings_icon:
-                                Log.w("NAV DEBUG", "Settings Icon Pressed");
+                                Intent intentSetting = new Intent(ActivityListActivity.this, ReportIssue.class);
+                                ActivityListActivity.this.startActivity(intentSetting);
+                                ActivityListActivity.this.finish();
                                 break;
                             default:
                                 Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");
