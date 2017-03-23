@@ -200,7 +200,7 @@
         <activity
             android:name=".ReportIssue"
             android:label="@string/title_activity_report_issue"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

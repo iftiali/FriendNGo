@@ -143,6 +143,16 @@
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/wish_for_today"
+                android:layout_below="@+id/other_user_about"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:text="Wish for today?"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/other_account"
                 android:layout_below="@+id/other_user_about"
                 android:layout_centerHorizontal="true" />

@@ -79,7 +79,7 @@ public class MapActivity extends AppCompatActivity implements
 
     //Constants
     private static final String My_TAG ="Author:Parth";
-    TextView other_account;
+    TextView wish_for_today;
     public static CircularImageView other_user_picture;
     public static String selfIdentify=null;
     public static int versionNumber = 4;
@@ -153,7 +153,7 @@ public class MapActivity extends AppCompatActivity implements
         other_user_citizenship = (TextView)findViewById(R.id.other_user_citizenship);
         //Initialize Layout views from their XML
         my_profile_dots = (ImageView)findViewById(R.id.my_profile_dots);
-        other_account = (TextView)findViewById(R.id.other_account);
+        wish_for_today = (TextView)findViewById(R.id.wish_for_today);
         alpha_layer = (RelativeLayout) findViewById(R.id.alpha_layer);
         markup_layout = (FrameLayout) findViewById(R.id.markup_layout);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -166,7 +166,7 @@ public class MapActivity extends AppCompatActivity implements
         getActivity();
         getSelfIdentify();
         bottomNavigationView.getMenu().getItem(0).setChecked(true);
-        other_account.setOnClickListener(new View.OnClickListener() {
+        wish_for_today.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapActivity.this,WhatDoYouWantToDoToday.class);
@@ -208,7 +208,9 @@ public class MapActivity extends AppCompatActivity implements
                                // Log.w("BOTTOM NAV","Message Icon Pressed");
                                 break;
                             case R.id.settings_icon:
-                                Toast.makeText(getApplicationContext(), "Settings Not Available in Beta", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(), "Settings Not Available in Beta", Toast.LENGTH_LONG).show();
+                                Intent seeSeeting = new Intent(getApplicationContext(), ReportIssue.class);
+                                startActivity(seeSeeting);
                                 break;
                             default:
                                 //Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");
@@ -869,7 +871,7 @@ public class MapActivity extends AppCompatActivity implements
                         } else {
 
                             if (MainActivity.new_user == true) {
-                                intent = new Intent(MapActivity.this, NewCity.class);
+                                intent = new Intent(MapActivity.this, NewWhoAreYouActivity.class);
                                 MapActivity.this.startActivity(intent);
                             } else {
                                 Log.w("PROFILE DEBUG", "PROFILE ALREADY CREATED");

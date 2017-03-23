@@ -103,11 +103,20 @@ public class MySpecialGroup extends AppCompatActivity {
         no_code_text.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                finish();
-                //TODO: Create A Flag Here
-                SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
-                editor.putString("is_profile_created","true");
-                editor.commit();
+                if( MainActivity.new_user = true){
+                    Intent intent = new Intent(getApplicationContext(),WhatDoYouWantToDoToday.class);
+                    MySpecialGroup.this.startActivity(intent);
+                    MySpecialGroup.this.finish();
+                    SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
+                    editor.putString("is_profile_created","true");
+                    editor.commit();
+                }else {
+                    finish();
+                    //TODO: Create A Flag Here
+                    SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
+                    editor.putString("is_profile_created", "true");
+                    editor.commit();
+                }
                 return false;
             }
         });

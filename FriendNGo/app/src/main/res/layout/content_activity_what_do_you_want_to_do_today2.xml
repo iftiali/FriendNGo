@@ -35,14 +35,14 @@
         android:dividerHeight="5dp"/>
 
     <TextView
-        android:layout_marginTop="10dp"
-        android:text="Pick your current interests"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:background="@color/whiteish"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@color/whiteish"
+        android:text="Pick your current interests to receive catered results" />
 
 </RelativeLayout>
 

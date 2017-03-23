@@ -66,7 +66,7 @@ public class ReportIssue extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(validateReport){
-                    Toast.makeText(getApplicationContext(),"Message",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Report issue field is empty",Toast.LENGTH_LONG).show();
                 }else {
                     AsyncHttpClient client = new AsyncHttpClient();
                     if(SignIn.static_token != null) {
