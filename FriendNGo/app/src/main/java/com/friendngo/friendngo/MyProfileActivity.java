@@ -298,6 +298,7 @@ public class MyProfileActivity extends AppCompatActivity {
                         if(cc.equals(nationality)){
                             compareCountryName = true;
                           params.put("home_nationality",nationality);
+                            MapActivity.other_user_citizenship.setText(nationality);
                             break;
                         }else{
                             Log.d("hello message",errorMessage);

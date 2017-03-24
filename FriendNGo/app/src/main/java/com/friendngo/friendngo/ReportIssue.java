@@ -48,8 +48,8 @@ public class ReportIssue extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             String countText=issue_edit_text.getText().toString();
-                if(countText.length()>10){
-                    Toast.makeText(getApplicationContext(),"message",Toast.LENGTH_LONG).show();
+                if(countText.length()>4000){
+                    Toast.makeText(getApplicationContext(),"MORE THAN 4000 CHARACTERS? WHAT ARE YOU WRITING AN ESSAY?",Toast.LENGTH_LONG).show();
                     validateReport  =true;
                 }else
                 {

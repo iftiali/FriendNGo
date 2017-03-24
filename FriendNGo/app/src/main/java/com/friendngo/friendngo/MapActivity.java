@@ -84,8 +84,9 @@ public class MapActivity extends AppCompatActivity implements
     public static String selfIdentify=null;
     public static int versionNumber = 4;
     public static String selfName=null;
+
     public static TextView other_user_name,other_user_age,other_user_about,other_user_location,other_user_citizenship;
-    ImageView my_profile_dots;
+    TextView user_account;
     private static final int POLLING_PERIOD = 5;
     private final int STARTING_ZOOM = 15;
 
@@ -152,7 +153,7 @@ public class MapActivity extends AppCompatActivity implements
         other_user_about = (TextView)findViewById(R.id.other_user_about);
         other_user_citizenship = (TextView)findViewById(R.id.other_user_citizenship);
         //Initialize Layout views from their XML
-        my_profile_dots = (ImageView)findViewById(R.id.my_profile_dots);
+        user_account = (TextView) findViewById(R.id.user_account);
         wish_for_today = (TextView)findViewById(R.id.wish_for_today);
         alpha_layer = (RelativeLayout) findViewById(R.id.alpha_layer);
         markup_layout = (FrameLayout) findViewById(R.id.markup_layout);
@@ -175,7 +176,7 @@ public class MapActivity extends AppCompatActivity implements
         });
 
         //navigate to my profile
-        my_profile_dots.setOnClickListener(new View.OnClickListener() {
+        user_account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapActivity.this,MyProfileActivity.class);
@@ -249,17 +250,17 @@ public class MapActivity extends AppCompatActivity implements
 
                     int age = response.getInt("age");
                     if(age > 0) {
-                        MapActivity.other_user_age.setText(age + " y-o");
+                       other_user_age.setText(age + " y-o");
                     } else if(age <= 0)
                     {
-                        MapActivity.other_user_age.setText("X y-o");
+                        other_user_age.setText("X y-o");
                     }
                     other_user_citizenship.setText(response.getString("home_nationality"));
                     String bio = response.getString("bio");
-                    MapActivity.other_user_about.setText(bio);
+                    other_user_about.setText(bio);
 
                     String cityString = response.getString("home_city");
-                    other_user_location.setText("Resident, " + cityString);
+                    other_user_location.setText(response.getString("status")+", " + cityString);
                 } catch (JSONException e) {
                     Log.w("JSON EXCEPTION", e.getMessage());
                 }

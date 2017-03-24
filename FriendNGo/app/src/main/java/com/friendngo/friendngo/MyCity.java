@@ -64,7 +64,7 @@ public class MyCity extends AppCompatActivity {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             Log.w("POST PROFILE CITY", statusCode + ": " + "Response = " + response.toString());
-                            MapActivity.other_user_location.setText("Resident "+currentCityArray[0]);
+                           // MapActivity.other_user_location.setText("Student, "+currentCityArray[0]);
                         }
 
                         @Override
@@ -91,6 +91,7 @@ public class MyCity extends AppCompatActivity {
                     });
                 }
                 Intent intent = new Intent(MyCity.this,MyStatusActivity.class);
+                intent.putExtra("cityName", currentCityArray[0]);
                 MyCity.this.startActivity(intent);
                 MyCity.this.finish();
             }
