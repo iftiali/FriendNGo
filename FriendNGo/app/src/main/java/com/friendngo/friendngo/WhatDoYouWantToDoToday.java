@@ -102,8 +102,8 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(WhatDoYouWantToDoToday.this,NewWhoAreYouActivity.class);
-                WhatDoYouWantToDoToday.this.startActivity(intent);
+                //Intent intent = new Intent(WhatDoYouWantToDoToday.this,NewWhoAreYouActivity.class);
+                //WhatDoYouWantToDoToday.this.startActivity(intent);
                 WhatDoYouWantToDoToday.this.finish();
             }
         });

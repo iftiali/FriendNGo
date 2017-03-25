@@ -24,14 +24,11 @@
                 android:layout_height="wrap_content" >
                 <TextView
                     android:text="Activity Detail"
-
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:textColor="#FFFFFF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:id="@+id/my_city_text_iew"
-
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"/>
             </RelativeLayout>

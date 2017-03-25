@@ -48,10 +48,10 @@ public class FacebookLogin extends AppCompatActivity {
     CallbackManager callbackManager;
     private Button useEmailButton;
     GPSTracker gps;
-
+    String emailToken = "";
     private final int MY_PERMISSIONS_REQUEST_LOCATION = 2;
     private String TOKEN_PREFERENCE = "token_preference";
-    int gspEnableFlag = 0;
+
     public static Uri facebook_profile_pic;
 
     @Override
@@ -82,7 +82,19 @@ public class FacebookLogin extends AppCompatActivity {
             Intent mainIntent = new Intent(FacebookLogin.this, SignIn.class);
             FacebookLogin.this.startActivity(mainIntent);
         }
-
+        //Email token check
+        SharedPreferences pref = getSharedPreferences("EmailToken", MODE_PRIVATE); // 0 - for private mode
+         emailToken= pref.getString("email_token", null);
+        if(emailToken == null)
+        {
+            Log.d("First time","First time");
+        }else {
+            MainActivity.new_user = false;
+            SignIn.static_token = emailToken;
+            Intent mainIntent = new Intent(FacebookLogin.this, MapActivity.class);
+            FacebookLogin.this.startActivity(mainIntent);
+            FacebookLogin.this.finish();
+        }
         //If the user is logged in then go straight to the New City Activity
         if (isLoggedIn()) {
             MainActivity.new_user = false;
@@ -91,13 +103,11 @@ public class FacebookLogin extends AppCompatActivity {
             if (shared_preference_token != null) {
                 SignIn.static_token = shared_preference_token;
             }
-            if(gspEnableFlag ==1){
-                getLocationPermission();
-            }else {
+
                 Intent mainIntent = new Intent(FacebookLogin.this, MapActivity.class);
                 FacebookLogin.this.startActivity(mainIntent);
                 FacebookLogin.this.finish(); //Scott: Was there a readon this was commented out???
-            }
+
         } else {
             //User needs to login
 
@@ -106,12 +116,10 @@ public class FacebookLogin extends AppCompatActivity {
             useEmailButton.setOnClickListener(new View.OnClickListener() {
 
                 public void onClick(View v) {
-                    if(gspEnableFlag ==1){
-                        getLocationPermission();
-                    }else {
+
                         Intent mainIntent = new Intent(FacebookLogin.this, SignIn.class);
                         FacebookLogin.this.startActivity(mainIntent);
-                    }
+
                 }
             });
 
@@ -294,7 +302,7 @@ public class FacebookLogin extends AppCompatActivity {
     //Parth's Get Last Known Location
     private void getLocationPermission() {
 
-        gspEnableFlag = 0;
+
 
         if (ContextCompat.checkSelfPermission(FacebookLogin.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 

@@ -32,7 +32,7 @@
     <string name="POSITION_KEY">POSITION_KEY</string>
     <string name="VIEW_HOLDER_KEY">VIEW_HOLDER_KEY</string>
     <string name="title_activity_request">Request</string>
-    <string name="home_icon_text">Home</string>
+    <string name="home_icon_text">Map</string>
     <string name="list_icon_text">List</string>
     <string name="calendar_icon_text">Calendar</string>
     <string name="notification_icon_text">Notifications</string>
@@ -76,4 +76,7 @@
     <string name="title_activity_chat_room">ChatRoomActivity</string>
     <string name="title_activity_my_special_group">MySpecialGroup</string>
     <string name="title_activity_detail_paid_event">ActivityDetailPaidEvent</string>
+    <string name="title_activity_nav_try">NavTry</string>
+    <string name="title_activity_list_with_navigation_drawer">ActivityListWithNAvigationDrawer
+    </string>
 </resources>

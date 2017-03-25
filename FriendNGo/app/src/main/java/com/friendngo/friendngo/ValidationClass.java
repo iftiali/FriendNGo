@@ -5,6 +5,9 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.util.Log;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,44 +33,33 @@ public class ValidationClass {
             return true;
         }
     }
-
-    public final static double get_longitude(String strAddress,Geocoder coder) {
-        double locationValue =0;
-        List<Address> address;
-
-        try {
-            address = coder.getFromLocationName(strAddress, 5);
-            if (address == null) {
-                locationValue =0;
-                Log.w("Error ", "address in null");
-            }
-            Address location = address.get(0);
-
-           locationValue = location.getLongitude();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static String getFormattedTime(Date date){
+        if(date == null)
+        {
+        return null;}
+        else{
+            return new SimpleDateFormat("HH:mm a").format(date);
         }
-        return locationValue;
-    }
-    public final static double get_Latitude(String strAddress,Geocoder coder) {
-        double locationValue =0;
-        List<Address> address;
-
-        try {
-            address = coder.getFromLocationName(strAddress, 5);
-            if (address == null) {
-                Log.w("Error ", "address in null");
-                locationValue =0;
-            }
-            Address location = address.get(0);
-            locationValue = location.getLatitude();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return  locationValue;
     }
 
+    public static String getFormattedDate(Date date){
+        Calendar cal=Calendar.getInstance();
+        cal.setTime(date);
+        //2nd of march 2015
+        int day=cal.get(Calendar.DATE);
+
+        if(!((day>10) && (day<19)))
+            switch (day % 10) {
+                case 1:
+                    return new SimpleDateFormat("EEE d'st', yyyy").format(date);
+                case 2:
+                    return new SimpleDateFormat("EEE d'nd', yyyy").format(date);
+                case 3:
+                    return new SimpleDateFormat("EEE d'rd', yyyy").format(date);
+                default:
+                    return new SimpleDateFormat("EEE d'th', yyyy").format(date);
+            }
+        return new SimpleDateFormat("EEE d'th', yyyy").format(date);
+    }
 
 }

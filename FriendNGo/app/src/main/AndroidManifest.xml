@@ -39,6 +39,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -163,16 +164,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".OtherUserProfileActivity"
-            android:label="@string/title_activity_other_user_profile"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ParticipantsActivity"
-            android:label="@string/title_activity_participants"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".NotificationsPreferencesActivity"
             android:label="@string/title_activity_notifications_preferences"
             android:screenOrientation="portrait"
@@ -193,16 +184,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MessagesActivity"
-            android:label="@string/title_activity_messages"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".MessagesOpenActivity"
-            android:label="@string/title_activity_messages_open"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".FiltersActivity"
             android:label="@string/title_activity_filters"
             android:screenOrientation="portrait"
@@ -215,6 +196,7 @@
         <activity
             android:name=".ActivityDetailPaidEvent"
             android:label="@string/title_activity_detail_paid_event"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
+
 </manifest>

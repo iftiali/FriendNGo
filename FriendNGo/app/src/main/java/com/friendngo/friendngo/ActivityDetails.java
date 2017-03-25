@@ -3,12 +3,14 @@ package com.friendngo.friendngo;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -24,6 +26,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.File;
+import java.text.SimpleDateFormat;
+
 import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -63,6 +67,7 @@ public class ActivityDetails extends AppCompatActivity {
         sendRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 AsyncHttpClient client = new AsyncHttpClient();
                 if(SignIn.static_token != null) {
                     client.addHeader("Authorization","Token "+SignIn.static_token);
@@ -114,6 +119,10 @@ public class ActivityDetails extends AppCompatActivity {
 
         UserActivity activity = (UserActivity) MapActivity.activitiesList.get(activity_index);
 
+        if(MapActivity.userID == activity.getcreator_PK()){
+            sendRequestButton.setBackgroundResource(R.drawable.submit_button_grey);
+            sendRequestButton.setEnabled(false);
+        }
         //GET The image file at the pictureURL
         AsyncHttpClient client = new AsyncHttpClient();
         String pictureURL = activity.getProfilePicURL();
@@ -141,7 +150,7 @@ public class ActivityDetails extends AppCompatActivity {
         creatorName = (TextView) this.findViewById(R.id.activity_detail_creator_name);
         creatorName.setText(activity.getCreator());
         creatorAge = (TextView) this.findViewById(R.id.activity_detail_creator_age);
-        creatorAge.setText(activity.getCreatorAge());
+        creatorAge.setText(activity.getCreatorAge()+" y-o ");
 
         creatorStatus = (TextView) this.findViewById(R.id.activity_detail_creator_status);
         creatorStatus.setText(activity.getCreatorStatus()+",");
@@ -153,12 +162,11 @@ public class ActivityDetails extends AppCompatActivity {
         creatorFlag = (ImageView) this.findViewById(R.id.activity_detail_creator_flag);
         creatorFlag.setImageResource(R.drawable.canada);
 
-        activityTime = (TextView) this.findViewById(R.id.activity_detail_date);
-        activityTime.setText("7:30 PM - 10:30 PM");//TODO: Include a custom Time object
+        activityTime = (TextView) this.findViewById(R.id.activity_detail_time);
+        activityTime.setText(ValidationClass.getFormattedTime(activity.getActivityTime())+" - "+ValidationClass.getFormattedTime(activity.getActivityEndTime()));
+        activityDate = (TextView) this.findViewById(R.id.activity_detail_date);
 
-        activityDate = (TextView) this.findViewById(R.id.activity_detail_time);
-        activityTime.setText("Feb 7th, 2017 ");
-
+        activityDate.setText(ValidationClass.getFormattedDate(activity.getActivityTime()));
         activityDescription = (TextView) this.findViewById(R.id.activity_detail_description_text);
         activityDescription.setText(activity.getDescription());
 

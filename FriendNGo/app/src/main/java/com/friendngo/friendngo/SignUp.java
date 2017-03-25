@@ -26,7 +26,7 @@ public class SignUp extends AppCompatActivity {
     private Button signupButton;
     private EditText emailEditTextValue;
     private EditText passwordEditTextValue;
-
+    private EditText passwordEditTextValueConfirm;
     private SharedPreferences sharedPref;
     private boolean try_once = true;
 
@@ -45,7 +45,7 @@ public class SignUp extends AppCompatActivity {
         emailEditTextValue = (EditText) findViewById(R.id.signup_email);
         passwordEditTextValue = (EditText) findViewById(R.id.signup_password);
         signupButton = (Button) findViewById(R.id.signup_button);
-
+        passwordEditTextValueConfirm = (EditText)findViewById(R.id.signup_password_conform);
         //Sets the callback for when the user presses the I have an account link
         textView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -69,6 +69,18 @@ public class SignUp extends AppCompatActivity {
                 boolean isNullCheck = ValidationClass.isNullCheck(emailEditTextValue.getText().toString(),passwordEditTextValue.getText().toString());
                 boolean isEmailValid = ValidationClass.isValidEmail(emailEditTextValue.getText().toString());
                 //Log.w("error", String.valueOf(isEmailValid));
+                if(passwordEditTextValueConfirm.getText().equals("")){
+                    isNullCheck = false;
+                }else {
+                    if(passwordEditTextValueConfirm.getText().toString().equals(passwordEditTextValue.getText().toString())){
+
+                        isNullCheck = true;
+                    }else {
+                        Toast.makeText(getApplicationContext(),"Passwords do not match, please try again",Toast.LENGTH_LONG).show();
+                        isNullCheck = false;
+                    }
+
+                }
                 if(isNullCheck){
                     if(isEmailValid) {
 
@@ -93,6 +105,7 @@ public class SignUp extends AppCompatActivity {
 
                                         Log.w("AUTH POST SUCCESS", statusCode + ": " + "Response = " + response.toString());
                                         try {
+                                            MainActivity.new_user = true;
                                             SignIn.static_username = emailEditTextValue.getText().toString();
                                             SignIn.static_token = response.get("token").toString();
                                             Log.w("AUTH POST SUCCESS2", SignIn.static_token.toString());
@@ -112,6 +125,7 @@ public class SignUp extends AppCompatActivity {
                                         Log.w("AUTH POST SUCCESS?", statusCode + ": " + response.toString());
                                         try {
                                             JSONObject firstEvent = response.getJSONObject(0);
+                                            MainActivity.new_user = true;
 
                                             SignIn.static_username = emailEditTextValue.getText().toString();
                                             SignIn.static_token = firstEvent.getString("token");
@@ -150,6 +164,8 @@ public class SignUp extends AppCompatActivity {
                             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                                 Log.w("HTTP SUCCESS: ", statusCode + ": " + response.toString());
                                 try {
+                                    MainActivity.new_user = true;
+
                                     JSONObject firstEvent = response.getJSONObject(0);
                                     Intent intent = new Intent(SignUp.this, MapActivity.class);
                                     SignUp.this.startActivity(intent);

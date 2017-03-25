@@ -45,16 +45,11 @@ public class ActivityMessage extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
         recyclerView.setAdapter(mAdapter);
-
-
         AsyncHttpClient client = new AsyncHttpClient();
         if (SignIn.static_token != null) {
             client.addHeader("Authorization", "Token " + SignIn.static_token);
         }
-
-
         recyclerView.setVisibility(View.GONE);
         emptyView.setVisibility(View.VISIBLE);
         client.get(MainActivity.base_host_url + "api/getMessages/", new JsonHttpResponseHandler() {
@@ -82,6 +77,7 @@ public class ActivityMessage extends AppCompatActivity {
 
                         );
                      if(!chatList.isEmpty()){
+
                          for(int zz =0;zz<chatList.size();zz++){
                              if(chatList.get(zz).getactivityID().equals( chatJSONObject.getString("activity_id"))){
                                  Log.i("No need to add","No need to add");
@@ -93,6 +89,8 @@ public class ActivityMessage extends AppCompatActivity {
                          }
 
                      }else {
+                        recyclerView.setVisibility(View.VISIBLE);
+                         emptyView.setVisibility(View.GONE);
                         chatList.add(chatModel);
                      }
                     } catch (JSONException e) {
@@ -100,8 +98,7 @@ public class ActivityMessage extends AppCompatActivity {
                     }
 
                 }
-                recyclerView.setVisibility(View.VISIBLE);
-                emptyView.setVisibility(View.GONE);
+
                 mAdapter.notifyDataSetChanged();
             }
 

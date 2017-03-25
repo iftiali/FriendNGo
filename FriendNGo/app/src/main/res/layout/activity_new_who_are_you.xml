@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content" >
                 <TextView
                     android:text="Who are you?"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:textColor="#FFFFFF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

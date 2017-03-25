@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -60,7 +62,7 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
     @Override
     public View getView(final int position, View convertView, ViewGroup parent)
     {
-        RequestModel dataModel = getItem(position);
+        final RequestModel dataModel = getItem(position);
         final ViewHolder viewHolder; // view lookup cache stored in tag
         final View result;
         if (convertView == null) {
@@ -115,6 +117,7 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
         }
 
         final RequestModel buttonData = dataModel;
+
        viewHolder.notImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,22 +130,24 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
                     client.addHeader("Authorization", "Token " + SignIn.static_token);
                 }
 
-                Log.w("REQUESTS DEBUG ID", buttonData.getRequest_id() + "");
+                Log.d("Parth Desai",buttonData.request_state+":"+buttonData.getid()+":"+buttonData.sender_id);
                 RequestParams params = new RequestParams();
+                params.put("sender",buttonData.getSender_id());
                 params.put("request_state","2");
-                params.put("request_id",buttonData.getRequest_id());
+                Log.w("WHY IS THIS HAPPENING", buttonData.getid()+"");
+                params.put("request_id","13");
                 params.setUseJsonStreamer(true);
 
                     client.post(MainActivity.base_host_url + "api/updateActivityRequest/", params, new JsonHttpResponseHandler() {
 
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            Log.w("POST PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                            Log.w("POST UPDATE REQUEST", statusCode + ": " + "Response = " + response.toString());
                             }
 
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                            Log.w("POST PROFILE SUCCESS2", statusCode + ": " + timeline.toString());
+                            Log.w("POST UPDATE REQUEST", statusCode + ": " + timeline.toString());
                             //
                         }
 
@@ -176,22 +181,23 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
                     client.addHeader("Authorization", "Token " + SignIn.static_token);
                 }
 
-                Log.w("REQUESTS DEBUG ID", buttonData.getRequest_id() + "");
+                Log.d("Parth Desai",buttonData.request_state+":"+buttonData.getid()+":"+buttonData.sender_id);
                 RequestParams params = new RequestParams();
                 params.put("request_state","1");
-                params.put("request_id",buttonData.getRequest_id());
+                params.put("sender",dataModel.getSender_id());
+                params.put("request_id",buttonData.getid());
                 params.setUseJsonStreamer(true);
 
                 client.post(MainActivity.base_host_url + "api/updateActivityRequest/", params, new JsonHttpResponseHandler() {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        Log.w("POST PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                        Log.w("POST UPDATE SUCCESS", statusCode + ": " + "Response = " + response.toString());
                     }
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                        Log.w("POST PROFILE SUCCESS2", statusCode + ": " + timeline.toString());
+                        Log.w("POST UPDATE SUCCESS2", statusCode + ": " + timeline.toString());
                         //
                     }
 

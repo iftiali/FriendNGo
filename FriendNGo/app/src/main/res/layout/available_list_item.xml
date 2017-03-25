@@ -58,7 +58,8 @@
         android:layout_toEndOf="@+id/messages_profile_picture"
         android:paddingLeft="10dp"
         android:layout_marginBottom="10dp"
-        android:textSize="11sp"/>
+        android:textSize="11sp"
+        android:layout_toRightOf="@+id/messages_profile_picture" />
 
     <ImageView
         android:id="@+id/available_country_flag"

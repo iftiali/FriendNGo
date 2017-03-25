@@ -328,7 +328,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 //                        NewWhoAreYouActivity.this.finish();
                             finishProfileFlag = true;
                             if (finishPictureFlag && finishProfileFlag) {
-                          //      Log.w("Hello", "A");
+
                                 NewWhoAreYouActivity.this.finish();
                             }
                         }
@@ -411,7 +411,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 
                         }
                     }
-                    Intent intent = new Intent(NewWhoAreYouActivity.this, MySpecialGroup.class);
+                    Intent intent = new Intent(NewWhoAreYouActivity.this, NewCity.class);
                     NewWhoAreYouActivity.this.startActivity(intent);
                     NewWhoAreYouActivity.this.finish();
                 }else {
