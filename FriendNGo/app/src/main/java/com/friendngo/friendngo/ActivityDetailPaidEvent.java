@@ -36,6 +36,7 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
     RelativeLayout activity_detail_free_event;
     TextView activity_detail_creator_name;
     TextView detail_paid_event_address;
+    TextView activity_detail_paid_address_text;
     TextView detail_paid_date;
     TextView detail_event_endStartTime;
     Button sendRequestButton;
@@ -57,9 +58,10 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
         activity_detail_creator_name = (TextView)findViewById(R.id.activity_detail_creator_name);
         detail_paid_event_address = (TextView)findViewById(R.id.detail_paid_event_address);
         detail_paid_date = (TextView)findViewById(R.id.detail_paid_date);
+        activity_detail_paid_address_text = (TextView)findViewById(R.id.activity_detail_paid_address_text);
         detail_event_endStartTime = (TextView)findViewById(R.id.detail_event_endStartTime);
         sendRequestButton = (Button)findViewById(R.id.send_request_button_paid_event);
-        requestFrame = (FrameLayout)findViewById(R.id.activity_detail_paid_request_frame);
+
         detail_event_background_image = (ImageView) this.findViewById(R.id.detail_event_background_image);
         detail_event_background_image.setScaleType(ImageView.ScaleType.FIT_XY);
         final int activity_index = getIntent().getIntExtra("Activity Index", 0);
@@ -107,13 +109,7 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
                 ActivityDetailPaidEvent.this.finish();
             }
         });
-        requestFrame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent seeRequest = new Intent(getApplicationContext(), Request.class);
-                startActivity(seeRequest);
-            }
-        });
+
         UserActivity activity = (UserActivity) MapActivity.activitiesList.get(activity_index);
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -137,6 +133,7 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
 
         activity_detail_creator_name.setText(activity.getName());
         detail_paid_event_address.setText(activity.getAddress());
+        activity_detail_paid_address_text.setText(activity.getAddress());
         activity_detail_paid_description_text.setText(activity.getDescription());
         detail_paid_date.setText(ValidationClass.getFormattedDate(activity.getActivityTime()));
         detail_event_endStartTime.setText(ValidationClass.getFormattedTime(activity.getActivityTime())+"-"+ValidationClass.getFormattedTime(activity.getActivityEndTime()));
