@@ -150,12 +150,9 @@ public class SignIn extends AppCompatActivity {
     }
     private void authCheck(){
         AsyncHttpClient client = new AsyncHttpClient();
-        //By Parth 30-Jan-2017
-        //client.setBasicAuth(emailEditTextValue.getText().toString(), passwordEditTextValue.getText().toString());
 
         RequestParams params = new RequestParams();
-//                params.setUseJsonStreamer(true);
-        params.put("username", emailEditTextValue.getText().toString());
+      params.put("username", emailEditTextValue.getText().toString());
         params.put("password", passwordEditTextValue.getText().toString());
         boolean isNullCheck = ValidationClass.isNullCheck(emailEditTextValue.getText().toString(), passwordEditTextValue.getText().toString());
         boolean isEmailValid = ValidationClass.isValidEmail(emailEditTextValue.getText().toString());
@@ -182,7 +179,7 @@ public class SignIn extends AppCompatActivity {
 
                                     SharedPreferences pref = getApplicationContext().getSharedPreferences("EmailToken", 0); // 0 - for private mode
                                     SharedPreferences.Editor editor = pref.edit();
-                                    editor.putString("token", static_token);
+                                    editor.putString("email_token", static_token);
                                     editor.commit();
                                 }
                                 Intent intent = new Intent(SignIn.this, MapActivity.class);

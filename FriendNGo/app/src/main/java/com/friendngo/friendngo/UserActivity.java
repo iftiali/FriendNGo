@@ -37,6 +37,7 @@ public class UserActivity {
     private String profilePicURL;
     private Boolean isPaid;
     private String eventPictureURL;
+    private String userStatus;
     List attendingList = new ArrayList<JSONObject>();
     private int request_state;
 
@@ -67,7 +68,8 @@ public class UserActivity {
                         Boolean isPaid,
                         List attendingList,
                         int request_state,
-                        String eventPictureURL) {
+                        String eventPictureURL,
+                        String userStatus) {
         this.homeCity = home_city;
         this.homeNationality = home_nationality;
         this.name = name;
@@ -94,6 +96,7 @@ public class UserActivity {
         this.attendingList = attendingList;
         this.request_state = request_state;
         this.eventPictureURL = eventPictureURL;
+        this.userStatus = userStatus;
     }
 
     public double getClatitude() {
@@ -336,4 +339,10 @@ public class UserActivity {
 
     public void setEventPictureURL(String eventPictureURL) {
         this.eventPictureURL = eventPictureURL; }
+
+    public String getuserStatus() {
+        return userStatus;
+    }
+    public void setuserStatus(String userStatus) {
+        this.userStatus = userStatus; }
 }

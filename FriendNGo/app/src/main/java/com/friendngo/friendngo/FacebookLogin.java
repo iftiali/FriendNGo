@@ -84,7 +84,8 @@ public class FacebookLogin extends AppCompatActivity {
         }
         //Email token check
         SharedPreferences pref = getSharedPreferences("EmailToken", MODE_PRIVATE); // 0 - for private mode
-         emailToken= pref.getString("email_token", null);
+        emailToken= pref.getString("email_token", null);
+//        Log.d("Hello",emailToken);
         if(emailToken == null)
         {
             Log.d("First time","First time");

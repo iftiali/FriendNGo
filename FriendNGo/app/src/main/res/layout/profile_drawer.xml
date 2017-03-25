@@ -57,7 +57,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="469dp">
 
             <com.mikhaellopez.circularimageview.CircularImageView
                 android:layout_centerHorizontal="true"
@@ -129,7 +129,7 @@
 
             <TextView
                 android:id="@+id/other_user_about"
-                android:text="You will have a wonderful profile here that is full of whimsy. It may contains lovely things such as what you ate for breakfast today and what you plan on eating for breakfast tomorrow or other such important things in your life."
+                android:text="You will have a wonderful profile here that is full of whimsy. It may contains lovely things such as what you ate for breakfast today."
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
@@ -148,17 +148,7 @@
                 android:layout_below="@+id/other_user_about"
                 android:layout_centerHorizontal="true" />
 
-            <TextView
-                android:layout_alignBottom="@+id/wish_for_today"
-                android:layout_marginTop="10dp"
-                android:text="Modify your profile"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/user_account"
-                android:layout_below="@+id/other_user_about"
-                android:layout_centerHorizontal="true" />
+
 
             <TextView
                 android:id="@+id/other_user_name"
@@ -190,6 +180,17 @@
                 android:textSize="12sp"
                 android:layout_below="@+id/other_user_citizenship"
                 android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/user_account"
+                android:text="Modify your profile"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/wish_for_today"
+                android:layout_centerHorizontal="true"/>
 
         </RelativeLayout>
     </FrameLayout>

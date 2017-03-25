@@ -502,6 +502,7 @@ public class MapActivity extends AppCompatActivity implements
 
                         //Date parsed seperately
                         String activityTimeString = activity.getString("activity_time");
+                        String userStatus = activity.getString("status");;
                         SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                         Date activityTime = new Date();
                         try {
@@ -576,7 +577,8 @@ public class MapActivity extends AppCompatActivity implements
                                 isPaid,
                                 attendingList,
                                 request_state,
-                                eventPictureURl);
+                                eventPictureURl,
+                                userStatus);
 
                         activitiesList.add(userActivity);
 
@@ -908,14 +910,8 @@ public class MapActivity extends AppCompatActivity implements
 
             final int j = i;
             //Set On Click Listeners
-            activityDetailsButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                 Intent intent = new Intent(MapActivity.this,ActivityDetails.class);
-                    intent.putExtra("Activity Index",j);
-                 MapActivity.this.startActivity(intent);
-                }
-            });
+
+
 
             //Set On Click Listeners
             participateButton.setOnClickListener(new View.OnClickListener() {
@@ -963,7 +959,26 @@ public class MapActivity extends AppCompatActivity implements
                 }
             });
 
-            UserActivity act = (UserActivity) activitiesList.get(i);
+            final UserActivity act = (UserActivity) activitiesList.get(i);
+
+            activityDetailsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (act.getisPaid()) {
+                        Intent intent = new Intent(MapActivity.this, ActivityDetailPaidEvent.class);
+                        intent.putExtra("Activity Index", j);
+                        MapActivity.this.startActivity(intent);
+                    } else {
+
+                        Intent intent = new Intent(MapActivity.this, ActivityDetails.class);
+                        intent.putExtra("Activity Index", j);
+                        MapActivity.this.startActivity(intent);
+
+                    }
+                }
+            });
+
 
             if(MapActivity.userID == act.getcreator_PK()){
                 participateButton.setBackgroundResource(R.drawable.activity_markup_participate_button_grey);
@@ -989,7 +1004,7 @@ public class MapActivity extends AppCompatActivity implements
             creator.setText("Created by "+act.getCreator());
             creator.setTextColor(Color.BLACK);
             profilePicture.setImageResource(R.drawable.empty_profile);
-            status.setText("Resident" + ", ");
+            status.setText( act.getuserStatus()+ ", ");
             status.setTextColor(Color.GRAY);
             homeCity.setText(act.getHomeCity());
             homeCity.setTextColor(Color.GRAY);

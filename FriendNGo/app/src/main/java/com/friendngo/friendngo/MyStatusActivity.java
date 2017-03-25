@@ -123,7 +123,7 @@ public class MyStatusActivity extends AppCompatActivity {
                 // Log.w("Home city",currentCityArray[0]);
 
 
-                    client.post(MainActivity.base_host_url + "api/postHomeCity/", params, new JsonHttpResponseHandler() {
+                    client.post(MainActivity.base_host_url + "api/postStatus/", params, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             Log.w("POST PROFILE CITY", statusCode + ": " + "Response = " + response.toString());
