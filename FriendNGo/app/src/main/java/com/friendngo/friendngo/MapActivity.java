@@ -166,9 +166,7 @@ public class MapActivity extends AppCompatActivity implements
         participateButton = (Button) findViewById(R.id.banner_participate);
         participateButton.setEnabled(false);
 
-        checkForNewVersion();
-        getActivity();
-        getSelfIdentify();
+
         bottomNavigationView.getMenu().getItem(0).setChecked(true);
         wish_for_today.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -235,7 +233,9 @@ public class MapActivity extends AppCompatActivity implements
                 alpha_layer.setVisibility(View.GONE);
             }
         });
-
+        checkForNewVersion();
+        getActivity();
+        getSelfIdentify();
 
         //GET user profile
         AsyncHttpClient client = new AsyncHttpClient();
