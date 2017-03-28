@@ -1,0 +1,61 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.friendngo.friendngo.SettingFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:lines="2"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/issue_edit_text"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_corners_white"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:paddingBottom="15dp"
+
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:hint="Type Your Issue Here"
+        android:textAlignment="center" />
+
+    <!--<TextView-->
+    <!--android:text="No I don't"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/code_edit_text"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:id="@+id/no_code_text"-->
+    <!--android:layout_marginTop="25dp"-->
+    <!--android:textColor="@color/colorAccent" />-->
+
+    <Button
+        android:text="SUBMIT"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_navigation_report_issue_activity"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/submit_next_button"
+        android:layout_width="160dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/submit_button"
+        />
+    <!--<android.support.design.widget.BottomNavigationView-->
+        <!--android:id="@+id/bottom_navigation_report_issue_activity"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_margin="0dp"-->
+
+        <!--app:itemBackground="@color/white"-->
+        <!--app:itemIconTint="@drawable/bottom_menu_selectors"-->
+        <!--app:itemTextColor="@color/colorPrimary"-->
+        <!--app:menu="@menu/bottom_navigation_tabs" />-->
+
+</FrameLayout>

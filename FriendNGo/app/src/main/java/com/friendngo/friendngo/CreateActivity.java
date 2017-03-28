@@ -45,6 +45,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
+
 import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -182,6 +184,7 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                 .addApi(Places.GEO_DATA_API)
                 .build();
         setContentView(R.layout.activity_create);
+
         cancelTextView = (TextView)findViewById(R.id.cancel__text_view);
         mAutocompleteView = (AutoCompleteTextView)
                 findViewById(R.id.address_edit_text);
@@ -401,21 +404,27 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                     monthNames[9] ="10";
                     monthNames[10] ="11";
                     monthNames[11] ="12";
+
+
                     if(todayTomorrowFlag == 1) {
+
                         tomorrowDate.add(Calendar.DATE, 1);
                         //  Log.w("Start Event", tomorrowDate.get(Calendar.YEAR)+"-"+monthNames[tomorrowDate.get(Calendar.MONTH)]+"-"+tomorrowDate.get(Calendar.DATE)+"'T'"+endEventTime.getText().toString()+":00'Z'");
-                        endparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + endEventTime.getText().toString() + ":00.000000Z";
+                        endparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + endEventTime.getText().toString() + ValidationClass.getCurrentTimezoneOffset();;
                     }else{
-                        endparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + endEventTime.getText().toString() + ":00.000000Z";
+                        endparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + endEventTime.getText().toString() + ValidationClass.getCurrentTimezoneOffset();;
                     }
 
                     if(todayTomorrowFlag == 0) {
                         tomorrowDate.add(Calendar.DATE, -1);
                         //Log.w("Start Event", tomorrowDate.get(Calendar.YEAR)+"-"+monthNames[tomorrowDate.get(Calendar.MONTH)]+"-"+tomorrowDate.get(Calendar.DATE)+"'T'"+startEventTime.getText().toString()+":00'Z'");
-                        startparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + startEventTime.getText().toString() + ":00.000000Z";
+                        startparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + startEventTime.getText().toString() + ValidationClass.getCurrentTimezoneOffset();;
                     }else{
-                        startparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + startEventTime.getText().toString() + ":00.000000Z";
+
+                        startparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + startEventTime.getText().toString() + ValidationClass.getCurrentTimezoneOffset();;
                     }
+
+
                     params.put("activity_time",startparseDateForDatabase);
                     params.put("activity_end_time",endparseDateForDatabase);
                     params.put("description", activityDescription);

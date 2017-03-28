@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by krishna on 2017-01-30.
@@ -60,6 +62,17 @@ public class ValidationClass {
                     return new SimpleDateFormat("EEE d'th', yyyy").format(date);
             }
         return new SimpleDateFormat("EEE d'th', yyyy").format(date);
+    }
+    public static String getCurrentTimezoneOffset() {
+
+        TimeZone tz = TimeZone.getDefault();
+        Calendar cal = GregorianCalendar.getInstance(tz);
+        int offsetInMillis = tz.getOffset(cal.getTimeInMillis());
+
+        String offset = String.format("%02d:%02d", Math.abs(offsetInMillis / 3600000), Math.abs((offsetInMillis / 60000) % 60));
+        offset = (offsetInMillis >= 0 ? "+" : "-") + offset;
+        Log.d("Time zone",offset);
+        return offset;
     }
 
 }

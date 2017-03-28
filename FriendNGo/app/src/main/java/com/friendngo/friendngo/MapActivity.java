@@ -1,6 +1,7 @@
 package com.friendngo.friendngo;
 
 import android.Manifest;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -55,6 +56,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -64,6 +66,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -210,8 +213,11 @@ public class MapActivity extends AppCompatActivity implements
                                 break;
                             case R.id.settings_icon:
                                 //Toast.makeText(getApplicationContext(), "Settings Not Available in Beta", Toast.LENGTH_LONG).show();
-                                Intent seeSeeting = new Intent(getApplicationContext(), ReportIssue.class);
-                                startActivity(seeSeeting);
+                                //Intent seeSeeting = new Intent(getApplicationContext(), ReportIssue.class);
+                                //startActivity(seeSeeting);
+                                SettingFragment sf = new SettingFragment();
+                                android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+                                manager.beginTransaction().replace(R.id.content_map,sf,sf.getTag()).commit();
                                 break;
                             default:
                                 //Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");
@@ -502,22 +508,28 @@ public class MapActivity extends AppCompatActivity implements
 
                         //Date parsed seperately
                         String activityTimeString = activity.getString("activity_time");
-                        String userStatus = activity.getString("status");;
-                        SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                        String userStatus = activity.getString("status");
+                        DateFormat converter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                        converter.setTimeZone(TimeZone.getTimeZone("UTC"));
+                        SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
                         Date activityTime = new Date();
+                        TimeZone utc = TimeZone.getTimeZone("UTC");
                         try {
+                            activityTimeFormat.setTimeZone(utc);
                             activityTime = activityTimeFormat.parse(activityTimeString);
                         } catch (ParseException p) {
                            Log.w("PARSE EXCEPTION", "Something went wrong with DATE parsing"+p.toString()); //TODO: Why is this failing
                         }
                         String activityEndTimeString = activity.getString("activity_end_time");
-                        SimpleDateFormat activityEndTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                        SimpleDateFormat activityEndTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
                         Date activityEndTime = new Date();
                         try {
+                            activityEndTimeFormat.setTimeZone(utc);
                             activityEndTime = activityEndTimeFormat.parse(activityEndTimeString);
                         } catch (ParseException p) {
                             Log.w("PARSE EXCEPTION", "Something went wrong with DATE parsing"+p.toString()); //TODO: Why is this failing
                         }
+
                         //Calculate the distance from the user to the activity
                         double km;
                         int Radius = 6371;
