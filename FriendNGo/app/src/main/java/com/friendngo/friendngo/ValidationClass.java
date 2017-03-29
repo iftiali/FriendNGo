@@ -1,8 +1,11 @@
 package com.friendngo.friendngo;
 
 
+import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -73,6 +76,12 @@ public class ValidationClass {
         offset = (offsetInMillis >= 0 ? "+" : "-") + offset;
         Log.d("Time zone",offset);
         return offset;
+    }
+    public static Boolean checkOnline(Context context){
+        ConnectivityManager connMgr = (ConnectivityManager)
+        context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        return (networkInfo != null && networkInfo.isConnected());
     }
 
 }

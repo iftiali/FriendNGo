@@ -215,7 +215,7 @@ public class MapActivity extends AppCompatActivity implements
                                 //startActivity(seeSeeting);
                                 SettingFragment sf = new SettingFragment();
                                 android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-                                manager.beginTransaction().replace(R.id.content_map,sf,sf.getTag()).commit();
+                                manager.beginTransaction().replace(R.id.Trytry,sf,sf.getTag()).commit();
                                 break;
                             default:
                                 //Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");
@@ -233,76 +233,30 @@ public class MapActivity extends AppCompatActivity implements
                 alpha_layer.setVisibility(View.GONE);
             }
         });
+        //Adds the action bar for the drawer
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        //SETUP GET user profile
+        AsyncHttpClient client2 = new AsyncHttpClient();
+        if(SignIn.static_token != null) {
+            client2.addHeader("Authorization","Token "+SignIn.static_token);
+        }
+
+
+        getUserProfile();
         checkForNewVersion();
         getActivity();
         getSelfIdentify();
 
-        //GET user profile
-        AsyncHttpClient client = new AsyncHttpClient();
-        if (SignIn.static_token != null) {
-            client.addHeader("Authorization", "Token " + SignIn.static_token);
-        }
-        client.get(MainActivity.base_host_url + "api/getProfile/", new JsonHttpResponseHandler() {
 
-            //GET user profile
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, final JSONObject response) {
-                Log.w("GET PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
-
-                try {
-                    userID = response.getInt("id");
-                    String firstNameString = response.getString("first_name");
-                    MapActivity.other_user_name.setText(firstNameString);
-
-                    int age = response.getInt("age");
-                    if(age > 0) {
-                       other_user_age.setText(age + " y-o");
-                    } else if(age <= 0)
-                    {
-                        other_user_age.setText("X y-o");
-                    }
-                    other_user_citizenship.setText(response.getString("home_nationality"));
-                    String bio = response.getString("bio");
-                    other_user_about.setText(bio);
-
-                    String cityString = response.getString("home_city");
-                    other_user_location.setText(response.getString("status")+", " + cityString);
-                } catch (JSONException e) {
-                    Log.w("JSON EXCEPTION", e.getMessage());
-                }
-
-                String pictureURL="";
-                //GET Profile image from backend if not available from Facebook
-                if(FacebookLogin.facebook_profile_pic == null) {
-                    //GET The image file at the pictureURL
-                    AsyncHttpClient client = new AsyncHttpClient();
-                    try {
-                        pictureURL = response.getString("picture");
-                    } catch (JSONException e) {
-                        Log.w("GET PROFILE JSON FAIL", e.getMessage().toString());
-                    }
-                    client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, File response) {
-                            Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
-                            //Use the downloaded image as the profile picture
-                            Uri uri = Uri.fromFile(response);
-                            MapActivity.other_user_picture.setImageURI(uri);
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-                            Log.w("GET IMAGE FAIL", "Could not retrieve image");
-                        }
-                    });
-                }
-            }
-        });
-
-        if(FacebookLogin.facebook_profile_pic != null) {
-            MapActivity.other_user_picture.setImageURI(FacebookLogin.facebook_profile_pic);
-        }
-
+        /*
         //Setup the Map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -360,24 +314,9 @@ public class MapActivity extends AppCompatActivity implements
             }
         });
 
-        //REMOVE THIS BUTTON ONCE WE HAVE A FACEBOOK LOGOUT BUTTON
 
 
-        //Adds the action bar for the drawer
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        //SETUP GET user profile
-        AsyncHttpClient client2 = new AsyncHttpClient();
-        if(SignIn.static_token != null) {
-            client2.addHeader("Authorization","Token "+SignIn.static_token);
-        }
        //Here is where we schedule the polling of our activities
         ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
         scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
@@ -394,7 +333,7 @@ public class MapActivity extends AppCompatActivity implements
                     }
                 });
             }
-        }, 0, POLLING_PERIOD, TimeUnit.SECONDS);
+        }, 0, POLLING_PERIOD, TimeUnit.SECONDS);*/
     }
 
     private void getSelfIdentify() {
@@ -1238,6 +1177,74 @@ public class MapActivity extends AppCompatActivity implements
             }
         });
         return true;
+    }
+
+    private void getUserProfile(){
+        //GET user profile
+        AsyncHttpClient client = new AsyncHttpClient();
+        if (SignIn.static_token != null) {
+            client.addHeader("Authorization", "Token " + SignIn.static_token);
+        }
+        client.get(MainActivity.base_host_url + "api/getProfile/", new JsonHttpResponseHandler() {
+
+            //GET user profile
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, final JSONObject response) {
+                Log.w("GET PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
+
+                try {
+                    userID = response.getInt("id");
+                    String firstNameString = response.getString("first_name");
+                    MapActivity.other_user_name.setText(firstNameString);
+
+                    int age = response.getInt("age");
+                    if(age > 0) {
+                        other_user_age.setText(age + " y-o");
+                    } else if(age <= 0)
+                    {
+                        other_user_age.setText("X y-o");
+                    }
+                    other_user_citizenship.setText(response.getString("home_nationality"));
+                    String bio = response.getString("bio");
+                    other_user_about.setText(bio);
+
+                    String cityString = response.getString("home_city");
+                    other_user_location.setText(response.getString("status")+", " + cityString);
+                } catch (JSONException e) {
+                    Log.w("JSON EXCEPTION", e.getMessage());
+                }
+
+                String pictureURL="";
+                //GET Profile image from backend if not available from Facebook
+                if(FacebookLogin.facebook_profile_pic == null) {
+                    //GET The image file at the pictureURL
+                    AsyncHttpClient client = new AsyncHttpClient();
+                    try {
+                        pictureURL = response.getString("picture");
+                    } catch (JSONException e) {
+                        Log.w("GET PROFILE JSON FAIL", e.getMessage().toString());
+                    }
+                    client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, File response) {
+                            Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
+                            //Use the downloaded image as the profile picture
+                            Uri uri = Uri.fromFile(response);
+                            MapActivity.other_user_picture.setImageURI(uri);
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+                            Log.w("GET IMAGE FAIL", "Could not retrieve image");
+                        }
+                    });
+                }
+            }
+        });
+
+        if(FacebookLogin.facebook_profile_pic != null) {
+            MapActivity.other_user_picture.setImageURI(FacebookLogin.facebook_profile_pic);
+        }
     }
 }
 //

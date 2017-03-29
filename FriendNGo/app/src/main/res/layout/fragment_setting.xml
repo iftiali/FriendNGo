@@ -21,20 +21,19 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:paddingBottom="15dp"
-
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:hint="Type Your Issue Here"
+        android:hint="@string/reportIssueEditTextHint"
         android:textAlignment="center" />
 
 
     <Button
-        android:text="SUBMIT"
-
+        android:text="@string/submit"
+        android:layout_alignParentBottom="true"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
-        android:id="@+id/submit_next_button"
+        android:id="@+id/submit_issue_button"
         android:layout_width="160dp"
         android:textColor="@android:color/white"
         android:background="@drawable/submit_button"

@@ -24,6 +24,7 @@
     <string name="django_client_secret">M7pRRTS7UiJKZrmdJbKoIp2FJhvfaMheBAvkefA6ApFi2VGhp00MjYCn2EK4kXnBaPj79SBuxmMPqxudNvjiHx8lKzgutV5PKbRgBzGrVjYomXP10nqWThJCZo50NJE1</string>
     <string name="title_activity_map">MapActivity</string>
 
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -80,4 +81,14 @@
     <string name="title_activity_list_with_navigation_drawer">ActivityListWithNAvigationDrawer
     </string>
     <string name="title_activity_report_issue">ReportIssue</string>
+
+    <!--General Toast Message-->
+    <string name="checkOnlineToast">Please turn on your wifi/data pack</string>
+    <string name="submit">SUBMIT</string>
+
+    <!--Report Issue Activity-->
+    <string name="reportIssueToast">Report issue field is empty</string>
+    <string name="reportIssueSuccessToast">Report issue message submitted successfully</string>
+    <string name="reportIssueEditTextHint">Type Your Issue Here</string>
+
 </resources>

@@ -154,18 +154,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".NotificationsActivity"
-            android:label="@string/title_activity_notifications"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".RecommendActivity"
             android:label="@string/title_activity_recommend"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".NotificationsPreferencesActivity"
-            android:label="@string/title_activity_notifications_preferences"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
