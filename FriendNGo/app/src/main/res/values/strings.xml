@@ -81,14 +81,17 @@
     <string name="title_activity_list_with_navigation_drawer">ActivityListWithNAvigationDrawer
     </string>
     <string name="title_activity_report_issue">ReportIssue</string>
-
+    <!--March 29 with backlog by Parth-->
     <!--General Toast Message-->
     <string name="checkOnlineToast">Please turn on your wifi/data pack</string>
     <string name="submit">SUBMIT</string>
 
-    <!--Report Issue Activity-->
+    <!--Report Issue Fragment-->
     <string name="reportIssueToast">Report issue field is empty</string>
     <string name="reportIssueSuccessToast">Report issue message submitted successfully</string>
     <string name="reportIssueEditTextHint">Type Your Issue Here</string>
+
+    <!--Notification Fragment-->
+    <string name="notificationFragmentEmptyText">You will receive a notification when someone tries to join an activity you created</string>
 
 </resources>

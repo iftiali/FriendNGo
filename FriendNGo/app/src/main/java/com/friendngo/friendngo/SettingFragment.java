@@ -94,6 +94,7 @@ public class SettingFragment extends Fragment {
     }
 
     private void issueReport(){
+
         if(ValidationClass.checkOnline(thiscontext)){
             if(validateReport){
                 Toast.makeText(getApplicationContext(),reportIssueToast,Toast.LENGTH_LONG).show();

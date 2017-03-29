@@ -2,6 +2,7 @@ package com.friendngo.friendngo;
 
 import android.Manifest;
 import android.app.FragmentManager;
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -122,7 +123,7 @@ public class MapActivity extends AppCompatActivity implements
     Button activityDetailsButton, participateButton;
 
     //new updates
-
+    android.support.v4.app.FragmentManager manager;
 
     //Data Model and Adapters
     public static List activitiesList = new ArrayList<UserActivity>();
@@ -200,9 +201,12 @@ public class MapActivity extends AppCompatActivity implements
                                 Toast.makeText(getApplicationContext(), "Calarndar Not Available in Beta", Toast.LENGTH_LONG).show();
                                 break;
                             case R.id.notification_icon:
-                               // Log.w("BOTTOM NAV","Notifications Icon Pressed");
-                                Intent seeRequest = new Intent(getApplicationContext(), ActivityNotifications.class);
-                                startActivity(seeRequest);
+                                //Log.w("BOTTOM NAV","Notifications Icon Pressed");
+//                                Intent seeRequest = new Intent(getApplicationContext(), ActivityNotifications.class);
+//                                startActivity(seeRequest);
+                                NotificationFragment notificationFragment = new NotificationFragment();
+                                manager = getSupportFragmentManager();
+                                manager.beginTransaction().replace(R.id.fragmentView,notificationFragment,notificationFragment.getTag()).commit();
                                 break;
                             case R.id.message_icon:
                                 Intent seeMessage = new Intent(getApplicationContext(), ActivityMessage.class);
@@ -213,9 +217,9 @@ public class MapActivity extends AppCompatActivity implements
                                 //Toast.makeText(getApplicationContext(), "Settings Not Available in Beta", Toast.LENGTH_LONG).show();
                                 //Intent seeSeeting = new Intent(getApplicationContext(), ReportIssue.class);
                                 //startActivity(seeSeeting);
-                                SettingFragment sf = new SettingFragment();
-                                android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-                                manager.beginTransaction().replace(R.id.Trytry,sf,sf.getTag()).commit();
+                                SettingFragment settingFragment = new SettingFragment();
+                                manager = getSupportFragmentManager();
+                                manager.beginTransaction().replace(R.id.fragmentView,settingFragment,settingFragment.getTag()).commit();
                                 break;
                             default:
                                 //Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");

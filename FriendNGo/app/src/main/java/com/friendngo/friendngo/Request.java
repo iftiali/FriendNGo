@@ -25,7 +25,7 @@ public class Request extends AppCompatActivity {
     ListView list;
     ArrayList<RequestModel> dataModels;
 
-    private static ActivityRequestListAdapter adapter;
+    private ActivityRequestListAdapter adapter;
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

@@ -31,7 +31,7 @@ public class ActivityNotifications extends AppCompatActivity {
     ListView list;
     ArrayList<RequestModel> dataModels;
     BottomNavigationView bottomNavigationView;
-    private static ActivityRequestListAdapter adapter;
+    private ActivityRequestListAdapter adapter;
 
     @Override
     protected void attachBaseContext(Context newBase) {

@@ -3,11 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.friendngo.friendngo.NotificationFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+    <ListView
+        android:id="@+id/request_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/whiteish"
+        android:dividerHeight="5dp"/>
+    <TextView android:id="@+id/emptyElement"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:gravity="center"
+        android:paddingRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/notificationFragmentEmptyText"/>
 
+    </RelativeLayout>
 </FrameLayout>
