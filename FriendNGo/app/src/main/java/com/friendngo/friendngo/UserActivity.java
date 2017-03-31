@@ -77,7 +77,6 @@ public class UserActivity {
         this.creatorAge = creatorAge;
         this.creatorStatus = creatorStatus;
         this.maxUsers = maxUsers;
-//        this.createdTime = createdTime;
         this.activityTime = activityTime;
         this.activityEndTime= activityEndTime;
         this.address = address;
@@ -97,22 +96,6 @@ public class UserActivity {
         this.request_state = request_state;
         this.eventPictureURL = eventPictureURL;
         this.userStatus = userStatus;
-    }
-
-    public double getClatitude() {
-        return clatitude;
-    }
-
-    public void setClatitude(double clatitude) {
-        this.clatitude = clatitude;
-    }
-
-    public double getClongitude() {
-        return clongitude;
-    }
-
-    public void setClongitude(double clongitude) {
-        this.clongitude = clongitude;
     }
 
     public Boolean getPaid() {
@@ -266,13 +249,6 @@ public class UserActivity {
         this.maxUsers = maxUsers;
     }
 
-//    public SimpleDateFormat getCreatedTime() {
-//        return createdTime;
-//    }
-//
-//    public void setCreatedTime(SimpleDateFormat createdTime) {
-//        this.createdTime = createdTime;
-//    }
     public Date getActivityEndTime() {
     return activityEndTime;
     }
@@ -311,21 +287,6 @@ public class UserActivity {
         this.longitude = longitude;
     }
 
-    public double getcLatitude() {
-        return clatitude;
-    }
-
-    public void setcLatitude(double clatitude) {
-        this.clatitude = clatitude;
-    }
-
-    public double getcLongitude() {
-        return clongitude;
-    }
-
-    public void setcLongitude(double clongitude) {
-        this.clongitude = clongitude;
-    }
     public boolean getisPaid() {
         return isPaid;
     }

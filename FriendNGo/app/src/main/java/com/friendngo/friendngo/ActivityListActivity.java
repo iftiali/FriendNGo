@@ -36,22 +36,6 @@ public class ActivityListActivity extends AppCompatActivity {
             Log.w("LIST VIEW ERROR", "List view is null!");
         } else {
             listView.setAdapter(adapter);
-
-            //Here is where we schedule the polling of our activities
-            ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
-            scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
-
-                //This happens in a seperate thread
-                public void run() {
-                    //Now hop back onto main thread to do the actual work
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-//                            update_activities();
-                        }
-                    });
-                }
-            }, 0, POLLING_PERIOD, TimeUnit.SECONDS);
         }
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {

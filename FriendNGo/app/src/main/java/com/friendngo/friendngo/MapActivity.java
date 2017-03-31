@@ -1,27 +1,17 @@
 package com.friendngo.friendngo;
 
-import android.Manifest;
-import android.app.FragmentManager;
-import android.app.Notification;
+
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.hardware.camera2.params.Face;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -74,12 +64,13 @@ import java.util.concurrent.TimeUnit;
 import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 import static android.location.LocationManager.GPS_PROVIDER;
-//death crash
-public class MapActivity extends AppCompatActivity implements
 
-        NavigationView.OnNavigationItemSelectedListener,
-        OnMapReadyCallback,
-        GoogleMap.OnMarkerClickListener {
+public class MapActivity extends AppCompatActivity
+    //  implements
+    //  NavigationView.OnNavigationItemSelectedListener,
+    //  OnMapReadyCallback,
+    //  GoogleMap.OnMarkerClickListener
+        {
 
     //Constants
     private static final String My_TAG ="Author:Parth";
@@ -92,11 +83,11 @@ public class MapActivity extends AppCompatActivity implements
     public static TextView other_user_name,other_user_age,other_user_about,other_user_location,other_user_citizenship;
     TextView user_account;
     private static final int POLLING_PERIOD = 5;
-    private final int STARTING_ZOOM = 15;
+
 
 
     //Map and location variables
-    private GoogleMap mMap;
+
     private String last_city;
     private String current_city;
     private boolean current_location_ready = false;
@@ -109,27 +100,14 @@ public class MapActivity extends AppCompatActivity implements
 
     //Layout instances
     private BottomNavigationView bottomNavigationView;
-    private FrameLayout markup_layout;
-    private RelativeLayout alpha_layer;
-    private ImageView profilePicture;
-    private TextView name;
-    private TextView creator;
-    private TextView status;
     private TextView wish_for_today;
-    private TextView homeCity;
-    private ImageView nationality;
-    private TextView points;
-    private ImageView category;
-    private ImageView clock;
-    private TextView dateTime;
-    private Button activityDetailsButton, participateButton;
 
     //new updates
     android.support.v4.app.FragmentManager manager;
 
     //Data Model and Adapters
     public static List activitiesList = new ArrayList<UserActivity>();
-    Map markerMap = new HashMap();
+//    Map markerMap = new HashMap();
     public static List categoryList = new ArrayList<Category>();
 
     private static boolean run_once = true;
@@ -161,16 +139,7 @@ public class MapActivity extends AppCompatActivity implements
         //Initialize Layout views from their XML
         user_account = (TextView) findViewById(R.id.user_account);
         wish_for_today = (TextView)findViewById(R.id.wish_for_today);
-        alpha_layer = (RelativeLayout) findViewById(R.id.alpha_layer);
-        markup_layout = (FrameLayout) findViewById(R.id.markup_layout);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        activityDetailsButton = (Button) findViewById(R.id.banner_activity_details);
-        activityDetailsButton.setEnabled(false);
-        participateButton = (Button) findViewById(R.id.banner_participate);
-        participateButton.setEnabled(false);
-
-
-
         wish_for_today.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,13 +168,7 @@ public class MapActivity extends AppCompatActivity implements
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
-//                            case R.id.home_icon:
-////                                Intent intent = new Intent(MapActivity.this, ActivityListActivity.class);
-////                                MapActivity.this.startActivity(intent);
-//                                HomeMapFragment homeMapFragment = new HomeMapFragment();
-//                                manager = getSupportFragmentManager();
-//                                manager.beginTransaction().replace(R.id.fragmentView,homeMapFragment,homeMapFragment.getTag()).commit();
-//                                break;
+
                             case R.id.list_icon:
 //                                Intent intent = new Intent(MapActivity.this, ActivityListActivity.class);
 //                                MapActivity.this.startActivity(intent);
@@ -261,14 +224,8 @@ public class MapActivity extends AppCompatActivity implements
                     }
                 });
 
-        //TODO: Click should not disable the banner when you click on the banner.
-        alpha_layer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                markup_layout.setVisibility(View.GONE);
-                alpha_layer.setVisibility(View.GONE);
-            }
-        });
+
+
         //Adds the action bar for the drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -276,8 +233,8 @@ public class MapActivity extends AppCompatActivity implements
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        navigationView.setNavigationItemSelectedListener(this);
 
         //SETUP GET user profile
         AsyncHttpClient client2 = new AsyncHttpClient();
@@ -308,10 +265,6 @@ public class MapActivity extends AppCompatActivity implements
         }, 0, POLLING_PERIOD, TimeUnit.SECONDS);
 
         /*
-        //Setup the Map
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
 
         //GET last known location setup
         if (SignIn.static_token != null) {
@@ -368,23 +321,7 @@ public class MapActivity extends AppCompatActivity implements
 
 
 
-       //Here is where we schedule the polling of our activities
-        ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
-        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
-
-            //This happens in a seperate thread
-            public void run() {
-                //Now hop back onto main thread to do the actual work
-                runOnUiThread(new Runnable() {
-                    //death crash
-                    @Override
-                    public void run() {
-                        //death crash
-                        update_activities();
-                    }
-                });
-            }
-        }, 0, POLLING_PERIOD, TimeUnit.SECONDS);*/
+   */
     }
 
     private void getSelfIdentify() {
@@ -584,56 +521,7 @@ public class MapActivity extends AppCompatActivity implements
 
                         activitiesList.add(userActivity);
 
-                        int height = 75;
-                        int width = 75;
 
-                        //Create the map pin for each activity in the list
-                        BitmapDrawable bitmapdraw;
-                        switch (categoryString) {
-                            case "Art & Culture":
-                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.art_exposition_pin);
-                                break;
-                            case "Nightlife":
-                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.concert_pin);
-                                break;
-                            case "Sports":
-                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.running_pin);
-                                break;
-                            case "Professional & Networking":
-                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.coworking_pin);
-                                break;
-                            case "Fun & Crazy":
-                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.naked_run_pin);
-                                break;
-                            case "Games":
-                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.billiard_pin);
-                                break;
-                            case "Nature & Outdoors":
-                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.backpack_pin);
-                                break;
-                            case "Travel & Road-Trip":
-                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.camping_pin);
-                                break;
-                            case "Social Activities":
-                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.grab_drink_pin);
-                                break;
-                            case "Help & Association":
-                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.handshake_pin);
-                                break;
-                            default:
-                                bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.canada_icon);
-                                break;
-                        }
-
-//                        Bitmap b = bitmapdraw.getBitmap();
-//                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
-//                        MarkerOptions marker = new MarkerOptions()
-//                                .position(new LatLng(latitude, longitude))
-//                                .title(name)
-//                                .snippet(activityType)
-//                                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
-//                        markerMap.put(name, i);
-//                        mMap.addMarker(marker);
                     } catch (JSONException e) {
                         Log.w("JSON EXCEPTION:", "Error parsing the getActivities response");
                     }
@@ -663,23 +551,6 @@ public class MapActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.map, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -693,69 +564,16 @@ public class MapActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+//    @SuppressWarnings("StatementWithEmptyBody")
+//    @Override
+//    public boolean onNavigationItemSelected(MenuItem item) {
+//        // Handle navigation view item clicks here.
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawer.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        mMap.setOnMarkerClickListener(this);
 
-        //ZOOM Camera to the last known location
-        LocationManager locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-
-        Location location = locationManager.getLastKnownLocation(GPS_PROVIDER);
-
-        if (location != null) {
-            //Zoom to last known location if we don't have GPS
-            if (gettingGPS) {
-             // current_gps_latitude = location.getLatitude();
-               // current_gps_longitude = location.getLongitude();
-               current_gps_latitude = FacebookLogin.clat;
-               current_gps_longitude = FacebookLogin.clon;
-
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
-                current_location_ready = true;
-                if (last_location_ready == true) {
-                    if(run_once==true) {
-
-                        update_city();
-                        run_once=false;
-                    }
-                }
-                mMap.setMyLocationEnabled(true);
-            }
-        }else if(FacebookLogin.clon != 0 && FacebookLogin.clat != 0){
-            if (gettingGPS) {
-                current_gps_latitude = FacebookLogin.clat;
-                current_gps_longitude = FacebookLogin.clon;
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(current_gps_latitude,current_gps_longitude),STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
-                current_location_ready = true;
-                if (last_location_ready == true) {
-
-                    if(run_once==true) {
-
-                        update_city();
-                        run_once=false;
-                    }
-                }
-                mMap.setMyLocationEnabled(true);
-            }
-        }
-        else {
-            Log.w("LOCATION ERROR", "Last Known Location is null!!!");
-        }
-
-    }
 
 
 ////////////////////////////////// GPS ACQUIRE SIGNAL CODE//////////////////////////////////////////
@@ -896,193 +714,7 @@ public class MapActivity extends AppCompatActivity implements
             Log.w("GPS CITY RESULT", "FAIL");
         }
     }
-
-    @Override
-    public boolean onMarkerClick(Marker marker) {
-      //  Log.w("MAP PINS","Pin clicked!");
-        int i = (int) markerMap.get(marker.getTitle());
-        if(i != -1) {
-            alpha_layer.setVisibility(View.VISIBLE);
-            markup_layout.setVisibility(View.VISIBLE);
-
-
-            //Activate the buttons
-            activityDetailsButton.setEnabled(true);
-            participateButton.setEnabled(true);
-
-            final int j = i;
-            //Set On Click Listeners
-
-
-
-            //Set On Click Listeners
-            participateButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-//                    Intent intent = new Intent(MapActivity.this,ActivityDetails.class);
-//                    intent.putExtra("Activity Index",j);
-//                    MapActivity.this.startActivity(intent);
-                    AsyncHttpClient client = new AsyncHttpClient();
-                    if(SignIn.static_token != null) {
-                        client.addHeader("Authorization","Token "+SignIn.static_token);
-                    }RequestParams params = new RequestParams();
-                    params.put("activity_id",j);
-                    params.put("request_state",0);
-                    client.post(MainActivity.base_host_url + "api/postActivityRequest/",params, new JsonHttpResponseHandler() {
-
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            //Toast.makeText(ActivityDetails.this, "Request Sent", Toast.LENGTH_LONG).show();
-                            //TODO: Test and implement statusCode handler for developers and graceful degradation
-                            Log.w("POST AR SUCCESS", statusCode + ": " + "Response = " + response.toString());
-                            try{
-                                Log.w("POST AR SUCCESS2", response.getString("status"));
-                            }catch (JSONException e){
-                                Log.w("POST AR FAIL",e.getMessage().toString());
-                            }
-                        }
-
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                            Log.w("POST AR ARRSUCCESS", statusCode + ": " + timeline.toString());
-                        }
-
-                        @Override
-                        public void onRetry(int retryNo) {
-                            // called when request is retried
-                            Log.w("POST AR RETRY",""+ retryNo);
-                        }
-
-                        @Override
-                        public void onFailure(int error_code, Header[] headers, String text, Throwable throwable){
-                            Log.w("POST AR FAILURE", "Error Code: " + error_code+", text: "+text);
-                        }
-                    });
-                }
-            });
-
-            final UserActivity act = (UserActivity) activitiesList.get(i);
-
-            activityDetailsButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    if (act.getisPaid()) {
-                        Intent intent = new Intent(MapActivity.this, ActivityDetailPaidEvent.class);
-                        intent.putExtra("Activity Index", j);
-                        MapActivity.this.startActivity(intent);
-                    } else {
-
-                        Intent intent = new Intent(MapActivity.this, ActivityDetails.class);
-                        intent.putExtra("Activity Index", j);
-                        MapActivity.this.startActivity(intent);
-
-                    }
-                }
-            });
-
-
-            if(MapActivity.userID == act.getcreator_PK()){
-                participateButton.setBackgroundResource(R.drawable.activity_markup_participate_button_grey);
-                participateButton.setEnabled(false);
-            }else{
-                participateButton.setBackgroundResource(R.drawable.activity_markup_participate_button);
-                participateButton.setEnabled(true);
-            }
-            //Connect the Views To their XML
-            profilePicture = (ImageView) markup_layout.findViewById(R.id.banner_profilepicture);
-            creator = (TextView) markup_layout.findViewById(R.id.banner_created_text);
-            status = (TextView) markup_layout.findViewById(R.id.banner_status_text);
-            homeCity = (TextView) markup_layout.findViewById(R.id.banner_home_city_text);
-           // nationality = (ImageView) markup_layout.findViewById(R.id.banner_country_flag);
-            points = (TextView) markup_layout.findViewById(R.id.banner_points);
-            category = (ImageView) markup_layout.findViewById(R.id.banner_activity_type);
-            name = (TextView) markup_layout.findViewById(R.id.banner_activity_name);
-            clock = (ImageView) markup_layout.findViewById(R.id.banner_clock_image);
-            dateTime = (TextView) markup_layout.findViewById(R.id.banner_activity_time);
-
-            name.setText(act.getName());
-            name.setTextColor(Color.GRAY);
-            creator.setText("Created by "+act.getCreator());
-            creator.setTextColor(Color.BLACK);
-            profilePicture.setImageResource(R.drawable.empty_profile);
-            status.setText( act.getuserStatus()+ ", ");
-            status.setTextColor(Color.GRAY);
-            homeCity.setText(act.getHomeCity());
-            homeCity.setTextColor(Color.GRAY);
-           // nationality.setImageResource(R.drawable.canada); //TODO: Get flag from nationalities
-            points.setText(act.getPoints()+"pts");
-            clock.setImageResource(R.drawable.clock);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd, HH:mma");
-            dateTime.setText(dateFormat.format(act.getActivityTime()));
-            dateTime.setTextColor(Color.GRAY);
-
-
-            switch(act.getCategory()){
-                case "Art & Culture":
-
-                    category.setImageResource(R.drawable.art_exposition);
-                    break;
-                case "Nightlife":
-                    category.setImageResource(R.drawable.music);
-                    break;
-                case "Sports":
-                    category.setImageResource(R.drawable.running);
-                    break;
-                case "Professional & Networking":
-
-                    category.setImageResource(R.drawable.coworking); //TODO: Update when properly spliced
-                    break;
-                case "Fun & Crazy":
-                    category.setImageResource(R.drawable.naked_run);
-                    break;
-                case "Games":
-                    category.setImageResource(R.drawable.billard);
-                    break;
-                case "Nature & Outdoors":
-
-                    category.setImageResource(R.drawable.backpack);
-                    break;
-                case "Travel & Road-Trip":
-                    category.setImageResource(R.drawable.camping);
-                    break;
-                case "Social Activities":
-                    category.setImageResource(R.drawable.grab_drink);
-                    break;
-                case "Help & Association":
-                    category.setImageResource(R.drawable.handshake);
-                    break;
-                default:
-
-                    category.setImageResource(R.drawable.art_exposition);
-            }
-
-            //GET The image file at the pictureURL
-            AsyncHttpClient client = new AsyncHttpClient();
-
-            String pictureURL = ((UserActivity)activitiesList.get(j)).getProfilePicURL();
-
-            client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, File response) {
-                    Log.w("GET IMAGE SUCCESS1","Successfully Retrieved The Image");
-                    //Use the downloaded image as the profile picture
-                    Uri uri = Uri.fromFile(response);
-//
-                    profilePicture.setImageURI(uri);
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-                    Log.w("GET IMAGE FAIL","Could not retrieve image");
-                }
-            });
-        }
-        return false;
-    }
-
-    public static void centerOnActivity(String name) {
+        public static void centerOnActivity(String name) {
     //TODO: When you click on a list item, then you should go to its marker on the map... however this is not what the UI suggests therefore leave for later!
         //TODO: Basic solution would be register every marker as a dictionary (or hash map in Java) so that you can reference it by name :)
     }
