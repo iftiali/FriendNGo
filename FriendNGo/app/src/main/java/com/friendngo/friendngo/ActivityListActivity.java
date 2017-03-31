@@ -28,7 +28,7 @@ public class ActivityListActivity extends AppCompatActivity {
 
         adapter = new ActivityListAdapter(getApplicationContext());
 
-        //TODO: Move ListView Code to it's own activity
+
         listView = (ListView) findViewById(R.id.activity_list);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_request_activity);
 
@@ -89,8 +89,7 @@ public class ActivityListActivity extends AppCompatActivity {
                         return true;
                     }
                 });
-        //TODO: Move this to seperate ListView Activity
-//      ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+
     }
 
 }

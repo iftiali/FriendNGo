@@ -83,12 +83,12 @@ public class MapActivity extends AppCompatActivity implements
 
     //Constants
     private static final String My_TAG ="Author:Parth";
-    TextView wish_for_today;
+
     public static CircularImageView other_user_picture;
     public static String selfIdentify=null;
     public static int versionNumber = 4;
     public static String selfName=null;
-
+    public static boolean checkStateMapOrList = false;
     public static TextView other_user_name,other_user_age,other_user_about,other_user_location,other_user_citizenship;
     TextView user_account;
     private static final int POLLING_PERIOD = 5;
@@ -108,19 +108,21 @@ public class MapActivity extends AppCompatActivity implements
 
 
     //Layout instances
-    FrameLayout markup_layout;
-    RelativeLayout alpha_layer;
-    ImageView profilePicture;
-    TextView name;
-    TextView creator;
-    TextView status;
-    TextView homeCity;
-    ImageView nationality;
-    TextView points;
-    ImageView category;
-    ImageView clock;
-    TextView dateTime;
-    Button activityDetailsButton, participateButton;
+    private BottomNavigationView bottomNavigationView;
+    private FrameLayout markup_layout;
+    private RelativeLayout alpha_layer;
+    private ImageView profilePicture;
+    private TextView name;
+    private TextView creator;
+    private TextView status;
+    private TextView wish_for_today;
+    private TextView homeCity;
+    private ImageView nationality;
+    private TextView points;
+    private ImageView category;
+    private ImageView clock;
+    private TextView dateTime;
+    private Button activityDetailsButton, participateButton;
 
     //new updates
     android.support.v4.app.FragmentManager manager;
@@ -129,7 +131,7 @@ public class MapActivity extends AppCompatActivity implements
     public static List activitiesList = new ArrayList<UserActivity>();
     Map markerMap = new HashMap();
     public static List categoryList = new ArrayList<Category>();
-    BottomNavigationView bottomNavigationView;
+
     private static boolean run_once = true;
     public  static int userID=0;
 
@@ -168,7 +170,7 @@ public class MapActivity extends AppCompatActivity implements
         participateButton.setEnabled(false);
 
 
-        bottomNavigationView.getMenu().getItem(0).setChecked(true);
+
         wish_for_today.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,15 +188,42 @@ public class MapActivity extends AppCompatActivity implements
             }
         });
 
+        //default Fragment is Map Fragment
+        HomeMapFragment homeMapFragment = new HomeMapFragment();
+        manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.fragmentView,homeMapFragment,homeMapFragment.getTag()).commit();
+
         //OnClick listeners for bottom navigation bar
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
+//                            case R.id.home_icon:
+////                                Intent intent = new Intent(MapActivity.this, ActivityListActivity.class);
+////                                MapActivity.this.startActivity(intent);
+//                                HomeMapFragment homeMapFragment = new HomeMapFragment();
+//                                manager = getSupportFragmentManager();
+//                                manager.beginTransaction().replace(R.id.fragmentView,homeMapFragment,homeMapFragment.getTag()).commit();
+//                                break;
                             case R.id.list_icon:
-                                Intent intent = new Intent(MapActivity.this, ActivityListActivity.class);
-                                MapActivity.this.startActivity(intent);
+//                                Intent intent = new Intent(MapActivity.this, ActivityListActivity.class);
+//                                MapActivity.this.startActivity(intent);
+                                if(checkStateMapOrList == false) {
+                                    ActivityListFragment activityListFragment = new ActivityListFragment();
+                                    manager = getSupportFragmentManager();
+                                    manager.beginTransaction().replace(R.id.fragmentView, activityListFragment, activityListFragment.getTag()).commit();
+                                    checkStateMapOrList = true;
+                                    bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.home_grey);
+                                    bottomNavigationView.getMenu().getItem(0).setTitle(R.string.home_icon_text);
+                                }else {
+                                    HomeMapFragment homeMapFragment1 = new HomeMapFragment();
+                                    manager = getSupportFragmentManager();
+                                    manager.beginTransaction().replace(R.id.fragmentView, homeMapFragment1, homeMapFragment1.getTag()).commit();
+                                    checkStateMapOrList = false;
+                                    bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.hamburger);
+                                    bottomNavigationView.getMenu().getItem(0).setTitle(R.string.list_icon_text);
+                                }
                                 break;
                             case R.id.calendar_icon:
                               //  Log.w("BOTTOM NAV","Calendar Icon Pressed");
@@ -209,9 +238,12 @@ public class MapActivity extends AppCompatActivity implements
                                 manager.beginTransaction().replace(R.id.fragmentView,notificationFragment,notificationFragment.getTag()).commit();
                                 break;
                             case R.id.message_icon:
-                                Intent seeMessage = new Intent(getApplicationContext(), ActivityMessage.class);
-                                startActivity(seeMessage);
-                               // Log.w("BOTTOM NAV","Message Icon Pressed");
+                                // Log.w("BOTTOM NAV","Message Icon Pressed");
+//                                Intent seeMessage = new Intent(getApplicationContext(), ActivityMessage.class);
+//                                startActivity(seeMessage);
+                                ChatFragment chatFragment = new ChatFragment();
+                                manager = getSupportFragmentManager();
+                                manager.beginTransaction().replace(R.id.fragmentView,chatFragment,chatFragment.getTag()).commit();
                                 break;
                             case R.id.settings_icon:
                                 //Toast.makeText(getApplicationContext(), "Settings Not Available in Beta", Toast.LENGTH_LONG).show();
@@ -258,7 +290,22 @@ public class MapActivity extends AppCompatActivity implements
         checkForNewVersion();
         getActivity();
         getSelfIdentify();
+        //Here is where we schedule the polling of our activities
+        ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
+        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
 
+            //This happens in a seperate thread
+            public void run() {
+                //Now hop back onto main thread to do the actual work
+                runOnUiThread(new Runnable() {
+                    //death crash
+                    @Override
+                    public void run() {
+                    update_activities();
+                    }
+                });
+            }
+        }, 0, POLLING_PERIOD, TimeUnit.SECONDS);
 
         /*
         //Setup the Map
@@ -578,15 +625,15 @@ public class MapActivity extends AppCompatActivity implements
                                 break;
                         }
 
-                        Bitmap b = bitmapdraw.getBitmap();
-                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
-                        MarkerOptions marker = new MarkerOptions()
-                                .position(new LatLng(latitude, longitude))
-                                .title(name)
-                                .snippet(activityType)
-                                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
-                        markerMap.put(name, i);
-                        mMap.addMarker(marker);
+//                        Bitmap b = bitmapdraw.getBitmap();
+//                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+//                        MarkerOptions marker = new MarkerOptions()
+//                                .position(new LatLng(latitude, longitude))
+//                                .title(name)
+//                                .snippet(activityType)
+//                                .icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+//                        markerMap.put(name, i);
+//                        mMap.addMarker(marker);
                     } catch (JSONException e) {
                         Log.w("JSON EXCEPTION:", "Error parsing the getActivities response");
                     }

@@ -130,12 +130,12 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
                     client.addHeader("Authorization", "Token " + SignIn.static_token);
                 }
 
-                Log.d("Parth Desai",buttonData.request_state+":"+buttonData.getid()+":"+buttonData.sender_id);
+               // Log.d("Parth Desai",buttonData.request_state+":"+buttonData.getid()+":"+buttonData.sender_id);
                 RequestParams params = new RequestParams();
                 params.put("sender",buttonData.getSender_id());
                 params.put("request_state","2");
-                Log.w("WHY IS THIS HAPPENING", buttonData.getid()+"");
-                params.put("request_id","13");
+                //Log.w("WHY IS THIS HAPPENING", buttonData.getid()+"");
+                params.put("request_id",buttonData.getid());
                 params.setUseJsonStreamer(true);
 
                     client.post(MainActivity.base_host_url + "api/updateActivityRequest/", params, new JsonHttpResponseHandler() {
@@ -181,7 +181,7 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
                     client.addHeader("Authorization", "Token " + SignIn.static_token);
                 }
 
-                Log.d("Parth Desai",buttonData.request_state+":"+buttonData.getid()+":"+buttonData.sender_id);
+             //   Log.d("Parth Desai",buttonData.request_state+":"+buttonData.getid()+":"+buttonData.sender_id);
                 RequestParams params = new RequestParams();
                 params.put("request_state","1");
                 params.put("sender",dataModel.getSender_id());

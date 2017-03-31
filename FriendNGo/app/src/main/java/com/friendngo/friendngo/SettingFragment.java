@@ -31,12 +31,13 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  */
 public class SettingFragment extends Fragment {
     private Button submitIssueButton;
-    private Context thiscontext;
     private String reportIssueToast = null;
     private String checkOnlineToast = null;
     private String reportIssueSuccessToast = null;
     private EditText issue_edit_text;
     private boolean validateReport=false;
+
+
     public SettingFragment() {
         // Required empty public constructor
     }
@@ -48,8 +49,7 @@ public class SettingFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
-        //get context
-        thiscontext = container.getContext();
+
         //Init xml
         initXmlView(view);
         checkOnlineToast = getResources().getString(R.string.checkOnlineToast);
@@ -59,7 +59,7 @@ public class SettingFragment extends Fragment {
         submitIssueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                issueReport();
+                postApiIssueReport();
             }
         });
         //count and validate character is not more than 4000.
@@ -93,9 +93,9 @@ public class SettingFragment extends Fragment {
         issue_edit_text = (EditText) view.findViewById(R.id.issue_edit_text);
     }
 
-    private void issueReport(){
+    private void postApiIssueReport(){
 
-        if(ValidationClass.checkOnline(thiscontext)){
+        if(ValidationClass.checkOnline(getApplicationContext())){
             if(validateReport){
                 Toast.makeText(getApplicationContext(),reportIssueToast,Toast.LENGTH_LONG).show();
             }else {
@@ -139,7 +139,7 @@ public class SettingFragment extends Fragment {
             }
 
         }else{
-            Toast.makeText(thiscontext,checkOnlineToast,Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),checkOnlineToast,Toast.LENGTH_LONG).show();
         }
     }
 }

@@ -94,4 +94,7 @@
     <!--Notification Fragment-->
     <string name="notificationFragmentEmptyText">You will receive a notification when someone tries to join an activity you created</string>
 
+    <!--Chat Fragment-->
+    <string name="chatFragmentEmptyText">Join an activity to send a message to participants</string>
+
 </resources>
