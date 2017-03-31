@@ -3,7 +3,6 @@ package com.friendngo.friendngo;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
@@ -102,12 +101,13 @@ public class MapActivity extends AppCompatActivity
     private BottomNavigationView bottomNavigationView;
     private TextView wish_for_today;
 
+
     //new updates
     android.support.v4.app.FragmentManager manager;
 
     //Data Model and Adapters
     public static List activitiesList = new ArrayList<UserActivity>();
-//    Map markerMap = new HashMap();
+
     public static List categoryList = new ArrayList<Category>();
 
     private static boolean run_once = true;
@@ -140,6 +140,10 @@ public class MapActivity extends AppCompatActivity
         user_account = (TextView) findViewById(R.id.user_account);
         wish_for_today = (TextView)findViewById(R.id.wish_for_today);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+
+
+
+
         wish_for_today.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -225,7 +229,6 @@ public class MapActivity extends AppCompatActivity
                 });
 
 
-
         //Adds the action bar for the drawer
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -265,6 +268,10 @@ public class MapActivity extends AppCompatActivity
         }, 0, POLLING_PERIOD, TimeUnit.SECONDS);
 
         /*
+        //Setup the Map
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         //GET last known location setup
         if (SignIn.static_token != null) {
@@ -321,7 +328,7 @@ public class MapActivity extends AppCompatActivity
 
 
 
-   */
+       */
     }
 
     private void getSelfIdentify() {
@@ -521,7 +528,6 @@ public class MapActivity extends AppCompatActivity
 
                         activitiesList.add(userActivity);
 
-
                     } catch (JSONException e) {
                         Log.w("JSON EXCEPTION:", "Error parsing the getActivities response");
                     }
@@ -551,6 +557,23 @@ public class MapActivity extends AppCompatActivity
     }
 
     @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.map, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -563,16 +586,6 @@ public class MapActivity extends AppCompatActivity
         }
         return super.onOptionsItemSelected(item);
     }
-
-//    @SuppressWarnings("StatementWithEmptyBody")
-//    @Override
-//    public boolean onNavigationItemSelected(MenuItem item) {
-//        // Handle navigation view item clicks here.
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
-//        return true;
-//    }
-
 
 
 
@@ -714,7 +727,10 @@ public class MapActivity extends AppCompatActivity
             Log.w("GPS CITY RESULT", "FAIL");
         }
     }
-        public static void centerOnActivity(String name) {
+
+
+
+    public static void centerOnActivity(String name) {
     //TODO: When you click on a list item, then you should go to its marker on the map... however this is not what the UI suggests therefore leave for later!
         //TODO: Basic solution would be register every marker as a dictionary (or hash map in Java) so that you can reference it by name :)
     }
