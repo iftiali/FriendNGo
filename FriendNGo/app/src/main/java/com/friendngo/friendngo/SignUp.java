@@ -83,7 +83,7 @@ public class SignUp extends AppCompatActivity {
                 }
                 if(isNullCheck){
                     if(isEmailValid) {
-
+                        MainActivity.new_user = true;
                         client.post(MainActivity.base_host_url + "users/register/", params, new JsonHttpResponseHandler() {
 
                             @Override

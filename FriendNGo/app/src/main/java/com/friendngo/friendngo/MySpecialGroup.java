@@ -103,20 +103,44 @@ public class MySpecialGroup extends AppCompatActivity {
         no_code_text.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if( MainActivity.new_user = true){
-                    Intent intent = new Intent(getApplicationContext(),WhatDoYouWantToDoToday.class);
-                    MySpecialGroup.this.startActivity(intent);
-                    MySpecialGroup.this.finish();
-                    SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
-                    editor.putString("is_profile_created","true");
-                    editor.commit();
+                //check edit profile path
+                SharedPreferences pref = getSharedPreferences("EditPath", MODE_PRIVATE); // 0 - for private mode
+                String editprofilePath= pref.getString("edit_path", null);
+                if(editprofilePath == null){
+
+                        if( MainActivity.new_user = true){
+                            Log.d("State", String.valueOf(MainActivity.new_user));
+                            Intent intent = new Intent(getApplicationContext(),WhatDoYouWantToDoToday.class);
+                            MySpecialGroup.this.startActivity(intent);
+                            MySpecialGroup.this.finish();
+                            SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
+                            editor.putString("is_profile_created","true");
+
+                            editor.commit();
+                        }
+                        else {
+                            finish();
+                            //TODO: Create A Flag Here
+                            SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
+                            editor.putString("is_profile_created", "true");
+                            editor.commit();
+                        }
+
+
+                    //remove edit profile path
+
                 }else {
-                    finish();
-                    //TODO: Create A Flag Here
-                    SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
-                    editor.putString("is_profile_created", "true");
-                    editor.commit();
-                }
+                        SharedPreferences editPofileSharedPreferences = getApplicationContext().getSharedPreferences("EditPath", 0);
+                        SharedPreferences.Editor editPofileEditor = editPofileSharedPreferences.edit();
+                        editPofileEditor.clear();
+                        editPofileEditor.commit();
+                        Log.d("True",editprofilePath);
+                        MySpecialGroup.this.finish();
+                        SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
+                        editor.putString("is_profile_created", "true");
+                        editor.commit();
+                    }
+
                 return false;
             }
         });

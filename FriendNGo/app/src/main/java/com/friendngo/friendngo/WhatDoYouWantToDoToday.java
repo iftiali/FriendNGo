@@ -104,6 +104,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
 
                 //Intent intent = new Intent(WhatDoYouWantToDoToday.this,NewWhoAreYouActivity.class);
                 //WhatDoYouWantToDoToday.this.startActivity(intent);
+                MainActivity.new_user=false;
                 WhatDoYouWantToDoToday.this.finish();
             }
         });

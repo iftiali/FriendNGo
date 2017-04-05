@@ -266,7 +266,11 @@ public class MapActivity extends AppCompatActivity
                 });
             }
         }, 0, POLLING_PERIOD, TimeUnit.SECONDS);
-
+        Log.d("State",String.valueOf(MainActivity.new_user));
+        if(MainActivity.new_user == true){
+            Intent intent = new Intent(MapActivity.this,NewWhoAreYouActivity.class);
+            startActivity(intent);
+        }
         /*
         //Setup the Map
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

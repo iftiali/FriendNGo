@@ -210,7 +210,7 @@ public class SignIn extends AppCompatActivity {
                             Toast.makeText(SignIn.this, "Invalid user", Toast.LENGTH_LONG).show();
                         }
                         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                            Log.w("POST AUTH FAILURE", String.valueOf(statusCode) + errorResponse.toString());
+                           //8 Log.w("POST AUTH FAILURE", String.valueOf(statusCode) + errorResponse.toString());
                             Toast.makeText(SignIn.this, "Invalid user", Toast.LENGTH_LONG).show();
                         }
                     });

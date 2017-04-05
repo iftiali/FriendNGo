@@ -75,6 +75,8 @@ public class MyProfileActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //To close new user path false.
+        MainActivity.new_user = false;
         profile_cancel_text_view = (TextView)findViewById(R.id.profile_cancel_text_view);
         profile_logout_text_view = (TextView)findViewById(R.id.profile_logout_text_view);
         citizenAuto = (AutoCompleteTextView)findViewById(R.id.profile_citizen_spinner);
@@ -259,7 +261,11 @@ public class MyProfileActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //Create path for edit profile
+                SharedPreferences pref = getApplicationContext().getSharedPreferences("EditPath", 0); // 0 - for private mode
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("edit_path", "true");
+                editor.commit();
                 //POST Profile
                 AsyncHttpClient client = new AsyncHttpClient();
                 if (SignIn.static_token != null) {
@@ -311,7 +317,7 @@ public class MyProfileActivity extends AppCompatActivity {
                     Log.d("Hello",age_input+"");
                     if( age_input <13 || age_input > 120){
                         checkAgeValidation = false;
-                        // Log.d("Hello",age_input+"");
+
                         errorMessage ="Age should be between 13 and 120 ";
                     }else{
                         checkAgeValidation= true;
@@ -438,11 +444,11 @@ public class MyProfileActivity extends AppCompatActivity {
 
                        finishPictureFlag = true;
                        if (finishPictureFlag && finishProfileFlag) {
-                           //  Log.w("Hello", "b");
+
 
                        }
                    }
-                   Intent intent = new Intent(getApplicationContext(), MyCity.class);
+                   Intent intent = new Intent(getApplicationContext(), NewCity.class);
                    MyProfileActivity.this.startActivity(intent);
                    MyProfileActivity.this.finish();
                }else {

@@ -92,7 +92,8 @@
         <activity
             android:name=".CreateActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".ActivityDetails"
             android:label="Activity Details"
@@ -132,12 +133,14 @@
             android:name=".NewWhoAreYouActivity"
             android:label="@string/title_activity_new_who_are_you"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".MyProfileActivity"
             android:label="@string/title_activity_my_profile"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".ActivityMessage"
             android:label="@string/title_activity_message"
@@ -182,7 +185,8 @@
             android:name=".MySpecialGroup"
             android:label="@string/title_activity_my_special_group"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".ActivityDetailPaidEvent"
             android:label="@string/title_activity_detail_paid_event"
@@ -190,7 +194,12 @@
         <activity
             android:name=".ReportIssue"
             android:label="@string/title_activity_report_issue"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ForgotPassword"
+            android:label="@string/title_activity_forgot_password"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

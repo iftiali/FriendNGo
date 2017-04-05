@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -54,8 +55,8 @@ public class NewCity extends AppCompatActivity {
     private final int MIGRANT = 2;
     private final int TOURIST = 3;
     private final int STUDENT = 4;
-
-
+    String current_city;
+    private String statusName=null;
     TextView new_city_country_name_text_view;
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -86,6 +87,7 @@ public class NewCity extends AppCompatActivity {
             public void onClick(View v) {
                 status = RESIDENT;
                 disableOtherButtons();
+                statusName = "Resident";
                 residentButton.setActivated(true);
                 residentButton.setTextColor(Color.WHITE);
                 residentButton.setBackgroundResource(R.drawable.white_button_activated);
@@ -98,6 +100,7 @@ public class NewCity extends AppCompatActivity {
             public void onClick(View v) {
                 status = MIGRANT;
                 disableOtherButtons();
+                statusName = "Migrant";
                 migrantButton.setActivated(true);
                 migrantButton.setTextColor(Color.WHITE);
                 migrantButton.setBackgroundResource(R.drawable.white_button_activated);
@@ -110,6 +113,7 @@ public class NewCity extends AppCompatActivity {
             public void onClick(View v) {
                 status = TOURIST;
                 disableOtherButtons();
+                statusName = "Tourist";
                 touristButton.setActivated(true);
                 touristButton.setTextColor(Color.WHITE);
                 touristButton.setBackgroundResource(R.drawable.white_button_activated);
@@ -122,14 +126,16 @@ public class NewCity extends AppCompatActivity {
             public void onClick(View v) {
                 status = STUDENT;
                 disableOtherButtons();
+                statusName = "Student";
                 studentButton.setActivated(true);
                 studentButton.setTextColor(Color.WHITE);
                 studentButton.setBackgroundResource(R.drawable.white_button_activated);
             }
 
         });
-
-
+        current_city = new_city_country_name_text_view.getText().toString();
+        final String[] currentCityArray = current_city.split(",");
+        new_city_country_name_text_view.setText(currentCityArray[0]);
         //The next button triggers the map activity
         nextButton.setOnClickListener(new View.OnClickListener() {
 
@@ -193,18 +199,63 @@ public class NewCity extends AppCompatActivity {
                             Log.w("POST STATUS FAILURE", "Error Code: " + error_code);
                         }
                     });
-                    Intent intent;
-//
-                    if(true){
-                        intent = new Intent(NewCity.this, WhatDoYouWantToDoToday.class);
-                    }else{
-                        intent = new Intent(NewCity.this,MapActivity.class);
 
+                    AsyncHttpClient clientCity = new AsyncHttpClient();
+                    if (SignIn.static_token != null) {
+                        clientCity.addHeader("Authorization", "Token " + SignIn.static_token);
                     }
 
-                    //intent.putExtra("currentCity", current_city);
-                    NewCity.this.startActivity(intent);
-                    NewCity.this.finish();
+                    RequestParams paramsCity = new RequestParams();
+                    paramsCity.setUseJsonStreamer(true);
+                    params.put("home_city",currentCityArray[0]);
+                    if(currentCityArray[0].equals("")){
+                        Toast.makeText(NewCity.this,"My city field is empty",Toast.LENGTH_LONG).show();
+                    }else {
+                        clientCity.post(MainActivity.base_host_url + "api/postHomeCity/", params, new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                Log.w("POST PROFILE CITY", statusCode + ": " + "Response = " + response.toString());
+                                // MapActivity.other_user_location.setText("Student, "+currentCityArray[0]);
+                            }
+
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                                Log.w("POST PROFILE CITY", statusCode + ": " + timeline.toString());
+                                // NewWhoAreYouActivity.this.finish();
+                            }
+
+                            @Override
+                            public void onRetry(int retryNo) {
+                                // called when request is retried
+                                Log.w("POST PROFILE CITY RETRY", "" + retryNo);
+                            }
+
+                            @Override
+                            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                                Log.w("POST PROFILE  CITY FAIL", "Error Code: " + error_code + "," + text);
+                            }
+
+                            @Override
+                            public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
+                                Log.w("MY PROFILE CITY FAIL", "Error Code: " + error_code + ",  " + json.toString());
+                            }
+                        });
+                        MapActivity.other_user_location.setText(statusName +", "+ currentCityArray[0]);
+                        //check edit profile path
+                        SharedPreferences pref = getSharedPreferences("EditPath", MODE_PRIVATE); // 0 - for private mode
+                        String editprofilePath= pref.getString("edit_path", null);
+                        Log.d("True",editprofilePath);
+                        if(editprofilePath.equals("true")){
+
+                        Intent intent = new Intent(NewCity.this,MySpecialGroup.class);
+                        NewCity.this.startActivity(intent);
+                        NewCity.this.finish();
+                        }
+                        else{
+                            NewCity.this.finish();
+                        }
+                    }
+
                 }
             }
 

@@ -294,7 +294,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     Log.d("Hello",age_input+"");
                     if( age_input <13 || age_input > 120){
                         checkAgeValidation = false;
-                        // Log.d("Hello",age_input+"");
+
                         errorMessage ="Age should be between 13 and 120 ";
                     }else{
                         checkAgeValidation= true;
@@ -421,7 +421,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 
                             finishPictureFlag = true;
                             if (finishPictureFlag && finishProfileFlag) {
-                                //  Log.w("Hello", "b");
+
 
                             }
                         }

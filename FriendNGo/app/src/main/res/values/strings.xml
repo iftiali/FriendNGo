@@ -96,5 +96,6 @@
 
     <!--Chat Fragment-->
     <string name="chatFragmentEmptyText">Join an activity to send a message to participants</string>
+    <string name="title_activity_forgot_password">ForgotPassword</string>
 
 </resources>

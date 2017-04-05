@@ -408,7 +408,7 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
 
                     if(todayTomorrowFlag == 1) {
 
-                        tomorrowDate.add(Calendar.DATE, 1);
+                        tomorrowDate.add(Calendar.DATE, 0);
                         //  Log.w("Start Event", tomorrowDate.get(Calendar.YEAR)+"-"+monthNames[tomorrowDate.get(Calendar.MONTH)]+"-"+tomorrowDate.get(Calendar.DATE)+"'T'"+endEventTime.getText().toString()+":00'Z'");
                         endparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + endEventTime.getText().toString() + ValidationClass.getCurrentTimezoneOffset();;
                     }else{

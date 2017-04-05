@@ -85,11 +85,12 @@ public class FacebookLogin extends AppCompatActivity {
         //Email token check
         SharedPreferences pref = getSharedPreferences("EmailToken", MODE_PRIVATE); // 0 - for private mode
         emailToken= pref.getString("email_token", null);
-//        Log.d("Hello",emailToken);
+
         if(emailToken == null)
         {
             Log.d("First time","First time");
         }else {
+
             MainActivity.new_user = false;
             SignIn.static_token = emailToken;
             Intent mainIntent = new Intent(FacebookLogin.this, MapActivity.class);
@@ -98,6 +99,7 @@ public class FacebookLogin extends AppCompatActivity {
         }
         //If the user is logged in then go straight to the New City Activity
         if (isLoggedIn()) {
+
             MainActivity.new_user = false;
             SharedPreferences prefs = getSharedPreferences(TOKEN_PREFERENCE, MODE_PRIVATE);
             String shared_preference_token = prefs.getString("token", null);
@@ -146,6 +148,7 @@ public class FacebookLogin extends AppCompatActivity {
                             try {
                                 SignIn.static_token = response.get("token").toString();
                                 Log.w("TOKEN SUCCESS2: ", SignIn.static_token);
+                                //TODO: pasre is_created or is_new key
                                 SharedPreferences.Editor editor = getSharedPreferences(TOKEN_PREFERENCE, MODE_PRIVATE).edit();
                                 editor.putString("token", response.get("token").toString());
                                 editor.commit();
@@ -171,6 +174,7 @@ public class FacebookLogin extends AppCompatActivity {
                                                                 Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
                                                                 //Use the downloaded image as the profile picture
                                                                 facebook_profile_pic = Uri.fromFile(response);
+
 //                                                                try {
 //                                                                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(FacebookLogin.this.getContentResolver(), facebook_profile_pic);
 
@@ -332,6 +336,8 @@ public class FacebookLogin extends AppCompatActivity {
                 // can't get location
                 // GPS or Network is not enabled
                 // Ask user to enable GPS/network in settings
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
                 Toast.makeText(FacebookLogin.this,"Please enable your GPS in settings",Toast.LENGTH_LONG).show();
             }
 //            locationmanager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

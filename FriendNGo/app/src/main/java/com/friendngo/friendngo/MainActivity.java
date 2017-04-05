@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import com.facebook.FacebookSdk;
@@ -22,7 +23,7 @@ public class MainActivity extends Activity {
     private int SPLASH_DISPLAY_LENGTH = 2000;
     public static String base_host_url = "";
     public static boolean cheat_mode = false;
-    public static boolean new_user = true;
+    public static boolean new_user = false;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -50,7 +51,7 @@ public class MainActivity extends Activity {
         } else {
             base_host_url = "https://test.friendngo.com/";
         }
-
+        Log.d("State",String.valueOf(new_user));
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
 
