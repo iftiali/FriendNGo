@@ -876,6 +876,7 @@ public class MapActivity extends AppCompatActivity
 
             @Override
             public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
+
                 Log.w("MY NEW UPDATE READY", "Error Code: " + error_code + ",  " + json.toString());
             }
         });

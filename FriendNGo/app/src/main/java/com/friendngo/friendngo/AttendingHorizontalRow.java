@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.File;
@@ -61,9 +63,10 @@ public class AttendingHorizontalRow extends RecyclerView.Adapter<AttendingHorizo
             } catch (JSONException e){
                 Log.w("JSONException",e.toString());
             }
+            Log.d("Hello",url);
 
-//            Uri myUri = Uri.parse(url);
-//            holder.user_image.setImageURI(myUri);
+            Picasso.with(mContext).load(url).into(holder.user_image);
+           // holder.user_image.setImageURI(myUri);
             holder.user_name_text.setText(name);
 
 
@@ -79,6 +82,7 @@ public class AttendingHorizontalRow extends RecyclerView.Adapter<AttendingHorizo
                 Log.w("GET IMAGE SUCCESS","Successfully Retrieved The Image");
                 //Use the downloaded image as the profile picture
                 Uri uri = Uri.fromFile(response);
+
                 holder_temp.user_image.setImageURI(uri);
             }
 
