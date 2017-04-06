@@ -63,18 +63,11 @@ public class AttendingHorizontalRow extends RecyclerView.Adapter<AttendingHorizo
             } catch (JSONException e){
                 Log.w("JSONException",e.toString());
             }
-            Log.d("Hello",url);
-
             Picasso.with(mContext).load(url).into(holder.user_image);
-           // holder.user_image.setImageURI(myUri);
             holder.user_name_text.setText(name);
-
-
         //GET The image file at the pictureURL
         AsyncHttpClient client = new AsyncHttpClient();
-
         final ViewHolder holder_temp = holder;
-//        final ImageView profilePic = (CircularImageView) holder.findViewById(R.id.profilepicture);
         client.get(MainActivity.base_host_url + url, new FileAsyncHttpResponseHandler(mContext) {
 
             @Override

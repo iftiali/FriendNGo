@@ -197,8 +197,8 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".ForgotPassword"
-            android:label="@string/title_activity_forgot_password"
+            android:name=".ActivityReady"
+            android:label="@string/title_activity_ready"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

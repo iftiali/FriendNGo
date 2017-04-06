@@ -303,18 +303,18 @@ public class MyProfileActivity extends AppCompatActivity {
                         String cc = locale.getDisplayCountry();
                         if(cc.equals(nationality)){
                             compareCountryName = true;
-                          params.put("home_nationality",nationality);
+                          params.put("Profile s nationality",nationality);
                             MapActivity.other_user_citizenship.setText(nationality);
                             break;
                         }else{
-                            Log.d("hello message",errorMessage);
+                            Log.d("Profile message",errorMessage);
                             compareCountryName = false;
                             errorMessage = "Country name in not valid";
                         }
                     }
                     int age_input = 0;
                     age_input = Integer.parseInt(ageInput.getText().toString());
-                    Log.d("Hello",age_input+"");
+                    Log.d("Profile",age_input+"");
                     if( age_input <13 || age_input > 120){
                         checkAgeValidation = false;
 
@@ -353,7 +353,7 @@ public class MyProfileActivity extends AppCompatActivity {
                     Log.w("JSON Exception", e.toString());
                 }
                 params.put("languages",languagesArray);
-            Log.d("hello",checkAgeValidation+":"+compareCountryName);
+            Log.d("Profile",checkAgeValidation+":"+compareCountryName);
                if(compareCountryName && checkAgeValidation) {
 
                    client.post(MainActivity.base_host_url + "api/postProfile2/", params, new JsonHttpResponseHandler() {

@@ -104,8 +104,15 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
 
                 //Intent intent = new Intent(WhatDoYouWantToDoToday.this,NewWhoAreYouActivity.class);
                 //WhatDoYouWantToDoToday.this.startActivity(intent);
-                MainActivity.new_user=false;
-                WhatDoYouWantToDoToday.this.finish();
+                if(MainActivity.new_user==true){
+                //MainActivity.new_user=false;
+                    Intent intent = new Intent(WhatDoYouWantToDoToday.this,ActivityReady.class);
+                    WhatDoYouWantToDoToday.this.startActivity(intent);
+                    WhatDoYouWantToDoToday.this.finish();
+                }else{
+                    WhatDoYouWantToDoToday.this.finish();
+
+                }
             }
         });
         masterListView = (ListView) findViewById(R.id.category_and_activity_list_view);
