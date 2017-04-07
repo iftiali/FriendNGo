@@ -31,70 +31,81 @@
                 <RelativeLayout
                     android:id="@+id/activity_detail_free_event"
                     android:layout_width="match_parent"
-
                     android:layout_height="250dp">
+
                     <ImageView
+                        android:id="@+id/detail_event_background_image"
                         android:layout_width="wrap_content"
                         android:layout_height="250dp"
-                        android:scaleType="fitXY"
-                        android:adjustViewBounds="true"
-                        android:layout_centerInParent="true"
-                        app:srcCompat="@drawable/white"
-                        android:id="@+id/detail_event_background_image"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
                         android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true" />
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerInParent="true"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@drawable/white" />
 
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/event_paid_image_alpha"
+                    android:background="@color/light_grey"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp">
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp">
                     <TextView
                         android:id="@+id/activity_detail_creator_name"
-                        android:text="Mark Patterson"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:textColor="@color/white"
-                        android:textStyle="normal|bold"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="69dp" />
+                        android:layout_marginTop="69dp"
+                        android:text="Mark Patterson"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="normal|bold" />
 
                     <TextView
-                        android:text="Address"
+                        android:id="@+id/detail_paid_event_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="@color/white"
                         android:layout_below="@+id/activity_detail_creator_name"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="8dp"
-                        android:id="@+id/detail_paid_event_address" />
+                        android:text="Address"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
 
                     <TextView
-                        android:text="TextView"
+                        android:id="@+id/detail_paid_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="@color/white"
-                        android:textStyle="normal|bold"
                         android:layout_below="@+id/detail_paid_event_address"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="23dp"
-                        android:id="@+id/detail_paid_date" />
+                        android:text="TextView"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="normal|bold" />
 
                     <TextView
-                        android:text="TextView"
-                        android:textSize="16sp"
-                        android:textColor="@color/white"
-                        android:textStyle="normal|bold"
+                        android:id="@+id/detail_event_endStartTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="165dp"
-                        android:id="@+id/detail_event_endStartTime" />
-
-
+                        android:text="TextView"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="normal|bold" />
                 </RelativeLayout>
             </FrameLayout>
 

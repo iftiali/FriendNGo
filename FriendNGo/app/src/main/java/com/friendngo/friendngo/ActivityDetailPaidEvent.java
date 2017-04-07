@@ -1,6 +1,7 @@
 package com.friendngo.friendngo;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class ActivityDetailPaidEvent extends AppCompatActivity {
     RelativeLayout activity_detail_free_event;
+    RelativeLayout event_paind_iamge_alpha;
     TextView activity_detail_creator_name;
     TextView detail_paid_event_address;
     TextView activity_detail_paid_address_text;
@@ -53,6 +55,7 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
         setContentView(R.layout.activity_detail_paid_event);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        event_paind_iamge_alpha = (RelativeLayout)findViewById(R.id.event_paid_image_alpha);
         activity_detail_paid_description_text= (TextView) this.findViewById(R.id.activity_detail_paid_description_text);
         activity_detail_free_event = (RelativeLayout)findViewById(R.id.activity_detail_free_event);
         activity_detail_creator_name = (TextView)findViewById(R.id.activity_detail_creator_name);
@@ -112,6 +115,12 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
 
         UserActivity activity = (UserActivity) MapActivity.activitiesList.get(activity_index);
 
+        if(activity.getIs_too_light()){
+            event_paind_iamge_alpha.getBackground().setAlpha(128);
+        }
+        else{
+            event_paind_iamge_alpha.getBackground().setAlpha(0);
+        }
         AsyncHttpClient client = new AsyncHttpClient();
         String pictureURL = activity.getEventPictureUrl();
 
@@ -132,6 +141,7 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
         });
 
         activity_detail_creator_name.setText(activity.getName());
+
         detail_paid_event_address.setText(activity.getAddress());
         activity_detail_paid_address_text.setText(activity.getAddress());
         activity_detail_paid_description_text.setText(activity.getDescription());
