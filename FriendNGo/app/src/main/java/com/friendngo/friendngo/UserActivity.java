@@ -38,6 +38,9 @@ public class UserActivity {
     private Boolean isPaid;
     private String eventPictureURL;
     private String userStatus;
+    private String organization_logo;
+    private String organization_name;
+    private Boolean is_too_light;
     List attendingList = new ArrayList<JSONObject>();
     private int request_state;
 
@@ -69,7 +72,10 @@ public class UserActivity {
                         List attendingList,
                         int request_state,
                         String eventPictureURL,
-                        String userStatus) {
+                        String userStatus,
+                        String organization_logo,
+                        String organization_name,
+                        Boolean is_too_light) {
         this.homeCity = home_city;
         this.homeNationality = home_nationality;
         this.name = name;
@@ -96,6 +102,33 @@ public class UserActivity {
         this.request_state = request_state;
         this.eventPictureURL = eventPictureURL;
         this.userStatus = userStatus;
+        this.organization_logo = organization_logo;
+        this.organization_name = organization_name;
+        this.is_too_light=is_too_light;
+    }
+
+    public String getOrganization_name() {
+        return organization_name;
+    }
+
+    public void setOrganization_name(String organization_name) {
+        this.organization_name = organization_name;
+    }
+
+    public String getOrganization_logo() {
+        return organization_logo;
+    }
+
+    public void setOrganization_logo(String organization_logo) {
+        this.organization_logo = organization_logo;
+    }
+
+    public Boolean getIs_too_light() {
+        return is_too_light;
+    }
+
+    public void setIs_too_light(Boolean is_too_light) {
+        this.is_too_light = is_too_light;
     }
 
     public Boolean getPaid() {
@@ -103,7 +136,7 @@ public class UserActivity {
     }
 
     public void setPaid(Boolean paid) {
-        isPaid = paid;
+        this.isPaid = paid;
     }
 
     public int getRequest_state() {

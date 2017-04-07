@@ -471,14 +471,22 @@ public class MapActivity extends AppCompatActivity
                         //Calculate the distance from the user to the activity
                         double km;
                         int Radius = 6371;
-
+                        boolean isPaid = activity.getBoolean("is_paid");
+                        String organization_logo = activity.getString("organization_logo");
+                        String organization_name = activity.getString("organization_name");
+                        Boolean is_too_light;
+                        if(isPaid){
+                        is_too_light = activity.getBoolean("is_too_light");}
+                        else{
+                        is_too_light = false;
+                        }
                         double lat1 = FacebookLogin.clat;//StartP.latitude;
                         double lat2 = latitude;//EndP.latitude;
                         double lon1 = FacebookLogin.clon;//StartP.longitude;
                         double lon2 = longitude;//EndP.longitude;
                         double dLat = Math.toRadians(lat2 - lat1);
                         double dLon = Math.toRadians(lon2 - lon1);
-                        boolean isPaid = activity.getBoolean("is_paid");
+
                         double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
                                 + Math.cos(Math.toRadians(lat1))
                                 * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
@@ -528,12 +536,15 @@ public class MapActivity extends AppCompatActivity
                                 attendingList,
                                 request_state,
                                 eventPictureURl,
-                                userStatus);
+                                userStatus,
+                                organization_logo,
+                                organization_name,
+                                is_too_light);
 
                         activitiesList.add(userActivity);
 
                     } catch (JSONException e) {
-                        Log.w("JSON EXCEPTION:", "Error parsing the getActivities response");
+                        Log.w("JSON EXCEPTION:", "Error parsing the getActivities response"+e.toString());
                     }
                 }
             }

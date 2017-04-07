@@ -194,7 +194,7 @@
                 </RelativeLayout>
             </FrameLayout>
             <Button
-                android:text="SEND A REQUEST"
+                android:text="Participate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/send_request_button_paid_event"
