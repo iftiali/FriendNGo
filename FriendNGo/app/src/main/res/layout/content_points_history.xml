@@ -13,25 +13,12 @@
     tools:context="com.friendngo.friendngo.PointsHistoryActivity"
     tools:showIn="@layout/activity_points_history">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/points_history_recycler_view"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:scrollbars="vertical" />
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </ScrollView>
-    </FrameLayout>
     <Button
         android:id="@+id/points_history_save_button"
         android:text="OKAY"

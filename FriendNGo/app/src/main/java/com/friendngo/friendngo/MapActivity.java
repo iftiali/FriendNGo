@@ -76,7 +76,7 @@ public class MapActivity extends AppCompatActivity
 
     public static CircularImageView other_user_picture;
     public static String selfIdentify=null;
-    public static int versionNumber = 4;
+    public static int versionNumber = 5;
     public static String selfName=null;
     public static boolean checkStateMapOrList = false;
     public static TextView other_user_name,other_user_age,other_user_about,other_user_location,other_user_citizenship;
@@ -216,9 +216,12 @@ public class MapActivity extends AppCompatActivity
                                 //Toast.makeText(getApplicationContext(), "Settings Not Available in Beta", Toast.LENGTH_LONG).show();
                                 //Intent seeSeeting = new Intent(getApplicationContext(), ReportIssue.class);
                                 //startActivity(seeSeeting);
-                                SettingFragment settingFragment = new SettingFragment();
-                                manager = getSupportFragmentManager();
-                                manager.beginTransaction().replace(R.id.fragmentView,settingFragment,settingFragment.getTag()).commit();
+                              //  SettingFragment settingFragment = new SettingFragment();
+                               // manager = getSupportFragmentManager();
+                               // manager.beginTransaction().replace(R.id.fragmentView,settingFragment,settingFragment.getTag()).commit();
+                                Intent seeSeeting = new Intent(getApplicationContext(), PointsHistoryActivity.class);
+                                startActivity(seeSeeting);
+
                                 break;
                             default:
                                 //Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");
