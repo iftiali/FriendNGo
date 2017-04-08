@@ -99,7 +99,6 @@
     <string name="title_activity_forgot_password">ForgotPassword</string>
 
 
-
     <!--Ready activity-->
     <string name="title_activity_ready">ActivityReady</string>
     <string name="title_ready">Ready!</string>
@@ -107,5 +106,11 @@
     <string name="ready_text1">You are now ready to start exploring FriendNGo</string>
     <string name="ready_text2">We already found events near you today.</string>
     <string name="ready_text3">Remember that you can always change your preferences on your profile and in the settings.</string>
+    <string name="title_activity_reset_password">ResetPasswordActivity</string>
+
+    <!--Reset Password-->
+    <string name="title_activity_reset">Forgot Password</string>
+    <string name="reset_email_hint">Email Address</string>
+    <string name="email_reset_field_Toast">Email field is empty</string>
 
 </resources>
