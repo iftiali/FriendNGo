@@ -39,7 +39,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
 
     //This is the data structure that will be recycled
     private static class ViewHolder {
-        TextView paid_event_created_text,paid_event_activity_time,paid_event_distance;
+        TextView paid_event_created_text,paid_event_activity_time,paid_event_distance,paid_event_status_text_view;
 
         TextView name;
         TextView creator;
@@ -50,7 +50,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         ImageView category;
         ImageView clock,paid_event_clock,paid_event_pin_image,paid_event_activity_type;
         TextView dateTime;
-        ImageView pin;
+        ImageView pin,paid_event_certified;
         TextView distance;
         RelativeLayout info;
         Button addActivityButton;
@@ -105,7 +105,8 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder.paid_event_activity_time = (TextView)convertView.findViewById(R.id.paid_event_activity_time);
             viewHolder.paid_event_distance = (TextView)convertView.findViewById(R.id.paid_event_distance);
             viewHolder.paid_event_activity_type = (ImageView)convertView.findViewById(R.id.paid_event_activity_type);
-
+            viewHolder.paid_event_status_text_view = (TextView)convertView.findViewById(R.id.paid_event_status_text);
+            viewHolder.paid_event_certified = (ImageView)convertView.findViewById(R.id.paid_event_certified);
             convertView.setTag(R.string.VIEW_HOLDER_KEY, viewHolder); //This associates the viewHolder to the convertView
         } else {
             //Recycle old view -> More Efficient
@@ -146,6 +147,8 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder.paid_event_activity_time.setTextColor(Color.GRAY);
             viewHolder.paid_event_distance.setText(userActivity.getAddress().toString());
             viewHolder.paid_event_distance.setTextColor(Color.GRAY);
+            viewHolder.paid_event_status_text_view.setTextColor(Color.GRAY);
+            viewHolder.paid_event_certified.setImageResource(R.drawable.checkmark);
             switch (userActivity.getCategory()) {
                 case "Art & Culture":
                     viewHolder.paid_event_activity_type.setImageResource(R.drawable.art_exposition);
@@ -295,9 +298,6 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder.distance.setTextColor(Color.GRAY);
             viewHolder.info.setOnClickListener(this);
             viewHolder.info.setTag(R.string.POSITION_KEY, position);
-
-
-
 
             if (viewHolder.addActivityButton != null) {
                 viewHolder.freeEvent.setOnClickListener(new View.OnClickListener() {

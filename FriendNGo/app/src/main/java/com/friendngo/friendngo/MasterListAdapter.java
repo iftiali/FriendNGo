@@ -74,49 +74,61 @@ public class MasterListAdapter extends BaseAdapter {
         mHorizontalRecycleView = (RecyclerView)convertView.findViewById(R.id.recycler_view);
         mHorizontallayoutManager = new LinearLayoutManager(convertView.getContext(),LinearLayoutManager.HORIZONTAL,false);
 
-        //Set Inner Layout Adapters
-        mHorizontalRecycleView.setLayoutManager(mHorizontallayoutManager);
-        mHorizontalAdapter = new WhatDoyouWantToDoTodayHorizontalRow(mHorizontalDataset);
-        mHorizontalRecycleView.setAdapter(mHorizontalAdapter);
-        mHorizontalRecycleView.setHasFixedSize(true);
-
+        int xx = 0;
         //Set the category image
         Category category = (Category) WhatDoYouWantToDoToday.categoryList.get(position);
         switch (category.name) {
             case "Art & Culture":
+                xx =1;
                 categoryImage.setImageResource(R.drawable.art_exposition);
                 break;
             case "Nightlife":
+                xx =2;
                 categoryImage.setImageResource(R.drawable.concert);
                 break;
             case "Sports":
+                xx =3;
                 categoryImage.setImageResource(R.drawable.running);
                 break;
             case "Help & Association":
+                xx =4;
                 categoryImage.setImageResource(R.drawable.handshake);
                 break;
             case "Fun & Crazy":
+                xx =5;
                 categoryImage.setImageResource(R.drawable.naked_run);
                 break;
             case "Games":
+                xx =6;
                 categoryImage.setImageResource(R.drawable.billard);
                 break;
             case "Travel & Road-Trip":
+                xx =7;
                 categoryImage.setImageResource(R.drawable.backpack);
                 break;
             case "Nature & Outdoors":
-
+                xx =8;
                 categoryImage.setImageResource(R.drawable.camping);
                 break;
             case "Social Activities":
+                xx =9;
                 categoryImage.setImageResource(R.drawable.grab_drink);
                 break;
             case "Professional & Networking":
+                xx =10;
                 categoryImage.setImageResource(R.drawable.coworking);
                 break;
             default:
+                xx=0;
                 categoryImage.setImageResource(R.drawable.naked_run);
         }
+
+        //Set Inner Layout Adapters
+
+        mHorizontalRecycleView.setLayoutManager(mHorizontallayoutManager);
+        mHorizontalAdapter = new WhatDoyouWantToDoTodayHorizontalRow(mHorizontalDataset,xx);
+        mHorizontalRecycleView.setAdapter(mHorizontalAdapter);
+        mHorizontalRecycleView.setHasFixedSize(true);
 
         categoryCheckMark.setVisibility(View.INVISIBLE);
         categoryImage.setOnClickListener(new View.OnClickListener() {

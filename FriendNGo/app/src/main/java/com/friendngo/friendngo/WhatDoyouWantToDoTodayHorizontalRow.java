@@ -1,6 +1,9 @@
 package com.friendngo.friendngo;
 
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +18,10 @@ import java.util.ArrayList;
 public class WhatDoyouWantToDoTodayHorizontalRow extends RecyclerView.Adapter<WhatDoyouWantToDoTodayHorizontalRow.ViewHolder>{
 
     private ArrayList<String> mDataset;
-    public WhatDoyouWantToDoTodayHorizontalRow(ArrayList<String> mDataset) {
+    private int xx =0;
+    public WhatDoyouWantToDoTodayHorizontalRow(ArrayList<String> mDataset,int xx) {
         this.mDataset = mDataset;
+        this.xx = xx;
     }
 
     @Override
@@ -32,6 +37,73 @@ public class WhatDoyouWantToDoTodayHorizontalRow extends RecyclerView.Adapter<Wh
     holder.museum_button.setText(mDataset.get(position));
     holder.mImageView.setImageResource(R.drawable.check);
     holder.mImageView.setVisibility(View.INVISIBLE);
+
+        if(xx ==1) {
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(202, 144, 111));
+            holder.museum_button.setBackground(gd);
+        }
+        else if(xx == 2) {
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(163, 60, 241));
+            holder.museum_button.setBackground(gd);
+        }
+        else if(xx == 3) {
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(52, 170, 252));
+            holder.museum_button.setBackground(gd);
+        }
+        else if(xx == 4) {
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(0, 174, 141));
+            holder.museum_button.setBackground(gd);
+        }
+        else if(xx == 5) {
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(239, 171, 62));
+            holder.museum_button.setBackground(gd);
+        }
+        else if(xx == 6) {
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(47, 43, 207));
+            holder.museum_button.setBackground(gd);
+        }
+        else if(xx == 7) {
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(3, Color.rgb(99, 220, 226));
+            holder.museum_button.setBackground(gd);
+        }
+        else if(xx == 8) {
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(3, Color.rgb(29, 226, 141));
+            holder.museum_button.setBackground(gd);
+        }
+        else if(xx == 9) {
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(3,Color.rgb(183, 63, 23));
+            holder.museum_button.setBackground(gd);
+        }
+        else if(xx == 10) {
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2,Color.rgb(225, 25, 185));
+            holder.museum_button.setBackground(gd);
+        }
+        else {
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.GRAY);
+            holder.museum_button.setBackground(gd);
+        }
     holder.museum_button.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {

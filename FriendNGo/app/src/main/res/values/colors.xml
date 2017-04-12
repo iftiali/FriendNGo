@@ -13,4 +13,20 @@
 
     <color name="light_grey">#757E7D</color>
     <color name="textInput">#777E9D</color>
+
+
+
+
+    <!--Color Code for category-->
+    <color name="Art_culture_color">#FD7649</color>
+    <!--<color name="textInput">#777E9D</color>-->
+    <!--<color name="textInput">#777E9D</color>-->
+    <!--<color name="textInput">#777E9D</color>-->
+    <!--<color name="textInput">#777E9D</color>-->
+    <!--<color name="textInput">#777E9D</color>-->
+    <!--<color name="textInput">#777E9D</color>-->
+    <!--<color name="textInput">#777E9D</color>-->
+    <!--<color name="textInput">#777E9D</color>-->
+    <!--<color name="textInput">#777E9D</color>-->
+
 </resources>

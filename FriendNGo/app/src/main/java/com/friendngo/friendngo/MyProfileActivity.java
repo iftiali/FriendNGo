@@ -297,13 +297,15 @@ public class MyProfileActivity extends AppCompatActivity {
                     MapActivity.other_user_about.setText(bio_input);
 
                      nationality = citizenAuto.getText().toString();
+
+                    Log.d("county name",nationality);
                      Locale[] nameCompare = Locale.getAvailableLocales();
                       boolean compareCountryName = false;
                       for(Locale locale:nameCompare){
                         String cc = locale.getDisplayCountry();
                         if(cc.equals(nationality)){
                             compareCountryName = true;
-                          params.put("Profile s nationality",nationality);
+                            params.put("home_nationality",nationality);
                             MapActivity.other_user_citizenship.setText(nationality);
                             break;
                         }else{

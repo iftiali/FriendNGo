@@ -203,16 +203,17 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback, Goo
 
             name.setText(act.getName());
             name.setTextColor(Color.GRAY);
+            String baseUrlForImage =null;
             if(act.getisPaid()){
                 creator.setText("Created by " + act.getOrganization_name());
                 creator.setTextColor(Color.BLACK);
                 Picasso.with(getApplicationContext())
-                        .load(act.getOrganization_logo())
+                        .load(MainActivity.base_host_url+act.getOrganization_logo())
                         .placeholder(R.drawable.empty_profile)
                         .error(R.drawable.empty_profile)
                         .into(profilePicture);
             }else {
-                creator.setText("Created by " + act.getCreator());
+               creator.setText("Created by " + act.getCreator());
                 creator.setTextColor(Color.BLACK);
                 Picasso.with(getApplicationContext())
                         .load(act.getOrganization_logo())

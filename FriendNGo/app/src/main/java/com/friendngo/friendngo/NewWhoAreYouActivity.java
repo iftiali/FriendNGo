@@ -280,7 +280,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                         String cc = locale.getDisplayCountry();
                         if(cc.equals(nationality)){
                             compareCountryName = true;
-                            params.put("Profile nationality",nationality);
+                            params.put("home_nationality",nationality);
                             MapActivity.other_user_citizenship.setText(nationality);
                             break;
                         }else{

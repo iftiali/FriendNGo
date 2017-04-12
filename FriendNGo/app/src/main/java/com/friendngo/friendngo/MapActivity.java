@@ -79,7 +79,7 @@ public class MapActivity extends AppCompatActivity
     public static int versionNumber = 5;
     public static String selfName=null;
     public static boolean checkStateMapOrList = false;
-    public static TextView other_user_name,other_user_age,other_user_about,other_user_location,other_user_citizenship;
+    public static TextView other_user_name,other_user_age,other_user_about,other_user_location,other_user_citizenship,other_user_points;
     TextView user_account;
     private static final int POLLING_PERIOD = 5;
 
@@ -135,6 +135,7 @@ public class MapActivity extends AppCompatActivity
         other_user_name = (TextView)findViewById(R.id.other_user_name);
         other_user_age = (TextView)findViewById(R.id.other_user_age);
         other_user_about = (TextView)findViewById(R.id.other_user_about);
+        other_user_points = (TextView)findViewById(R.id.other_user_points);
         other_user_citizenship = (TextView)findViewById(R.id.other_user_citizenship);
         //Initialize Layout views from their XML
         user_account = (TextView) findViewById(R.id.user_account);
@@ -913,8 +914,8 @@ public class MapActivity extends AppCompatActivity
                 try {
                     userID = response.getInt("id");
                     String firstNameString = response.getString("first_name");
-                    MapActivity.other_user_name.setText(firstNameString);
-
+                    other_user_name.setText(firstNameString);
+                    other_user_points.setText(response.getString("points")+"pts");
                     int age = response.getInt("age");
                     if(age > 0) {
                         other_user_age.setText(age + " y-o");
