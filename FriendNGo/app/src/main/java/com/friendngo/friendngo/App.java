@@ -1,6 +1,7 @@
 package com.friendngo.friendngo;
 
 import android.app.Application;
+import android.content.Context;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -19,4 +20,5 @@ public class App extends Application {
                 .build()
         );
     }
+
 }

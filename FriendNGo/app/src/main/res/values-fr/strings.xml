@@ -1,10 +1,11 @@
 <resources>
-    <string name="app_name">FriendNGo</string>
+    <string name="app_name">FriendNGoFR</string>
     <string name="preference_file_key">com.friendngo.scott.friendngo.KEY_FILE</string>token_string
     <string name="token">token</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">se connecter</string>
     <string name="no_messages">Getting Data From Server</string>
     <string name="spinner_title">Select Category</string>
+
     <string name="facebook_app_id">704534619705934</string>
     <string name="fb_login_protocol_scheme">fb704534619705934</string>
 
@@ -70,7 +71,6 @@
     </string>
     <string name="title_activity_report_issue">ReportIssue</string>
     <!--March 29 with backlog by Parth-->
-
     <!--General Toast Message-->
     <string name="checkOnlineToast">Please turn on your wifi/data pack</string>
     <string name="submit">SUBMIT</string>
@@ -97,45 +97,45 @@
     <string name="ready_text3">Remember that you can always change your preferences on your profile and in the settings.</string>
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
 
+    <!--Reset Password-->
+    <string name="title_activity_reset">FForgot Password</string>
+    <string name="reset_email_hint">FEmail Address</string>
+    <string name="email_reset_field_Toast">FEmail field is empty</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
+    <string name="prompt_email">FEmail</string>
+    <string name="prompt_password">FPassword (optional)</string>
+    <string name="action_sign_in">FSign in or register</string>
+    <string name="action_sign_in_short">FSign in</string>
+    <string name="error_invalid_email">FThis email address is invalid</string>
+    <string name="error_invalid_password">FThis password is too short</string>
+    <string name="error_incorrect_password">FThis password is incorrect</string>
+    <string name="error_field_required">FThis field is required</string>
+    <string name="permission_rationale">"FContacts permissions are needed for providing email
         completions."
     </string>
 
-
     <!--Facebook Activity-->
-    <string name="facebook_activity_create_Account">Connect with my email address</string>
+    <string name="facebook_activity_create_Account">Me connecter avec mon adresse email</string>
 
     <!--Login-->
-    <string name="tittle_login_in">Login</string>
-    <string name="login_in_reset_email_hint">Email Address</string>
-    <string name="login_in_submit_login">LOGIN</string>
-    <string name="login_in_green_text">my password</string>
-    <string name="login_in_forgot">I forgot </string>
-    <string name="login_in_create_account">Create An Account</string>
-    <string name="login_in_hint_password">Password</string>
-    <string name="login_in_check_box">Remember me</string>
+    <string name="tittle_login_in">S\'identifier</string>
+    <string name="login_in_reset_email_hint">Adresse email</string>
+    <string name="login_in_submit_login">S\'identifier</string>
+    <string name="login_in_green_text">mon mot de passe</string>
+    <string name="login_in_forgot">J\'ai perdu </string>
+    <string name="login_in_create_account">Créer un compte</string>
+    <string name="login_in_hint_password">Mot de passe</string>
+    <string name="login_in_check_box">Souviens-toi de moi</string>
 
-    <!--Sign up-->
-    <string name="sign_up_tittle">Create an account</string>
-    <string name="sign_up_reset_email_hint">Email Address</string>
-    <string name="sign_up_hint_password">Password</string>
-    <string name="sign_up_confirm_hint_password">Confirm Password</string>
-    <string name="sign_up_submit">SIGN UP</string>
-    <string name="sign_up_account"> account</string>
-    <string name="sign_up_i_have_already">I already have an </string>
-    <string name="email_reset_field_Toast">Email field is empty</string>
+    <!--Create an account-->
+    <string name="sign_up_tittle">Créer un compte</string>
+    <string name="sign_up_reset_email_hint">Adresse email</string>
+    <string name="sign_up_hint_password">Mot de passe</string>
+    <string name="sign_up_confirm_hint_password">Confirmez le mot de passe</string>
+    <string name="sign_up_submit">S\'inscrire</string>
+    <string name="sign_up_account"> compte</string>
+    <string name="sign_up_i_have_already">J\'ai déjà un</string>
 
-
-    <string name="title_activity_reset">Forgot Password</string>
 
 </resources>

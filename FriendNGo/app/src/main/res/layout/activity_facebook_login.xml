@@ -30,7 +30,7 @@
         android:layout_marginBottom="4dp" />
 
     <Button
-        android:text="Connect with my email address"
+        android:text="@string/facebook_activity_create_Account"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:id="@+id/use_email_button"

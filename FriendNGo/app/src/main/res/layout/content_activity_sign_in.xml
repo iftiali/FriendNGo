@@ -22,13 +22,13 @@
         android:id="@+id/login_email"
         android:textColor="@color/textInput"
         android:background="@android:color/white"
-        android:hint="@string/reset_email_hint"
+        android:hint="@string/login_in_reset_email_hint"
         android:padding="15dp"
         android:layout_marginBottom="2dp"
         android:layout_marginTop="7dp" />
 
     <Button
-        android:text="LOGIN"
+        android:text="@string/login_in_submit_login"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
@@ -39,19 +39,20 @@
         android:layout_marginBottom="15dp" />
 
     <TextView
-        android:text="my password"
+        android:id="@+id/forgot_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/forgot_link"
-        android:clickable="true"
-        android:textColor="@color/colorAccent"
         android:layout_alignBaseline="@+id/forgot_text"
         android:layout_alignBottom="@+id/forgot_text"
+        android:layout_marginLeft="4dp"
+        android:layout_toEndOf="@+id/forgot_text"
         android:layout_toRightOf="@+id/forgot_text"
-        android:layout_toEndOf="@+id/forgot_text" />
+        android:clickable="true"
+        android:text="@string/login_in_green_text"
+        android:textColor="@color/colorAccent" />
 
     <TextView
-        android:text="I forgot "
+        android:text="@string/login_in_forgot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/forgot_text"
@@ -64,7 +65,7 @@
         android:layout_marginStart="18dp" />
 
     <TextView
-        android:text="Create An Account"
+        android:text="@string/login_in_create_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/create_account_link"
@@ -83,7 +84,7 @@
         android:id="@+id/login_password"
         android:textColor="@color/textInput"
         android:background="@android:color/white"
-        android:hint="Password"
+        android:hint="@string/login_in_hint_password"
         android:backgroundTint="@android:color/white"
         android:layout_below="@+id/login_email"
         android:layout_alignParentLeft="true"
@@ -99,7 +100,7 @@
         android:layout_above="@+id/forgot_link"
         android:layout_alignLeft="@+id/forgot_text"
         android:layout_alignStart="@+id/forgot_text"
-        android:text="Remember me"
+        android:text="@string/login_in_check_box"
         android:textColor="@color/textInput" />
 
 </RelativeLayout>

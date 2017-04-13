@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -41,6 +43,8 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.Locale;
+
 import cz.msebera.android.httpclient.Header;
 
 public class FacebookLogin extends AppCompatActivity {
@@ -66,6 +70,7 @@ public class FacebookLogin extends AppCompatActivity {
 
         getLocationPermission();
         setContentView(R.layout.activity_facebook_login);
+
 
         //Creates fullscreen effect for newer phones
         if (Build.VERSION.SDK_INT >= 16) {
@@ -291,6 +296,8 @@ public class FacebookLogin extends AppCompatActivity {
             });
         }
     }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
