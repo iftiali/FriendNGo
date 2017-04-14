@@ -40,6 +40,7 @@ public class ActivityMessage extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         emptyView = (TextView) findViewById(R.id.empty_view);
         mAdapter = new ChatListAdapter(chatList,getApplicationContext());

@@ -126,8 +126,8 @@ public class MapActivity extends AppCompatActivity
         wish_for_today = (TextView)findViewById(R.id.wish_for_today);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
-
-
+        //Top bar
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         wish_for_today.setOnClickListener(new View.OnClickListener() {
             @Override

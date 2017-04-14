@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.location.Geocoder;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.TextView;
@@ -34,8 +36,10 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -50,16 +54,24 @@ import java.util.TimeZone;
 import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 public class CreateActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     boolean validationFlag = false;
     String autocomplateAddress = null;
     private static final String TAG ="Auther:Parth";
     TextView plus_minus_textview,cancelTextView;
     int plus = 0;
+    private String phoneNumberEmptyMessage = null;
+    private String codeEmptyMessage = null;
+    private String codeErrorMessage = null;
     String itemSelectedInCategory = null;
     Calendar tomorrowDate;
+    private Boolean getUserVerified = false;
     Button plus_button,minus_button;
+    private String verificationPhoneNumber = null;
     int todayTomorrowFlag =0;
+    private String checkOnlineToast = null;
     public ArrayList<CategorySpinnerModel> cust_category = new ArrayList<CategorySpinnerModel>();
     TextView startEventTime,endEventTime;
     Button createActivityButton;
@@ -76,6 +88,8 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
     String endparseDateForDatabase = null;
     double placeLong = 0;
     double placelant = 0;
+    AlertDialog dialogTwo;
+    AlertDialog dialogThree;
     private PlaceAutocompleteAdapter mAdapter;
     private AutoCompleteTextView mAutocompleteView;
     Geocoder coder =null;
@@ -185,6 +199,10 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                 .build();
         setContentView(R.layout.activity_create);
 
+        checkOnlineToast = getResources().getString(R.string.checkOnlineToast);
+        codeErrorMessage = getResources().getString(R.string.dialog_verification_three_code_error_message);
+        phoneNumberEmptyMessage = getResources().getString(R.string.dialog_verification_two_phone_empty_message);
+        codeEmptyMessage = getResources().getString(R.string.dialog_verification_three_code_empty_message);
         cancelTextView = (TextView)findViewById(R.id.cancel__text_view);
         mAutocompleteView = (AutoCompleteTextView)
                 findViewById(R.id.address_edit_text);
@@ -202,6 +220,7 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
         cancelTextView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
                 Intent intent = new Intent(CreateActivity.this, MapActivity.class);
                 CreateActivity.this.startActivity(intent);
                 CreateActivity.this.finish();
@@ -302,6 +321,7 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
             }
         });
 
+        //Alpha layer on click event
         final SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd MMMM");
 
         todayButton = (Button)findViewById(R.id.today_button);
@@ -344,9 +364,11 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
         });
 
         createActivityButton = (Button)findViewById(R.id.create_activity_button);
+
         createActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //Get the items selected by the user and put them into an HTTP reques
                 Spinner activityTypePicker = (Spinner) findViewById(R.id.activity_type_picker);
                 String activityType = activityTypePicker.getSelectedItem().toString();
@@ -368,98 +390,167 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
 
 
                 //POST new activity to the server
-                AsyncHttpClient client = new AsyncHttpClient();
-                if(SignIn.static_token != null) {
-                    client.addHeader("Authorization","Token "+SignIn.static_token);
+                final AsyncHttpClient client = new AsyncHttpClient();
+                if (SignIn.static_token != null) {
+                    client.addHeader("Authorization", "Token " + SignIn.static_token);
                 }
 
                 //Set the status type into the message for the server
-                RequestParams params = new RequestParams();
-                if(activity_name.equals("") || autocomplateAddress.equals("") || placeLong == 0 || placelant == 0) {
-                    Toast.makeText(CreateActivity.this,"Activity name or address field is invalid/empty ",Toast.LENGTH_LONG).show();
-                }else{
+                final RequestParams params = new RequestParams();
+                if (activity_name.equals("") || autocomplateAddress.equals("") || placeLong == 0 || placelant == 0) {
+                    Toast.makeText(CreateActivity.this, "Activity name or address field is invalid/empty ", Toast.LENGTH_LONG).show();
+                } else {
 
-                    params.put("category",itemSelectedInCategory);
+                    params.put("category", itemSelectedInCategory);
                     params.put("activity_name", activity_name);
 
                     params.put("activity_type", activityType);
-                    params.put("max_users",plus);
+                    params.put("max_users", plus);
 
 
-                        params.put("activity_lat", placelant);
-                        params.put("activity_lon", placeLong);
-                        params.put("address", autocomplateAddress);
+                    params.put("activity_lat", placelant);
+                    params.put("activity_lon", placeLong);
+                    params.put("address", autocomplateAddress);
 
                     // SimpleDateFormat activityTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");2017-03-14'T'11:24:00'Z'
                     String[] monthNames = new String[12];
-                    monthNames[0] ="01";
-                    monthNames[1] ="02";
-                    monthNames[2] ="03";
-                    monthNames[3] ="04";
-                    monthNames[4] ="05";
-                    monthNames[5] ="06";
-                    monthNames[6] ="07";
-                    monthNames[7] ="08";
-                    monthNames[8] ="09";
-                    monthNames[9] ="10";
-                    monthNames[10] ="11";
-                    monthNames[11] ="12";
+                    monthNames[0] = "01";
+                    monthNames[1] = "02";
+                    monthNames[2] = "03";
+                    monthNames[3] = "04";
+                    monthNames[4] = "05";
+                    monthNames[5] = "06";
+                    monthNames[6] = "07";
+                    monthNames[7] = "08";
+                    monthNames[8] = "09";
+                    monthNames[9] = "10";
+                    monthNames[10] = "11";
+                    monthNames[11] = "12";
 
 
-                    if(todayTomorrowFlag == 1) {
+                    if (todayTomorrowFlag == 1) {
 
                         tomorrowDate.add(Calendar.DATE, 0);
                         //  Log.w("Start Event", tomorrowDate.get(Calendar.YEAR)+"-"+monthNames[tomorrowDate.get(Calendar.MONTH)]+"-"+tomorrowDate.get(Calendar.DATE)+"'T'"+endEventTime.getText().toString()+":00'Z'");
-                        endparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + endEventTime.getText().toString() + ValidationClass.getCurrentTimezoneOffset();;
-                    }else{
-                        endparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + endEventTime.getText().toString() + ValidationClass.getCurrentTimezoneOffset();;
+                        endparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + endEventTime.getText().toString() + ValidationClass.getCurrentTimezoneOffset();
+                        ;
+                    } else {
+                        endparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + endEventTime.getText().toString() + ValidationClass.getCurrentTimezoneOffset();
+                        ;
                     }
 
-                    if(todayTomorrowFlag == 0) {
+                    if (todayTomorrowFlag == 0) {
                         tomorrowDate.add(Calendar.DATE, -1);
                         //Log.w("Start Event", tomorrowDate.get(Calendar.YEAR)+"-"+monthNames[tomorrowDate.get(Calendar.MONTH)]+"-"+tomorrowDate.get(Calendar.DATE)+"'T'"+startEventTime.getText().toString()+":00'Z'");
-                        startparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + startEventTime.getText().toString() + ValidationClass.getCurrentTimezoneOffset();;
-                    }else{
+                        startparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + startEventTime.getText().toString() + ValidationClass.getCurrentTimezoneOffset();
+                        ;
+                    } else {
 
-                        startparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + startEventTime.getText().toString() + ValidationClass.getCurrentTimezoneOffset();;
+                        startparseDateForDatabase = tomorrowDate.get(Calendar.YEAR) + "-" + monthNames[tomorrowDate.get(Calendar.MONTH)] + "-" + tomorrowDate.get(Calendar.DATE) + "T" + startEventTime.getText().toString() + ValidationClass.getCurrentTimezoneOffset();
+                        ;
                     }
 
 
-                    params.put("activity_time",startparseDateForDatabase);
-                    params.put("activity_end_time",endparseDateForDatabase);
+                    params.put("activity_time", startparseDateForDatabase);
+                    params.put("activity_end_time", endparseDateForDatabase);
                     params.put("description", activityDescription);
-                    params.put("additional_notes",additionalNotes);
+                    params.put("additional_notes", additionalNotes);
 
-
-                    client.post(MainActivity.base_host_url + "api/postActivity/", params, new JsonHttpResponseHandler() {
-
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            Log.w("POST ACT SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                    if(ValidationClass.checkOnline(getApplicationContext())){
+                        AsyncHttpClient client2 = new AsyncHttpClient();
+                        if (SignIn.static_token != null) {
+                            client2.addHeader("Authorization", "Token " + SignIn.static_token);
                         }
 
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                            Log.w("POST ACT SUCCESS2", statusCode + ": " + timeline.toString());
-                        }
+                        //GET user profile
+                        client2.get(MainActivity.base_host_url + "api/getProfile/", new JsonHttpResponseHandler() {
 
-                        @Override
-                        public void onRetry(int retryNo) {
-                            // called when request is retried
-                            Log.w("POST ACT RETRY", "" + retryNo);
-                        }
 
-                        @Override
-                        public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                            Log.w("POST ACT FAIL", "Error Code: " + error_code + "Text: " + text);
-                        }
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, final JSONObject response) {
+                                Log.w("GET PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                                //TODO: COPY NEXT SEQUENCE INTO HERE SOMEWHERE!!!!!
+                                try {
+                                    getUserVerified = response.getBoolean("is_verified");
+                                    if(getUserVerified){
 
-                        @Override
-                        public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
-                            Log.w("POST ACT FAIL", "Error Code: " + error_code + "JSON: " + json.toString());
-                        }
-                    });
-                    CreateActivity.this.finish();
+                                        client.post(MainActivity.base_host_url + "api/postActivity/", params, new JsonHttpResponseHandler() {
+
+                                            @Override
+                                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                                Log.w("POST ACT SUCCESS", statusCode + ": " + "Response = " + response.toString());
+                                            }
+
+                                            @Override
+                                            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                                                Log.w("POST ACT SUCCESS2", statusCode + ": " + timeline.toString());
+                                            }
+
+                                            @Override
+                                            public void onRetry(int retryNo) {
+                                                // called when request is retried
+                                                Log.w("POST ACT RETRY", "" + retryNo);
+                                            }
+
+                                            @Override
+                                            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                                                Log.w("POST ACT FAIL", "Error Code: " + error_code + "Text: " + text);
+                                            }
+
+                                            @Override
+                                            public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
+                                                Log.w("POST ACT FAIL", "Error Code: " + error_code + "JSON: " + json.toString());
+                                            }
+                                        });
+                                        CreateActivity.this.finish();
+                                    }else{
+                                        Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_LONG).show();
+                                        AlertDialog.Builder mBuilder = new AlertDialog.Builder(CreateActivity.this);
+                                        View mview = getLayoutInflater().inflate(R.layout.dialog_verification_part_one,null);
+                                        Button nextButton = (Button) mview.findViewById(R.id.dialog_next_button);
+                                        mBuilder.setView(mview);
+                                        final AlertDialog dialogOne = mBuilder.create();
+                                        dialogOne.show();
+                                        nextButton.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                AlertDialog.Builder mBuilderPartTwo = new AlertDialog.Builder(CreateActivity.this);
+                                                View mviewPartTwo = getLayoutInflater().inflate(R.layout.dialog_verification_part_two,null);
+                                                Button textMe = (Button) mviewPartTwo.findViewById(R.id.dialog_verification_two_text_me);
+                                                final EditText countryCodeEditText = (EditText)mviewPartTwo.findViewById(R.id.dialog_verification_two_country_code_edit_text);
+                                                final EditText veriflyPhoneNumber = (EditText)mviewPartTwo.findViewById(R.id.dialog_verification_two_text_me_edit_text);
+
+
+                                                textMe.setOnClickListener(new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View v) {
+                                                        verificationPhoneNumber =countryCodeEditText.getText().toString()+veriflyPhoneNumber.getText().toString();
+                                                        if(veriflyPhoneNumber.getText().toString().equals("") || countryCodeEditText.getText().toString().equals("")){
+                                                            Toast.makeText(getApplicationContext(),phoneNumberEmptyMessage,Toast.LENGTH_LONG).show();
+                                                        }else {
+                                                            dialogOne.dismiss();
+                                                            getVerificationCode(verificationPhoneNumber);
+                                                        }
+                                                    }
+                                                });
+                                                mBuilderPartTwo.setView(mviewPartTwo);
+                                                dialogTwo = mBuilderPartTwo.create();
+                                                dialogTwo.show();
+
+                                            }
+                                        });
+
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(),checkOnlineToast,Toast.LENGTH_LONG).show();
+                    }
+
                 }
 
             }
@@ -470,25 +561,7 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
         mAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient,null,
                 null);
         mAutocompleteView.setAdapter(mAdapter);
-//        mAutocompleteView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if(!mAutocompleteView.getText().toString().equals("")){
-//                    try{
-//                        validationFlag = false;
-//                    ValidationClass.get_Latitude(autocomplateAddress, coder);
-//                    ValidationClass.get_longitude(autocomplateAddress, coder);
-//                   // Toast.makeText(getApplicationContext(),"Focus off",Toast.LENGTH_SHORT).show();
-//                    }catch (Exception e){
-//                        validationFlag = true;
-//
-//                        Toast.makeText(getApplicationContext(),"Invalid address ",Toast.LENGTH_SHORT).show();
-//                    }
-//
-//
-//                }
-//            }
-//        });
+
         }
     /**
             * Listener that handles selections from suggestions from the AutoCompleteTextView that
@@ -569,5 +642,126 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                 Toast.LENGTH_SHORT).show();
     }
 
+    private void getVerificationCode(final String verificationPhoneNumber){
 
+        if(ValidationClass.checkOnline(getApplicationContext())) {
+            AsyncHttpClient client = new AsyncHttpClient();
+            if (SignIn.static_token != null) {
+                client.addHeader("Authorization", "Token " + SignIn.static_token);
+            }
+
+            RequestParams params = new RequestParams();
+            params.setUseJsonStreamer(true);
+            params.put("phone",verificationPhoneNumber);
+            client.post(MainActivity.base_host_url + "api/getVerificationCode/", params, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    Log.w("POST VERIFICATION CODE", statusCode + ": " + "Response = " + response.toString());
+
+                    AlertDialog.Builder mBuilderPartThree = new AlertDialog.Builder(CreateActivity.this);
+                    View mviewPartThree = getLayoutInflater().inflate(R.layout.dialog_verification_three,null);
+                    final TextView dialog_verification_sub_title = (TextView)mviewPartThree.findViewById(R.id.dialog_verification_sub_title);
+                    Button submitButton = (Button) mviewPartThree.findViewById(R.id.dialog_verification_three_submit);
+                    final EditText dialog_verification_three_edit_code = (EditText) mviewPartThree.findViewById(R.id.dialog_verification_three_edit_code);
+
+                    dialog_verification_sub_title.setText("");
+                    dialog_verification_sub_title.setText(getResources().getString(R.string.dialog_verification_three_text_sub_header_one)
+                            +" "+ verificationPhoneNumber+" "+getResources().getString(R.string.dialog_verification_three_text_sub_header_two));
+                    submitButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                          String code = dialog_verification_three_edit_code.getText().toString();
+                            if(code.equals("")){
+                             Toast.makeText(getApplicationContext(),codeEmptyMessage,Toast.LENGTH_LONG).show();
+                            }else {
+                                dialogTwo.dismiss();
+                                getVerificationCodeNumber(code);
+                            }
+                        }
+                    });
+                    mBuilderPartThree.setView(mviewPartThree);
+                    dialogThree = mBuilderPartThree.create();
+                    dialogThree.show();
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                    Log.w("POST VERIFICATION CODE2", statusCode + ": " + timeline.toString());
+                    //  NewWhoAreYouActivity.this.finish();
+                }
+
+                @Override
+                public void onRetry(int retryNo) {
+                    // called when request is retried
+                    Log.w("POST VERIFICATION CODE", "" + retryNo);
+                }
+
+                @Override
+                public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                    Log.w("POST VERIFICATION CODE", "Error Code: " + error_code + "," + text);
+                }
+
+                @Override
+                public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
+                    Log.w("POST VERIFICATION CODE", "Error Code: " + error_code + ",  " + json.toString());
+                }
+            });
+        }else{
+            Toast.makeText(getApplicationContext(),checkOnlineToast,Toast.LENGTH_LONG).show();
+
+        }
+        }
+        private void getVerificationCodeNumber(String code){
+            if(ValidationClass.checkOnline(getApplicationContext())) {
+                AsyncHttpClient client = new AsyncHttpClient();
+                if (SignIn.static_token != null) {
+                    client.addHeader("Authorization", "Token " + SignIn.static_token);
+                }
+
+                RequestParams params = new RequestParams();
+                params.setUseJsonStreamer(true);
+                params.put("generated_code",code);
+                client.post(MainActivity.base_host_url + "api/validateCode/", params, new JsonHttpResponseHandler() {
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        Log.w("POST VERIFICATION CODE", statusCode + ": " + "Response = " + response.toString());
+                        dialogThree.dismiss();
+
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                        Log.w("POST VERIFICATION CODE2", statusCode + ": " + timeline.toString());
+                        //  NewWhoAreYouActivity.this.finish();
+                    }
+
+                    @Override
+                    public void onRetry(int retryNo) {
+                        // called when request is retried
+                        Log.w("POST VERIFICATION CODE", "" + retryNo);
+                    }
+
+                    @Override
+                    public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                        Log.w("POST VERIFICATION CODE", "Error Code: " + error_code + "," + text);
+                        if(error_code == 400){
+                            Toast.makeText(getApplicationContext(),codeErrorMessage,Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
+                        Log.w("POST VERIFICATION CODE2", "Error Code: " + error_code + ",  " + json.toString());
+                        if(error_code == 400){
+                            Toast.makeText(getApplicationContext(),codeErrorMessage,Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }else{
+                Toast.makeText(getApplicationContext(),checkOnlineToast,Toast.LENGTH_LONG).show();
+
+            }
+        }
 }

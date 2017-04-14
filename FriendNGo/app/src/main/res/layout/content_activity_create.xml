@@ -351,7 +351,8 @@
                 android:layout_alignLeft="@+id/startTimeImage"
                 android:layout_alignStart="@+id/startTimeImage" />
         </RelativeLayout>
-
 </ScrollView>
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"></RelativeLayout>
 </RelativeLayout>

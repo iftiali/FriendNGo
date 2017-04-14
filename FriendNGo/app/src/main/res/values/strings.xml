@@ -135,7 +135,33 @@
     <string name="sign_up_i_have_already">I already have an </string>
     <string name="email_reset_field_Toast">Email field is empty</string>
 
-
+    <!--Forgot Password-->
     <string name="title_activity_reset">Forgot Password</string>
+
+    <!--Map-->
+    <string name="tittle_map">FriendNGo</string>
+    <!--<string name="email_reset_field_Toast">Email field is empty</string>-->
+
+    <!--Dialog verification part-1-->
+    <string name="dialog_verification_part_one_sub_text">You will need to verify your phone number to create a public activity. This helps us confirm your identify and secure your account.</string>
+    <string name="dialog_verification_part_one_tittle_text">Hello</string>
+
+    <string name="dialog_verification_next_button">NEXT</string>
+
+    <!--Dialog verification part-2-->
+    <string name="dialog_verification_two_tittle_text">Enter Phone Number</string>
+    <string name="dialog_verification_two_text_me_button">Text Me</string>
+    <string name="dialog_verification_two_text_sub_header">We will send you a one-time verification code</string>
+    <string name="dialog_verification_two_phone_number_hint">Phone Number</string>
+    <string name="dialog_verification_two_phone_empty_message">Some number field is empty</string>
+
+    <!--Dialog verification part-3-->
+    <string name="dialog_verification_three_tittle_text">Enter Your Code</string>
+    <string name="dialog_verification_three_text_sub_header_one">We just sent a text message to</string>
+    <string name="dialog_verification_three_text_sub_header_two">with a code for you to enter here</string>
+    <string name="dialog_verification_three_code_hint">Code</string>
+    <string name="dialog_verification_three_submit_button">Submit</string>
+    <string name="dialog_verification_three_code_empty_message">Code number field is empty</string>
+    <string name="dialog_verification_three_code_error_message">Entered code was incorrect</string>
 
 </resources>
