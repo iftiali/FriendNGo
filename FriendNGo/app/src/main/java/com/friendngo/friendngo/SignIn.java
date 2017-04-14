@@ -7,6 +7,7 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.StrictMode;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,10 +37,17 @@ public class SignIn extends AppCompatActivity {
     private EditText emailEditTextValue;
     private EditText passwordEditTextValue;
     boolean flag = false;
+    AlertDialog dialogOne;
+    AlertDialog dialogTwo;
+    AlertDialog dialogFour;
+    String signInSubTitle= null;
     //private SharedPreferences sharedPref;
     public static String static_token;
     public static String static_username;
     public static String static_profile_image_url;
+    private TextView forgotLinkTextView;
+
+
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -51,8 +59,64 @@ public class SignIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        forgotLinkTextView = (TextView)findViewById(R.id.forgot_link);
+        forgotLinkTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"Hello",Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder mBuilderPartOne = new AlertDialog.Builder(SignIn.this);
+                View mviewPartOne = getLayoutInflater().inflate(R.layout.dialog_verification_part_one,null);
+
+                TextView subViewTextView = (TextView) mviewPartOne.findViewById(R.id.dialog_sub_view);
+                subViewTextView.setText(signInSubTitle);
+
+                Button dialog_next_button = (Button)mviewPartOne.findViewById(R.id.dialog_next_button);
+
+                dialog_next_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        AlertDialog.Builder mBuilderPartTwo = new AlertDialog.Builder(SignIn.this);
+                        View mviewPartTwo = getLayoutInflater().inflate(R.layout.dialog_verification_part_two,null);
+                        Button textMe = (Button) mviewPartTwo.findViewById(R.id.dialog_verification_two_text_me);
+                        final EditText countryCodeEditText = (EditText)mviewPartTwo.findViewById(R.id.dialog_verification_two_country_code_edit_text);
+                        final EditText veriflyPhoneNumber = (EditText)mviewPartTwo.findViewById(R.id.dialog_verification_two_text_me_edit_text);
+                        textMe.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialogTwo.dismiss();
+                                dialogOne.dismiss();
+                                AlertDialog.Builder mBuilderPartFour = new AlertDialog.Builder(SignIn.this);
+                                View mviewPartFour = getLayoutInflater().inflate(R.layout.dialog_verfication_four,null);
+                                Button submit = (Button) mviewPartFour.findViewById(R.id.dialog_verification_four_submit);
+                                EditText codeEditTest = (EditText)mviewPartFour.findViewById(R.id.dialog_verification_four_edit_code);
+                                EditText password = (EditText)mviewPartFour.findViewById(R.id.dialog_verification_four_password);
+                                EditText confimPassword = (EditText)mviewPartFour.findViewById(R.id.dialog_verification_four_password_confirm);
+                                submit.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialogFour.dismiss();
+                                    }
+                                });
+                                mBuilderPartFour.setView(mviewPartFour);
+                                dialogFour = mBuilderPartFour.create();
+                                dialogFour.show();
+                            }
+                        });
+                        mBuilderPartTwo.setView(mviewPartTwo);
+                        dialogTwo = mBuilderPartTwo.create();
+                        dialogTwo.show();
+
+                    }
+                });
+                mBuilderPartOne.setView(mviewPartOne);
+                dialogOne = mBuilderPartOne.create();
+                dialogOne.show();
+            }
+        });
 
 
+        signInSubTitle = getResources().getString(R.string.login_in_dialog_one);
 
         static_token = "";
         static_username = "";
@@ -239,4 +303,9 @@ public class SignIn extends AppCompatActivity {
         return (networkInfo != null && networkInfo.isConnected());
     }
 
+    private void getForgotPassword(){
+
+
+
+    }
 }

@@ -86,7 +86,6 @@ public class MyProfileActivity extends AppCompatActivity {
         bioField = (EditText) findViewById(R.id.profile_bio_edit_view);
         phoneNumberEditText = (EditText)findViewById(R.id.profile_phone_edit_view);
         circularImageView = (CircularImageView) findViewById(R.id.profile_profilepicture);
-//        codePhoneNumberEditText = (EditText) findViewById(R.id.profile_code_phone_edit_view);
         nextBtn = (Button) findViewById(R.id.profile_profile_continue_button);
         nationality="";
 

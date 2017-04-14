@@ -85,7 +85,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
         bioField = (EditText) findViewById(R.id.bio_edit_view);
         circularImageView = (CircularImageView) findViewById(R.id.profilepicture);
         nextBtn = (Button) findViewById(R.id.profile_continue_button);
-        codeEditText = (EditText)findViewById(R.id.code_edit_text);
+        codeEditText = (EditText)findViewById(R.id.code_phone_edit_view);
         phoneEditText = (EditText)findViewById(R.id.phone_edit_view);
         nationality="";
 
@@ -273,7 +273,9 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     errorMessage = "Some fields are empty";
                 }else{
 
-                    params.put("phone",codeEditText.getText().toString()+phoneEditText.getText().toString());
+                    Log.d("Phone Number",codeEditText.getText().toString()+phoneEditText.getText().toString());
+                    String codePhone = codeEditText.getText().toString()+phoneEditText.getText().toString();
+                    params.put("phone",codePhone);
                     params.put("first_name",name_input);
                     MapActivity.other_user_name.setText(name_input);
                     boolean checkAgeValidation = false;
@@ -293,14 +295,14 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                             MapActivity.other_user_citizenship.setText(nationality);
                             break;
                         }else{
-                            Log.d("Profile message",errorMessage);
+                           // Log.d("Profile message",errorMessage);
                             compareCountryName = false;
                             errorMessage = "Country name in not valid";
                         }
                     }
                     int age_input = 0;
                     age_input = Integer.parseInt(ageInput.getText().toString());
-                    Log.d("Profile",age_input+"");
+                   // Log.d("Profile",age_input+"");
                     if( age_input <13 || age_input > 120){
                         checkAgeValidation = false;
 

@@ -13,13 +13,15 @@
         android:layout_width="match_parent"
         android:textSize="20sp"
         android:layout_height="wrap_content" />
+
     <TextView
-        android:padding="15dp"
-        android:gravity="center"
-        android:textSize="16sp"
-        android:text="@string/dialog_verification_part_one_sub_text"
+        android:id="@+id/dialog_sub_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="@string/dialog_verification_part_one_sub_text"
+        android:textSize="16sp" />
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="10dp"></FrameLayout>

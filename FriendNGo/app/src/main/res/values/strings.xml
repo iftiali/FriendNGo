@@ -124,7 +124,9 @@
     <string name="login_in_create_account">Create An Account</string>
     <string name="login_in_hint_password">Password</string>
     <string name="login_in_check_box">Remember me</string>
-
+    <string name="login_in_dialog_one">You will need to give us the phone number that you registered with your account so that we can verify your identity.</string>
+    <string name="sign_in_hint_password">Password</string>
+    <string name="sign_in_confirm_hint_password">Confirm Password</string>
     <!--Sign up-->
     <string name="sign_up_tittle">Create an account</string>
     <string name="sign_up_reset_email_hint">Email Address</string>
@@ -164,4 +166,14 @@
     <string name="dialog_verification_three_code_empty_message">Code number field is empty</string>
     <string name="dialog_verification_three_code_error_message">Entered code was incorrect</string>
 
+    <!--Dialog verification part-4-->
+    <string name="dialog_verification_four_tittle_text">Enter Your Code</string>
+    <string name="dialog_verification_four_text_sub_header_one">We just sent a text message to</string>
+    <string name="dialog_verification_four_text_sub_header_two">with a code for you to enter here</string>
+    <string name="dialog_verification_four_code_hint">Code</string>
+    <string name="dialog_verification_four_submit_button">Submit</string>
+    <string name="dialog_verification_four_code_empty_message">Code number field is empty</string>
+    <string name="dialog_verification_four_code_error_message">Entered code was incorrect</string>
+    <string name="dialog_verification_four_hint_password">Password</string>
+    <string name="dialog_verification_four_hint_password_confirm">Confirm Password</string>
 </resources>
