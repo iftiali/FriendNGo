@@ -61,6 +61,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
     EditText bioField;
     String pictureURL = "";
     Boolean checkValidation=true;
+    EditText codeEditText,phoneEditText;
     File downloadedImage;
     private String userChoosenTask;
     private String nationality;
@@ -84,6 +85,8 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
         bioField = (EditText) findViewById(R.id.bio_edit_view);
         circularImageView = (CircularImageView) findViewById(R.id.profilepicture);
         nextBtn = (Button) findViewById(R.id.profile_continue_button);
+        codeEditText = (EditText)findViewById(R.id.code_edit_text);
+        phoneEditText = (EditText)findViewById(R.id.phone_edit_view);
         nationality="";
 
         if(FacebookLogin.facebook_profile_pic != null) {
@@ -143,6 +146,12 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                 Log.w("Response",response.toString());
                 String langName = null;
                 try {
+                    String phoneNumber = response.getString("phone");
+                    if(phoneNumber.equals("555-555-5555")){
+                        phoneEditText.setText("");
+                    }else{
+                        phoneEditText.setText(phoneNumber);
+                    }
                     String firstNameString = response.getString("first_name");
                     if(firstNameString.equals("anonymous")) {
                         nameInput.setText("");
@@ -259,12 +268,12 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 //                if(name_input.equals("") || ageInput.getText().toString().equals("") || citizenAuto.getText().toString().equals("") ||  spokenLanguage.getText().toString() ){
 //
 //                }
-                if(name_input.equals("") || ageInput.getText().toString().equals("") || citizenAuto.getText().toString().equals("") || spokenLanguage.getText().toString().equals("") || bioField.getText().toString().equals("")){
+                if(name_input.equals("") || ageInput.getText().toString().equals("") || citizenAuto.getText().toString().equals("") || spokenLanguage.getText().toString().equals("") || bioField.getText().toString().equals("")||codeEditText.getText().toString().equals("")||phoneEditText.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_LONG).show();
                     errorMessage = "Some fields are empty";
                 }else{
 
-
+                    params.put("phone",codeEditText.getText().toString()+phoneEditText.getText().toString());
                     params.put("first_name",name_input);
                     MapActivity.other_user_name.setText(name_input);
                     boolean checkAgeValidation = false;

@@ -61,7 +61,7 @@ public class MyProfileActivity extends AppCompatActivity {
     EditText ageInput;
     boolean checkValidation = true;
     Boolean selectImageFlag=false;
-    EditText bioField;
+    EditText bioField,phoneNumberEditText;
     String pictureURL = "";
     File downloadedImage;
     private String userChoosenTask;
@@ -84,7 +84,9 @@ public class MyProfileActivity extends AppCompatActivity {
         nameInput = (EditText) findViewById(R.id.profile_name_edit_view);
         ageInput = (EditText) findViewById(R.id.profile_age_edit_view);
         bioField = (EditText) findViewById(R.id.profile_bio_edit_view);
+        phoneNumberEditText = (EditText)findViewById(R.id.profile_phone_edit_view);
         circularImageView = (CircularImageView) findViewById(R.id.profile_profilepicture);
+//        codePhoneNumberEditText = (EditText) findViewById(R.id.profile_code_phone_edit_view);
         nextBtn = (Button) findViewById(R.id.profile_profile_continue_button);
         nationality="";
 
@@ -164,6 +166,12 @@ public class MyProfileActivity extends AppCompatActivity {
                 Log.w("Response",response.toString());
                 String langName = null;
                 try {
+                    String phoneNumber = response.getString("phone");
+                    if(phoneNumber.equals("555-555-5555")){
+                        phoneNumberEditText.setText("");
+                    }else{
+                        phoneNumberEditText.setText(phoneNumber);
+                    }
                     String firstNameString = response.getString("first_name");
                     if(firstNameString.equals("anonymous")) {
                         nameInput.setText("");
@@ -211,6 +219,7 @@ public class MyProfileActivity extends AppCompatActivity {
                        // Log.w("langName",langName);
                         spokenLanguage.setText(langName);
                     }
+
 
                 } catch (JSONException e) {
                     Log.w("JSON EXCEPTION", e.getMessage());
@@ -282,12 +291,12 @@ public class MyProfileActivity extends AppCompatActivity {
 //                if(name_input.equals("") || ageInput.getText().toString().equals("") || citizenAuto.getText().toString().equals("") ||  spokenLanguage.getText().toString() ){
 //
 //                }
-                if(name_input.equals("") || ageInput.getText().toString().equals("") || citizenAuto.getText().toString().equals("") || spokenLanguage.getText().toString().equals("") || bioField.getText().toString().equals("")){
+                if(name_input.equals("") || ageInput.getText().toString().equals("") || citizenAuto.getText().toString().equals("") || spokenLanguage.getText().toString().equals("") || bioField.getText().toString().equals("")||phoneNumberEditText.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_LONG).show();
                     errorMessage = "Some fields are empty";
                 }else{
 
-
+                    params.put("phone",phoneNumberEditText.getText().toString());
                     params.put("first_name",name_input);
                     MapActivity.other_user_name.setText(name_input);
                     boolean checkAgeValidation = false;
