@@ -29,7 +29,7 @@ public class SignUp extends AppCompatActivity {
     private EditText passwordEditTextValueConfirm;
     private SharedPreferences sharedPref;
     private boolean try_once = true;
-
+    private String matchPasswordMessage = null;
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -39,7 +39,7 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-
+        matchPasswordMessage =  getResources().getString(R.string.sign_up_password_match_message);
         //Creates a code instance of the buttons and text inputs
         textView = (TextView) findViewById(R.id.account_link);
         emailEditTextValue = (EditText) findViewById(R.id.signup_email);
@@ -76,7 +76,7 @@ public class SignUp extends AppCompatActivity {
 
                         isNullCheck = true;
                     }else {
-                        Toast.makeText(getApplicationContext(),"Passwords do not match, please try again",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),matchPasswordMessage,Toast.LENGTH_LONG).show();
                         isNullCheck = false;
                     }
 

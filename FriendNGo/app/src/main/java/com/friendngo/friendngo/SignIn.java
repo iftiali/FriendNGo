@@ -38,7 +38,13 @@ public class SignIn extends AppCompatActivity {
     private EditText passwordEditTextValue;
     boolean flag = false;
     AlertDialog dialogOne;
+    private String checkOnlineToast = null;
     AlertDialog dialogTwo;
+    private String phoneNumberEmptyMessage = null;
+    private String someEmptyMessage = null;
+    private String codeErrorMessage = null;
+    private String matchPassword = null;
+    private String invalidPhoneNumber = null;
     AlertDialog dialogFour;
     String signInSubTitle= null;
     //private SharedPreferences sharedPref;
@@ -59,11 +65,19 @@ public class SignIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        //Toast message
+        invalidPhoneNumber = getResources().getString(R.string.dialog_verification_four_phone_error_message);
+        checkOnlineToast = getResources().getString(R.string.checkOnlineToast);
+        matchPassword = getResources().getString(R.string.dialog_verification_four_password_match_message);
+        codeErrorMessage = getResources().getString(R.string.dialog_verification_four_code_error_message);
+        phoneNumberEmptyMessage = getResources().getString(R.string.dialog_verification_two_phone_empty_message);
+        someEmptyMessage = getResources().getString(R.string.dialog_verification_four_empty_message);
+
         forgotLinkTextView = (TextView)findViewById(R.id.forgot_link);
         forgotLinkTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Hello",Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getApplicationContext(),"Hello",Toast.LENGTH_SHORT).show();
                 AlertDialog.Builder mBuilderPartOne = new AlertDialog.Builder(SignIn.this);
                 View mviewPartOne = getLayoutInflater().inflate(R.layout.dialog_verification_part_one,null);
 
@@ -84,23 +98,12 @@ public class SignIn extends AppCompatActivity {
                         textMe.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                dialogTwo.dismiss();
-                                dialogOne.dismiss();
-                                AlertDialog.Builder mBuilderPartFour = new AlertDialog.Builder(SignIn.this);
-                                View mviewPartFour = getLayoutInflater().inflate(R.layout.dialog_verfication_four,null);
-                                Button submit = (Button) mviewPartFour.findViewById(R.id.dialog_verification_four_submit);
-                                EditText codeEditTest = (EditText)mviewPartFour.findViewById(R.id.dialog_verification_four_edit_code);
-                                EditText password = (EditText)mviewPartFour.findViewById(R.id.dialog_verification_four_password);
-                                EditText confimPassword = (EditText)mviewPartFour.findViewById(R.id.dialog_verification_four_password_confirm);
-                                submit.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        dialogFour.dismiss();
-                                    }
-                                });
-                                mBuilderPartFour.setView(mviewPartFour);
-                                dialogFour = mBuilderPartFour.create();
-                                dialogFour.show();
+                               String verificationPhoneNumber = countryCodeEditText.getText().toString() + veriflyPhoneNumber.getText().toString();
+                                if(countryCodeEditText.getText().toString().equals("")||veriflyPhoneNumber.getText().toString().equals("")){
+                                    Toast.makeText(getApplicationContext(),phoneNumberEmptyMessage,Toast.LENGTH_LONG).show();
+                                 }else {
+                                    getPasswordResetCode(verificationPhoneNumber);
+                                }
                             }
                         });
                         mBuilderPartTwo.setView(mviewPartTwo);
@@ -303,9 +306,135 @@ public class SignIn extends AppCompatActivity {
         return (networkInfo != null && networkInfo.isConnected());
     }
 
-    private void getForgotPassword(){
+    private void getPasswordResetCode(final String verificationPhoneNumber){
 
+        if(ValidationClass.checkOnline(getApplicationContext())) {
+            AsyncHttpClient client = new AsyncHttpClient();
+//            if (SignIn.static_token != null) {
+//                client.addHeader("Authorization", "Token " + SignIn.static_token);
+//            }
 
+            RequestParams params = new RequestParams();
+            params.setUseJsonStreamer(true);
+            params.put("phone",verificationPhoneNumber);
+            client.post(MainActivity.base_host_url + "api/getPasswordResetCode/", params, new JsonHttpResponseHandler() {
 
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    Log.w("POST RESET CODE", statusCode + ": " + "Response = " + response.toString());
+
+                     AlertDialog.Builder mBuilderPartFour = new AlertDialog.Builder(SignIn.this);
+                     View mviewPartFour = getLayoutInflater().inflate(R.layout.dialog_verfication_four,null);
+                     Button submit = (Button) mviewPartFour.findViewById(R.id.dialog_verification_four_submit);
+                     final EditText codeEditTest = (EditText)mviewPartFour.findViewById(R.id.dialog_verification_four_edit_code);
+                     final EditText password = (EditText)mviewPartFour.findViewById(R.id.dialog_verification_four_password);
+                     final EditText confimPassword = (EditText)mviewPartFour.findViewById(R.id.dialog_verification_four_password_confirm);
+                     submit.setOnClickListener(new View.OnClickListener() {
+                      @Override
+                      public void onClick(View v) {
+                      if(codeEditTest.getText().toString().equals("")||password.getText().toString().equals("")||confimPassword.getText().toString().equals("")) {
+                      Toast.makeText(getApplicationContext(), someEmptyMessage, Toast.LENGTH_SHORT).show();
+                          }else
+                              {
+                                if (password.getText().toString().equals(confimPassword.getText().toString())) {
+                                                twilioResetPassword(codeEditTest.getText().toString(),password.getText().toString());
+                                  } else {
+                                          Toast.makeText(getApplicationContext(), matchPassword, Toast.LENGTH_SHORT).show();
+                                          }
+                                        }
+                                   }
+                                });
+                                mBuilderPartFour.setView(mviewPartFour);
+                                dialogFour = mBuilderPartFour.create();
+                                dialogFour.show();
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                    Log.w("POST RESET CODE2", statusCode + ": " + timeline.toString());
+                    //  NewWhoAreYouActivity.this.finish();
+                }
+
+                @Override
+                public void onRetry(int retryNo) {
+                    // called when request is retried
+                    Log.w("POST RESET CODE", "" + retryNo);
+                }
+
+                @Override
+                public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                    Log.w("POST RESET CODE", "Error Code: " + error_code + "," + text);
+                    if (error_code == 401 ){
+                        Toast.makeText(getApplicationContext(),invalidPhoneNumber,Toast.LENGTH_LONG).show();
+                        }
+                }
+
+                @Override
+                public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
+                    Log.w("POST RESET CODE", "Error Code: " + error_code + ",  " + json.toString());
+                    if (error_code == 401){
+                        Toast.makeText(getApplicationContext(),invalidPhoneNumber,Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }else{
+            Toast.makeText(getApplicationContext(),checkOnlineToast,Toast.LENGTH_LONG).show();
+
+        }
+    }
+    private void twilioResetPassword(String code,String password){
+        if(ValidationClass.checkOnline(getApplicationContext())) {
+            AsyncHttpClient client = new AsyncHttpClient();
+//            if (SignIn.static_token != null) {
+//                client.addHeader("Authorization", "Token " + SignIn.static_token);
+//            }
+
+            RequestParams params = new RequestParams();
+            params.setUseJsonStreamer(true);
+            params.put("generated_code",code);
+            params.put("new_password",password);
+            client.post(MainActivity.base_host_url + "api/twilioResetPassword/", params, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    Log.w("POST RESET PASSWORD", statusCode + ": " + "Response = " + response.toString());
+
+                    dialogTwo.dismiss();
+                    dialogOne.dismiss();
+                    dialogFour.dismiss();
+                }
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                    Log.w("POST RESET PASSWORD", statusCode + ": " + timeline.toString());
+                    //  NewWhoAreYouActivity.this.finish();
+                }
+
+                @Override
+                public void onRetry(int retryNo) {
+                    // called when request is retried
+                    Log.w("POST RESET PASSWORD", "" + retryNo);
+                }
+
+                @Override
+                public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                    Log.w("POST RESET PASSWORD", "Error Code: " + error_code + "," + text);
+                    if(error_code == 400){
+                        Toast.makeText(getApplicationContext(),codeErrorMessage,Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
+                    Log.w("POST RESET PASSWORD", "Error Code: " + error_code + ",  " + json.toString());
+                    if(error_code == 400){
+                        Toast.makeText(getApplicationContext(),codeErrorMessage,Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }else{
+            Toast.makeText(getApplicationContext(),checkOnlineToast,Toast.LENGTH_LONG).show();
+
+        }
     }
 }

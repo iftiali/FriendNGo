@@ -136,7 +136,7 @@
     <string name="sign_up_account"> account</string>
     <string name="sign_up_i_have_already">I already have an </string>
     <string name="email_reset_field_Toast">Email field is empty</string>
-
+    <string name="sign_up_password_match_message">Passwords do not match, please try again</string>
     <!--Forgot Password-->
     <string name="title_activity_reset">Forgot Password</string>
 
@@ -147,7 +147,6 @@
     <!--Dialog verification part-1-->
     <string name="dialog_verification_part_one_sub_text">You will need to verify your phone number to create a public activity. This helps us confirm your identify and secure your account.</string>
     <string name="dialog_verification_part_one_tittle_text">Hello</string>
-
     <string name="dialog_verification_next_button">NEXT</string>
 
     <!--Dialog verification part-2-->
@@ -172,8 +171,11 @@
     <string name="dialog_verification_four_text_sub_header_two">with a code for you to enter here</string>
     <string name="dialog_verification_four_code_hint">Code</string>
     <string name="dialog_verification_four_submit_button">Submit</string>
-    <string name="dialog_verification_four_code_empty_message">Code number field is empty</string>
+    <string name="dialog_verification_four_empty_message">Some field are empty</string>
     <string name="dialog_verification_four_code_error_message">Entered code was incorrect</string>
+    <string name="dialog_verification_four_phone_error_message">Invalid phone number</string>
     <string name="dialog_verification_four_hint_password">Password</string>
     <string name="dialog_verification_four_hint_password_confirm">Confirm Password</string>
+    <string name="dialog_verification_four_password_match_message">Passwords do not match, please try again</string>
+
 </resources>
