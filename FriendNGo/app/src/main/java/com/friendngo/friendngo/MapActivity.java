@@ -201,11 +201,11 @@ public class MapActivity extends AppCompatActivity
                                 //Toast.makeText(getApplicationContext(), "Settings Not Available in Beta", Toast.LENGTH_LONG).show();
                                 //Intent seeSeeting = new Intent(getApplicationContext(), ReportIssue.class);
                                 //startActivity(seeSeeting);
-                              //  SettingFragment settingFragment = new SettingFragment();
-                               // manager = getSupportFragmentManager();
-                               // manager.beginTransaction().replace(R.id.fragmentView,settingFragment,settingFragment.getTag()).commit();
-                                Intent seeSeeting = new Intent(getApplicationContext(), PointsHistoryActivity.class);
-                                startActivity(seeSeeting);
+                                SettingFragment settingFragment = new SettingFragment();
+                                manager = getSupportFragmentManager();
+                                manager.beginTransaction().replace(R.id.fragmentView,settingFragment,settingFragment.getTag()).commit();
+//                                Intent seeSeeting = new Intent(getApplicationContext(), PointsHistoryActivity.class);
+//                                startActivity(seeSeeting);
 
                                 break;
                             default:

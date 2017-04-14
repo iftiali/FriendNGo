@@ -150,6 +150,10 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     if(phoneNumber.equals("555-555-5555")){
                         phoneEditText.setText("");
                     }else{
+                        MainActivity.new_user = false;
+                        Intent intent = new Intent(NewWhoAreYouActivity.this,MapActivity.class);
+                        NewWhoAreYouActivity.this.startActivity(intent);
+                        NewWhoAreYouActivity.this.finish();
                         phoneEditText.setText(phoneNumber);
                     }
                     String firstNameString = response.getString("first_name");

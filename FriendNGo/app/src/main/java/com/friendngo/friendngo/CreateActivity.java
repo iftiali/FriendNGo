@@ -504,7 +504,7 @@ public class CreateActivity extends AppCompatActivity implements GoogleApiClient
                                         });
                                         CreateActivity.this.finish();
                                     }else{
-                                        Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_LONG).show();
+                                        //Toast.makeText(getApplicationContext(), "Hello", Toast.LENGTH_LONG).show();
                                         AlertDialog.Builder mBuilder = new AlertDialog.Builder(CreateActivity.this);
                                         View mview = getLayoutInflater().inflate(R.layout.dialog_verification_part_one,null);
                                         Button nextButton = (Button) mview.findViewById(R.id.dialog_next_button);

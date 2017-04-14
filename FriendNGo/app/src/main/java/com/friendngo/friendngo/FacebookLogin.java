@@ -93,6 +93,7 @@ public class FacebookLogin extends AppCompatActivity {
 
         if(emailToken == null)
         {
+
             Log.d("First time","First time");
         }else {
 
@@ -102,6 +103,7 @@ public class FacebookLogin extends AppCompatActivity {
             FacebookLogin.this.startActivity(mainIntent);
             FacebookLogin.this.finish();
         }
+
         //If the user is logged in then go straight to the New City Activity
         if (isLoggedIn()) {
 
@@ -144,13 +146,14 @@ public class FacebookLogin extends AppCompatActivity {
                     Log.w("FACEBOOK LOGIN", "Success! Token: " + loginResult.getAccessToken().getToken());
                     AsyncHttpClient client = new AsyncHttpClient();
                     RequestParams params = new RequestParams();
-
+                    MainActivity.new_user = true;
                     params.put("access_token", loginResult.getAccessToken().getToken());
                     client.post(MainActivity.base_host_url + "api/exchange_token/facebook/", params, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             Log.w("SOCIAL SIGN UP SUCCESS", statusCode + ": " + "Response = " + response.toString());
                             try {
+
                                 SignIn.static_token = response.get("token").toString();
                                 Log.w("TOKEN SUCCESS2: ", SignIn.static_token);
                                 //TODO: pasre is_created or is_new key

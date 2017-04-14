@@ -83,6 +83,9 @@ public class ActivityDetails extends AppCompatActivity {
                         Log.w("POST AR SUCCESS", statusCode + ": " + "Response = " + response.toString());
                         try{
                             Log.w("POST AR SUCCESS2", response.getString("status"));
+                            sendRequestButton.setBackgroundResource(R.drawable.submit_button_grey);
+                            sendRequestButton.setEnabled(false);
+                            sendRequestButton.setText("Request sent");
                         }catch (JSONException e){
                             Log.w("POST AR FAIL",e.getMessage().toString());
                         }
@@ -122,6 +125,14 @@ public class ActivityDetails extends AppCompatActivity {
         if(MapActivity.userID == activity.getcreator_PK()){
             sendRequestButton.setBackgroundResource(R.drawable.submit_button_grey);
             sendRequestButton.setEnabled(false);
+        }
+        if(activity.getRequest_state()== 0 || activity.getRequest_state() == 1 || activity.getRequest_state() == 2){
+            sendRequestButton.setBackgroundResource(R.drawable.submit_button_grey);
+            sendRequestButton.setEnabled(false);
+            sendRequestButton.setText("Request sent");
+        }else{
+            sendRequestButton.setBackgroundResource(R.drawable.submit_button);
+            sendRequestButton.setEnabled(true);
         }
         //GET The image file at the pictureURL
         AsyncHttpClient client = new AsyncHttpClient();

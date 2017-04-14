@@ -155,15 +155,15 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback, Goo
             activityDetailsButton.setEnabled(true);
             participateButton.setEnabled(true);
 
+            final UserActivity act = (UserActivity) MapActivity.activitiesList.get(i);
             final int j = i;
             participateButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    postApiParticipate(j);
+                    postApiParticipate((int) act.getActivity_pk());
                 }
             });
-            final UserActivity act = (UserActivity) MapActivity.activitiesList.get(i);
 
             activityDetailsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -183,6 +183,13 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback, Goo
                 }
             });
             if(MapActivity.userID == act.getcreator_PK()){
+                participateButton.setBackgroundResource(R.drawable.activity_markup_participate_button_grey);
+                participateButton.setEnabled(false);
+            }else{
+                participateButton.setBackgroundResource(R.drawable.activity_markup_participate_button);
+                participateButton.setEnabled(true);
+            }
+            if(act.getRequest_state()== 0 || act.getRequest_state() == 1 || act.getRequest_state() == 2){
                 participateButton.setBackgroundResource(R.drawable.activity_markup_participate_button_grey);
                 participateButton.setEnabled(false);
             }else{
@@ -399,7 +406,8 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback, Goo
         AsyncHttpClient client = new AsyncHttpClient();
                     if(SignIn.static_token != null) {
                         client.addHeader("Authorization","Token "+SignIn.static_token);
-                    }RequestParams params = new RequestParams();
+                    }
+                    RequestParams params = new RequestParams();
                     params.put("activity_id",j);
                     params.put("request_state",0);
                     client.post(MainActivity.base_host_url + "api/postActivityRequest/",params, new JsonHttpResponseHandler() {
@@ -411,6 +419,9 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback, Goo
                             Log.w("POST AR SUCCESS", statusCode + ": " + "Response = " + response.toString());
                             try{
                                 Log.w("POST AR SUCCESS2", response.getString("status"));
+                                Toast.makeText(getApplicationContext(),"Reset to participant sent",Toast.LENGTH_SHORT).show();
+                                participateButton.setBackgroundResource(R.drawable.activity_markup_participate_button_grey);
+                                participateButton.setEnabled(false);
                             }catch (JSONException e){
                                 Log.w("POST AR FAIL",e.getMessage().toString());
                             }
