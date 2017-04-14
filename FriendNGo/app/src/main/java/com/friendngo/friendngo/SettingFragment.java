@@ -2,6 +2,7 @@ package com.friendngo.friendngo;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -49,7 +50,9 @@ public class SettingFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
-
+        //to navigate it to Point history.
+        Intent intent= new Intent(getApplicationContext(), PointsHistoryActivity.class);
+        startActivity(intent);
         //Init xml
         initXmlView(view);
         checkOnlineToast = getResources().getString(R.string.checkOnlineToast);
