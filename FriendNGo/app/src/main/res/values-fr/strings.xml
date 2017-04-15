@@ -97,21 +97,18 @@
     <string name="ready_text3">Remember that you can always change your preferences on your profile and in the settings.</string>
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
 
-    <!--Reset Password-->
-    <string name="title_activity_reset">FForgot Password</string>
-    <string name="reset_email_hint">FEmail Address</string>
-    <string name="email_reset_field_Toast">FEmail field is empty</string>
+
 
     <!-- Strings related to login -->
-    <string name="prompt_email">FEmail</string>
-    <string name="prompt_password">FPassword (optional)</string>
-    <string name="action_sign_in">FSign in or register</string>
-    <string name="action_sign_in_short">FSign in</string>
-    <string name="error_invalid_email">FThis email address is invalid</string>
-    <string name="error_invalid_password">FThis password is too short</string>
-    <string name="error_incorrect_password">FThis password is incorrect</string>
-    <string name="error_field_required">FThis field is required</string>
-    <string name="permission_rationale">"FContacts permissions are needed for providing email
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
 
@@ -127,8 +124,11 @@
     <string name="login_in_create_account">Créer un compte</string>
     <string name="login_in_hint_password">Mot de passe</string>
     <string name="login_in_check_box">Souviens-toi de moi</string>
+    <string name="login_in_dialog_one">You will need to give us the phone number that you registered with your account so that we can verify your identity.</string>
+    <string name="sign_in_hint_password">Mot de passe</string>
+    <string name="sign_in_confirm_hint_password">Confirmez le mot de passe</string>
 
-    <!--Create an account-->
+    <!--Sign up-->
     <string name="sign_up_tittle">Créer un compte</string>
     <string name="sign_up_reset_email_hint">Adresse email</string>
     <string name="sign_up_hint_password">Mot de passe</string>
@@ -136,6 +136,44 @@
     <string name="sign_up_submit">S\'inscrire</string>
     <string name="sign_up_account"> compte</string>
     <string name="sign_up_i_have_already">J\'ai déjà un</string>
+    <string name="sign_up_password_match_message">Passwords do not match, please try again</string>
+    <string name="email_reset_field_Toast">Email field is empty</string>
+    <!--Map-->
+    <string name="tittle_map">FriendNGo</string>
+
+    <!--Dialog verification part-1-->
+    <string name="dialog_verification_part_one_sub_text">You will need to verify your phone number to create a public activity. This helps us confirm your identify and secure your account.</string>
+    <string name="dialog_verification_part_one_tittle_text">Hello</string>
+    <string name="dialog_verification_next_button">NEXT</string>
+
+    <!--Dialog verification part-2-->
+    <string name="dialog_verification_two_tittle_text">Enter Phone Number</string>
+    <string name="dialog_verification_two_text_me_button">Text Me</string>
+    <string name="dialog_verification_two_text_sub_header">We will send you a one-time verification code</string>
+    <string name="dialog_verification_two_phone_number_hint">Phone Number</string>
+    <string name="dialog_verification_two_phone_empty_message">Some number field is empty</string>
+
+    <!--Dialog verification part-3-->
+    <string name="dialog_verification_three_tittle_text">Enter Your Code</string>
+    <string name="dialog_verification_three_text_sub_header_one">We just sent a text message to</string>
+    <string name="dialog_verification_three_text_sub_header_two">with a code for you to enter here</string>
+    <string name="dialog_verification_three_code_hint">Code</string>
+    <string name="dialog_verification_three_submit_button">Submit</string>
+    <string name="dialog_verification_three_code_empty_message">Code number field is empty</string>
+    <string name="dialog_verification_three_code_error_message">Entered code was incorrect</string>
+
+    <!--Dialog verification part-4-->
+    <string name="dialog_verification_four_tittle_text">Enter Your Code</string>
+    <string name="dialog_verification_four_text_sub_header_one">We just sent a text message to</string>
+    <string name="dialog_verification_four_text_sub_header_two">with a code for you to enter here</string>
+    <string name="dialog_verification_four_code_hint">Code</string>
+    <string name="dialog_verification_four_submit_button">Submit</string>
+    <string name="dialog_verification_four_empty_message">Some field are empty</string>
+    <string name="dialog_verification_four_code_error_message">Entered code was incorrect</string>
+    <string name="dialog_verification_four_phone_error_message">Invalid phone number</string>
+    <string name="dialog_verification_four_hint_password">Password</string>
+    <string name="dialog_verification_four_hint_password_confirm">Confirm Password</string>
+    <string name="dialog_verification_four_password_match_message">Passwords do not match, please try again</string>
 
 
 </resources>

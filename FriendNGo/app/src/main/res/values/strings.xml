@@ -137,12 +137,10 @@
     <string name="sign_up_i_have_already">I already have an </string>
     <string name="email_reset_field_Toast">Email field is empty</string>
     <string name="sign_up_password_match_message">Passwords do not match, please try again</string>
-    <!--Forgot Password-->
-    <string name="title_activity_reset">Forgot Password</string>
 
     <!--Map-->
     <string name="tittle_map">FriendNGo</string>
-    <!--<string name="email_reset_field_Toast">Email field is empty</string>-->
+
 
     <!--Dialog verification part-1-->
     <string name="dialog_verification_part_one_sub_text">You will need to verify your phone number to create a public activity. This helps us confirm your identify and secure your account.</string>
