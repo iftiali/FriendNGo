@@ -34,6 +34,7 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
         TextView years;
         TextView homeCity;
         ImageView nationality;
+        TextView request_point;
         TextView points;
         TextView resident;
         CircularImageView notImageButton,yesImageButton;
@@ -71,6 +72,7 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
             convertView = inflater.inflate(R.layout.activity_request_list_row_item, parent, false);
             viewHolder.profilePicture = (CircularImageView) convertView.findViewById(R.id.messages_profile_picture);
             viewHolder.name = (TextView) convertView.findViewById(R.id.request_person_name);
+            viewHolder.request_point = (TextView)convertView.findViewById(R.id.request_point);
             viewHolder.homeCity = (TextView) convertView.findViewById(R.id.reqiest_city_name);
             viewHolder.years = (TextView)convertView.findViewById(R.id.request_years);
             viewHolder.nationality = (ImageView) convertView.findViewById(R.id.request_flag);
@@ -97,7 +99,7 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
 
         viewHolder.notImageButton.setImageResource(R.drawable.not);
         viewHolder.yesImageButton.setImageResource(R.drawable.yes);
-
+        viewHolder.request_point.setText(dataModel.getPoints()+"pts");
         viewHolder.name.setText(dataModel.getName()+",");
         viewHolder.name.setTextColor(Color.GRAY);
         viewHolder.years.setText(dataModel.getYear()+" y-o");

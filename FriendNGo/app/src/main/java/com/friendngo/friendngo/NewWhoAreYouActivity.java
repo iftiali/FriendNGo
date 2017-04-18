@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -269,9 +270,83 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 
                 String name_input = nameInput.getText().toString();
 
-//                if(name_input.equals("") || ageInput.getText().toString().equals("") || citizenAuto.getText().toString().equals("") ||  spokenLanguage.getText().toString() ){
-//
-//                }
+                if(name_input.equals("")){
+                    GradientDrawable gd = new GradientDrawable();
+                    gd.setCornerRadius(10);
+                    gd.setStroke(2, Color.rgb(255,117,0));
+                    nameInput.setBackground(gd);
+                } else {
+                    GradientDrawable gd = new GradientDrawable();
+                    gd.setCornerRadius(10);
+                    gd.setStroke(2, Color.rgb(255, 255, 255));
+                    nameInput.setBackground(gd);
+                }
+                if(ageInput.getText().toString().equals("")){
+                    GradientDrawable gd = new GradientDrawable();
+                    gd.setCornerRadius(10);
+                    gd.setStroke(2, Color.rgb(255,117,0));
+                    ageInput.setBackground(gd);
+                } else {
+                    GradientDrawable gd = new GradientDrawable();
+                    gd.setCornerRadius(10);
+                    gd.setStroke(2, Color.rgb(255, 255, 255));
+                    ageInput.setBackground(gd);
+                }
+                if(citizenAuto.getText().toString().equals("")){
+                    GradientDrawable gd = new GradientDrawable();
+                    gd.setCornerRadius(10);
+                    gd.setStroke(2, Color.rgb(255,117,0));
+                    citizenAuto.setBackground(gd);
+                } else {
+                    GradientDrawable gd = new GradientDrawable();
+                    gd.setCornerRadius(10);
+                    gd.setStroke(2, Color.rgb(255, 255, 255));
+                    citizenAuto.setBackground(gd);
+                }
+                if(spokenLanguage.getText().toString().equals("")){
+                    GradientDrawable gd = new GradientDrawable();
+                    gd.setCornerRadius(10);
+                    gd.setStroke(2, Color.rgb(255,117,0));
+                    spokenLanguage.setBackground(gd);
+                } else {
+                    GradientDrawable gd = new GradientDrawable();
+                    gd.setCornerRadius(10);
+                    gd.setStroke(2, Color.rgb(255, 255, 255));
+                    spokenLanguage.setBackground(gd);
+                }
+                if(bioField.getText().toString().equals("")){
+                    GradientDrawable gd = new GradientDrawable();
+                    gd.setCornerRadius(10);
+                    gd.setStroke(2, Color.rgb(255,117,0));
+                    bioField.setBackground(gd);
+                } else {
+                    GradientDrawable gd = new GradientDrawable();
+                    gd.setCornerRadius(10);
+                    gd.setStroke(2, Color.rgb(255, 255, 255));
+                    bioField.setBackground(gd);
+                }
+                if(phoneEditText.getText().toString().equals("")){
+                    GradientDrawable gd = new GradientDrawable();
+                    gd.setCornerRadius(10);
+                    gd.setStroke(2, Color.rgb(255,117,0));
+                    phoneEditText.setBackground(gd);
+                } else {
+                    GradientDrawable gd = new GradientDrawable();
+                    gd.setCornerRadius(10);
+                    gd.setStroke(2, Color.rgb(255, 255, 255));
+                    phoneEditText.setBackground(gd);
+                }
+                if(codeEditText.getText().toString().equals("")){
+                    GradientDrawable gd = new GradientDrawable();
+                    gd.setCornerRadius(10);
+                    gd.setStroke(2, Color.rgb(255,117,0));
+                    codeEditText.setBackground(gd);
+                } else {
+                    GradientDrawable gd = new GradientDrawable();
+                    gd.setCornerRadius(10);
+                    gd.setStroke(2, Color.rgb(255, 255, 255));
+                    codeEditText.setBackground(gd);
+                }
                 if(name_input.equals("") || ageInput.getText().toString().equals("") || citizenAuto.getText().toString().equals("") || spokenLanguage.getText().toString().equals("") || bioField.getText().toString().equals("")||codeEditText.getText().toString().equals("")||phoneEditText.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_LONG).show();
                     errorMessage = "Some fields are empty";

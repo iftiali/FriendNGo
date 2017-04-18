@@ -179,7 +179,7 @@ public class MapActivity extends AppCompatActivity
                                 break;
                             case R.id.calendar_icon:
                               //  Log.w("BOTTOM NAV","Calendar Icon Pressed");
-                                Toast.makeText(getApplicationContext(), "Calarndar Not Available in Beta", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Calendar Not Available in Beta", Toast.LENGTH_LONG).show();
                                 break;
                             case R.id.notification_icon:
                                 //Log.w("BOTTOM NAV","Notifications Icon Pressed");
@@ -363,7 +363,7 @@ public class MapActivity extends AppCompatActivity
 
             @Override
             public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
-                Log.w("GET identity FAIL", "Error Code: " + error_code + ",  " + json.toString());
+                Log.w("GET identity FAIL", "Error Code: " + error_code + ",  " + json);
             }
         });
     }

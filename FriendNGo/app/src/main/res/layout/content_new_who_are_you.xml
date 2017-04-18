@@ -36,32 +36,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:hint="Name"
-
+                android:paddingRight="15dp"
                 android:ems="10"
+                android:drawableRight="@android:drawable/ic_menu_edit"
                 android:paddingLeft="15dp"
                 android:background="@color/white"
                 android:layout_marginTop="3dp"
                 android:id="@+id/name_edit_view"
                 android:layout_alignParentTop="true"
                 />
-            <ImageView
-                android:id="@+id/name_crayon"
-                app:srcCompat="@drawable/crayon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:layout_alignBottom="@id/name_edit_view"
-                android:layout_alignTop="@id/name_edit_view"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                />
+            <!--<ImageView-->
+                <!--android:id="@+id/name_crayon"-->
+                <!--app:srcCompat="@drawable/crayon"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@android:color/white"-->
+                <!--android:layout_alignBottom="@id/name_edit_view"-->
+                <!--android:layout_alignTop="@id/name_edit_view"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--/>-->
 
             <AutoCompleteTextView
-
+                android:paddingRight="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:paddingLeft="15dp"
                 android:hint="Citizenship"
+                android:drawableRight="@android:drawable/ic_menu_edit"
                 android:layout_below="@+id/name_edit_view"
                 android:background="@color/white"
                 android:layout_marginTop="3dp"
@@ -70,44 +72,47 @@
                 android:layout_alignParentEnd="true" />
 
             <MultiAutoCompleteTextView
-
+                android:paddingRight="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:hint="Spoken languages"
                 android:paddingLeft="15dp"
+                android:drawableRight="@android:drawable/ic_menu_edit"
                 android:id="@+id/language_spinner"
                 android:background="@color/white"
                 android:layout_marginTop="3dp"
                 android:layout_below="@+id/citizen_spinner"
                 />
-            <ImageView
-                android:id="@+id/citizen_next_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/crayon"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/citizen_spinner"
-                android:layout_alignBottom="@+id/citizen_spinner"
-                android:background="@android:color/white" />
+            <!--<ImageView-->
+                <!--android:id="@+id/citizen_next_image"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:srcCompat="@drawable/crayon"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignTop="@+id/citizen_spinner"-->
+                <!--android:layout_alignBottom="@+id/citizen_spinner"-->
+                <!--android:background="@android:color/white" />-->
 
-            <ImageView
-                android:id="@+id/languages_next_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/crayon"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/language_spinner"
-                android:layout_alignBottom="@+id/language_spinner"
-                android:background="@android:color/white" />
+            <!--<ImageView-->
+                <!--android:id="@+id/languages_next_image"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:srcCompat="@drawable/crayon"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignTop="@+id/language_spinner"-->
+                <!--android:layout_alignBottom="@+id/language_spinner"-->
+                <!--android:background="@android:color/white" />-->
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:hint="Age"
                 android:inputType="number"
+                android:paddingRight="15dp"
                 android:ems="10"
+                android:drawableRight="@android:drawable/ic_menu_edit"
                 android:paddingLeft="15dp"
                 android:background="@color/white"
                 android:layout_marginTop="3dp"
@@ -116,16 +121,16 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/crayon"
-                android:id="@+id/age_crayon"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/age_edit_view"
-                android:layout_alignBottom="@+id/age_edit_view"
-                android:background="@android:color/white" />
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:srcCompat="@drawable/crayon"-->
+                <!--android:id="@+id/age_crayon"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignTop="@+id/age_edit_view"-->
+                <!--android:layout_alignBottom="@+id/age_edit_view"-->
+                <!--android:background="@android:color/white" />-->
 
             <EditText
                 android:layout_width="match_parent"
@@ -134,7 +139,9 @@
                 android:ems="10"
                 android:hint="Bio"
                 android:lines="3"
+                android:drawableRight="@android:drawable/ic_menu_edit"
                 android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:layout_marginTop="3dp"
                 android:background="@color/white"
                 android:id="@+id/bio_edit_view"
@@ -144,16 +151,16 @@
                 android:layout_toLeftOf="@+id/languages_next_image"
                 android:maxLines="10" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/crayon"
-                android:id="@+id/imageView"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignBottom="@id/bio_edit_view"
-                android:layout_alignTop="@+id/bio_edit_view"
-                android:background="@android:color/white" />
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:srcCompat="@drawable/crayon"-->
+                <!--android:id="@+id/imageView"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignBottom="@id/bio_edit_view"-->
+                <!--android:layout_alignTop="@+id/bio_edit_view"-->
+                <!--android:background="@android:color/white" />-->
 
 
                 <EditText
@@ -177,8 +184,10 @@
                     android:hint="Phone"
                     android:maxLength="10"
                     android:ems="10"
+                    android:drawableRight="@android:drawable/ic_menu_edit"
                     android:paddingLeft="15dp"
                     android:inputType="number"
+                    android:paddingRight="15dp"
                     android:layout_marginLeft="55dp"
                     android:layout_below="@+id/bio_edit_view"
                     android:background="@color/white"
