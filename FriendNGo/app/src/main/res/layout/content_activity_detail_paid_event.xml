@@ -122,7 +122,7 @@
 
                     <TextView
                         android:id="@+id/activity_detail_paid_description_heading"
-                        android:text="Description"
+                        android:text="@string/event_details_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
@@ -154,7 +154,7 @@
 
                     <TextView
                         android:id="@+id/activity_detail_paid_place_heading"
-                        android:text="Place"
+                        android:text="@string/event_details_place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#343B59"
@@ -185,7 +185,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:text="Participants"
+                        android:text="@string/event_details_participants"
                         android:layout_centerHorizontal="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -205,7 +205,7 @@
                 </RelativeLayout>
             </FrameLayout>
             <Button
-                android:text="Participate"
+                android:text="@string/event_details_request_to_join_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/send_request_button_paid_event"

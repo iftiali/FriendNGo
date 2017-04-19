@@ -219,6 +219,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         Log.w("GET PROFILE JSON FAIL", e.getMessage().toString());
                     }
+
                     Picasso.with(getApplicationContext())
                             .load(MainActivity.base_host_url + pictureURL)
                             .into(circularImageView);
@@ -241,6 +242,9 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 //                            Log.w("GET IMAGE FAIL", "Could not retrieve image");
 //                        }
 //                    });
+                }else{
+                    Log.d("HELLO","HELLO");
+                    circularImageView.setImageURI(FacebookLogin.facebook_profile_pic);
                 }
             }
 

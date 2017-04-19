@@ -17,31 +17,33 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-                <TextView
-                    android:text="Create a new activity"
-                    android:textSize="20sp"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/request_text_view"
+                android:layout_height="wrap_content">
 
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"/>
                 <TextView
-                    android:text="Cancel"
-                    android:textSize="20sp"
-                    android:textColor="#FFFFFF"
+                    android:id="@+id/request_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/create_activity_title"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
                     android:id="@+id/cancel__text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:text="@string/create_activity_cancel"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 

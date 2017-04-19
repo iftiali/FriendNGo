@@ -195,6 +195,13 @@
                     android:id="@+id/phone_edit_view"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/who_are_you_message"
+                android:gravity="center"
+                android:textSize="8dp"
+                android:layout_below="@+id/phone_edit_view"/>
         </RelativeLayout>
 
       </RelativeLayout>

@@ -30,7 +30,6 @@
 
                 <RelativeLayout
                     android:id="@+id/activity_detail_free_event"
-
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -87,7 +86,7 @@
 
                     <TextView
                         android:id="@+id/created_by_text"
-                        android:text="Created by"
+                        android:text="@string/activity_details_created_by"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/activity_detail_name"
@@ -97,37 +96,38 @@
                     <TextView
                         android:id="@+id/activity_detail_creator_status"
                         android:text="Student, "
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
                         android:layout_below="@+id/activity_detail_creator_name"
-                        android:layout_alignLeft="@+id/activity_detail_name"
-                        android:layout_alignStart="@+id/activity_detail_name" />
-
-                    <TextView
-                        android:id="@+id/activity_detail_creator_home"
-                        android:text="New York"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/activity_detail_creator_status"
-                        android:layout_alignTop="@id/activity_detail_creator_status"
+                        android:gravity="center_horizontal"
                         />
 
-                    <TextView
-                        android:id="@+id/activity_detail_dot"
-                        android:text=" · "
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/activity_detail_creator_home"
-                        android:layout_alignTop="@id/activity_detail_creator_home"
-                        />
+                    <!--<TextView-->
+                        <!--android:id="@+id/activity_detail_creator_home"-->
+                        <!--android:text="New York"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_toRightOf="@id/activity_detail_creator_status"-->
+                        <!--android:layout_alignTop="@id/activity_detail_creator_status"-->
+                        <!--/>-->
 
-                    <ImageView
-                        app:srcCompat="@drawable/uk"
-                        android:id="@+id/activity_detail_creator_flag"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:layout_toRightOf="@id/activity_detail_dot"
-                        android:layout_alignTop="@id/activity_detail_dot" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/activity_detail_dot"-->
+                        <!--android:text=" · "-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_toRightOf="@id/activity_detail_creator_home"-->
+                        <!--android:layout_alignTop="@id/activity_detail_creator_home"-->
+                        <!--/>-->
+
+                    <!--<ImageView-->
+                        <!--app:srcCompat="@drawable/uk"-->
+                        <!--android:id="@+id/activity_detail_creator_flag"-->
+                        <!--android:layout_width="16dp"-->
+                        <!--android:layout_height="16dp"-->
+                        <!--android:layout_toRightOf="@id/activity_detail_dot"-->
+                        <!--android:layout_alignTop="@id/activity_detail_dot" />-->
 
                     <TextView
                         android:id="@+id/activity_detail_date"
@@ -136,7 +136,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/activity_detail_creator_status"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="3dp"
                         android:textStyle="normal|bold" />
 
                     <TextView
@@ -144,6 +144,7 @@
                         android:text="7:30 PM - 23:30PM"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
                         android:layout_below="@+id/activity_detail_date"
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="10dp" />
@@ -198,7 +199,7 @@
 
                     <TextView
                         android:id="@+id/activity_detail_description_heading"
-                        android:text="Description"
+                        android:text="@string/activity_details_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
@@ -234,7 +235,7 @@
 
                     <TextView
                         android:id="@+id/activity_detail_place_heading"
-                        android:text="Place"
+                        android:text="@string/activity_details_place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#343B59"
@@ -266,7 +267,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:text="Participants"
+                        android:text="@string/activity_details_participants"
                         android:layout_centerHorizontal="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -286,7 +287,7 @@
                 </RelativeLayout>
             </FrameLayout>
             <Button
-                android:text="REQUEST TO JOIN ACTIVITY"
+                android:text="@string/activity_details_request_to_join_activity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/send_request_button"

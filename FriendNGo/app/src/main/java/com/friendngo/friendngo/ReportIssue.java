@@ -140,14 +140,14 @@ public class ReportIssue extends AppCompatActivity {
                                 break;
                             case R.id.notification_icon:
                                 Log.w("BOTTOM NAV","Notifications Icon Pressed");
-                                Intent intentRequest = new Intent(ReportIssue.this, ActivityNotifications.class);
-                                ReportIssue.this.startActivity(intentRequest);
-                                ReportIssue.this.finish();
+//                                Intent intentRequest = new Intent(ReportIssue.this, ActivityNotifications.class);
+//                                ReportIssue.this.startActivity(intentRequest);
+//                                ReportIssue.this.finish();
                                 break;
                             case R.id.message_icon:
-                                Intent intent = new Intent(ReportIssue.this, ActivityMessage.class);
-                                ReportIssue.this.startActivity(intent);
-                                ReportIssue.this.finish();
+//                                Intent intent = new Intent(ReportIssue.this, ActivityMessage.class);
+//                                ReportIssue.this.startActivity(intent);
+//                                ReportIssue.this.finish();
                                 break;
                             case R.id.settings_icon:
 //                                Toast.makeText(getApplicationContext(), "Settings Not Available in Beta", Toast.LENGTH_LONG).show();

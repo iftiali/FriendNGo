@@ -45,7 +45,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         TextView creator;
         TextView status;
         TextView homeCity;
-        ImageView nationality;
+//        ImageView nationality;
         TextView points;
         ImageView category;
         ImageView clock,paid_event_clock,paid_event_pin_image,paid_event_activity_type;
@@ -85,7 +85,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder.creator = (TextView) convertView.findViewById(R.id.created_text);
             viewHolder.status = (TextView) convertView.findViewById(R.id.status_text);
             viewHolder.homeCity = (TextView) convertView.findViewById(R.id.home_city_text);
-            viewHolder.nationality = (ImageView) convertView.findViewById(R.id.country_flag);
+//            viewHolder.nationality = (ImageView) convertView.findViewById(R.id.country_flag);
             viewHolder.points = (TextView) convertView.findViewById(R.id.points);
             viewHolder.category = (ImageView) convertView.findViewById(R.id.activity_type);
             viewHolder.name = (TextView) convertView.findViewById(R.id.activity_name);
@@ -219,7 +219,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder.status.setTextColor(Color.GRAY);
             viewHolder.homeCity.setText(userActivity.getHomeCity());
             viewHolder.homeCity.setTextColor(Color.GRAY);
-            viewHolder.nationality.setImageResource(R.drawable.canada); //TODO: Get flag from nationalities
+//            viewHolder.nationality.setImageResource(R.drawable.canada); //TODO: Get flag from nationalities
             viewHolder.points.setText(userActivity.getPoints() + "pts");
 
             if(userActivity.getRequest_state()==0){

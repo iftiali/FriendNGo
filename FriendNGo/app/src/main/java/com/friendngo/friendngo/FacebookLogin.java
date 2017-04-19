@@ -172,7 +172,7 @@ public class FacebookLogin extends AppCompatActivity {
                                             /* handle the result */
                                                 if(response!=null){
                                                     try{
-                                                        Log.d("Hello",response.toString());
+
                                                         SignIn.static_profile_image_url = response.getJSONObject().getJSONObject("picture").getJSONObject("data").getString("url");
                                                         AsyncHttpClient client = new AsyncHttpClient();
                                                         client.get(SignIn.static_profile_image_url, new FileAsyncHttpResponseHandler(getApplicationContext()) {

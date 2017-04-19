@@ -185,5 +185,33 @@
     <string name="chat_room_cancel">Annulé</string>
     <string name="chat_room_Type_a_new_message_hint">Type a new message</string>
 
+    <!--Create new activity-->
+    <string name="create_activity_title">Create a new activity</string>
+    <string name="create_activity_cancel">Cancel</string>
+    <string name="create_activity_activity_name_title">Activity name</string>
+    <string name="create_activity_activity_name_hint">Example: Running</string>
+    <string name="create_activity_Category">Category</string>
+    <string name="create_activity_activity_type_title">Activity Type</string>
+    <string name="create_activity_date_title">Date</string>
+    <string name="create_activity_starting_time_title">Starting Time</string>
+    <string name="create_activity_estimated_end_time_title">Estimated end time</string>
+    <string name="create_activity_description_of_the_activity_title">Description of the activity</string>
+    <string name="create_activity_description_for_activity_hint">Description for activity</string>
+    <string name="create_activity_address_title">Address</string>
+    <string name="create_activity_address_type_address_here_hint">Type address here...</string>
+    <string name="create_activity_address_additional_notes_for_the_address_title">Additional notes for the address</string>
+    <string name="create_activity_address_ex_title">Ex: Suite 400</string>
+    <string name="create_activity_address_create_activity_title">Create Activity</string>
+
+    <!--Event Details-->
+    <string name="event_details_title">Event Details</string>
+    <string name="event_details_created_by">Created by</string>
+    <string name="event_details_description">Description</string>
+    <string name="event_details_place">Place</string>
+    <string name="event_details_participants">Participants</string>
+    <string name="event_details_request_to_join_activity">REQUEST TO JOIN ACTIVITY</string>
+
+    <!--Who are you-->
+    <string name="who_are_you_message">Votre numéro sera seulement utilisé pour vérifier et sécuriser votre compte.</string>
 
 </resources>

@@ -159,14 +159,13 @@ public class ActivityDetails extends AppCompatActivity {
         creatorAge.setText(activity.getCreatorAge()+" y-o ");
 
         creatorStatus = (TextView) this.findViewById(R.id.activity_detail_creator_status);
-        creatorStatus.setText(activity.getCreatorStatus()+",");
+        creatorStatus.setText(activity.getCreatorStatus()+"," + activity.getHomeCity());
 
-        creatorHome = (TextView) this.findViewById(R.id.activity_detail_creator_home);
-        Log.w("HOME CITY DEBUG", activity.getHomeCity());
-        creatorHome.setText(" " + activity.getHomeCity());
+//        creatorHome = (TextView) this.findViewById(R.id.activity_detail_creator_home);
+//        creatorHome.setText(" " + activity.getHomeCity());
 
-        creatorFlag = (ImageView) this.findViewById(R.id.activity_detail_creator_flag);
-        creatorFlag.setImageResource(R.drawable.canada);
+//        creatorFlag = (ImageView) this.findViewById(R.id.activity_detail_creator_flag);
+//        creatorFlag.setImageResource(R.drawable.canada);
 
         activityTime = (TextView) this.findViewById(R.id.activity_detail_time);
         activityTime.setText(ValidationClass.getFormattedTime(activity.getActivityTime())+" - "+ValidationClass.getFormattedTime(activity.getActivityEndTime()));
