@@ -196,10 +196,7 @@ public class MapActivity extends AppCompatActivity
                                 SettingFragment settingFragment = new SettingFragment();
                                 manager = getSupportFragmentManager();
                                 manager.beginTransaction().replace(R.id.fragmentView,settingFragment,settingFragment.getTag()).commit();
-//                                Intent seeSeeting = new Intent(getApplicationContext(), PointsHistoryActivity.class);
-//                                startActivity(seeSeeting);
-
-                                break;
+//                              break;
                             default:
                                 //Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");
                                 break;

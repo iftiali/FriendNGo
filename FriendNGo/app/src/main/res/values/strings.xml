@@ -181,4 +181,9 @@
     <string name="about_us_privacy_policy">Privacy Policy</string>
     <string name="about_us_terms_and_conditions">Terms and Conditions</string>
 
+    <!--Chat room-->
+    <string name="chat_room_title">My Activity Name</string>
+    <string name="chat_room_cancel">Cancel</string>
+    <string name="chat_room_Type_a_new_message_hint">Type a new message</string>
+
 </resources>

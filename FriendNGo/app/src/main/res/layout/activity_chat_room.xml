@@ -30,7 +30,7 @@
                 android:layout_centerVertical="true"/>
 
             <TextView
-                android:text="Cancel"
+                android:text="@string/chat_room_cancel"
                 android:textSize="14sp"
                 android:textColor="#FFFFFF"
                 android:layout_width="wrap_content"

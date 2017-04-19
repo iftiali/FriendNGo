@@ -20,35 +20,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
+<TableRow
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="12dp"
+    android:weightSum="1"
+    android:background="@color/white">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="12dp"
-        android:background="@color/white">
         <EditText
+            android:layout_weight="0.1"
             android:id="@+id/messageEdit"
             android:hint="Type a new message"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
             android:paddingLeft="16dp"
-            android:paddingRight="166dp"
+            android:paddingRight="16dp"
             android:background="@drawable/rounded_corners_white"
             />
 
         <ImageView
+            android:layout_weight="0.9"
             android:id="@+id/chatSendButton"
             android:layout_toRightOf="@id/messageEdit"
-            android:layout_width="32dp"
+            android:layout_width="match_parent"
             android:layout_height="32dp"
-
+            android:layout_gravity="center"
             app:srcCompat="@drawable/send_button"
-            android:layout_centerVertical="true"/>
+            />
 
-    </RelativeLayout>
+
+</TableRow>
     </FrameLayout>
         <ListView
             android:padding="20dp"
@@ -63,9 +67,5 @@
             android:listSelector="@android:color/transparent"
             android:transcriptMode="alwaysScroll"
             android:divider="@null" />
-
-
-
-
     </RelativeLayout>
 </LinearLayout>
