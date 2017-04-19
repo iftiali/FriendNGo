@@ -13,193 +13,183 @@
     android:background="@drawable/activity_list_rounded_edges">
 
     <RelativeLayout
+        android:id="@+id/freeEventRelativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:id="@+id/freeEventRelativeLayout">
+        android:layout_height="110dp"
+        android:visibility="visible"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
 
         <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/profilepicture"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/empty_profile"
-            android:id="@+id/profilepicture"
             app:civ_border_color="#EEEEEE"
             app:civ_border_width="2dp"
             app:civ_shadow="true"
-            app:civ_shadow_radius="0.5"
             app:civ_shadow_color="@color/greyish"
-            />
+            app:civ_shadow_radius="0.5" />
 
         <TextView
-            android:text="Created by scottLaughlin, 29 y-o"
+            android:id="@+id/created_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:layout_toRightOf="@+id/profilepicture"
-            android:layout_toEndOf="@+id/profilepicture"
-            android:id="@+id/created_text"
-            android:paddingLeft="10dp"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
-            android:textSize="8sp" />
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/profilepicture"
+            android:layout_toRightOf="@+id/profilepicture"
+            android:paddingLeft="10dp"
+            android:text="Created by scottLaughlin, 29 y-o"
+            android:textStyle="bold"
+            android:textSize="14sp" />
 
-
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_alignParentEnd="true"-->
         <View
+            android:id="@+id/separation_bar"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
             android:layout_alignBottom="@+id/profilepicture"
-
-            android:id="@+id/separation_bar"
-            android:layout_marginBottom="-5dp" />
+            android:layout_marginBottom="-5dp"
+            android:background="@android:color/darker_gray" />
 
         <ImageView
-            app:srcCompat="@drawable/cup"
             android:id="@+id/activity_type"
-            android:layout_below="@+id/separation_bar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_alignLeft="@+id/profilepicture"
+            android:layout_below="@+id/separation_bar"
             android:layout_marginLeft="6dp"
             android:layout_marginTop="6dp"
-            android:layout_width="32dp"
-            android:layout_height="32dp" />
+            app:srcCompat="@drawable/cup" />
 
         <TextView
-            android:text="OctoberFest"
+            android:id="@+id/activity_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/separation_bar"
-            android:layout_toRightOf="@+id/profilepicture"
-            android:layout_toEndOf="@+id/profilepicture"
-            android:id="@+id/activity_name"
             android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/profilepicture"
+            android:layout_toRightOf="@+id/profilepicture"
             android:paddingLeft="10dp"
-            android:textSize="14sp"
-            android:textAllCaps="false" />
+            android:text="OctoberFest"
+            android:textAllCaps="false"
+            android:textSize="14sp" />
 
         <ImageView
-            app:srcCompat="@drawable/clock"
-            android:layout_below="@+id/activity_type"
-            android:layout_alignLeft="@+id/profilepicture"
             android:id="@+id/clock_image"
-            android:layout_marginTop="4dp"
-            android:layout_margin="4dp"
             android:layout_width="16dp"
-            android:layout_height="16dp" />
-
-
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_alignParentEnd="true"-->
+            android:layout_height="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_alignLeft="@+id/profilepicture"
+            android:layout_below="@+id/activity_type"
+            app:srcCompat="@drawable/clock" />
 
         <TextView
-            android:text="Fri 20, 10:15pm"
+            android:id="@+id/activity_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/activity_time"
-            android:textSize="8sp"
             android:layout_alignTop="@+id/clock_image"
-            android:layout_toRightOf="@+id/clock_image"
             android:layout_toEndOf="@+id/clock_image"
-            android:layout_marginTop="4dp" />
+            android:layout_toRightOf="@+id/clock_image"
+            android:text="Fri 20, 10:15pm"
+            android:textSize="12sp" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/pin"
-            android:layout_alignTop="@+id/clock_image"
-            android:layout_toRightOf="@+id/activity_time"
             android:id="@+id/pin_image"
-            android:layout_marginLeft="4dp" />
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/activity_type"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/activity_time"
+            app:srcCompat="@drawable/pin" />
 
         <TextView
-            android:text="10km away"
+            android:id="@+id/distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/pin_image"
-            android:layout_toRightOf="@+id/pin_image"
+            android:layout_marginTop="4dp"
             android:layout_toEndOf="@+id/pin_image"
-            android:id="@+id/distance"
-            android:textSize="8sp"
-            android:layout_marginTop="4dp" />
+            android:layout_toRightOf="@+id/pin_image"
+            android:text="10km away"
+            android:textSize="12sp" />
 
         <Button
-            android:text="+"
             android:id="@+id/add_activity_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_alignBottom="@+id/pin_image"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:textColor="@android:color/white"
+            android:layout_alignParentRight="true"
             android:layout_margin="10dp"
             android:background="@drawable/add_oval"
-            android:layout_width="32dp"
-            android:layout_height="32dp" />
+            android:text="+"
+            android:textColor="@android:color/white" />
 
         <TextView
-            android:text="Resident, "
+            android:id="@+id/status_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/status_text"
-            android:paddingLeft="10dp"
-            android:textSize="8sp"
             android:layout_alignBaseline="@+id/home_city_text"
             android:layout_alignBottom="@+id/home_city_text"
+            android:layout_toEndOf="@+id/profilepicture"
             android:layout_toRightOf="@+id/profilepicture"
-            android:layout_toEndOf="@+id/profilepicture" />
+            android:paddingLeft="10dp"
+            android:text="Resident, "
+            android:textSize="12sp" />
 
         <TextView
-            android:text="Montreal"
+            android:id="@+id/home_city_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/home_city_text"
-            android:textSize="8sp"
             android:layout_alignBaseline="@+id/dotText"
             android:layout_alignBottom="@+id/dotText"
+            android:layout_toEndOf="@+id/status_text"
             android:layout_toRightOf="@+id/status_text"
-            android:layout_toEndOf="@+id/status_text" />
+            android:text="Montreal"
+            android:textSize="12sp" />
 
         <!--<ImageView-->
-            <!--app:srcCompat="@drawable/canada"-->
-            <!--android:id="@+id/country_flag"-->
-            <!--android:layout_width="15dp"-->
-            <!--android:layout_height="15dp"-->
-            <!--android:paddingBottom="5dp"-->
-            <!--android:layout_below="@+id/created_text"-->
-            <!--android:layout_toRightOf="@+id/dotText"-->
-            <!--android:layout_toEndOf="@+id/dotText" />-->
+        <!--app:srcCompat="@drawable/canada"-->
+        <!--android:id="@+id/country_flag"-->
+        <!--android:layout_width="15dp"-->
+        <!--android:layout_height="15dp"-->
+        <!--android:paddingBottom="5dp"-->
+        <!--android:layout_below="@+id/created_text"-->
+        <!--android:layout_toRightOf="@+id/dotText"-->
+        <!--android:layout_toEndOf="@+id/dotText" />-->
 
         <TextView
-            android:text="   ·   "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/dotText"
-            android:textStyle="normal|bold"
-            android:textSize="8sp"
-            android:layout_toRightOf="@+id/home_city_text"
-            android:layout_toEndOf="@+id/home_city_text"
-            android:layout_below="@+id/created_text" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/created_text"
+            android:layout_toEndOf="@+id/home_city_text"
+            android:layout_toRightOf="@+id/home_city_text"
+            android:text="   ·   "
+            android:textSize="8sp"
+            android:textStyle="normal|bold" />
 
+        <TextView
             android:id="@+id/points"
-            android:background="@drawable/activity_list_point"
-            android:text="10pts"
-            android:padding="5dp"
-            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/separation_bar"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
             android:layout_marginRight="7dp"
+            android:background="@drawable/activity_list_point"
+            android:padding="5dp"
+            android:text="10pts"
             android:textColor="@android:color/white" />
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/paidEventRelativeLayout"
-        android:layout_height="match_parent"
+        android:layout_height="110dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/freeEventRelativeLayout"
         android:layout_toEndOf="@+id/freeEventRelativeLayout">
@@ -208,48 +198,53 @@
             android:id="@+id/paid_event_linear"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
+
             <TableRow
                 android:layout_width="match_parent"
-                android:weightSum="1"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:weightSum="1">
+
                 <RelativeLayout
                     android:id="@+id/separation_bar_two"
                     android:layout_width="10dp"
-                    android:layout_weight=".10"
                     android:layout_height="match_parent"
-                    android:background="@color/colorAccent"/>
+                    android:layout_weight=".10"
+                    android:background="@color/colorAccent" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:layout_weight="0.90"
-                    android:padding="4dp">
+                    android:paddingLeft="4dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="8dp"
+                    android:paddingRight="4dp">
 
                     <com.mikhaellopez.circularimageview.CircularImageView
                         android:id="@+id/paid_event_profile_picture"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="6dp"
                         android:src="@drawable/empty_profile"
                         app:civ_border_color="#EEEEEE"
                         app:civ_border_width="2dp"
                         app:civ_shadow="true"
-                        app:civ_shadow_radius="0.5"
                         app:civ_shadow_color="@color/greyish"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginLeft="4dp"/>
+                        app:civ_shadow_radius="0.5" />
 
                     <TextView
                         android:id="@+id/paid_event_created_text"
-                        android:text="Open Bar Blitz"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/paid_event_profile_picture"
-                        android:layout_toEndOf="@+id/paid_event_profile_picture"
-                        android:paddingLeft="10dp"
-                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="8dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/paid_event_profile_picture"
+                        android:layout_toRightOf="@+id/paid_event_profile_picture"
+                        android:paddingLeft="10dp"
+                        android:text="Open Bar Blitz"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -257,80 +252,81 @@
                         android:id="@+id/paid_event_clock"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                       android:layout_alignParentBottom="true"
                         app:srcCompat="@drawable/clock"
-                        android:layout_below="@+id/paid_event_status_text" />
+                         />
 
                     <TextView
                         android:id="@+id/paid_event_activity_time"
-                        android:text="Fri 20, 10:15pm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/paid_event_status_text"
-                        android:textSize="10sp"
-                        android:layout_marginTop="4dp"
+                        android:layout_alignParentBottom="true"
                         android:layout_marginLeft="18dp"
-                        android:layout_marginRight="8dp"/>
+                        android:layout_marginRight="8dp"
+                        android:layout_marginTop="4dp"
+                        android:text="Fri 20, 10:15pm"
+                        android:textSize="10sp" />
 
                     <ImageView
                         android:id="@+id/paid_event_pin_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/icon_mapa"
-                        android:layout_below="@+id/paid_event_status_text"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="4dp"
                         android:layout_toRightOf="@+id/paid_event_activity_time"
-                        android:layout_marginLeft="4dp" />
+                        app:srcCompat="@drawable/icon_mapa" />
 
                     <Button
                         android:id="@+id/add_activity_button_paid"
-                        android:layout_below="@+id/paid_event_activity_type"
-                        android:layout_alignParentRight="true"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         android:layout_alignParentEnd="true"
-                        android:textColor="@android:color/white"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/paid_event_activity_type"
                         android:layout_marginRight="8dp"
                         android:layout_marginTop="6dp"
                         android:background="@drawable/add_oval"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp" />
+                        android:textColor="@android:color/white" />
 
                     <ImageView
-                        app:srcCompat="@drawable/checkmark"
                         android:id="@+id/paid_event_certified"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_alignTop="@+id/paid_event_status_text"
+                        android:layout_marginLeft="7dp"
                         android:layout_toRightOf="@+id/paid_event_status_text"
-                        android:layout_marginLeft="7dp"/>
+                        app:srcCompat="@drawable/checkmark" />
 
                     <ImageView
-                        app:srcCompat="@drawable/concert"
                         android:id="@+id/paid_event_activity_type"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_alignTop="@+id/paid_event_created_text"
-                        android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginRight="7dp"/>
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/paid_event_created_text"
+                        android:layout_marginRight="7dp"
+                        app:srcCompat="@drawable/concert" />
 
                     <TextView
-                        android:text="Event certified by FriendNGo"
+                        android:id="@+id/paid_event_status_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/paid_event_status_text"
                         android:paddingLeft="10dp"
-                        android:textSize="13sp"
+                        android:text="Event certified by FriendNGo"
+                        android:textSize="12sp"
+                        android:layout_below="@+id/paid_event_profile_picture"
                         android:layout_toRightOf="@+id/paid_event_profile_picture"
-                        android:layout_toEndOf="@+id/paid_event_profile_picture"
-                        android:layout_below="@+id/paid_event_created_text" />
+                        android:layout_toEndOf="@+id/paid_event_profile_picture" />
 
                     <TextView
                         android:id="@+id/paid_event_distance"
-                        android:text="1122 Rue Sainte Catherine"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="10sp"
                         android:layout_alignBottom="@+id/paid_event_pin_image"
+                        android:layout_toEndOf="@+id/paid_event_pin_image"
                         android:layout_toRightOf="@+id/paid_event_pin_image"
-                        android:layout_toEndOf="@+id/paid_event_pin_image" />
+                        android:text="1122 Rue Sainte Catherine"
+                        android:textSize="10sp" />
 
                 </RelativeLayout>
             </TableRow>

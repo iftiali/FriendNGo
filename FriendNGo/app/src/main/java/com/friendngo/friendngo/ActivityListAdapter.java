@@ -119,7 +119,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             //GET The image file at the pictureURL
             AsyncHttpClient client = new AsyncHttpClient();
 
-            String pictureURL = ((UserActivity) activitiesList.get(position)).getEventPictureUrl();
+            String pictureURL = ((UserActivity) activitiesList.get(position)).getOrganization_logo();
 
             final ImageView profilePic = (ImageView) convertView.findViewById(R.id.paid_event_profile_picture);
 
