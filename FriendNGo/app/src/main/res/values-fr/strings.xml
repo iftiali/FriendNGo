@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FriendNGoFR</string>
+    <string name="app_name">FriendNGo</string>
     <string name="preference_file_key">com.friendngo.scott.friendngo.KEY_FILE</string>token_string
     <string name="token">token</string>
     <string name="title_activity_login">se connecter</string>
@@ -174,6 +174,11 @@
     <string name="dialog_verification_four_hint_password">Password</string>
     <string name="dialog_verification_four_hint_password_confirm">Confirm Password</string>
     <string name="dialog_verification_four_password_match_message">Passwords do not match, please try again</string>
+
+    <!--about us-->
+    <string name="about_us_title">A propos de nous</string>
+    <string name="about_us_privacy_policy">Privacy Policy</string>
+    <string name="about_us_terms_and_conditions">Terms and Conditions</string>
 
 
 </resources>

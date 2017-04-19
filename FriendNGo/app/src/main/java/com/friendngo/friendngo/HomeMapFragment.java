@@ -212,21 +212,25 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback, Goo
             name.setTextColor(Color.GRAY);
             String baseUrlForImage =null;
             if(act.getisPaid()){
+                Log.d("Picture",MainActivity.base_host_url+act.getOrganization_logo());
                 creator.setText("Created by " + act.getOrganization_name());
+                final String logoofOrganization = MainActivity.base_host_url+act.getEventPictureUrl();
                 creator.setTextColor(Color.BLACK);
                 Picasso.with(getApplicationContext())
-                        .load(MainActivity.base_host_url+act.getOrganization_logo())
+                        .load(logoofOrganization)
                         .placeholder(R.drawable.empty_profile)
                         .error(R.drawable.empty_profile)
                         .into(profilePicture);
+                Log.d("Hello","Is paid");
             }else {
                creator.setText("Created by " + act.getCreator());
                 creator.setTextColor(Color.BLACK);
-                Picasso.with(getApplicationContext())
-                        .load(act.getOrganization_logo())
-                        .placeholder(R.drawable.empty_profile)
-                        .error(R.drawable.empty_profile)
-                        .into(profilePicture);
+//                Picasso.with(getApplicationContext())
+//                        .load(MainActivity.base_host_url+act.get)
+//                        .placeholder(R.drawable.empty_profile)
+//                        .error(R.drawable.empty_profile)
+//                        .into(profilePicture);
+                Log.d("Hello","Is not paid");
             }
             status.setText( act.getuserStatus()+ ", ");
             status.setTextColor(Color.GRAY);

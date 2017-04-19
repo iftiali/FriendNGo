@@ -176,4 +176,9 @@
     <string name="dialog_verification_four_hint_password_confirm">Confirm Password</string>
     <string name="dialog_verification_four_password_match_message">Passwords do not match, please try again</string>
 
+    <!--about us-->
+    <string name="about_us_title">About Us</string>
+    <string name="about_us_privacy_policy">Privacy Policy</string>
+    <string name="about_us_terms_and_conditions">Terms and Conditions</string>
+
 </resources>

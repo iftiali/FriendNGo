@@ -28,8 +28,6 @@ public class UserActivity {
     private String activityType;
     private double latitude;
     private double longitude;
-    private double clatitude;
-    private double clongitude;
     private String address;
     private String description;
     private long creator_PK;

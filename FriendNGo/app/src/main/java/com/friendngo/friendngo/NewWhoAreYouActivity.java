@@ -31,6 +31,8 @@ import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -217,23 +219,28 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         Log.w("GET PROFILE JSON FAIL", e.getMessage().toString());
                     }
-                    client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
-
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, File response) {
-                            Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
-                            //Use the downloaded image as the profile picture
-                            Uri uri = Uri.fromFile(response);
-                            downloadedImage = response;
-                            circularImageView.setImageURI(uri);
-                            MapActivity.other_user_picture.setImageURI(uri);
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-                            Log.w("GET IMAGE FAIL", "Could not retrieve image");
-                        }
-                    });
+                    Picasso.with(getApplicationContext())
+                            .load(MainActivity.base_host_url + pictureURL)
+                            .into(circularImageView);
+//                    Uri uri = Uri.fromFile(response);
+//                    MapActivity.other_user_picture.setImageURI(uri);
+//                    client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
+//
+//                        @Override
+//                        public void onSuccess(int statusCode, Header[] headers, File response) {
+//                            Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
+//                            //Use the downloaded image as the profile picture
+//                            Uri uri = Uri.fromFile(response);
+//                            downloadedImage = response;
+//                            circularImageView.setImageURI(uri);
+//                            MapActivity.other_user_picture.setImageURI(uri);
+//                        }
+//
+//                        @Override
+//                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+//                            Log.w("GET IMAGE FAIL", "Could not retrieve image");
+//                        }
+//                    });
                 }
             }
 

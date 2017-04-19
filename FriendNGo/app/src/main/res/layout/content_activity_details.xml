@@ -63,15 +63,15 @@
                         android:id="@+id/activity_detail_points"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/activity_list_point"
-                        android:text="10pts"
-                        android:padding="5dp"
-                        android:textColor="@android:color/white"
-                        android:layout_toRightOf="@+id/activity_detail_creator_age"
+                        android:layout_alignTop="@+id/activity_detail_creator_age"
                         android:layout_toEndOf="@+id/activity_detail_creator_age"
-                        android:textSize="6sp"
-                        android:layout_alignBottom="@+id/activity_detail_creator_age"
-                        android:layout_alignTop="@+id/activity_detail_creator_age" />
+                        android:layout_toRightOf="@+id/activity_detail_creator_age"
+                        android:background="@drawable/activity_list_point"
+                        android:padding="2dp"
+                        android:text="12sp"
+                        android:textColor="@android:color/white"
+                        android:textSize="10sp"
+                        android:layout_above="@+id/activity_detail_creator_flag" />
 
                     <TextView
                         android:id="@+id/activity_detail_creator_age"
@@ -160,30 +160,30 @@
                         android:textColor="#343B59" />
                 </RelativeLayout>
             </FrameLayout>
-            <FrameLayout
-                android:id="@+id/activity_detail_request_frame"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/creator_frame"
-                android:layout_margin="7dp"
-                android:background="@drawable/rounded_corners_white">
+            <!--<FrameLayout-->
+                <!--android:id="@+id/activity_detail_request_frame"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_below="@+id/creator_frame"-->
+                <!--android:layout_margin="7dp"-->
+                <!--android:background="@drawable/rounded_corners_white">-->
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/activity_detail_request_heading"
-                        android:text="See request"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
-                        android:textSize="20sp"
-                        android:textColor="#343B59" />
+                <!--<RelativeLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
+                    <!--<TextView-->
+                        <!--android:id="@+id/activity_detail_request_heading"-->
+                        <!--android:text="See request"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_alignParentTop="true"-->
+                        <!--android:layout_centerHorizontal="true"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:textSize="20sp"-->
+                        <!--android:textColor="#343B59" />-->
 
-                </RelativeLayout>
-            </FrameLayout>
+                <!--</RelativeLayout>-->
+            <!--</FrameLayout>-->
             <FrameLayout
                 android:id="@+id/activity_detail_description_frame"
                 android:layout_width="match_parent"

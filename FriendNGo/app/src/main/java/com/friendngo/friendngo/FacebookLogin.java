@@ -162,7 +162,7 @@ public class FacebookLogin extends AppCompatActivity {
                                 editor.commit();
 
                                 Bundle params2 = new Bundle();
-                                params2.putString("fields","id,email,picture.type(large),birthday,hometown");
+                                params2.putString("fields","email,picture.type(large),birthday,hometown");
                                 new GraphRequest(
                                         AccessToken.getCurrentAccessToken(), "me",
                                         params2,
@@ -172,8 +172,8 @@ public class FacebookLogin extends AppCompatActivity {
                                             /* handle the result */
                                                 if(response!=null){
                                                     try{
+                                                        Log.d("Hello",response.toString());
                                                         SignIn.static_profile_image_url = response.getJSONObject().getJSONObject("picture").getJSONObject("data").getString("url");
-
                                                         AsyncHttpClient client = new AsyncHttpClient();
                                                         client.get(SignIn.static_profile_image_url, new FileAsyncHttpResponseHandler(getApplicationContext()) {
 

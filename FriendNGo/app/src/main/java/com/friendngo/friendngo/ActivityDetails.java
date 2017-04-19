@@ -33,7 +33,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class ActivityDetails extends AppCompatActivity {
-    FrameLayout requestFrame;
+
     TextView activityName;
     ImageView creatorPhoto;
     TextView creatorName;
@@ -46,7 +46,7 @@ public class ActivityDetails extends AppCompatActivity {
     TextView activityDescription;
     TextView activityAddress;
     Button sendRequestButton;
-
+    TextView activity_detail_points;
 
     RecyclerView participantsRecycler;
     private RecyclerView.LayoutManager mHorizontallayoutManager;
@@ -111,14 +111,7 @@ public class ActivityDetails extends AppCompatActivity {
             }
         });
 
-        requestFrame = (FrameLayout)findViewById(R.id.activity_detail_request_frame);
-        requestFrame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent seeRequest = new Intent(getApplicationContext(), Request.class);
-                startActivity(seeRequest);
-            }
-        });
+
 
         UserActivity activity = (UserActivity) MapActivity.activitiesList.get(activity_index);
 
@@ -156,6 +149,8 @@ public class ActivityDetails extends AppCompatActivity {
         });
 
         //Get the XML instances for each of the headings
+        activity_detail_points = (TextView)this.findViewById(R.id.activity_detail_points);
+        activity_detail_points.setText(activity.getPoints()+"pts");
         activityName = (TextView) this.findViewById(R.id.activity_detail_name);
         activityName.setText(activity.getName());
         creatorName = (TextView) this.findViewById(R.id.activity_detail_creator_name);
