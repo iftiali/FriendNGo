@@ -159,9 +159,7 @@ public class MapActivity extends AppCompatActivity
                         switch (item.getItemId()) {
 
                             case R.id.list_icon:
-//                                Intent intent = new Intent(MapActivity.this, ActivityListActivity.class);
-//                                MapActivity.this.startActivity(intent);
-                                if(checkStateMapOrList == false) {
+                               if(checkStateMapOrList == false) {
                                     ActivityListFragment activityListFragment = new ActivityListFragment();
                                     manager = getSupportFragmentManager();
                                     manager.beginTransaction().replace(R.id.fragmentView, activityListFragment, activityListFragment.getTag()).commit();
@@ -182,17 +180,11 @@ public class MapActivity extends AppCompatActivity
                                 Toast.makeText(getApplicationContext(), "Calendar Not Available in Beta", Toast.LENGTH_LONG).show();
                                 break;
                             case R.id.notification_icon:
-                                //Log.w("BOTTOM NAV","Notifications Icon Pressed");
-//                                Intent seeRequest = new Intent(getApplicationContext(), ActivityNotifications.class);
-//                                startActivity(seeRequest);
                                 NotificationFragment notificationFragment = new NotificationFragment();
                                 manager = getSupportFragmentManager();
                                 manager.beginTransaction().replace(R.id.fragmentView,notificationFragment,notificationFragment.getTag()).commit();
                                 break;
                             case R.id.message_icon:
-                                // Log.w("BOTTOM NAV","Message Icon Pressed");
-//                                Intent seeMessage = new Intent(getApplicationContext(), ActivityMessage.class);
-//                                startActivity(seeMessage);
                                 ChatFragment chatFragment = new ChatFragment();
                                 manager = getSupportFragmentManager();
                                 manager.beginTransaction().replace(R.id.fragmentView,chatFragment,chatFragment.getTag()).commit();

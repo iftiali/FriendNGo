@@ -113,16 +113,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ActivityListActivity"
-            android:label="@string/title_activity_list"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ActivityNotifications"
-            android:label="@string/title_activity_notifications"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".MyStatusActivity"
             android:label="@string/title_activity_my_status"
             android:screenOrientation="portrait"
@@ -139,11 +129,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name=".ActivityMessage"
-            android:label="@string/title_activity_message"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ChatRoomActivity"
             android:label="@string/title_activity_chat_room"
