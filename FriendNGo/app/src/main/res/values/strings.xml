@@ -221,5 +221,6 @@
 
     <!--Who are you-->
     <string name="who_are_you_message">Your phone number will only be used to verify your account and improve security</string>
+    <string name="who_are_you_bio_hint">About Me</string>
 
 </resources>

@@ -58,7 +58,7 @@ public class MapActivity extends AppCompatActivity
 
     public static CircularImageView other_user_picture;
     public static String selfIdentify=null;
-    public static int versionNumber = 8;
+    public static int versionNumber = 9;
     public static String selfName=null;
     public static boolean checkStateMapOrList = false;
     public static TextView other_user_name,other_user_age,other_user_about,other_user_location,other_user_citizenship,other_user_points;

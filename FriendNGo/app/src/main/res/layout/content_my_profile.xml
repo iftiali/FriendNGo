@@ -133,7 +133,7 @@
                     android:layout_height="45dp"
                     android:inputType="textMultiLine"
                     android:ems="10"
-                    android:hint="Bio"
+                    android:hint="@string/who_are_you_bio_hint"
                     android:lines="3"
                     android:paddingRight="15dp"
                     android:paddingLeft="15dp"
