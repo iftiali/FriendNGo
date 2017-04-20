@@ -182,19 +182,18 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback, Goo
                     }
                 }
             });
-            if(MapActivity.userID == act.getcreator_PK()){
-                participateButton.setBackgroundResource(R.drawable.activity_markup_participate_button_grey);
-                participateButton.setEnabled(false);
-            }else{
-                participateButton.setBackgroundResource(R.drawable.activity_markup_participate_button);
-                participateButton.setEnabled(true);
-            }
+
             if(act.getRequest_state()== 0 || act.getRequest_state() == 1 || act.getRequest_state() == 2){
                 participateButton.setBackgroundResource(R.drawable.activity_markup_participate_button_grey);
                 participateButton.setEnabled(false);
             }else{
-                participateButton.setBackgroundResource(R.drawable.activity_markup_participate_button);
-                participateButton.setEnabled(true);
+                if(MapActivity.userID == act.getcreator_PK()){
+                    participateButton.setBackgroundResource(R.drawable.activity_markup_participate_button_grey);
+                    participateButton.setEnabled(false);
+                }else{
+                    participateButton.setBackgroundResource(R.drawable.activity_markup_participate_button);
+                    participateButton.setEnabled(true);
+                }
             }
             //Connect the Views To their XML
             profilePicture = (ImageView) markup_layout.findViewById(R.id.banner_profilepicture);

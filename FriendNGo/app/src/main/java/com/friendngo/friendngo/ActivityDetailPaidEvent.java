@@ -69,7 +69,15 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
         detail_event_background_image.setScaleType(ImageView.ScaleType.FIT_XY);
         final int activity_index = getIntent().getIntExtra("Activity Index", 0);
         final long activity_pk = ((UserActivity)MapActivity.activitiesList.get(activity_index)).getActivity_pk();
-
+        UserActivity activity = (UserActivity) MapActivity.activitiesList.get(activity_index);
+        if (activity.getRequest_state() == 0 || activity.getRequest_state() == 1 || activity.getRequest_state() == 2) {
+            sendRequestButton.setBackgroundResource(R.drawable.submit_button_grey);
+            sendRequestButton.setEnabled(false);
+            sendRequestButton.setText("Request sent");
+        } else {
+            sendRequestButton.setBackgroundResource(R.drawable.submit_button);
+            sendRequestButton.setEnabled(true);
+        }
         sendRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +96,9 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
                         Log.w("POST AR SUCCESS", statusCode + ": " + "Response = " + response.toString());
                         try{
                             Log.w("POST AR SUCCESS2", response.getString("status"));
+                            sendRequestButton.setBackgroundResource(R.drawable.submit_button_grey);
+                            sendRequestButton.setEnabled(false);
+                            sendRequestButton.setText("Request sent");
                         }catch (JSONException e){
                             Log.w("POST AR FAIL",e.getMessage().toString());
                         }
@@ -113,7 +124,6 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
             }
         });
 
-        UserActivity activity = (UserActivity) MapActivity.activitiesList.get(activity_index);
 
         if(activity.getIs_too_light()){
             event_paind_iamge_alpha.getBackground().setAlpha(128);

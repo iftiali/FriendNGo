@@ -69,9 +69,8 @@
                         android:padding="2dp"
                         android:text="12sp"
                         android:textColor="@android:color/white"
-                        android:textSize="10sp"
-                        android:layout_above="@+id/activity_detail_creator_flag" />
-
+                        android:textSize="10sp"/>
+                    <!--android:layout_above="@+id/activity_detail_creator_flag"-->
                     <TextView
                         android:id="@+id/activity_detail_creator_age"
                         android:text="28 y-o"

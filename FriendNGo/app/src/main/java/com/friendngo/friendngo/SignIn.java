@@ -316,7 +316,8 @@ public class SignIn extends AppCompatActivity {
 
             RequestParams params = new RequestParams();
             params.setUseJsonStreamer(true);
-            params.put("phone",verificationPhoneNumber);
+           // params.put("phone",verificationPhoneNumber);
+            params.put("phone","4389888833");
             client.post(MainActivity.base_host_url + "api/getPasswordResetCode/", params, new JsonHttpResponseHandler() {
 
                 @Override

@@ -205,13 +205,20 @@
 
     <!--Event Details-->
     <string name="event_details_title">Event Details</string>
-    <string name="event_details_created_by">Created by</string>
     <string name="event_details_description">Description</string>
     <string name="event_details_place">Place</string>
     <string name="event_details_participants">Participants</string>
     <string name="event_details_request_to_join_activity">REQUEST TO JOIN ACTIVITY</string>
 
+    <!--Activity Detail-->
+    <string name="activity_detail_title">Activity Detail</string>
+    <string name="activity_details_created_by">Created by</string>
+    <string name="activity_details_description">Description</string>
+    <string name="activity_details_place">Place</string>
+    <string name="activity_details_participants">Participants</string>
+    <string name="activity_details_request_to_join_activity">REQUEST TO JOIN ACTIVITY</string>
+
     <!--Who are you-->
-    <string name="who_are_you_message">Votre numéro sera seulement utilisé pour vérifier et sécuriser votre compte.</string>
+    <string name="who_are_you_message">Your phone number will only be used to verify your account and improve security</string>
 
 </resources>

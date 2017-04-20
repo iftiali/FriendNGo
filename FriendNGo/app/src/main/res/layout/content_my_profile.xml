@@ -144,9 +144,9 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:drawableRight="@android:drawable/ic_menu_edit"
-                    android:layout_toLeftOf="@+id/profile_languages_next_image"
-                    android:maxLines="10" />
 
+                    android:maxLines="10" />
+                <!--android:layout_toLeftOf="@+id/profile_languages_next_image"-->
                 <!--<ImageView-->
                     <!--android:layout_width="wrap_content"-->
                     <!--android:layout_height="wrap_content"-->

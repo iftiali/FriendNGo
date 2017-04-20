@@ -27,36 +27,37 @@
         android:textSize="16sp"/>
 
     <RelativeLayout
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <EditText
-            android:layout_width="40dp"
-            android:layout_height="45dp"
-            android:hint="+1"
-            android:maxLength="4"
-            android:background="@drawable/edit_text_dialog"
-            android:inputType="number"
-            android:layout_marginTop="3dp"
-            android:padding="5dp"
-            android:id="@+id/dialog_verification_two_country_code_edit_text"
-            android:layout_marginLeft="5dp"
-            android:ems="10"/>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
 
         <EditText
+            android:id="@+id/dialog_verification_two_country_code_edit_text"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/edit_text_dialog"
+            android:ems="10"
+            android:hint="+1"
+            android:inputType="phone"
+            android:maxLength="4"
+            android:padding="5dp" />
+
+        <EditText
+            android:id="@+id/dialog_verification_two_text_me_edit_text"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:hint="@string/dialog_verification_two_phone_number_hint"
-            android:inputType="number"
-            android:ems="10"
-            android:maxLength="10"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="3dp"
-            android:drawableRight="@android:drawable/ic_menu_edit"
-            android:padding="5dp"
             android:background="@drawable/edit_text_dialog"
-            android:id="@+id/dialog_verification_two_text_me_edit_text"/>
+            android:drawableRight="@android:drawable/ic_menu_edit"
+            android:ems="10"
+            android:hint="@string/dialog_verification_two_phone_number_hint"
+            android:inputType="phone"
+            android:maxLength="10"
+            android:padding="5dp" />
 
     </RelativeLayout>
 
