@@ -210,27 +210,26 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback, Goo
 
             name.setText(act.getName());
             name.setTextColor(Color.GRAY);
-            String baseUrlForImage =null;
+
             if(act.getisPaid()){
                 Log.d("Picture",MainActivity.base_host_url+act.getOrganization_logo());
                 creator.setText("Created by " + act.getOrganization_name());
-                final String logoofOrganization = MainActivity.base_host_url+act.getEventPictureUrl();
                 creator.setTextColor(Color.BLACK);
                 Picasso.with(getApplicationContext())
-                        .load(logoofOrganization)
+                        .load(MainActivity.base_host_url+act.getOrganization_logo())
                         .placeholder(R.drawable.empty_profile)
                         .error(R.drawable.empty_profile)
                         .into(profilePicture);
-                Log.d("Hello","Is paid");
+
             }else {
                creator.setText("Created by " + act.getCreator());
                 creator.setTextColor(Color.BLACK);
-//                Picasso.with(getApplicationContext())
-//                        .load(MainActivity.base_host_url+act.get)
-//                        .placeholder(R.drawable.empty_profile)
-//                        .error(R.drawable.empty_profile)
-//                        .into(profilePicture);
-                Log.d("Hello","Is not paid");
+                Picasso.with(getApplicationContext())
+                        .load(MainActivity.base_host_url+act.getProfilePicURL())
+                        .placeholder(R.drawable.empty_profile)
+                        .error(R.drawable.empty_profile)
+                        .into(profilePicture);
+
             }
             status.setText( act.getuserStatus()+ ", ");
             status.setTextColor(Color.GRAY);
@@ -282,8 +281,7 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback, Goo
 
                     category.setImageResource(R.drawable.art_exposition);
             }
-            String pictureURL = act.getProfilePicURL();
-            getProfileUrl(pictureURL);
+
         }
         return false;
     }
@@ -450,30 +448,6 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback, Goo
         }
         else{
             Toast.makeText(getApplicationContext(),checkOnlineToast,Toast.LENGTH_LONG).show();
-        }
-    }
-    private void getProfileUrl(String url){
-        if(ValidationClass.checkOnline(getApplicationContext())){
-        //GET The image file at the pictureURL
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get(MainActivity.base_host_url + url, new FileAsyncHttpResponseHandler(getApplicationContext()) {
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, File response) {
-                    Log.w("GET IMAGE SUCCESS1","Successfully Retrieved The Image");
-                    //Use the downloaded image as the profile picture
-                    Uri uri = Uri.fromFile(response);
-
-                    profilePicture.setImageURI(uri);
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-                    Log.w("GET IMAGE FAIL","Could not retrieve image");
-                }
-            });
-        }else{
-        Toast.makeText(getApplicationContext(),checkOnlineToast,Toast.LENGTH_LONG).show();
         }
     }
 }
