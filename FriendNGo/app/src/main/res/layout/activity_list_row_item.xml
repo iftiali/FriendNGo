@@ -244,8 +244,8 @@
                         android:layout_toEndOf="@+id/paid_event_profile_picture"
                         android:layout_toLeftOf="@+id/paid_event_activity_type"
                         android:layout_toRightOf="@+id/paid_event_profile_picture"
-                        android:paddingRight="5DP"
-                        android:text="Huitres a 1$ au restautant << les Normades >>"
+                        android:paddingRight="5dp"
+                        android:text="text"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
