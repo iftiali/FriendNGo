@@ -17,8 +17,9 @@
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:visibility="gone"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true">
+        android:layout_below="@+id/paidEventRelativeLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/profilepicture"
@@ -80,6 +81,7 @@
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_marginTop="4dp"
+            android:layout_alignParentBottom="true"
             android:layout_alignLeft="@+id/profilepicture"
             android:layout_below="@+id/activity_type"
             app:srcCompat="@drawable/clock" />
@@ -88,7 +90,9 @@
             android:id="@+id/activity_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/clock_image"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="4dp"
+
             android:layout_toEndOf="@+id/clock_image"
             android:layout_toRightOf="@+id/clock_image"
             android:text="Fri 20, 10:15pm"
@@ -97,8 +101,9 @@
         <ImageView
             android:id="@+id/pin_image"
             android:layout_width="wrap_content"
-            android:layout_below="@+id/activity_type"
+            android:layout_alignParentBottom="true"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/activity_time"
             app:srcCompat="@drawable/pin" />
 
@@ -106,8 +111,8 @@
             android:id="@+id/distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/pin_image"
-            android:layout_marginTop="4dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="4dp"
             android:layout_toEndOf="@+id/pin_image"
             android:layout_toRightOf="@+id/pin_image"
             android:text="10km away"
@@ -237,15 +242,13 @@
 
                     <TextView
                         android:id="@+id/paid_event_created_text"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_above="@+id/paid_event_certified"
-
-                        android:layout_toEndOf="@+id/paid_event_profile_picture"
-                        android:layout_toLeftOf="@+id/paid_event_activity_type"
                         android:layout_toRightOf="@+id/paid_event_profile_picture"
-                        android:paddingRight="5dp"
-                        android:text="text"
+                        android:text="text text text text text text text text"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="40dp"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -253,7 +256,7 @@
                         android:id="@+id/paid_event_clock"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                       android:layout_alignParentBottom="true"
+                        android:layout_alignParentBottom="true"
                         app:srcCompat="@drawable/clock"
                          />
 
@@ -285,7 +288,6 @@
                         android:layout_alignParentRight="true"
                         android:layout_below="@+id/paid_event_activity_type"
                         android:layout_marginRight="8dp"
-                        android:layout_marginTop="6dp"
                         android:background="@drawable/add_oval"
                         android:textColor="@android:color/white" />
 
@@ -302,11 +304,10 @@
                         android:id="@+id/paid_event_activity_type"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
                         android:layout_alignTop="@+id/paid_event_created_text"
-                        android:layout_marginRight="7dp"
-                        app:srcCompat="@drawable/concert" />
+                        app:srcCompat="@drawable/concert"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
 
                     <TextView
                         android:id="@+id/paid_event_status_text"
