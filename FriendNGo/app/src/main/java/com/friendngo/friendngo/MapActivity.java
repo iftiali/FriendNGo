@@ -3,6 +3,8 @@ package com.friendngo.friendngo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -18,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,7 +58,7 @@ public class MapActivity extends AppCompatActivity
 
     //Constants
     private static final String My_TAG ="Author:Parth";
-
+    RelativeLayout buttonClick;
     public static CircularImageView other_user_picture;
     public static String selfIdentify=null;
     public static int versionNumber = 9;
@@ -125,11 +128,14 @@ public class MapActivity extends AppCompatActivity
         user_account = (TextView) findViewById(R.id.user_account);
         wish_for_today = (TextView)findViewById(R.id.wish_for_today);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-
+        buttonClick = (RelativeLayout)findViewById(R.id.buttonClick);
         //Top bar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        wish_for_today.setOnClickListener(new View.OnClickListener() {
+        GradientDrawable gd = new GradientDrawable();
+        gd.setCornerRadius(10);
+        gd.setStroke(2, Color.rgb(255, 117, 0));
+        buttonClick.setBackground(gd);
+        buttonClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapActivity.this,WhatDoYouWantToDoToday.class);

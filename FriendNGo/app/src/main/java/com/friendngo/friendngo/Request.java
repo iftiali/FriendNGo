@@ -80,6 +80,7 @@ public class Request extends AppCompatActivity {
                                     activity.getString("sender_home_city"),
                                     activity.getString("sender_home_nationality"),
                                     activity.getString("sender_points"),
+                                    activity.getString("activity_name"),
                                     activity.getInt("id")));
                         } catch (JSONException e) {
                             Log.w("GET REQUEST FAIL1: ", e.getMessage().toString());

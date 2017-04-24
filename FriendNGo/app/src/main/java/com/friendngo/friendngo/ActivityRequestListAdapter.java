@@ -36,6 +36,7 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
         ImageView nationality;
         TextView request_point;
         TextView points;
+        TextView activityName;
         TextView resident;
         CircularImageView notImageButton,yesImageButton;
         long sender_id;
@@ -73,13 +74,14 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
             viewHolder.profilePicture = (CircularImageView) convertView.findViewById(R.id.messages_profile_picture);
             viewHolder.name = (TextView) convertView.findViewById(R.id.request_person_name);
             viewHolder.request_point = (TextView)convertView.findViewById(R.id.request_point);
+            viewHolder.activityName = (TextView)convertView.findViewById(R.id.request_activity_name);
             viewHolder.homeCity = (TextView) convertView.findViewById(R.id.reqiest_city_name);
             viewHolder.years = (TextView)convertView.findViewById(R.id.request_years);
             viewHolder.nationality = (ImageView) convertView.findViewById(R.id.request_flag);
             viewHolder.points = (TextView) convertView.findViewById(R.id.request_point);
             viewHolder.notImageButton =(CircularImageView)convertView.findViewById(R.id.request_delete_image);
             viewHolder.yesImageButton = (CircularImageView)convertView.findViewById(R.id.request_success_image);
-            viewHolder.nationality.setImageResource(R.drawable.canada);
+            //viewHolder.nationality.setImageResource(R.drawable.canada);
             viewHolder.resident = (TextView)convertView.findViewById(R.id.request_resident);
             result=convertView;
             convertView.setTag(viewHolder);
@@ -107,7 +109,8 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
         viewHolder.homeCity.setText(dataModel.getHomeCity());
         viewHolder.homeCity.setTextColor(Color.GRAY);
         viewHolder.resident.setTextColor(Color.GRAY);
-
+        viewHolder.activityName.setText(dataModel.getActiivityName().toString());
+        viewHolder.activityName.setTextColor(Color.GRAY);
         if(dataModel.request_state == 0){
             //Do nothing!
         } else if (dataModel.request_state == 1){
