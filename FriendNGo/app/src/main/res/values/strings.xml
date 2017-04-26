@@ -232,5 +232,9 @@
     <string name="Special_Group_edit_text_hint">Type The Code Here</string>
     <string name="Special_Group_button_save">Save</string>
     <string name="Special_Group_cancel">Cancel</string>
+    <string name="Special_Group_Empty_Toast">Code filed field is empty</string>
+    <string name="Special_Group_code_accepted_Toast"> Code Accepted!</string>
+    <string name="Special_Group_code_accepted_invalid_Toast">Code Is Not Valid</string>
 
+    Code Accepted!
 </resources>
