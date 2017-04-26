@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "574445861036",
+    "firebase_url": "https://friendngo-12ede.firebaseio.com",
+    "project_id": "friendngo-12ede",
+    "storage_bucket": "friendngo-12ede.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574445861036:android:d8b8c9d56d38b7d1",
+        "android_client_info": {
+          "package_name": "com.friendngo.friendngo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574445861036-rndagchfsp636bk26jclutsbf2t8l1ek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAW0DuSoPMqDT45BZ3ocGARy8gAWOovkpA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
