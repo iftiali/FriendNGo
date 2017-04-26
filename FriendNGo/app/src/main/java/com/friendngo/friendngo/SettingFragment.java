@@ -79,13 +79,6 @@ public class SettingFragment extends Fragment {
         settings_frame_points.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),PointHistoryAdapter.class);
-                startActivity(intent);
-            }
-        });
-        settings_frame_points.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),PointsHistoryActivity.class);
                 startActivity(intent);
             }
@@ -102,7 +95,7 @@ public class SettingFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 settingsCheck = true;
-                Intent intent = new Intent(getApplicationContext(),MySpecialGroup.class);
+                Intent intent = new Intent(getApplicationContext(),SpecialGroup.class);
                 startActivity(intent);
             }
         });

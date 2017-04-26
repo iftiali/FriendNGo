@@ -171,8 +171,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                     try {
 
                         JSONObject chatJSONObject = chatJsonArray.getJSONObject(i);
-                      String senderID =  chatJSONObject.getString("sender");
-
+                        String senderID =  chatJSONObject.getString("sender");
 
                             if(senderID.equals(receiverId)){
                                 msg.setId(1);

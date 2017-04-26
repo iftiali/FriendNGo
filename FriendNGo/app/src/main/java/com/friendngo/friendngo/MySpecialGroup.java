@@ -54,14 +54,14 @@ public class MySpecialGroup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AsyncHttpClient client = new AsyncHttpClient();
-                if(SignIn.static_token != null) {
-                    client.addHeader("Authorization","Token "+SignIn.static_token);
+                if (SignIn.static_token != null) {
+                    client.addHeader("Authorization", "Token " + SignIn.static_token);
                 }
 
                 RequestParams params = new RequestParams();
 
                 String code = code_edit_text.getText().toString();
-                params.put("code_received",code);
+                params.put("code_received", code);
 
                 client.post(MainActivity.base_host_url + "api/postPromotionCode/", params, new JsonHttpResponseHandler() {
 
@@ -92,6 +92,7 @@ public class MySpecialGroup extends AppCompatActivity {
                         Toast.makeText(MySpecialGroup.this, "Code Is Not Valid", Toast.LENGTH_LONG).show();
                         Log.w("POST CODE FAILURE2", "Error Code: " + error_code + text);
                     }
+
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                         Toast.makeText(MySpecialGroup.this, "Code Is Not Valid!", Toast.LENGTH_LONG).show();
                         Log.w("POST CODE FAILURE", String.valueOf(statusCode) + errorResponse.toString());
@@ -105,46 +106,46 @@ public class MySpecialGroup extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 //check edit profile path
                 SharedPreferences pref = getSharedPreferences("EditPath", MODE_PRIVATE); // 0 - for private mode
-                String editprofilePath= pref.getString("edit_path", null);
-                if(editprofilePath == null){
-
-                        if( MainActivity.new_user = true){
+                String editprofilePath = pref.getString("edit_path", null);
+                if (editprofilePath == null) {
+                    if(SettingFragment.settingsCheck == false) {
+                        if (MainActivity.new_user = true) {
                             Log.d("State", String.valueOf(MainActivity.new_user));
-                            Intent intent = new Intent(getApplicationContext(),WhatDoYouWantToDoToday.class);
+                            Intent intent = new Intent(getApplicationContext(), WhatDoYouWantToDoToday.class);
                             MySpecialGroup.this.startActivity(intent);
                             MySpecialGroup.this.finish();
                             SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
-                            editor.putString("is_profile_created","true");
+                            editor.putString("is_profile_created", "true");
 
                             editor.commit();
-                        }
-                        else {
+                        } else {
                             finish();
                             //TODO: Create A Flag Here
                             SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
                             editor.putString("is_profile_created", "true");
                             editor.commit();
                         }
-
+                    }else {
+                        MySpecialGroup.this.finish();
+                    }
 
                     //remove edit profile path
 
-                }else {
-                        SharedPreferences editPofileSharedPreferences = getApplicationContext().getSharedPreferences("EditPath", 0);
-                        SharedPreferences.Editor editPofileEditor = editPofileSharedPreferences.edit();
-                        editPofileEditor.clear();
-                        editPofileEditor.commit();
-                        Log.d("True",editprofilePath);
-                        MySpecialGroup.this.finish();
-                        SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
-                        editor.putString("is_profile_created", "true");
-                        editor.commit();
-                    }
+                } else {
+                    SharedPreferences editPofileSharedPreferences = getApplicationContext().getSharedPreferences("EditPath", 0);
+                    SharedPreferences.Editor editPofileEditor = editPofileSharedPreferences.edit();
+                    editPofileEditor.clear();
+                    editPofileEditor.commit();
+                    Log.d("True", editprofilePath);
+                    MySpecialGroup.this.finish();
+                    SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
+                    editor.putString("is_profile_created", "true");
+                    editor.commit();
+                }
 
                 return false;
             }
         });
-
 
 
     }

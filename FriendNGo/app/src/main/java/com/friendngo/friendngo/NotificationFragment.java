@@ -35,7 +35,6 @@ public class NotificationFragment extends Fragment {
     private ListView list;
     private String checkOnlineToast = null;
     private ArrayList<RequestModel> dataModels;
-    private BottomNavigationView bottomNavigationView;
     private static ActivityRequestListAdapter adapter;
     public NotificationFragment() {
         // Required empty public constructor

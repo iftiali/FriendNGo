@@ -95,17 +95,17 @@ public class ChatFragment extends Fragment {
                             );
                             if(!chatList.isEmpty()){
 
-                                for(int zz =0;zz<chatList.size();zz++){
-                                    if(chatList.get(zz).getactivityID().equals( chatJSONObject.getString("activity_id"))){
-                                        Log.i("No need to add","No need to add");
-                                        chatList.remove(zz);
-                                        chatList.add(chatModel);
-                                    }else{
-                                        chatList.add(chatModel);
-                                    }
-                                }
+//                                for(int zz =0;zz<chatList.size();zz++){
+//                                    if(chatList.get(zz).getactivityID().equals( chatJSONObject.getString("activity_id"))){
+//                                        Log.i("No need to add","No need to add");
+//                                        chatList.remove(zz);
+//                                        chatList.add(chatModel);
+//                                    }else{
+//                                        chatList.add(chatModel);
+//                                    }
+//                                }
 
-                                //chatList.add(chatModel);
+                                chatList.add(chatModel);
                             }else {
                                 recyclerView.setVisibility(View.VISIBLE);
                                 emptyView.setVisibility(View.GONE);

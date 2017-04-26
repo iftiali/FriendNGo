@@ -223,5 +223,14 @@
     <!--Who are you-->
     <string name="who_are_you_message">Your phone number will only be used to verify your account and improve security</string>
     <string name="who_are_you_bio_hint">About Me</string>
+    <string name="title_activity_special_group">SpecialGroup</string>
+
+    <!--Special Group-->
+    <string name="Special_Group_title">Special Group</string>
+    <string name="Special_Group_sub_title_one">You are already part of the following group</string>
+     <string name="Special_Group_sub_title_two">Do you have a code for a special group in the app?</string>
+    <string name="Special_Group_edit_text_hint">Type The Code Here</string>
+    <string name="Special_Group_button_save">Save</string>
+    <string name="Special_Group_cancel">Cancel</string>
 
 </resources>

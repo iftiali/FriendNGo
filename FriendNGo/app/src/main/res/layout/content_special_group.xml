@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.friendngo.friendngo.SpecialGroup"
+    tools:showIn="@layout/activity_special_group">
+
+    <TextView
+        android:text="@string/Special_Group_sub_title_one"
+        android:layout_height="wrap_content"
+        android:id="@+id/special_code_explanation_text_view"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:gravity="center_horizontal"
+        android:layout_width="225dp"/>
+
+    <ListView
+        android:id="@+id/special_group_list"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/special_code_explanation_text_view"
+        android:layout_above="@+id/special_Group_sub_title_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/whiteish"
+        android:dividerHeight="5dp" />
+    <TextView
+        android:text="@string/Special_Group_sub_title_two"
+        android:layout_height="wrap_content"
+        android:id="@+id/special_Group_sub_title_two"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:layout_width="225dp"
+        android:layout_marginBottom="25dp"
+        android:layout_above="@+id/Special_Group_code_edit_text"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_above="@+id/Special_Group_code_next_button"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/Special_Group_code_edit_text"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/rounded_corners_white"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:hint="@string/Special_Group_edit_text_hint"
+        android:textAlignment="center" />
+
+    <Button
+        android:text="@string/Special_Group_button_save"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/Special_Group_code_next_button"
+        android:layout_width="160dp"
+        android:textColor="@android:color/white"
+        android:background="@drawable/submit_button"
+        android:layout_marginBottom="15dp" />
+</RelativeLayout>
