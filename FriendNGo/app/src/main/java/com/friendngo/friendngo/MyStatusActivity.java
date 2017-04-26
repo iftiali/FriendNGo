@@ -153,9 +153,14 @@ public class MyStatusActivity extends AppCompatActivity {
                         }
                     });
                 MapActivity.other_user_location.setText(statusName+", "+ currentCity);
-                Intent intent = new Intent(MyStatusActivity.this, MySpecialGroup.class);
-                MyStatusActivity.this.startActivity(intent);
-                MyStatusActivity.this.finish();
+                if(SettingFragment.settingsCheck==true){
+                    SettingFragment.settingsCheck = false;
+                    MyStatusActivity.this.finish();
+                }else {
+                    Intent intent = new Intent(MyStatusActivity.this, MySpecialGroup.class);
+                    MyStatusActivity.this.startActivity(intent);
+                    MyStatusActivity.this.finish();
+                }
 
             }
         });

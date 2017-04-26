@@ -105,6 +105,7 @@ public class ChatFragment extends Fragment {
                                     }
                                 }
 
+                                //chatList.add(chatModel);
                             }else {
                                 recyclerView.setVisibility(View.VISIBLE);
                                 emptyView.setVisibility(View.GONE);

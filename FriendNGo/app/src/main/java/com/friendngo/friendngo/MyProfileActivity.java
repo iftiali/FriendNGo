@@ -438,11 +438,13 @@ public class MyProfileActivity extends AppCompatActivity {
                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                            Log.w("POST PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
 //                        NewWhoAreYouActivity.this.finish();
-                           finishProfileFlag = true;
-                           if (finishPictureFlag && finishProfileFlag) {
 
-                               MyProfileActivity.this.finish();
-                           }
+                               finishProfileFlag = true;
+                               if (finishPictureFlag && finishProfileFlag) {
+
+                                   MyProfileActivity.this.finish();
+                               }
+
                        }
 
                        @Override
@@ -523,9 +525,14 @@ public class MyProfileActivity extends AppCompatActivity {
 
                        }
                    }
-                   Intent intent = new Intent(getApplicationContext(), NewCity.class);
-                   MyProfileActivity.this.startActivity(intent);
-                   MyProfileActivity.this.finish();
+                   if(SettingFragment.settingsCheck==true){
+                       SettingFragment.settingsCheck = false;
+                       MyProfileActivity.this.finish();
+                   }else {
+                       Intent intent = new Intent(getApplicationContext(), NewCity.class);
+                       MyProfileActivity.this.startActivity(intent);
+                       MyProfileActivity.this.finish();
+                   }
                }else {
                    Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_LONG).show();
                }

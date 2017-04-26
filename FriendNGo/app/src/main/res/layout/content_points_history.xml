@@ -21,9 +21,11 @@
 
     <Button
         android:id="@+id/points_history_save_button"
-        android:text="OKAY"
-        android:layout_width="160dp"
+        android:text="How to get points, and why?"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="@drawable/submit_button"

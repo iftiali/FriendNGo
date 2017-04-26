@@ -928,7 +928,7 @@ public class MapActivity extends AppCompatActivity
                             Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
                             //Use the downloaded image as the profile picture
                             Uri uri = Uri.fromFile(response);
-                            MapActivity.other_user_picture.setImageURI(uri);
+                            other_user_picture.setImageURI(uri);
                         }
 
                         @Override
@@ -941,7 +941,7 @@ public class MapActivity extends AppCompatActivity
         });
 
         if(FacebookLogin.facebook_profile_pic != null) {
-            MapActivity.other_user_picture.setImageURI(FacebookLogin.facebook_profile_pic);
+            other_user_picture.setImageURI(FacebookLogin.facebook_profile_pic);
         }
     }
 }

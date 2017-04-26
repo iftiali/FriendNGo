@@ -1,5 +1,6 @@
 package com.friendngo.friendngo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -48,7 +49,9 @@ public class PointsHistoryActivity extends AppCompatActivity {
         pointHistorySubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PointsHistoryActivity.this.finish();
+                Intent intent = new Intent(getApplicationContext(),PointsSystemActivity.class);
+                startActivity(intent);
+
             }
         });
         //Set Recycle view with adapter

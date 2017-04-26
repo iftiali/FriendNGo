@@ -2,42 +2,374 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/whiteish"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.friendngo.friendngo.SettingFragment">
 
    <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent">
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:lines="2"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/issue_edit_text"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/rounded_corners_white"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:paddingBottom="15dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:hint="@string/reportIssueEditTextHint"
-        android:textAlignment="center" />
+      <ScrollView
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical" >
+
+            <FrameLayout
+                android:id="@+id/settings_frame_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true">
+
+               <RelativeLayout
+                   android:id="@+id/settings_row_item"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginBottom="5dp"
+                   android:padding="10dp"
+                   android:background="@color/white">
 
 
-    <Button
-        android:text="@string/submit"
-        android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
-        android:id="@+id/submit_issue_button"
-        android:layout_width="160dp"
-        android:textColor="@android:color/white"
-        android:background="@drawable/submit_button"
-        />
+                  <com.mikhaellopez.circularimageview.CircularImageView
+                      android:id="@+id/settings_profile_picture"
+                      android:layout_width="60dp"
+                      android:layout_height="60dp"
+                      android:src="@drawable/empty_profile"
+                      app:civ_border_color="#EEEEEE"
+                      app:civ_border_width="2dp"
+                      app:civ_shadow="true"
+                      app:civ_shadow_radius="0.5"
+                      app:civ_shadow_color="@color/greyish"
+                      android:layout_margin="12dp"/>
+                  <LinearLayout
+                      android:layout_width="wrap_content"
+                      android:paddingLeft="10dp"
+                      android:orientation="vertical"
+                      android:layout_centerVertical="true"
+                      android:layout_toRightOf="@+id/settings_profile_picture"
+                      android:layout_toEndOf="@+id/settings_profile_picture"
+                      android:layout_height="wrap_content">
+                     <TextView
+                         android:id="@+id/settings_created_text"
+                         android:text="Stephania Zaharova"
+                         android:textColor="@color/black"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginBottom="5dp"
+                         android:textSize="16sp"
+                         android:textStyle="bold"/>
+
+                     <TextView
+                         android:id="@+id/settings_created_text_two"
+                         android:text="See profile"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_below="@id/paid_event_created_text"
+                         android:textSize="14sp" />
+                  </LinearLayout>
+
+
+
+                  <ImageView
+                      android:id="@+id/settings_next_one"
+                      android:layout_width="20dp"
+                      android:layout_height="25dp"
+                      app:srcCompat="@drawable/next"
+                      android:layout_centerVertical="true"
+                      android:layout_alignParentRight="true"
+                      android:layout_alignParentEnd="true"
+                      android:layout_marginRight="4dp"
+                      android:layout_marginTop="6dp"/>
+               </RelativeLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/settings_frame_points"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/settings_frame_profile">
+
+               <RelativeLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginBottom="5dp"
+                   android:padding="14dp"
+                   android:background="@color/white">
+
+                  <TextView
+                      android:id="@+id/settings_created_point"
+                      android:text="125 Points"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:paddingLeft="10dp"
+                      android:layout_marginTop="10dp"
+                      android:layout_marginBottom="5dp"
+                      android:textSize="14sp"/>
+
+
+                  <ImageView
+                      android:id="@+id/settings_next_two"
+                      android:layout_width="20dp"
+                      android:layout_height="25dp"
+                      app:srcCompat="@drawable/next"
+                      android:layout_alignParentRight="true"
+                      android:layout_alignParentEnd="true"
+                      android:layout_centerVertical="true"
+                      android:layout_marginTop="4dp" />
+               </RelativeLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/settings_frame_city"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/settings_frame_points">
+
+               <RelativeLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginBottom="5dp"
+                   android:padding="14dp"
+                   android:background="@color/white">
+
+                  <TextView
+                      android:id="@+id/settings_created_text_city"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="5dp"
+                      android:layout_marginTop="10dp"
+                      android:paddingLeft="10dp"
+                      android:text="City and status"
+                      android:textSize="14sp" />
+
+                  <ImageView
+                      android:id="@+id/settings_next_three"
+                      android:layout_width="20dp"
+                      android:layout_height="25dp"
+                      app:srcCompat="@drawable/next"
+                      android:layout_alignParentRight="true"
+                      android:layout_alignParentEnd="true"
+                      android:layout_centerVertical="true"
+                      android:layout_marginTop="4dp" />
+               </RelativeLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/settings_frame_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/settings_frame_city">
+
+               <RelativeLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginBottom="5dp"
+                   android:padding="14dp"
+                   android:background="@color/white">
+
+                  <TextView
+                      android:id="@+id/settings_created_text_four"
+                      android:text="Special groups"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:paddingLeft="10dp"
+                      android:layout_marginTop="10dp"
+                      android:layout_marginBottom="5dp"
+                      android:textSize="14sp"/>
+
+                  <ImageView
+                      android:id="@+id/settings_next_four"
+                      android:layout_width="20dp"
+                      android:layout_height="25dp"
+                      app:srcCompat="@drawable/next"
+                      android:layout_alignParentRight="true"
+                      android:layout_alignParentEnd="true"
+                      android:layout_centerVertical="true"
+                      android:layout_marginTop="4dp" />
+               </RelativeLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/settings_frame_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/settings_frame_group">
+
+               <RelativeLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginBottom="5dp"
+                   android:padding="14dp"
+                   android:background="@color/white">
+
+                  <TextView
+                      android:id="@+id/settings_created_text_five"
+                      android:text="Notifications settings"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:paddingLeft="10dp"
+                      android:layout_marginTop="10dp"
+                      android:layout_marginBottom="5dp"
+                      android:textSize="14sp"/>
+
+                  <ImageView
+                      android:id="@+id/settings_next_five"
+                      android:layout_width="20dp"
+                      android:layout_height="25dp"
+                      app:srcCompat="@drawable/next"
+                      android:layout_alignParentRight="true"
+                      android:layout_alignParentEnd="true"
+                      android:layout_centerVertical="true"
+                      android:layout_marginTop="4dp" />
+               </RelativeLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/settings_frame_share"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/settings_frame_notifications">
+
+               <RelativeLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginBottom="5dp"
+                   android:padding="14dp"
+                   android:background="@color/white">
+
+                  <TextView
+                      android:id="@+id/settings_created_text_six"
+                      android:text="Share the app"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:paddingLeft="10dp"
+                      android:layout_marginTop="10dp"
+                      android:layout_marginBottom="5dp"
+                      android:textSize="14sp"/>
+
+                  <ImageView
+                      android:id="@+id/settings_next_six"
+                      android:layout_width="20dp"
+                      android:layout_height="25dp"
+                      app:srcCompat="@drawable/next"
+                      android:layout_alignParentRight="true"
+                      android:layout_alignParentEnd="true"
+                      android:layout_centerVertical="true"
+                      android:layout_marginTop="4dp" />
+               </RelativeLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/settings_frame_ratting"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/settings_frame_share">
+
+               <RelativeLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginBottom="5dp"
+                   android:padding="14dp"
+                   android:background="@color/white">
+
+                  <TextView
+                      android:id="@+id/settings_created_text_seven"
+                      android:text="Rate the app"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:paddingLeft="10dp"
+                      android:layout_marginTop="10dp"
+                      android:layout_marginBottom="5dp"
+                      android:textSize="14sp"/>
+
+                  <ImageView
+                      android:id="@+id/settings_next_seven"
+                      android:layout_width="20dp"
+                      android:layout_height="25dp"
+                      app:srcCompat="@drawable/next"
+                      android:layout_alignParentRight="true"
+                      android:layout_alignParentEnd="true"
+                      android:layout_centerVertical="true"
+                      android:layout_marginTop="4dp" />
+               </RelativeLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/settings_frame_about"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/settings_frame_ratting">
+
+               <RelativeLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginBottom="5dp"
+                   android:padding="14dp"
+                   android:background="@color/white">
+
+                  <TextView
+                      android:id="@+id/settings_created_text_eight"
+                      android:text="About us"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:paddingLeft="10dp"
+                      android:layout_marginTop="10dp"
+                      android:layout_marginBottom="5dp"
+                      android:textSize="14sp"/>
+
+                  <ImageView
+                      android:id="@+id/settings_next_eight"
+                      android:layout_width="20dp"
+                      android:layout_height="25dp"
+                      app:srcCompat="@drawable/next"
+                      android:layout_alignParentRight="true"
+                      android:layout_alignParentEnd="true"
+                      android:layout_centerVertical="true"
+                      android:layout_marginTop="4dp" />
+               </RelativeLayout>
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/settings_frame_contact"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/settings_frame_about">
+
+               <RelativeLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginBottom="5dp"
+                   android:padding="16dp"
+                   android:background="@color/white">
+
+                  <TextView
+                      android:id="@+id/settings_created_text_nine"
+                      android:text="Contact us"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:paddingLeft="10dp"
+                      android:layout_marginTop="10dp"
+                      android:layout_marginBottom="5dp"
+                      android:textSize="16sp"/>
+
+                  <ImageView
+                      android:id="@+id/settings_next_nine"
+                      android:layout_width="20dp"
+                      android:layout_height="25dp"
+                      app:srcCompat="@drawable/next"
+                      android:layout_alignParentRight="true"
+                      android:layout_alignParentEnd="true"
+                      android:layout_centerVertical="true"
+                      android:layout_marginTop="4dp" />
+               </RelativeLayout>
+            </FrameLayout>
+         </LinearLayout>
+      </ScrollView>
 
    </RelativeLayout>
 </FrameLayout>
