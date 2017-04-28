@@ -1,4 +1,18 @@
-﻿RELEASE NOTES v1.0.9 - HOTFIX
+﻿RELEASE NOTES v1.0.10
+
+New Features:
+- Push notifications are now supported
+- Settings Page is now finished
+- Points History, About Us, and Special Groups Page added
+
+
+Bug Fixes:
+- Numerous tweaks to the UI
+- Bug fixes with twilio password reset
+- Fixed error with messages where only activity was showing
+
+
+RELEASE NOTES v1.0.9 - HOTFIX
 
 New Features:
 - French Language Support Added
