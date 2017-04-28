@@ -80,9 +80,8 @@
     <string name="reportIssueToast">Report issue field is empty</string>
     <string name="reportIssueSuccessToast">Report issue message submitted successfully</string>
     <string name="reportIssueEditTextHint">Type Your Issue Here</string>
-    <string name="reportIssueEditTextNullToast">Report Issue field is empty</string>
+    <string name="reportIssueEditTextEmptyToast">Report Issue field is empty</string>
 
-    
     <!--Notification Fragment-->
     <string name="notificationFragmentEmptyText">You will receive a notification when someone tries to join an activity you created</string>
 
@@ -209,6 +208,7 @@
     <string name="event_details_place">Place</string>
     <string name="event_details_participants">Participants</string>
     <string name="event_details_request_to_join_activity">REQUEST TO JOIN ACTIVITY</string>
+    <string name="event_details_request_no_provided">Not Provided</string>
 
     <!--Activity Detail-->
     <string name="activity_detail_title">Activity Detail</string>
@@ -219,9 +219,15 @@
     <string name="activity_details_request_to_join_activity">REQUEST TO JOIN ACTIVITY</string>
 
     <!--Who are you-->
-    <string name="who_are_you_message">Your phone number will only be used to verify your account and improve security</string>
-    <string name="who_are_you_bio_hint">À propos de moi</string>
     <string name="my_who_are_you_title">Who are you?</string>
+    <string name="who_are_you_message">Your phone number will only be used to verify your account and improve security</string>
+    <string name="who_are_you_bio_hint">About Me</string>
+    <string name="who_are_you_button_save">Save</string>
+    <string name="who_are_you_phone_hint">Phone</string>
+    <string name="who_are_you_age_hint">Age</string>
+    <string name="who_are_you_spoken_languages_hint">Spoken languages</string>
+    <string name="who_are_you_citizenship_hint">Citizenship</string>
+    <string name="who_are_you_name_hint">Name</string>
 
     <!--Special Group-->
     <string name="Special_Group_title">Special Group</string>
@@ -231,6 +237,9 @@
     <string name="Special_Group_button_save">Save</string>
     <string name="Special_Group_cancel">Cancel</string>
     <string name="Special_Group_Empty_Toast">Code filed field is empty</string>
+    <string name="Special_Group_code_accepted_Toast"> Code Accepted!</string>
+    <string name="Special_Group_code_accepted_invalid_Toast">Code Is Not Valid</string>
+    <string name="title_activity_special_group">SpecialGroup</string>
 
     <!--Map-->
     <string name="map_drawer_What_you_want_to_do">What you want to do today?</string>
@@ -238,17 +247,36 @@
 
     <!--My city-->
     <string name="my_city_title">My City</string>
+    <string name="my_city_button_next">Next</string>
+    <string name="my_city_where_are_you">Where are you from?</string>
+    <string name="my_city_city_country">City,Country</string>
 
     <!--My Profile-->
     <string name="my_profile_title">My Profile</string>
     <string name="my_profile_cancel">cancel</string>
     <string name="my_profile_logout">logout</string>
+    <string name="my_profile_button_save">Save</string>
+    <string name="my_profile_phone_hint">Phone</string>
+    <string name="my_profile_age_hint">Age</string>
+    <string name="my_profile_spoken_languages_hint">Spoken languages</string>
+    <string name="my_profile_citizenship_hint">Citizenship</string>
+    <string name="my_profile_name_hint">Name</string>
 
     <!--My Special Group-->
     <string name="my_special_group_title">My Special Group</string>
+    <string name="my_special_group_sub_title_two">Do you have a code for a special group in the app?</string>
+    <string name="my_special_group_edit_text_hint">Type The Code Here</string>
+    <string name="my_special_group_button_next">NEXT</string>
+    <string name="my_special_group_no_i_dont">No I don\'t</string>
 
     <!--My Status-->
     <string name="my_status_title">My Status</string>
+    <string name="my_status_sub_title">What is your status in your current city?</string>
+    <string name="my_status_resident">Resident</string>
+    <string name="my_status_migrant">Migrant - New To City</string>
+    <string name="my_status_tourist">Tourist</string>
+    <string name="my_status_student">Student</string>
+    <string name="my_status_next">Next</string>
 
     <!--New City-->
     <string name="my_new_city_title">Change your status</string>
@@ -261,8 +289,7 @@
 
     <!--Points History-->
     <string name="my_points_history_title">Points History</string>
-    <string name="my_points_button">How to get points\, and why?</string>
-
+    <string name="my_points_button">How to get points, and why?</string>
     <!--Point System-->
     <string name="my_points_system_title_sub">Points System</string>
     <string name="my_points_system_got_it">Got it</string>
@@ -275,8 +302,6 @@
     <string name="my_points_system_point_one">You posted an activity \'activity name\'</string>
     <string name="my_points_system_sub_point_two">Here is how you can win or lose points:</string>
     <string name="my_points_system_sub_one">The number of points of a user is an indicator of the experience within the app. Don\'t judge too fast, 0 might mean that a user is new!</string>
-
-
 
     <!--What's up around you?-->
     <string name="my_popular_title">What\'s up around you?</string>
