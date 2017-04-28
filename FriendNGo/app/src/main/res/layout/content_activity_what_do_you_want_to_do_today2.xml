@@ -11,7 +11,7 @@
     tools:showIn="@layout/activity_what_do_you_want_to_do_today2">
 
     <Button
-        android:text="SAVE"
+        android:text="@string/what_do_you_want_to_do_today_button_next"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -42,7 +42,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:background="@color/whiteish"
-        android:text="Pick your current interests to receive catered results" />
+        android:text="@string/what_do_you_want_to_do_today_sub_title" />
 
 </RelativeLayout>
 

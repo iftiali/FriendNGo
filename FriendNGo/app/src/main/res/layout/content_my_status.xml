@@ -19,7 +19,7 @@
 
         <TextView
             android:textColor="@color/textInput"
-            android:text="What is your status in your current city?"
+            android:text="@string/my_status_sub_title"
             android:layout_width="wrap_content"
             android:textSize="16sp"
             android:layout_gravity="center_horizontal|center_vertical"
@@ -37,7 +37,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <Button
-                android:text="Resident"
+                android:text="@string/my_status_resident"
                 android:layout_width="match_parent"
                 android:textColor="@color/textInput"
                 android:id="@+id/resident_button_my_status"
@@ -48,7 +48,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_height="40dp" />
             <Button
-                android:text="Migrant - New To City"
+                android:text="@string/my_status_migrant"
                 android:layout_width="match_parent"
                 android:textColor="@color/textInput"
                 android:id="@+id/migrant_button_my_status"
@@ -59,7 +59,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_height="40dp" />
             <Button
-                android:text="Tourist"
+                android:text="@string/my_status_tourist"
                 android:layout_width="match_parent"
                 android:textColor="@color/textInput"
                 android:id="@+id/tourist_button_my_status"
@@ -70,7 +70,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_height="40dp" />
             <Button
-                android:text="Student"
+                android:text="@string/my_status_student"
                 android:layout_width="match_parent"
                 android:textColor="@color/textInput"
                 android:id="@+id/student_button_my_status"
@@ -88,7 +88,7 @@
     android:layout_weight="0.4"
     android:background="@color/whiteish">
         <Button
-            android:text="Next"
+            android:text="@string/my_status_next"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:id="@+id/next_button_my_status"

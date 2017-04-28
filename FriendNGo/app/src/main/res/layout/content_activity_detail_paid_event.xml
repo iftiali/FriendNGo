@@ -170,7 +170,7 @@
                         android:layout_below="@id/activity_detail_paid_place_heading"
                         android:layout_centerHorizontal="true"
                         android:layout_margin="10dp"
-                        android:text="Not Provided" />
+                        android:text="@string/event_details_request_no_provided" />
                 </RelativeLayout>
             </FrameLayout>
 

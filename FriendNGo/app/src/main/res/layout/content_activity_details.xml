@@ -99,34 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
                         android:layout_below="@+id/activity_detail_creator_name"
-                        android:gravity="center_horizontal"
-                        />
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/activity_detail_creator_home"-->
-                        <!--android:text="New York"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_toRightOf="@id/activity_detail_creator_status"-->
-                        <!--android:layout_alignTop="@id/activity_detail_creator_status"-->
-                        <!--/>-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/activity_detail_dot"-->
-                        <!--android:text=" · "-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_toRightOf="@id/activity_detail_creator_home"-->
-                        <!--android:layout_alignTop="@id/activity_detail_creator_home"-->
-                        <!--/>-->
-
-                    <!--<ImageView-->
-                        <!--app:srcCompat="@drawable/uk"-->
-                        <!--android:id="@+id/activity_detail_creator_flag"-->
-                        <!--android:layout_width="16dp"-->
-                        <!--android:layout_height="16dp"-->
-                        <!--android:layout_toRightOf="@id/activity_detail_dot"-->
-                        <!--android:layout_alignTop="@id/activity_detail_dot" />-->
+                        android:gravity="center_horizontal"/>
 
                     <TextView
                         android:id="@+id/activity_detail_date"
@@ -160,30 +133,6 @@
                         android:textColor="#343B59" />
                 </RelativeLayout>
             </FrameLayout>
-            <!--<FrameLayout-->
-                <!--android:id="@+id/activity_detail_request_frame"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_below="@+id/creator_frame"-->
-                <!--android:layout_margin="7dp"-->
-                <!--android:background="@drawable/rounded_corners_white">-->
-
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content">-->
-                    <!--<TextView-->
-                        <!--android:id="@+id/activity_detail_request_heading"-->
-                        <!--android:text="See request"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignParentTop="true"-->
-                        <!--android:layout_centerHorizontal="true"-->
-                        <!--android:layout_marginTop="10dp"-->
-                        <!--android:textSize="20sp"-->
-                        <!--android:textColor="#343B59" />-->
-
-                <!--</RelativeLayout>-->
-            <!--</FrameLayout>-->
             <FrameLayout
                 android:id="@+id/activity_detail_description_frame"
                 android:layout_width="match_parent"
@@ -250,8 +199,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_margin="10dp"
-                        />
+                        android:layout_margin="10dp"/>
                 </RelativeLayout>
             </FrameLayout>
 
@@ -273,7 +221,7 @@
                         android:id="@+id/participants_text"
                         android:textSize="20sp"
                         android:textColor="#343B59"
-                        android:layout_marginTop="10dp" />
+                        android:layout_marginTop="10dp"/>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/participants_recycler_view"

@@ -14,7 +14,7 @@
     tools:showIn="@layout/activity_my_special_group">
 
     <TextView
-        android:text="Do you have a code for a special group in the app?"
+        android:text="@string/my_special_group_sub_title_two"
         android:layout_height="wrap_content"
         android:id="@+id/code_explanation_text_view"
         android:layout_alignParentTop="true"
@@ -39,11 +39,11 @@
         android:paddingTop="15dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:hint="Type The Code Here"
+        android:hint="@string/my_special_group_edit_text_hint"
         android:textAlignment="center" />
 
     <TextView
-        android:text="No I don't"
+        android:text="@string/my_special_group_no_i_dont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/code_edit_text"
@@ -53,7 +53,7 @@
         android:textColor="@color/colorAccent" />
 
     <Button
-        android:text="NEXT"
+        android:text="@string/my_special_group_button_next"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

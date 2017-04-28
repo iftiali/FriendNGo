@@ -42,7 +42,7 @@
 
     <TextView
         android:id="@+id/about_us_terms_and_conditions_text"
-        android:text="Terms and Conditions"
+        android:text="@string/about_us_terms_and_conditions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/about_us_privacy_policy_text"

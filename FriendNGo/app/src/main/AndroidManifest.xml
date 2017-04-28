@@ -136,11 +136,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MyCalendarActivity"
-            android:label="@string/title_activity_my_calendar"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".PointsHistoryActivity"
             android:label="@string/title_activity_points_history"
             android:screenOrientation="portrait"

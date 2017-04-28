@@ -30,7 +30,7 @@
         <EditText
             android:layout_weight="0.1"
             android:id="@+id/messageEdit"
-            android:hint="Type a new message"
+            android:hint="@string/chat_room_Type_a_new_message_hint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"

@@ -76,6 +76,7 @@
     <string name="submit">SUBMIT</string>
 
     <!--Report Issue Fragment-->
+    <string name="reportIssueEdit_title">Report Issue</string>
     <string name="reportIssueToast">Report issue field is empty</string>
     <string name="reportIssueSuccessToast">Report issue message submitted successfully</string>
     <string name="reportIssueEditTextHint">Type Your Issue Here</string>
@@ -222,6 +223,7 @@
     <!--Who are you-->
     <string name="who_are_you_message">Your phone number will only be used to verify your account and improve security</string>
     <string name="who_are_you_bio_hint">À propos de moi</string>
+    <string name="my_who_are_you_title">Who are you?</string>
 
     <!--Special Group-->
     <string name="Special_Group_title">Special Group</string>
@@ -231,5 +233,53 @@
     <string name="Special_Group_button_save">Save</string>
     <string name="Special_Group_cancel">Cancel</string>
     <string name="Special_Group_Empty_Toast">Code filed field is empty</string>
+
+    <!--Map-->
+    <string name="map_drawer_What_you_want_to_do">What you want to do today?</string>
+    <string name="map_drawer_user_profile">Modify your profile</string>
+
+    <!--My city-->
+    <string name="my_city_title">My City</string>
+
+    <!--My Profile-->
+    <string name="my_profile_title">My Profile</string>
+    <string name="my_profile_cancel">cancel</string>
+    <string name="my_profile_logout">logout</string>
+
+    <!--My Special Group-->
+    <string name="my_special_group_title">My Special Group</string>
+
+    <!--My Status-->
+    <string name="my_status_title">My Status</string>
+
+    <!--New City-->
+    <string name="my_new_city_title">Change your status</string>
+    <string name="my_new_city_Resident">Resident</string>
+    <string name="my_new_city_Migrant">Migrant - New To City</string>
+    <string name="my_new_city_Tourist">Tourist</string>
+    <string name="my_new_city_Student">Student</string>
+    <string name="my_new_city_what_is_your_status_here">What is your status here?</string>
+    <string name="my_new_city_button_next"> Next</string>
+
+    <!--Points History-->
+    <string name="my_points_history_title">Points History</string>
+
+    <!--Point System-->
+    <string name="my_points_system_title">Points System</string>
+
+    <!--What's up around you?-->
+    <string name="my_popular_title">What\'s up around you?</string>
+
+    <!--Request-->
+    <string name="requests_title">Requests</string>
+    <string name="requests_cancel">Cancel</string>
+
+    <!--What do you want to do today?-->
+    <string name="what_do_you_want_to_do_today_title">What do you want to do today?</string>
+    <string name="what_do_you_want_to_do_today_sub_title">Pick your current interests to receive catered results</string>
+    <string name="what_do_you_want_to_do_today_button_next">Next</string>
+
+    <!--App Bar-->
+    <string name="app_bar_title">FriendNGo</string>
 
 </resources>

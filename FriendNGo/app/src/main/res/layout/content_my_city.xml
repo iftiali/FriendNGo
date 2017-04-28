@@ -15,7 +15,7 @@
     tools:showIn="@layout/activity_my_city">
 
     <Button
-        android:text="Next"
+        android:text="@string/my_city_button_next"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -26,7 +26,7 @@
         android:id="@+id/my_city_next" />
 
     <TextView
-        android:text="Where are you from?"
+        android:text="@string/my_city_where_are_you"
         android:textColor="@color/greyish"
         android:textSize="16sp"
         android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
         android:textColor="@color/light_grey"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:hint="City,Country"
+        android:hint="@string/my_city_city_country"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/my_city_country_name"

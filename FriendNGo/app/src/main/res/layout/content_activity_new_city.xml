@@ -60,11 +60,10 @@
                     android:id="@+id/new_city_what_is_your_status_here"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/my_new_city_what_is_your_status_here"
+                    android:textColor="@color/greyish"
                     android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="16dp"
-                    android:text="What is your status here?"
-                    android:textColor="@color/greyish" />
+                    android:layout_centerHorizontal="true" />
 
                 <ImageView
                     android:id="@+id/new_city_icon_map"
@@ -123,7 +122,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
                     <Button
-                        android:text="Resident"
+                        android:text="@string/my_new_city_Resident"
                         android:layout_weight="0.25"
                         android:background="@drawable/white_button"
                         android:layout_marginTop="5dp"
@@ -136,7 +135,7 @@
                     <Button
                         android:layout_weight="0.25"
                         android:layout_below="@+id/resident_button"
-                        android:text="Migrant - New To City"
+                        android:text="@string/my_new_city_Migrant"
                         android:background="@drawable/white_button"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
@@ -148,7 +147,7 @@
                     <Button
                         android:layout_weight="0.25"
                         android:layout_below="@+id/migrant_button"
-                        android:text="Tourist"
+                        android:text="@string/my_new_city_Tourist"
                         android:background="@drawable/white_button"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
@@ -160,7 +159,7 @@
                     <Button
                         android:layout_weight="0.25"
                         android:layout_below="@+id/tourist_button"
-                        android:text="Student"
+                        android:text="@string/my_new_city_Student"
                         android:background="@drawable/white_button"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="5dp"
@@ -176,7 +175,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.75">
                 <Button
-                    android:text="Next"
+                    android:text="@string/my_new_city_button_next"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
