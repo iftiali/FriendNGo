@@ -45,8 +45,7 @@
                         app:civ_shadow="true"
                         app:civ_shadow_radius="0.5"
                         android:layout_margin="10dp"
-                        app:civ_shadow_color="@color/greyish"
-                        />
+                        app:civ_shadow_color="@color/greyish"/>
 
                     <TextView
                         android:id="@+id/activity_detail_creator_name"

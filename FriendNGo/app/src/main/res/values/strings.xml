@@ -211,7 +211,7 @@
     <string name="event_details_description">Description</string>
     <string name="event_details_place">Place</string>
     <string name="event_details_participants">Participants</string>
-    <string name="event_details_request_to_join_activity">REQUEST TO JOIN ACTIVITY</string>
+    <string name="event_details_request_to_join_activity">Participate</string>
     <string name="event_details_request_no_provided">Not Provided</string>
 
     <!--Activity Detail-->
@@ -220,7 +220,7 @@
     <string name="activity_details_description">Description</string>
     <string name="activity_details_place">Place</string>
     <string name="activity_details_participants">Participants</string>
-    <string name="activity_details_request_to_join_activity">REQUEST TO JOIN ACTIVITY</string>
+    <string name="activity_details_request_to_join_activity">Participate</string>
 
     <!--Who are you-->
     <string name="my_who_are_you_title">Who are you?</string>
@@ -246,7 +246,7 @@
     <string name="title_activity_special_group">SpecialGroup</string>
 
     <!--Map-->
-    <string name="map_drawer_What_you_want_to_do">What you want to do today?</string>
+    <string name="map_drawer_What_you_want_to_do">Change your current activities wish for today:</string>
     <string name="map_drawer_user_profile">Modify your profile</string>
 
     <!--My city-->

@@ -96,6 +96,10 @@ public class ReportIssue extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),reportIssueToast,Toast.LENGTH_LONG).show();
             }else {
                 if (issue_edit_text.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(),reportIssueEmptyToast,Toast.LENGTH_LONG).show();
+
+                }else{
+
                     AsyncHttpClient client = new AsyncHttpClient();
                     if (SignIn.static_token != null) {
                         client.addHeader("Authorization", "Token " + SignIn.static_token);
@@ -134,9 +138,7 @@ public class ReportIssue extends AppCompatActivity {
                             Log.w("POST report FAILURE", String.valueOf(statusCode) + errorResponse.toString());
                         }
                     });
-                }else{
-                    Toast.makeText(getApplicationContext(),reportIssueEmptyToast,Toast.LENGTH_LONG).show();
-                 }
+                }
             }
 
 

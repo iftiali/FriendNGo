@@ -1,5 +1,6 @@
 package com.friendngo.friendngo;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -32,6 +33,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 
 import cz.msebera.android.httpclient.Header;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ActivityDetailPaidEvent extends AppCompatActivity {
     RelativeLayout activity_detail_free_event;
@@ -48,6 +50,11 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
     RecyclerView participantsRecycler;
     private RecyclerView.LayoutManager mHorizontallayoutManager;
     private RecyclerView.Adapter mHorizontalAdapter;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

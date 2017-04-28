@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at consequat nisl. Vivamus enim nisl, accumsan sagittis tortor at, consequat scelerisque leo. Pellentesque porta, nulla sed tincidunt interdum, erat urna vehicula turpis, ac tempor augue ligula tempus leo. "
+        android:text="FriendNGo was launched in 2017 with goal of helping people find activities an to meet other people. FriendNGo is the opposite of social media, instead of getting you to spend more time on-line, we encourage users to get out of the house and do more activities!"
         android:padding="12dp"
         android:layout_marginTop="6dp"
         android:lineSpacingExtra="6dp"

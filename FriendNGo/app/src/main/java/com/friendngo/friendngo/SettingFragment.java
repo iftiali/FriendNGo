@@ -120,13 +120,17 @@ public class SettingFragment extends Fragment {
         settings_frame_about.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "About us Not Available in Beta", Toast.LENGTH_LONG).show();
+                settingsCheck = true;
+                Intent intent = new Intent(getApplicationContext(),AboutUsActivity.class);
+                startActivity(intent);
             }
         });
         settings_frame_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Contact us Not Available in Beta", Toast.LENGTH_LONG).show();
+                settingsCheck = true;
+                Intent intent = new Intent(getApplicationContext(),ReportIssue.class);
+                startActivity(intent);
             }
         });
         return view;

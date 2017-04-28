@@ -46,12 +46,17 @@ public class ChatListAdapter extends RecyclerView.Adapter<ChatListAdapter.MyView
         }
 
         int timeStamp= Integer.parseInt(chatListView.getTimeCreatedAgo());
+        int hour = timeStamp/60;
         if(timeStamp <=60){
             holder.messages_activity_time.setText(chatListView.getTimeCreatedAgo()+"m ago");
-        }else {
-            int hour = timeStamp/60;
-           // int minute = timeStamp%60;
+        }
+        else if(hour<24) {
+
             holder.messages_activity_time.setText(hour+"h ago");
+        }else{
+            int days = hour/24;
+            holder.messages_activity_time.setText(days+"d ago");
+
         }
 
         switch(chatListView.getCategory()){
