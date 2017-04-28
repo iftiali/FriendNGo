@@ -82,6 +82,7 @@
     <string name="reportIssueEditTextHint">Type Your Issue Here</string>
     <string name="reportIssueEditTextNullToast">Report Issue field is empty</string>
 
+    
     <!--Notification Fragment-->
     <string name="notificationFragmentEmptyText">You will receive a notification when someone tries to join an activity you created</string>
 
