@@ -18,10 +18,7 @@
         android:id="@+id/nav_profile_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
-
         <TextView
-
             android:text="My profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -138,7 +135,7 @@
                 android:layout_below="@+id/other_user_location"
                 android:layout_centerHorizontal="true" />
             <TextView
-                android:text="What you want to do today?"
+                android:text="@string/map_drawer_What_you_want_to_do"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
                 android:layout_width="match_parent"
@@ -196,13 +193,14 @@
 
             <TextView
                 android:id="@+id/user_account"
-                android:text="Modify your profile"
+                android:text="@string/map_drawer_user_profile"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/other_user_about"
-                android:layout_centerHorizontal="true" />
+                android:layout_alignLeft="@+id/other_profile_image"
+                android:layout_alignStart="@+id/other_profile_image" />
 
         </RelativeLayout>
     </FrameLayout>

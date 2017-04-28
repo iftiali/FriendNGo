@@ -236,5 +236,50 @@
     <string name="Special_Group_code_accepted_Toast"> Code Accepted!</string>
     <string name="Special_Group_code_accepted_invalid_Toast">Code Is Not Valid</string>
 
-    Code Accepted!
+    <!--Map-->
+    <string name="map_drawer_What_you_want_to_do">What you want to do today?</string>
+    <string name="map_drawer_user_profile">Modify your profile</string>
+
+    <!--My city-->
+    <string name="my_city_title">My City</string>
+
+    <!--My Profile-->
+    <string name="my_profile_title">My Profile</string>
+    <string name="my_profile_cancel">cancel</string>
+    <string name="my_profile_logout">logout</string>
+
+    <!--My Special Group-->
+    <string name="my_special_group_title">My Special Group</string>
+
+    <!--My Status-->
+    <string name="my_status_title">My Status</string>
+
+    <!--New City-->
+    <string name="my_new_city_title">Change your status</string>
+
+    <!--Who are you-->
+    <string name="my_who_are_you_title">Who are you?</string>
+
+    <!--Points History-->
+    <string name="my_points_history_title">Points History</string>
+
+    <!--Point System-->
+    <string name="my_points_system_title">Points System</string>
+
+    <!--What's up around you?-->
+    <string name="my_popular_title">What\'s up around you?</string>
+
+    <!--What's up around you?-->
+    <string name="my_popular_title">What\'s up around you?</string>
+
+    <!--Request-->
+    <string name="requests_title">Requests</string>
+    <string name="requests_cancel">Cancel</string>
+
+    <!--What do you want to do today?-->
+    <string name="what_do_you_want_to_do_today_title">What do you want to do today?</string>
+
+    <!--App Bar-->
+    <string name="app_bar_title">FriendNGo</string>
+
 </resources>

@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
                 <TextView
-                    android:text="Change your status"
+                    android:text="@string/my_new_city_title"
                     android:textSize="20sp"
                     android:textColor="#FFFFFF"
                     android:layout_width="wrap_content"

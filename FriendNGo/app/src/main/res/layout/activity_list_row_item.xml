@@ -78,46 +78,40 @@
 
         <ImageView
             android:id="@+id/clock_image"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignLeft="@+id/profilepicture"
-            android:layout_below="@+id/activity_type"
-            app:srcCompat="@drawable/clock" />
+            app:srcCompat="@drawable/clock"
+            />
 
         <TextView
             android:id="@+id/activity_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="4dp"
-
-            android:layout_toEndOf="@+id/clock_image"
-            android:layout_toRightOf="@+id/clock_image"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="8dp"
             android:text="Fri 20, 10:15pm"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <ImageView
             android:id="@+id/pin_image"
             android:layout_width="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="4dp"
             android:layout_toRightOf="@+id/activity_time"
-            app:srcCompat="@drawable/pin" />
-
+            app:srcCompat="@drawable/icon_mapa" />
         <TextView
             android:id="@+id/distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="4dp"
+            android:layout_alignBottom="@+id/pin_image"
             android:layout_toEndOf="@+id/pin_image"
             android:layout_toRightOf="@+id/pin_image"
             android:text="10km away"
-            android:textSize="12sp" />
-
+            android:textSize="10sp" />
         <Button
             android:id="@+id/add_activity_button"
             android:layout_width="32dp"
@@ -203,8 +197,7 @@
             android:id="@+id/paid_event_linear"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical" >
 
             <TableRow
                 android:layout_width="match_parent"
@@ -223,8 +216,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.90"
                     android:paddingLeft="4dp"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="8dp"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="0dp"
                     android:paddingRight="4dp">
 
                     <com.mikhaellopez.circularimageview.CircularImageView
@@ -267,7 +260,6 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginLeft="18dp"
                         android:layout_marginRight="8dp"
-                        android:layout_marginTop="4dp"
                         android:text="Fri 20, 10:15pm"
                         android:textSize="10sp" />
 

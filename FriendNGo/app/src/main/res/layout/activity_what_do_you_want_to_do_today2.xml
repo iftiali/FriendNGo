@@ -13,14 +13,6 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <!--<<<<<<< HEAD-->
-        <!--android:id="@+id/textView"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_margin="10dp"-->
-        <!--android:background="@android:color/white" />-->
-        <!--=======-->
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -31,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
                 <TextView
-                    android:text="What do you want to do today?"
+                    android:text="@string/what_do_you_want_to_do_today_title"
                     android:textSize="20sp"
                     android:textColor="#FFFFFF"
                     android:layout_width="wrap_content"
@@ -46,8 +38,5 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_activity_what_do_you_want_to_do_today2" />
-
-
-
 
 </android.support.design.widget.CoordinatorLayout>

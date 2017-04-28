@@ -30,6 +30,6 @@
             android:id="@+id/attending_user_name"
             android:textAlignment="center"
             android:layout_width="96dp"
-        android:layout_below="@+id/attending_profile_image"
-        android:layout_centerHorizontal="true" />
+            android:layout_below="@+id/attending_profile_image"
+            android:layout_centerHorizontal="true" />
 </RelativeLayout>

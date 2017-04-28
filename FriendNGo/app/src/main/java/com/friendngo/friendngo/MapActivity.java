@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
@@ -117,11 +118,10 @@ public class MapActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("FriendNGo");
-        //Token
+        //FireBase Token
         String tkn = FirebaseInstanceId.getInstance().getToken();
-        Toast.makeText(getApplicationContext(), "Current token ["+tkn+"]",
-                Toast.LENGTH_LONG).show();
-        Log.d("App", "Token ["+tkn+"]");
+        //Log.d("App", "Token ["+tkn+"]");
+        postFirebaseToken(tkn);
         //nav drawer
         other_user_location = (TextView)findViewById(R.id.other_user_location);
         other_user_picture = (CircularImageView)findViewById(R.id.other_profile_image);
@@ -836,6 +836,7 @@ public class MapActivity extends AppCompatActivity
         }else{
             Log.i(My_TAG,"token null"+"Map");
         }
+
         client.get(MainActivity.base_host_url + "api/getVersionStatus/"+versionNumber, new JsonHttpResponseHandler() {
 
             @Override
@@ -949,6 +950,47 @@ public class MapActivity extends AppCompatActivity
         if(FacebookLogin.facebook_profile_pic != null) {
             other_user_picture.setImageURI(FacebookLogin.facebook_profile_pic);
         }
+    }
+    private void postFirebaseToken(String token){
+        AsyncHttpClient client = new AsyncHttpClient();
+        if (SignIn.static_token != null) {
+            client.addHeader("Authorization", "Token " + SignIn.static_token);
+        }
+        RequestParams params = new RequestParams();
+        params.put("registration_id", token);
+      //  TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+       // telephonyManager.getDeviceId();
+        params.put("device_id","3452352352345");
+       // Log.d("device_id", telephonyManager.getDeviceId());
+        client.post(MainActivity.base_host_url + "api/registerNotifications/", params, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                Log.w("POST TOKEN SUCCESS", statusCode + ": " + "Response = " + response.toString());
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                Log.w("POST TOKEN SUCCESS2", statusCode + ": " + timeline.toString());
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+                Log.w("POST TOKEN RETRY", "" + retryNo);
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                Log.w("POST TOKEN FAIL", "Error Code: " + error_code + "," + text);
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
+                Log.w("MY TOKEN FAIL", "Error Code: " + error_code + ",  " + json.toString());
+            }
+        });
     }
 }
 //

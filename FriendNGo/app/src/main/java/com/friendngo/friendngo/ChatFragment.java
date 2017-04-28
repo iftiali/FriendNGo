@@ -23,6 +23,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
@@ -91,32 +93,16 @@ public class ChatFragment extends Fragment {
                                     chatJSONObject.getString("message"),
                                     chatJSONObject.getString("created_ago"),
                                     chatJSONObject.getString("activity_id")
-
                             );
-                            if(!chatList.isEmpty()){
-
-//                                for(int zz =0;zz<chatList.size();zz++){
-//                                    if(chatList.get(zz).getactivityID().equals( chatJSONObject.getString("activity_id"))){
-//                                        Log.i("No need to add","No need to add");
-//                                        chatList.remove(zz);
-//                                        chatList.add(chatModel);
-//                                    }else{
-//                                        chatList.add(chatModel);
-//                                    }
-//                                }
-
-                                chatList.add(chatModel);
-                            }else {
                                 recyclerView.setVisibility(View.VISIBLE);
                                 emptyView.setVisibility(View.GONE);
                                 chatList.add(chatModel);
-                            }
-                        } catch (JSONException e) {
+                            } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
                     }
-
+                    Collections.reverse(chatList);
                     mAdapter.notifyDataSetChanged();
                 }
 

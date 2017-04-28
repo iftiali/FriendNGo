@@ -21,7 +21,7 @@
 
 
                 <TextView
-                    android:text="My Profile"
+                    android:text="@string/my_profile_title"
                     android:textSize="20sp"
                     android:textColor="#FFFFFF"
                     android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
                     android:layout_centerVertical="true"/>
 
                 <TextView
-                    android:text="Logout"
+                    android:text="@string/my_profile_logout"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:textColor="#FFFFFF"
@@ -41,7 +41,7 @@
                     android:id="@+id/profile_logout_text_view"
                     android:layout_gravity="right"/>
             <TextView
-                android:text="Cancel"
+                android:text="@string/my_profile_cancel"
                 android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:textColor="#FFFFFF"
