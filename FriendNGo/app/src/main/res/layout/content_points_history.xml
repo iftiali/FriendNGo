@@ -21,7 +21,7 @@
 
     <Button
         android:id="@+id/points_history_save_button"
-        android:text="How to get points, and why?"
+        android:text="@string/my_points_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="10dp"

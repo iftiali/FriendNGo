@@ -28,7 +28,7 @@
 
             <TextView
                 android:id="@+id/points_system_text_one"
-                android:text="The number of points of a user is an indicator of the experience within the app. Don't judge too fast, 0 might mean that a user is new!"
+                android:text="@string/my_points_system_sub_one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -38,7 +38,7 @@
 
             <TextView
                 android:id="@+id/points_system_text_two"
-                android:text="Here is how you can win or lose points:"
+                android:text="@string/my_points_system_sub_point_two"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -91,7 +91,7 @@
 
                         <TextView
                             android:id="@+id/points_system_created_text_one"
-                            android:text="You posted an activity 'activity name'"
+                            android:text="@string/my_points_system_point_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="70dp"
@@ -123,7 +123,7 @@
 
                         <TextView
                             android:id="@+id/points_system_created_text_two"
-                            android:text="You cancelled your activity 'activity name'"
+                            android:text="@string/my_points_system_point_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="70dp"
@@ -155,7 +155,7 @@
 
                         <TextView
                             android:id="@+id/points_system_created_text_three"
-                            android:text="User is participating in your activity 'activity name' "
+                            android:text="@string/my_points_system_point_3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="70dp"
@@ -187,7 +187,7 @@
 
                         <TextView
                             android:id="@+id/points_system_created_text_four"
-                            android:text="You participated in activity 'activity name' "
+                            android:text="@string/my_points_system_point_4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="70dp"
@@ -219,7 +219,7 @@
 
                         <TextView
                             android:id="@+id/points_system_created_text_five"
-                            android:text="You cancelled your participation in activity 'activity name' "
+                            android:text="@string/my_points_system_point_5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="70dp"
@@ -251,7 +251,7 @@
 
                         <TextView
                             android:id="@+id/points_system_created_text_six"
-                            android:text="You participated in the event 'event name' "
+                            android:text="@string/my_points_system_point_6"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="70dp"
@@ -283,7 +283,7 @@
 
                         <TextView
                             android:id="@+id/points_system_created_text_seven"
-                            android:text="You cancelled your participation in 'event name' "
+                            android:text="@string/my_points_system_point_7"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="70dp"
@@ -295,7 +295,7 @@
             </ScrollView>
             <Button
                 android:id="@+id/points_save_button"
-                android:text="Got it"
+                android:text="@string/my_points_system_got_it"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

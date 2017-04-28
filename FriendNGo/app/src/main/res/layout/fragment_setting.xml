@@ -66,7 +66,7 @@
 
                      <TextView
                          android:id="@+id/settings_created_text_two"
-                         android:text="See profile"
+                         android:text="@string/settings_see_profile"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
                          android:layout_below="@id/paid_event_created_text"
@@ -103,7 +103,7 @@
 
                   <TextView
                       android:id="@+id/settings_created_point"
-                      android:text="125 Points"
+                      android:text="@string/settings_points"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:paddingLeft="10dp"
@@ -144,7 +144,7 @@
                       android:layout_marginBottom="5dp"
                       android:layout_marginTop="10dp"
                       android:paddingLeft="10dp"
-                      android:text="City and status"
+                      android:text="@string/settings_city_and_status"
                       android:textSize="14sp" />
 
                   <ImageView
@@ -174,7 +174,7 @@
 
                   <TextView
                       android:id="@+id/settings_created_text_four"
-                      android:text="Special groups"
+                      android:text="@string/settings_city_and_status"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:paddingLeft="10dp"
@@ -209,7 +209,7 @@
 
                   <TextView
                       android:id="@+id/settings_created_text_five"
-                      android:text="Notifications settings"
+                      android:text="@string/settings_notifications_settings"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:paddingLeft="10dp"
@@ -244,7 +244,7 @@
 
                   <TextView
                       android:id="@+id/settings_created_text_six"
-                      android:text="Share the app"
+                      android:text="@string/settings_share_the_app"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:paddingLeft="10dp"
@@ -279,7 +279,7 @@
 
                   <TextView
                       android:id="@+id/settings_created_text_seven"
-                      android:text="Rate the app"
+                      android:text="@string/settings_rate_the_app"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:paddingLeft="10dp"
@@ -314,7 +314,7 @@
 
                   <TextView
                       android:id="@+id/settings_created_text_eight"
-                      android:text="About us"
+                      android:text="@string/settings_about_us"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:paddingLeft="10dp"
@@ -349,7 +349,7 @@
 
                   <TextView
                       android:id="@+id/settings_created_text_nine"
-                      android:text="Contact us"
+                      android:text="@string/settings_contact_us"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:paddingLeft="10dp"

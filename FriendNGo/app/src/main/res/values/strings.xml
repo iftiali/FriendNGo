@@ -226,6 +226,12 @@
     <string name="my_who_are_you_title">Who are you?</string>
     <string name="who_are_you_message">Your phone number will only be used to verify your account and improve security</string>
     <string name="who_are_you_bio_hint">About Me</string>
+    <string name="who_are_you_button_save">Save</string>
+    <string name="who_are_you_phone_hint">Phone</string>
+    <string name="who_are_you_age_hint">Age</string>
+    <string name="who_are_you_spoken_languages_hint">Spoken languages</string>
+    <string name="who_are_you_citizenship_hint">Citizenship</string>
+    <string name="who_are_you_name_hint">Name</string>
 
     <!--Special Group-->
     <string name="Special_Group_title">Special Group</string>
@@ -241,6 +247,7 @@
     <!--Map-->
     <string name="map_drawer_What_you_want_to_do">What you want to do today?</string>
     <string name="map_drawer_user_profile">Modify your profile</string>
+    <string name="map_drawer_my_profile">My profile</string>
 
     <!--My city-->
     <string name="my_city_title">My City</string>
@@ -286,9 +293,22 @@
 
     <!--Points History-->
     <string name="my_points_history_title">Points History</string>
-
+    <string name="my_points_button">How to get points, and why?</string>
     <!--Point System-->
     <string name="my_points_system_title">Points System</string>
+    <string name="my_points_system_got_it">Got it</string>
+    <string name="my_points_system_point_7">You cancelled your participation in \'event name' </string>
+    <string name="my_points_system_point_6">You participated in the event \'event name' </string>
+    <string name="my_points_system_point_5">You cancelled your participation in activity \'activity name'</string>
+    <string name="my_points_system_point_4">You participated in activity \'activity name' </string>
+    <string name="my_points_system_point_3">User is participating in your activity \'activity name'</string>
+    <string name="my_points_system_point_2">You cancelled your activity \'activity name'</string>
+    <string name="my_points_system_point_1">You posted an activity \'activity name'</string>
+    <string name="my_points_system_sub_point_two">Here is how you can win or lose points:</string>
+    <string name="my_points_system_sub_one">The number of points of a user is an indicator of the experience within the app. Don\'t judge too fast, 0 might mean that a user is new!</string>
+    <string name="my_points_system_title">Points System</string>
+    <string name="my_points_system_title">Points System</string>
+
 
     <!--What's up around you?-->
     <string name="my_popular_title">What\'s up around you?</string>
@@ -304,5 +324,17 @@
 
     <!--App Bar-->
     <string name="app_bar_title">FriendNGo</string>
+
+    <!--Settings -->
+    <string name="settings_title">FriendNGo</string>
+    <string name="settings_contact_us">Contact us</string>
+    <string name="settings_about_us">About us</string>
+    <string name="settings_rate_the_app">Rate the app</string>
+    <string name="settings_share_the_app">Share the app</string>
+    <string name="settings_notifications_settings">Notifications Settings</string>
+    <string name="settings_special_groups">Special groups</string>
+    <string name="settings_city_and_status">City and status</string>
+    <string name="settings_points">125 Points</string>
+    <string name="settings_see_profile">See profile</string>
 
 </resources>
