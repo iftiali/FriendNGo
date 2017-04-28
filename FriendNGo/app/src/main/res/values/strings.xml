@@ -247,7 +247,6 @@
     <!--Map-->
     <string name="map_drawer_What_you_want_to_do">What you want to do today?</string>
     <string name="map_drawer_user_profile">Modify your profile</string>
-    <string name="map_drawer_my_profile">My profile</string>
 
     <!--My city-->
     <string name="my_city_title">My City</string>
@@ -295,20 +294,17 @@
     <string name="my_points_history_title">Points History</string>
     <string name="my_points_button">How to get points, and why?</string>
     <!--Point System-->
-    <string name="my_points_system_title">Points System</string>
+    <string name="my_points_system_title_sub">Points System</string>
     <string name="my_points_system_got_it">Got it</string>
-    <string name="my_points_system_point_7">You cancelled your participation in \'event name' </string>
-    <string name="my_points_system_point_6">You participated in the event \'event name' </string>
-    <string name="my_points_system_point_5">You cancelled your participation in activity \'activity name'</string>
-    <string name="my_points_system_point_4">You participated in activity \'activity name' </string>
-    <string name="my_points_system_point_3">User is participating in your activity \'activity name'</string>
-    <string name="my_points_system_point_2">You cancelled your activity \'activity name'</string>
-    <string name="my_points_system_point_1">You posted an activity \'activity name'</string>
+    <string name="my_points_system_point_seven">You cancelled your participation in \'event name\' </string>
+    <string name="my_points_system_point_six">You participated in the event \'event name\' </string>
+    <string name="my_points_system_point_five">You cancelled your participation in activity \'activity name\'</string>
+    <string name="my_points_system_point_four">You participated in activity \'activity name\' </string>
+    <string name="my_points_system_point_three">User is participating in your activity \'activity name\'</string>
+    <string name="my_points_system_point_two">You cancelled your activity \'activity name\'</string>
+    <string name="my_points_system_point_one">You posted an activity \'activity name\'</string>
     <string name="my_points_system_sub_point_two">Here is how you can win or lose points:</string>
     <string name="my_points_system_sub_one">The number of points of a user is an indicator of the experience within the app. Don\'t judge too fast, 0 might mean that a user is new!</string>
-    <string name="my_points_system_title">Points System</string>
-    <string name="my_points_system_title">Points System</string>
-
 
     <!--What's up around you?-->
     <string name="my_popular_title">What\'s up around you?</string>

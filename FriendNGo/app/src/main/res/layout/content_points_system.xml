@@ -91,7 +91,7 @@
 
                         <TextView
                             android:id="@+id/points_system_created_text_one"
-                            android:text="@string/my_points_system_point_1"
+                            android:text="@string/my_points_system_point_one"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="70dp"
@@ -123,7 +123,7 @@
 
                         <TextView
                             android:id="@+id/points_system_created_text_two"
-                            android:text="@string/my_points_system_point_2"
+                            android:text="@string/my_points_system_point_two"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="70dp"
@@ -155,7 +155,7 @@
 
                         <TextView
                             android:id="@+id/points_system_created_text_three"
-                            android:text="@string/my_points_system_point_3"
+                            android:text="@string/my_points_system_point_three"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="70dp"
@@ -187,7 +187,7 @@
 
                         <TextView
                             android:id="@+id/points_system_created_text_four"
-                            android:text="@string/my_points_system_point_4"
+                            android:text="@string/my_points_system_point_four"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="70dp"
@@ -219,7 +219,7 @@
 
                         <TextView
                             android:id="@+id/points_system_created_text_five"
-                            android:text="@string/my_points_system_point_5"
+                            android:text="@string/my_points_system_point_five"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="70dp"
@@ -251,7 +251,7 @@
 
                         <TextView
                             android:id="@+id/points_system_created_text_six"
-                            android:text="@string/my_points_system_point_6"
+                            android:text="@string/my_points_system_point_six"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="70dp"
@@ -283,7 +283,7 @@
 
                         <TextView
                             android:id="@+id/points_system_created_text_seven"
-                            android:text="@string/my_points_system_point_7"
+                            android:text="@string/my_points_system_point_seven"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingLeft="70dp"
