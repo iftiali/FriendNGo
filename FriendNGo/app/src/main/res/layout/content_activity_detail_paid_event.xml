@@ -80,6 +80,7 @@
                         android:layout_below="@+id/activity_detail_creator_name"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="8dp"
+                        android:gravity="center_horizontal"
                         android:text="Addressjhgjhgjgkfghfkhfkhgfkgfgfkfkgfkghfkgfkfkgfgkfkgfgkfkgfkgfgkfkgjfgjkfkjgfkgfkgfkghfkgfkgfkgfkgfkgfgkfkgjfgkjfkgfkgfkfgkfkgh"
                         android:textColor="@color/white"
                         android:textSize="16sp" />
@@ -109,38 +110,7 @@
                 </RelativeLayout>
             </FrameLayout>
 
-            <!--<FrameLayout-->
-                <!--android:id="@+id/activity_detail_paid_description_frame"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_margin="15dp"-->
-                <!--android:background="@drawable/rounded_corners_white">-->
 
-                <!--<RelativeLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content">-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/activity_detail_paid_description_heading"-->
-                        <!--android:text="@string/event_details_description"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_alignParentTop="true"-->
-                        <!--android:layout_centerHorizontal="true"-->
-                        <!--android:layout_marginTop="10dp"-->
-                        <!--android:textSize="20sp"-->
-                        <!--android:textColor="#343B59" />-->
-
-                    <!--<TextView-->
-                        <!--android:id="@+id/activity_detail_paid_description_text"-->
-                        <!--android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:textAlignment="center"-->
-                        <!--android:layout_below="@+id/activity_detail_paid_description_heading"-->
-                        <!--android:layout_centerHorizontal="true" />-->
-                <!--</RelativeLayout>-->
-            <!--</FrameLayout>-->
             <FrameLayout
                 android:id="@+id/activity_detail_paid_description_frame"
                 android:layout_width="match_parent"

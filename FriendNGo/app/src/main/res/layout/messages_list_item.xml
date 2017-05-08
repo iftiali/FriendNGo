@@ -5,13 +5,11 @@
     android:id="@+id/messages_list_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:padding="5dp"
     android:background="@color/white">
 
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/relativeCLick">
     <ImageView
         android:id="@+id/paid_event_profile_picture"

@@ -101,18 +101,7 @@ public class WhatDoYouWantToDoToday extends AppCompatActivity {
             saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //Intent intent = new Intent(WhatDoYouWantToDoToday.this,NewWhoAreYouActivity.class);
-                //WhatDoYouWantToDoToday.this.startActivity(intent);
-                if(MainActivity.new_user==true){
-                //MainActivity.new_user=false;
-                    Intent intent = new Intent(WhatDoYouWantToDoToday.this,ActivityReady.class);
-                    WhatDoYouWantToDoToday.this.startActivity(intent);
-                    WhatDoYouWantToDoToday.this.finish();
-                }else{
-                    WhatDoYouWantToDoToday.this.finish();
-
-                }
+                WhatDoYouWantToDoToday.this.finish();
             }
         });
         masterListView = (ListView) findViewById(R.id.category_and_activity_list_view);

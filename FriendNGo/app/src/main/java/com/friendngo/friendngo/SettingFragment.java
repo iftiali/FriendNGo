@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,7 +55,10 @@ public class SettingFragment extends Fragment {
     private FrameLayout settings_frame_ratting;
     private FrameLayout settings_frame_about;
     private FrameLayout settings_frame_notifications;
+    private FrameLayout settings_frame_filter;
     public static boolean settingsCheck = false;
+    AlertDialog dialogFive;
+    AlertDialog dialogSix;
     public SettingFragment() {
         // Required empty public constructor
     }
@@ -111,10 +116,65 @@ public class SettingFragment extends Fragment {
                 Toast.makeText(getApplicationContext(), "Share app Not Available in Beta", Toast.LENGTH_LONG).show();
             }
         });
+        settings_frame_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Filter Not Available in Beta", Toast.LENGTH_LONG).show();
+            }
+        });
         settings_frame_ratting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Rate the app Not Available in Beta", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getApplicationContext(), "Rate the app Not Available in Beta", Toast.LENGTH_LONG).show();
+                AlertDialog.Builder dialog_five = new AlertDialog.Builder(getActivity());
+                View mviewFive = getActivity().getLayoutInflater().inflate(R.layout.dialog_five_star_ratting,null);
+                Button dialog_five_button = (Button) mviewFive.findViewById(R.id.dialog_five_button);
+                final RatingBar ratingbar = (RatingBar)mviewFive.findViewById(R.id.dialog_ratingBar);
+                dialog_five_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        double rating= Double.parseDouble(String.valueOf(ratingbar.getRating()));
+                        if(rating>3){
+                            dialogFive.dismiss();
+                            Toast.makeText(getApplicationContext(),getResources().getText(R.string.dialog_five_toast_message), Toast.LENGTH_LONG).show();
+                        }else{
+                            AlertDialog.Builder dialog_six = new AlertDialog.Builder(getActivity());
+                            View mviewSix = getActivity().getLayoutInflater().inflate(R.layout.dialog_six,null);
+                            TextView dialog_six_yes = (TextView) mviewSix.findViewById(R.id.dialog_six_yes);
+                            TextView dialog_six_no = (TextView) mviewSix.findViewById(R.id.dialog_six_no);
+                            dialog_six_no.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialogFive.dismiss();
+                                    dialogSix.dismiss();
+                                }
+                            });
+                            dialog_six_yes.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(getApplicationContext(),ReportIssue.class);
+                                    startActivity(intent);
+                                }
+                            });
+                            dialog_six.setView(mviewSix);
+                            dialogSix = dialog_six.create();
+                            dialogSix.show();
+                        }
+
+                    }
+                });
+
+                ImageView cancelButton = (ImageView)mviewFive.findViewById(R.id.dialog_cross);
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogFive.dismiss();
+                    }
+                });
+                dialog_five.setView(mviewFive);
+                dialogFive = dialog_five.create();
+                dialogFive.show();
             }
         });
         settings_frame_about.setOnClickListener(new View.OnClickListener() {
@@ -148,6 +208,7 @@ public class SettingFragment extends Fragment {
         settings_frame_ratting = (FrameLayout)view.findViewById(R.id.settings_frame_ratting);
         settings_frame_about = (FrameLayout)view.findViewById(R.id.settings_frame_about);
         settings_frame_contact = (FrameLayout)view.findViewById(R.id.settings_frame_contact);
+        settings_frame_filter = (FrameLayout)view.findViewById(R.id.settings_frame_filter);
     }
     private void getApiProfile() {
         if(ValidationClass.checkOnline(getApplicationContext())){

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/dialog_cross"
+        android:layout_width="30dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_height="30dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+
+        app:srcCompat="@drawable/cross_out"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="20sp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/dialog_five_subtitle"/>
+
+    <RatingBar
+        android:id="@+id/dialog_ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:numStars="5"
+        android:stepSize="1.0" />
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:background="@drawable/submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_five_submit_button"
+        android:layout_marginBottom="200dp"
+        android:textColor="@color/white"
+        android:layout_margin="5dp"
+        android:id="@+id/dialog_five_button"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"></FrameLayout>
+
+
+</LinearLayout>

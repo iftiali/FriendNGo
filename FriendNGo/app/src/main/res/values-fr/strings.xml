@@ -325,9 +325,24 @@
     <string name="settings_rate_the_app">Rate the app</string>
     <string name="settings_share_the_app">Share the app</string>
     <string name="settings_notifications_settings">Notifications Settings</string>
-    <string name="settings_special_groups">Special groups</string>
+    <string name="settings_special_groups">Special groups &amp; Codes</string>
     <string name="settings_city_and_status">City and status</string>
     <string name="settings_points">125 Points</string>
     <string name="settings_see_profile">See profile</string>
+    <string name="settings_filter">Filter</string>
+
+    <!--Recommend-->
+    <string name="recommend_title">Recommend FriendNGo</string>
+    <string name="recommend_sub_title">How likely are you to recommend FriendNGo to a friend?</string>
+
+    <!--Dialog five-->
+    <string name="dialog_five_submit_button">Submit</string>
+    <string name="dialog_five_subtitle">How do you like FrindNGo?</string>
+    <string name="dialog_five_toast_message">Thank you</string>
+
+    <!--Dialog five-->
+    <string name="dialog_six_button_no">No</string>
+    <string name="dialog_six_button_yes">Yes</string>
+    <string name="dialog_six_subtitle">Would you like to give us feedback in order to help us improve the app</string>
 
 </resources>

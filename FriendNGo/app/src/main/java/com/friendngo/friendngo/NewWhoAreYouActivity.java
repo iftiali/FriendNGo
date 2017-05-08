@@ -94,7 +94,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 
         if(FacebookLogin.facebook_profile_pic != null) {
             circularImageView.setImageURI(FacebookLogin.facebook_profile_pic);
-            MapActivity.other_user_picture.setImageURI(FacebookLogin.facebook_profile_pic);
+            //MapActivity.other_user_picture.setImageURI(FacebookLogin.facebook_profile_pic);
         }
 
          locales = Locale.getAvailableLocales();
@@ -367,12 +367,12 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     String codePhone = codeEditText.getText().toString()+phoneEditText.getText().toString();
                     params.put("phone",codePhone);
                     params.put("first_name",name_input);
-                    MapActivity.other_user_name.setText(name_input);
+                    //MapActivity.other_user_name.setText(name_input);
                     boolean checkAgeValidation = false;
 
                     String bio_input = bioField.getText().toString();
                     params.put("bio",bio_input);
-                    MapActivity.other_user_about.setText(bio_input);
+                   // MapActivity.other_user_about.setText(bio_input);
 
                     nationality = citizenAuto.getText().toString();
                     Locale[] nameCompare = Locale.getAvailableLocales();
@@ -382,7 +382,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                         if(cc.equals(nationality)){
                             compareCountryName = true;
                             params.put("home_nationality",nationality);
-                            MapActivity.other_user_citizenship.setText(nationality);
+                       //     MapActivity.other_user_citizenship.setText(nationality);
                             break;
                         }else{
                            // Log.d("Profile message",errorMessage);
@@ -400,7 +400,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     }else{
                         checkAgeValidation= true;
                         params.put("age", age_input);
-                        MapActivity.other_user_age.setText(age_input + "y-o");
+                        //MapActivity.other_user_age.setText(age_input + "y-o");
                     }
                     //params.put("home_nationality",nationality);
 
@@ -639,7 +639,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
         circularImageView.setImageBitmap(bm);
     }
     private void SaveImage(Bitmap finalBitmap) {
-        MapActivity.other_user_picture.setImageBitmap(finalBitmap);
+        //MapActivity.other_user_picture.setImageBitmap(finalBitmap);
         selectImageFlag = true;
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + "/FriendnGo");

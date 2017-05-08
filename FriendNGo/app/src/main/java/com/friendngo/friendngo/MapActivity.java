@@ -22,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,13 +62,15 @@ public class MapActivity extends AppCompatActivity
 
     //Constants
     private static final String My_TAG ="Author:Parth";
-    RelativeLayout buttonClick;
-    public static CircularImageView other_user_picture;
+            //nav header
+   // RelativeLayout buttonClick;
+   // public static CircularImageView other_user_picture;
+   //public static TextView other_user_name,other_user_age,other_user_about,other_user_location,other_user_citizenship,other_user_points;
+
     public static String selfIdentify=null;
     public static int versionNumber = 10;
     public static String selfName=null;
     public static boolean checkStateMapOrList = false;
-    public static TextView other_user_name,other_user_age,other_user_about,other_user_location,other_user_citizenship,other_user_points;
     TextView user_account;
     private static final int POLLING_PERIOD = 5;
 
@@ -82,8 +85,9 @@ public class MapActivity extends AppCompatActivity
     private double current_gps_longitude;
     private boolean last_location_ready = false;
     private boolean gettingGPS = true;
-
-
+    private ImageView createActivityImageView;
+    private ImageView filterActivityImageView;
+    private ImageView listActivityImageView;
 
     //Layout instances
     private BottomNavigationView bottomNavigationView;
@@ -112,7 +116,7 @@ public class MapActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map); //NOTE: Drawer View is setup later
+        setContentView(R.layout.app_bar_map); //NOTE: Drawer View is setup later
 
         //Set top bar and toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -123,40 +127,66 @@ public class MapActivity extends AppCompatActivity
         //Log.d("App", "Token ["+tkn+"]");
         postFirebaseToken(tkn);
         //nav drawer
-        other_user_location = (TextView)findViewById(R.id.other_user_location);
-        other_user_picture = (CircularImageView)findViewById(R.id.other_profile_image);
-        other_user_name = (TextView)findViewById(R.id.other_user_name);
-        other_user_age = (TextView)findViewById(R.id.other_user_age);
-        other_user_about = (TextView)findViewById(R.id.other_user_about);
-        other_user_points = (TextView)findViewById(R.id.other_user_points);
-        other_user_citizenship = (TextView)findViewById(R.id.other_user_citizenship);
+//        other_user_location = (TextView)findViewById(R.id.other_user_location);
+//        other_user_picture = (CircularImageView)findViewById(R.id.other_profile_image);
+//        other_user_name = (TextView)findViewById(R.id.other_user_name);
+//        other_user_age = (TextView)findViewById(R.id.other_user_age);
+//        other_user_about = (TextView)findViewById(R.id.other_user_about);
+//        other_user_points = (TextView)findViewById(R.id.other_user_points);
+//        other_user_citizenship = (TextView)findViewById(R.id.other_user_citizenship);
         //Initialize Layout views from their XML
         user_account = (TextView) findViewById(R.id.user_account);
         wish_for_today = (TextView)findViewById(R.id.wish_for_today);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        buttonClick = (RelativeLayout)findViewById(R.id.buttonClick);
+        createActivityImageView = (ImageView)findViewById(R.id.addImageView);
+        filterActivityImageView = (ImageView)findViewById(R.id.filterImage);
+        listActivityImageView = (ImageView)findViewById(R.id.listImage);
+        filterActivityImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapActivity.this, WhatDoYouWantToDoToday.class);
+                startActivity(intent);
+            }
+        });
+        listActivityImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityListFragment activityListFragment = new ActivityListFragment();
+                manager = getSupportFragmentManager();
+                manager.beginTransaction().replace(R.id.fragmentView, activityListFragment, activityListFragment.getTag()).commit();
+
+            }
+        });
+        createActivityImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapActivity.this, CreateActivity.class);
+                startActivity(intent);
+            }
+        });
+       // buttonClick = (RelativeLayout)findViewById(R.id.buttonClick);
         //Top bar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         GradientDrawable gd = new GradientDrawable();
         gd.setCornerRadius(10);
         gd.setStroke(2, Color.rgb(255, 117, 0));
-        buttonClick.setBackground(gd);
-        buttonClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MapActivity.this,WhatDoYouWantToDoToday.class);
-                startActivity(intent);
-            }
-        });
+//        buttonClick.setBackground(gd);
+//        buttonClick.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MapActivity.this,WhatDoYouWantToDoToday.class);
+//                startActivity(intent);
+//            }
+//        });
 
         //navigate to my profile
-        user_account.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MapActivity.this,MyProfileActivity.class);
-                startActivity(intent);
-            }
-        });
+//        user_account.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MapActivity.this,MyProfileActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         //default Fragment is Map Fragment
         HomeMapFragment homeMapFragment = new HomeMapFragment();
@@ -171,21 +201,25 @@ public class MapActivity extends AppCompatActivity
                         switch (item.getItemId()) {
 
                             case R.id.list_icon:
-                               if(checkStateMapOrList == false) {
-                                    ActivityListFragment activityListFragment = new ActivityListFragment();
-                                    manager = getSupportFragmentManager();
-                                    manager.beginTransaction().replace(R.id.fragmentView, activityListFragment, activityListFragment.getTag()).commit();
-                                    checkStateMapOrList = true;
-                                    bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.home_grey);
-                                    bottomNavigationView.getMenu().getItem(0).setTitle(R.string.home_icon_text);
-                                }else {
-                                    HomeMapFragment homeMapFragment1 = new HomeMapFragment();
-                                    manager = getSupportFragmentManager();
-                                    manager.beginTransaction().replace(R.id.fragmentView, homeMapFragment1, homeMapFragment1.getTag()).commit();
-                                    checkStateMapOrList = false;
-                                    bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.hamburger);
-                                    bottomNavigationView.getMenu().getItem(0).setTitle(R.string.list_icon_text);
-                                }
+//                               if(checkStateMapOrList == false) {
+//                                    ActivityListFragment activityListFragment = new ActivityListFragment();
+//                                    manager = getSupportFragmentManager();
+//                                    manager.beginTransaction().replace(R.id.fragmentView, activityListFragment, activityListFragment.getTag()).commit();
+//                                    checkStateMapOrList = true;
+//                                    bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.home_grey);
+//                                    bottomNavigationView.getMenu().getItem(0).setTitle(R.string.home_icon_text);
+//                                }else {
+//                                    HomeMapFragment homeMapFragment1 = new HomeMapFragment();
+//                                    manager = getSupportFragmentManager();
+//                                    manager.beginTransaction().replace(R.id.fragmentView, homeMapFragment1, homeMapFragment1.getTag()).commit();
+//                                    checkStateMapOrList = false;
+//                                    bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.hamburger);
+//                                    bottomNavigationView.getMenu().getItem(0).setTitle(R.string.list_icon_text);
+//                                }
+                                HomeMapFragment homeMapFragment1 = new HomeMapFragment();
+                                manager = getSupportFragmentManager();
+                                manager.beginTransaction().replace(R.id.fragmentView, homeMapFragment1, homeMapFragment1.getTag()).commit();
+
                                 break;
                             case R.id.calendar_icon:
                               //  Log.w("BOTTOM NAV","Calendar Icon Pressed");
@@ -219,11 +253,11 @@ public class MapActivity extends AppCompatActivity
 
 
         //Adds the action bar for the drawer
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.setDrawerListener(toggle);
+//        toggle.syncState();
 
 //        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 //        navigationView.setNavigationItemSelectedListener(this);
@@ -235,10 +269,13 @@ public class MapActivity extends AppCompatActivity
         }
 
 
-        getUserProfile();
+        //getUserProfile();
         checkForNewVersion();
         getActivity();
         getSelfIdentify();
+        //call what you want to do activity each time user lunch our application.
+        Intent whatYouWantTODoIntent = new Intent(getApplicationContext(),WhatDoYouWantToDoToday.class);
+        startActivity(whatYouWantTODoIntent);
         //Here is where we schedule the polling of our activities
         ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
         scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
@@ -584,10 +621,10 @@ public class MapActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.add_activity) {
-            Intent intent = new Intent(MapActivity.this, CreateActivity.class);
-            MapActivity.this.startActivity(intent);
-        }
+//        if (id == R.id.add_activity) {
+//            Intent intent = new Intent(MapActivity.this, CreateActivity.class);
+//            MapActivity.this.startActivity(intent);
+//        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -884,73 +921,78 @@ public class MapActivity extends AppCompatActivity
         return true;
     }
 
-    private void getUserProfile(){
-        //GET user profile
-        AsyncHttpClient client = new AsyncHttpClient();
-        if (SignIn.static_token != null) {
-            client.addHeader("Authorization", "Token " + SignIn.static_token);
-        }
-        client.get(MainActivity.base_host_url + "api/getProfile/", new JsonHttpResponseHandler() {
-
-            //GET user profile
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, final JSONObject response) {
-                Log.w("GET PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
-
-                try {
-                    userID = response.getInt("id");
-                    String firstNameString = response.getString("first_name");
-                    other_user_name.setText(firstNameString);
-                    other_user_points.setText(response.getString("points")+"pts");
-                    int age = response.getInt("age");
-                    if(age > 0) {
-                        other_user_age.setText(age + " y-o");
-                    } else if(age <= 0)
-                    {
-                        other_user_age.setText("X y-o");
-                    }
-                    other_user_citizenship.setText(response.getString("home_nationality"));
-                    String bio = response.getString("bio");
-                    other_user_about.setText(bio);
-
-                    String cityString = response.getString("home_city");
-                    other_user_location.setText(response.getString("status")+", " + cityString);
-                } catch (JSONException e) {
-                    Log.w("JSON EXCEPTION", e.getMessage());
-                }
-
-                String pictureURL="";
-                //GET Profile image from backend if not available from Facebook
-                if(FacebookLogin.facebook_profile_pic == null) {
-                    //GET The image file at the pictureURL
-                    AsyncHttpClient client = new AsyncHttpClient();
-                    try {
-                        pictureURL = response.getString("picture");
-                    } catch (JSONException e) {
-                        Log.w("GET PROFILE JSON FAIL", e.getMessage().toString());
-                    }
-                    client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, File response) {
-                            Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
-                            //Use the downloaded image as the profile picture
-                            Uri uri = Uri.fromFile(response);
-                            other_user_picture.setImageURI(uri);
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-                            Log.w("GET IMAGE FAIL", "Could not retrieve image");
-                        }
-                    });
-                }
-            }
-        });
-
-        if(FacebookLogin.facebook_profile_pic != null) {
-            other_user_picture.setImageURI(FacebookLogin.facebook_profile_pic);
-        }
-    }
+//    private void getUserProfile(){
+//        //GET user profile
+//        AsyncHttpClient client = new AsyncHttpClient();
+//        if (SignIn.static_token != null) {
+//            client.addHeader("Authorization", "Token " + SignIn.static_token);
+//        }
+//        client.get(MainActivity.base_host_url + "api/getProfile/", new JsonHttpResponseHandler() {
+//
+//            //GET user profile
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, final JSONObject response) {
+//                Log.w("GET PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
+//
+//                try {
+//                    userID = response.getInt("id");
+//                    String firstNameString = response.getString("first_name");
+//                    other_user_name.setText(firstNameString);
+//                    other_user_points.setText(response.getString("points")+"pts");
+//                    int age = response.getInt("age");
+//                    if(age > 0) {
+//                        other_user_age.setText(age + " y-o");
+//                    } else if(age <= 0)
+//                    {
+//                        other_user_age.setText("X y-o");
+//                    }
+//                    other_user_citizenship.setText(response.getString("home_nationality"));
+//                    String bio = response.getString("bio");
+//                    other_user_about.setText(bio);
+//
+//                    String cityString = response.getString("home_city");
+//                    other_user_location.setText(response.getString("status")+", " + cityString);
+//                    Boolean needs_submit_promoter_score = response.getBoolean("needs_submit_promoter_score");
+//                    if(needs_submit_promoter_score){
+//                        Intent intent = new Intent(getApplicationContext(),Recommend.class);
+//                        startActivity(intent);
+//                    }
+//                } catch (JSONException e) {
+//                    Log.w("JSON EXCEPTION", e.getMessage());
+//                }
+//
+//                String pictureURL="";
+//                //GET Profile image from backend if not available from Facebook
+//                if(FacebookLogin.facebook_profile_pic == null) {
+//                    //GET The image file at the pictureURL
+//                    AsyncHttpClient client = new AsyncHttpClient();
+//                    try {
+//                        pictureURL = response.getString("picture");
+//                    } catch (JSONException e) {
+//                        Log.w("GET PROFILE JSON FAIL", e.getMessage().toString());
+//                    }
+//                    client.get(MainActivity.base_host_url + pictureURL, new FileAsyncHttpResponseHandler(getApplicationContext()) {
+//                        @Override
+//                        public void onSuccess(int statusCode, Header[] headers, File response) {
+//                            Log.w("GET IMAGE SUCCESS", "Successfully Retrieved The Image");
+//                            //Use the downloaded image as the profile picture
+//                            Uri uri = Uri.fromFile(response);
+//                            other_user_picture.setImageURI(uri);
+//                        }
+//
+//                        @Override
+//                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
+//                            Log.w("GET IMAGE FAIL", "Could not retrieve image");
+//                        }
+//                    });
+//                }
+//            }
+//        });
+//
+//        if(FacebookLogin.facebook_profile_pic != null) {
+//            other_user_picture.setImageURI(FacebookLogin.facebook_profile_pic);
+//        }
+//    }
     private void postFirebaseToken(String token){
         AsyncHttpClient client = new AsyncHttpClient();
         if (SignIn.static_token != null) {

@@ -240,7 +240,7 @@ public class NewCity extends AppCompatActivity {
                                 Log.w("MY PROFILE CITY FAIL", "Error Code: " + error_code + ",  " + json.toString());
                             }
                         });
-                        MapActivity.other_user_location.setText(statusName +", "+ currentCityArray[0]);
+                        //MapActivity.other_user_location.setText(statusName +", "+ currentCityArray[0]);
                         //check edit profile path
                         SharedPreferences pref = getSharedPreferences("EditPath", MODE_PRIVATE); // 0 - for private mode
                         String editprofilePath= pref.getString("edit_path", null);

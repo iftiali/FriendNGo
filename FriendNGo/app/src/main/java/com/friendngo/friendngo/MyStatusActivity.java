@@ -58,7 +58,7 @@ public class MyStatusActivity extends AppCompatActivity {
             public void onClick(View v) {
                 status = RESIDENT;
                 statusName = "Resident";
-                MapActivity.other_user_location.setText(statusName+", "+currentCity);
+               // MapActivity.other_user_location.setText(statusName+", "+currentCity);
                 disableOtherButtons();
                 residentButton.setActivated(true);
                 residentButton.setTextColor(Color.WHITE);
@@ -72,7 +72,7 @@ public class MyStatusActivity extends AppCompatActivity {
             public void onClick(View v) {
                 status = MIGRANT;
                 statusName = "Migrant";
-                MapActivity.other_user_location.setText(statusName+", "+currentCity);
+              //  MapActivity.other_user_location.setText(statusName+", "+currentCity);
                 disableOtherButtons();
                 migrantButton.setActivated(true);
                 migrantButton.setTextColor(Color.WHITE);
@@ -86,7 +86,7 @@ public class MyStatusActivity extends AppCompatActivity {
             public void onClick(View v) {
                 status = TOURIST;
                 statusName = "Tourist";
-                MapActivity.other_user_location.setText(statusName+", "+currentCity);
+             //   MapActivity.other_user_location.setText(statusName+", "+currentCity);
                 disableOtherButtons();
                 touristButton.setActivated(true);
                 touristButton.setTextColor(Color.WHITE);
@@ -100,7 +100,7 @@ public class MyStatusActivity extends AppCompatActivity {
             public void onClick(View v) {
                 status = STUDENT;
                 statusName = "Student";
-                MapActivity.other_user_location.setText(statusName+", "+currentCity);
+              //  MapActivity.other_user_location.setText(statusName+", "+currentCity);
                 disableOtherButtons();
                 studentButton.setActivated(true);
                 studentButton.setTextColor(Color.WHITE);
@@ -152,7 +152,7 @@ public class MyStatusActivity extends AppCompatActivity {
                             Log.w("MY PROFILE CITY FAIL", "Error Code: " + error_code + ",  " + json.toString());
                         }
                     });
-                MapActivity.other_user_location.setText(statusName+", "+ currentCity);
+//                MapActivity.other_user_location.setText(statusName+", "+ currentCity);
                 if(SettingFragment.settingsCheck==true){
                     SettingFragment.settingsCheck = false;
                     MyStatusActivity.this.finish();

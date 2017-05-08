@@ -8,8 +8,8 @@
         <item
             android:id="@+id/list_icon"
             android:enabled="true"
-            android:icon="@drawable/hamburger"
-            android:title="@string/list_icon_text"
+            android:icon="@drawable/home_grey"
+            android:title="@string/home_icon_text"
             app:showAsAction="ifRoom" />
         <item
             android:id="@+id/calendar_icon"

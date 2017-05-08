@@ -69,12 +69,17 @@ public class MySpecialGroup extends AppCompatActivity {
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         Toast.makeText(MySpecialGroup.this, "Code Accepted!", Toast.LENGTH_LONG).show();
                         Log.w("POST CODE SUCCESS", statusCode + ": " + "Response = " + response.toString());
-                        finish();
-                        //TODO: Create A Flag Here
-//                        SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
-//                        editor.putString("is_profile_created","true");
-//                        editor.commit();
-                        MainActivity.new_user = false;
+                        if (MainActivity.new_user = true) {
+                            Log.d("State", String.valueOf(MainActivity.new_user));
+                            Intent intent = new Intent(getApplicationContext(), ActivityReady.class);
+                            MySpecialGroup.this.startActivity(intent);
+                            MySpecialGroup.this.finish();
+                            SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
+                            editor.putString("is_profile_created", "true");
+                            editor.commit();
+                        }else {
+                            MySpecialGroup.this.finish();
+                        }
                     }
 
                     @Override
@@ -108,26 +113,18 @@ public class MySpecialGroup extends AppCompatActivity {
                 SharedPreferences pref = getSharedPreferences("EditPath", MODE_PRIVATE); // 0 - for private mode
                 String editprofilePath = pref.getString("edit_path", null);
                 if (editprofilePath == null) {
-                    if(SettingFragment.settingsCheck == false) {
+
                         if (MainActivity.new_user = true) {
                             Log.d("State", String.valueOf(MainActivity.new_user));
-                            Intent intent = new Intent(getApplicationContext(), WhatDoYouWantToDoToday.class);
+                            Intent intent = new Intent(getApplicationContext(), ActivityReady.class);
                             MySpecialGroup.this.startActivity(intent);
                             MySpecialGroup.this.finish();
                             SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
                             editor.putString("is_profile_created", "true");
-
                             editor.commit();
-                        } else {
-                            finish();
-                            //TODO: Create A Flag Here
-                            SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
-                            editor.putString("is_profile_created", "true");
-                            editor.commit();
-                        }
-                    }else {
+                        }else {
                         MySpecialGroup.this.finish();
-                    }
+                        }
 
                     //remove edit profile path
 

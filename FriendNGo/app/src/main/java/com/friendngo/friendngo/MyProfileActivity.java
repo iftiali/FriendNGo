@@ -178,13 +178,13 @@ public class MyProfileActivity extends AppCompatActivity {
                         nameInput.setText("");
                     }else{
                         nameInput.setText(firstNameString);
-                        MapActivity.other_user_name.setText(firstNameString);
+                        //MapActivity.other_user_name.setText(firstNameString);
                     }
 
                     int age = response.getInt("age");
                     if(age > 0) {
                         ageInput.setText(""+age);
-                        MapActivity.other_user_age.setText(age+"y-o");
+                       // MapActivity.other_user_age.setText(age+"y-o");
                     }else if (age == 0)
                     {
                         ageInput.setText("");
@@ -195,7 +195,7 @@ public class MyProfileActivity extends AppCompatActivity {
                         bioField.setText("");
                     }else{
                         bioField.setText(bio);
-                        MapActivity.other_user_about.setText(bio);
+                        //MapActivity.other_user_about.setText(bio);
                     }
 
                     nationality = response.getString("home_nationality");
@@ -362,12 +362,12 @@ public class MyProfileActivity extends AppCompatActivity {
 
                     params.put("phone",phoneNumberEditText.getText().toString());
                     params.put("first_name",name_input);
-                    MapActivity.other_user_name.setText(name_input);
+                    //MapActivity.other_user_name.setText(name_input);
                     boolean checkAgeValidation = false;
 
                     String bio_input = bioField.getText().toString();
                     params.put("bio",bio_input);
-                    MapActivity.other_user_about.setText(bio_input);
+                    //MapActivity.other_user_about.setText(bio_input);
 
                      nationality = citizenAuto.getText().toString();
 
@@ -379,7 +379,7 @@ public class MyProfileActivity extends AppCompatActivity {
                         if(cc.equals(nationality)){
                             compareCountryName = true;
                             params.put("home_nationality",nationality);
-                            MapActivity.other_user_citizenship.setText(nationality);
+                            //MapActivity.other_user_citizenship.setText(nationality);
                             break;
                         }else{
                             Log.d("Profile message",errorMessage);
@@ -397,7 +397,7 @@ public class MyProfileActivity extends AppCompatActivity {
                     }else{
                         checkAgeValidation= true;
                         params.put("age", age_input);
-                        MapActivity.other_user_age.setText(age_input + "y-o");
+                        //MapActivity.other_user_age.setText(age_input + "y-o");
                     }
                     //params.put("home_nationality",nationality);
 
@@ -643,7 +643,7 @@ public class MyProfileActivity extends AppCompatActivity {
         circularImageView.setImageBitmap(bm);
     }
     private void SaveImage(Bitmap finalBitmap) {
-        MapActivity.other_user_picture.setImageBitmap(finalBitmap);
+        //MapActivity.other_user_picture.setImageBitmap(finalBitmap);
         selectImageFlag = true;
         String root = Environment.getExternalStorageDirectory().toString();
         File myDir = new File(root + "/FriendnGo");

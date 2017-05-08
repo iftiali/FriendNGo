@@ -31,6 +31,26 @@
                     android:id="@+id/my_city_text_iew"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"/>
+                <ImageView
+                    android:id="@+id/addImageView"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    app:srcCompat="@drawable/addm"
+                    android:layout_alignParentLeft="true"/>
+                <ImageView
+                    android:id="@+id/filterImage"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    app:srcCompat="@drawable/filterw"
+                    android:layout_marginRight="15dp"
+                    android:layout_toLeftOf="@+id/listImage"/>
+                <ImageView
+                    android:id="@+id/listImage"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/list"
+                    android:layout_marginRight="8dp"
+                    android:layout_alignParentRight="true"/>
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
 
