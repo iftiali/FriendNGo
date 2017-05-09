@@ -216,7 +216,7 @@ public class ActivityDetails extends FragmentActivity implements OnMapReadyCallb
         mMap = googleMap;
         // Add a marker in Sydney and move the camera
         LatLng TutorialsPoint = new LatLng(mMapLat, mMapLot);
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(FacebookLogin.clat, FacebookLogin.clon), STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mMapLat, mMapLot), STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions

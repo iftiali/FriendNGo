@@ -2,10 +2,13 @@ package com.friendngo.friendngo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +22,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -35,7 +43,7 @@ import java.text.SimpleDateFormat;
 import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class ActivityDetailPaidEvent extends AppCompatActivity {
+public class ActivityDetailPaidEvent extends FragmentActivity implements OnMapReadyCallback {
     RelativeLayout activity_detail_free_event;
     RelativeLayout event_paind_iamge_alpha;
     TextView activity_detail_creator_name;
@@ -48,6 +56,10 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
     TextView activity_detail_paid_description_text;
     ImageView detail_event_background_image;
     RecyclerView participantsRecycler;
+    private GoogleMap mMap;
+    private double mMapLat = 0;
+    private double mMapLot = 0;
+    private final int STARTING_ZOOM = 15;
     private RecyclerView.LayoutManager mHorizontallayoutManager;
     private RecyclerView.Adapter mHorizontalAdapter;
 
@@ -60,8 +72,9 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_paid_event);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.activity_detail_paid_map);
+        mapFragment.getMapAsync(this);
         event_paind_iamge_alpha = (RelativeLayout)findViewById(R.id.event_paid_image_alpha);
         activity_detail_paid_description_text= (TextView) this.findViewById(R.id.activity_detail_paid_description_text);
         activity_detail_free_event = (RelativeLayout)findViewById(R.id.activity_detail_free_event);
@@ -164,8 +177,8 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
         activity_detail_paid_description_text.setText(activity.getDescription());
         detail_paid_date.setText(ValidationClass.getFormattedDate(activity.getActivityTime()));
         detail_event_endStartTime.setText(ValidationClass.getFormattedTime(activity.getActivityTime())+"-"+ValidationClass.getFormattedTime(activity.getActivityEndTime()));
-
-
+        mMapLat = activity.getLatitude();
+        mMapLot = activity.getLongitude();
         participantsRecycler = (RecyclerView) this.findViewById(R.id.participants_recycler_view_paid_event);
         mHorizontallayoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
         participantsRecycler.setLayoutManager(mHorizontallayoutManager);
@@ -175,4 +188,23 @@ public class ActivityDetailPaidEvent extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        // Add a marker in Sydney and move the camera
+        LatLng TutorialsPoint = new LatLng(mMapLat, mMapLot);
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mMapLat, mMapLot), STARTING_ZOOM)); //TODO: Also do this once for Last Known Location at startup
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
+
+    }
 }
