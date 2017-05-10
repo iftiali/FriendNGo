@@ -3,6 +3,7 @@ package com.friendngo.friendngo;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -26,7 +27,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -171,7 +174,6 @@ public class ActivityDetailPaidEvent extends FragmentActivity implements OnMapRe
         });
 
         activity_detail_creator_name.setText(activity.getName());
-
         detail_paid_event_address.setText(activity.getAddress());
         activity_detail_paid_address_text.setText(activity.getAddress());
         activity_detail_paid_description_text.setText(activity.getDescription());
@@ -204,7 +206,108 @@ public class ActivityDetailPaidEvent extends FragmentActivity implements OnMapRe
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+        addPinsOnMap();
         mMap.setMyLocationEnabled(true);
 
+    }
+    private void addPinsOnMap(){
+        BitmapDrawable bitmapdraw;
+        if(MapActivity.activitiesList.size()<1){
+            Log.d("ZERO EVENT","0 EVENTS");
+        }else
+        {
+            for(int i=0;i<MapActivity.activitiesList.size();i++){
+                UserActivity activity = (UserActivity) MapActivity.activitiesList.get(i);
+
+                int height = 75;
+                int width = 75;
+
+                if(activity.getisPaid()){
+
+                    switch (activity.getCategory()) {
+                        case "Art & Culture":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.art_verified);
+                            break;
+                        case "Nightlife":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.concert_verified);
+                            break;
+                        case "Sports":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.running_verified);
+                            break;
+                        case "Professional & Networking":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.coworking_verified);
+                            break;
+                        case "Fun & Crazy":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.naked_run_verified);
+                            break;
+                        case "Games":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.billiard_pin);
+                            break;
+                        case "Nature & Outdoors":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.backpacking_verified);
+                            break;
+                        case "Travel & Road-Trip":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.camping_verified);
+                            break;
+                        case "Social Activities":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.grab_drink_verified);
+                            break;
+                        case "Help & Association":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.handshake_verified);
+                            break;
+                        default:
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.canada_icon);
+                            break;
+                    }
+                }else {
+                    //Create the map pin for each activity in the list
+
+                    switch (activity.getCategory()) {
+                        case "Art & Culture":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.art_exposition_pin);
+                            break;
+                        case "Nightlife":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.concert_pin);
+                            break;
+                        case "Sports":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.running_pin);
+                            break;
+                        case "Professional & Networking":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.coworking_pin);
+                            break;
+                        case "Fun & Crazy":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.naked_run_pin);
+                            break;
+                        case "Games":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.billiard_pin);
+                            break;
+                        case "Nature & Outdoors":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.backpack_pin);
+                            break;
+                        case "Travel & Road-Trip":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.camping_pin);
+                            break;
+                        case "Social Activities":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.grab_drink_pin);
+                            break;
+                        case "Help & Association":
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.handshake_pin);
+                            break;
+                        default:
+                            bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.canada_icon);
+                            break;
+                    }
+                }
+                Bitmap b = bitmapdraw.getBitmap();
+                Bitmap smallMarker = Bitmap.createScaledBitmap(b, width, height, false);
+                MarkerOptions marker = new MarkerOptions()
+                        .position(new LatLng(activity.getLatitude(), activity.getLongitude()))
+                        .title(activity.getName())
+                        .snippet(activity.getActivityType())
+                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
+                mMap.addMarker(marker);
+            }
+        }
     }
 }

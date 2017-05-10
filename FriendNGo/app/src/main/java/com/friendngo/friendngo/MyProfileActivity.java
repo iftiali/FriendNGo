@@ -140,7 +140,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
         citizenAuto.setAdapter(citizenAdapter);
         citizenAuto.setThreshold(1);
-        ArrayAdapter<String> languageAdapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, languageList);
+        final ArrayAdapter<String> languageAdapter = new ArrayAdapter<String>(this,android.R.layout.select_dialog_item, languageList);
         spokenLanguage.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
         spokenLanguage.setAdapter(languageAdapter);
         //Set OnClick Listener for the profile picture pressed
@@ -156,6 +156,7 @@ public class MyProfileActivity extends AppCompatActivity {
         AsyncHttpClient client = new AsyncHttpClient();
         if (SignIn.static_token != null) {
             client.addHeader("Authorization", "Token " + SignIn.static_token);
+            Log.d("Hello","Hello scott 3");
         }
 
         //GET user profile
@@ -284,9 +285,6 @@ public class MyProfileActivity extends AppCompatActivity {
 
                 RequestParams params = new RequestParams();
                 params.setUseJsonStreamer(true);
-
-
-
                 String name_input = nameInput.getText().toString();
 
                 if(name_input.equals("")){
@@ -357,19 +355,27 @@ public class MyProfileActivity extends AppCompatActivity {
                 }
                 if(name_input.equals("") || ageInput.getText().toString().equals("") || citizenAuto.getText().toString().equals("") || spokenLanguage.getText().toString().equals("") || bioField.getText().toString().equals("")||phoneNumberEditText.getText().toString().equals("")){
                     Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_LONG).show();
-                    errorMessage = "Some fields are empty";
+
                 }else{
 
-                    params.put("phone",phoneNumberEditText.getText().toString());
-                    params.put("first_name",name_input);
-                    //MapActivity.other_user_name.setText(name_input);
-                    boolean checkAgeValidation = false;
+                   params.put("phone",phoneNumberEditText.getText().toString());
+                   params.put("first_name",name_input);
+                   params.put("bio",bioField.getText().toString());
 
-                    String bio_input = bioField.getText().toString();
-                    params.put("bio",bio_input);
-                    //MapActivity.other_user_about.setText(bio_input);
+                    boolean checkAgeValidation;
+                    int age_input = 0;
+                    age_input = Integer.parseInt(ageInput.getText().toString());
+                    Log.d("Age",age_input+"");
+                    if( age_input <13 || age_input > 120){
+                        checkAgeValidation = false;
+                        errorMessage ="Age should be between 13 and 120 ";
+                    }else{
+                        checkAgeValidation= true;
+                        params.put("age", age_input);
+                    }
 
-                     nationality = citizenAuto.getText().toString();
+
+                    nationality = citizenAuto.getText().toString();
 
                     Log.d("county name",nationality);
                      Locale[] nameCompare = Locale.getAvailableLocales();
@@ -379,58 +385,48 @@ public class MyProfileActivity extends AppCompatActivity {
                         if(cc.equals(nationality)){
                             compareCountryName = true;
                             params.put("home_nationality",nationality);
-                            //MapActivity.other_user_citizenship.setText(nationality);
                             break;
                         }else{
-                            Log.d("Profile message",errorMessage);
+                            //Log.d("Profile message",errorMessage);
                             compareCountryName = false;
                             errorMessage = "Country name in not valid";
                         }
                     }
-                    int age_input = 0;
-                    age_input = Integer.parseInt(ageInput.getText().toString());
-                    Log.d("Profile",age_input+"");
-                    if( age_input <13 || age_input > 120){
-                        checkAgeValidation = false;
 
-                        errorMessage ="Age should be between 13 and 120 ";
-                    }else{
-                        checkAgeValidation= true;
-                        params.put("age", age_input);
-                        //MapActivity.other_user_age.setText(age_input + "y-o");
-                    }
                     //params.put("home_nationality",nationality);
 
-
-                // Log.w("Language count",spokenLanguage.getText().toString());
+                Log.w("Language count",spokenLanguage.getText().toString());
                 String str = spokenLanguage.getText().toString();
                 List<String> elephantList = Arrays.asList(str.split(","));
-                JSONArray languagesArray = new JSONArray();
-                try{
+                    boolean languageCountCheck= false;
+                if(elephantList.size()>3){
+                    languageCountCheck = false;
+                    errorMessage = "Cannot select more than three language";
+                } else {
+                    JSONArray languagesArray = new JSONArray();
+                    try {
 
+                        languageCountCheck = true;
+                        for (int i = 0; i < elephantList.size(); i++) {
+                            JSONObject json_i = new JSONObject();
+                            if (elephantList.get(i).replaceAll("\\s+", "").equals("")) {
 
-                    for(int i =0; i < elephantList.size(); i++){
-                        JSONObject json_i = new JSONObject();
-                        if(elephantList.get(i).replaceAll("\\s+","").equals("")){
-
-                        }else {
-                            json_i.put("name", elephantList.get(i));
-                           // Log.w("Language count",elephantList.get(i));
-                            languagesArray.put(json_i);
-                          //  Log.w("Language count",languagesArray.toString());
+                            } else {
+                                json_i.put("name", elephantList.get(i));
+                                // Log.w("Language count",elephantList.get(i));
+                                languagesArray.put(json_i);
+                                //  Log.w("Language count",languagesArray.toString());
+                            }
                         }
-
-
+                    } catch (JSONException e) {
+                        Log.w("JSON Exception", e.toString());
                     }
-
-
-                } catch (JSONException e){
-                    Log.w("JSON Exception", e.toString());
+                    params.put("languages", languagesArray);
+                    Log.d("languages123",languagesArray.toString());
                 }
-                params.put("languages",languagesArray);
-            Log.d("Profile",checkAgeValidation+":"+compareCountryName);
-               if(compareCountryName && checkAgeValidation) {
 
+            Log.d("Profile",checkAgeValidation+":"+compareCountryName);
+               if(compareCountryName && checkAgeValidation && languageCountCheck) {
                    client.post(MainActivity.base_host_url + "api/postProfile2/", params, new JsonHttpResponseHandler() {
 //                client.post("http://requestb.in/zzmhq6zz", params, new JsonHttpResponseHandler() {
 
@@ -438,13 +434,11 @@ public class MyProfileActivity extends AppCompatActivity {
                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                            Log.w("POST PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
 //                        NewWhoAreYouActivity.this.finish();
-
                                finishProfileFlag = true;
                                if (finishPictureFlag && finishProfileFlag) {
 
                                    MyProfileActivity.this.finish();
                                }
-
                        }
 
                        @Override
@@ -534,6 +528,7 @@ public class MyProfileActivity extends AppCompatActivity {
                        MyProfileActivity.this.finish();
                    }
                }else {
+                   Log.d("Hello","2");
                    Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_LONG).show();
                }
             }

@@ -25,200 +25,208 @@
         app:itemTextColor="@color/colorPrimary"
         app:menu="@menu/bottom_navigation_tabs_list" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/alpha_layer"
-        android:background="@color/light_grey"
-        android:alpha="0.6"
-        android:visibility="gone">
- </RelativeLayout>
-    <FrameLayout
-        android:layout_above="@id/bottom_navigation"
-        android:id="@+id/markup_layout"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:padding="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:visibility="gone"
-        android:background="#FFFFFF"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/alpha_layer"-->
+        <!--android:background="@color/light_grey"-->
+        <!--android:alpha="0.6"-->
+        <!--android:visibility="gone">-->
+ <!--</RelativeLayout>-->
+    <!--<FrameLayout-->
+        <!--android:layout_above="@id/bottom_navigation"-->
+        <!--android:id="@+id/markup_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:padding="10dp"-->
+        <!--android:layout_marginRight="20dp"-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:visibility="visible"-->
+        <!--android:background="#FFFFFF"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_alignParentEnd="true">-->
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
 
-            <com.mikhaellopez.circularimageview.CircularImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/empty_profile"
-                android:id="@+id/banner_profilepicture"
-                app:civ_border_color="#EEEEEE"
-                app:civ_border_width="2dp"
-                app:civ_shadow="true"
-                app:civ_shadow_radius="0.5"
-                app:civ_shadow_color="@color/greyish"
-                />
+            <!--<com.mikhaellopez.circularimageview.CircularImageView-->
+                <!--android:layout_width="40dp"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:src="@drawable/empty_profile"-->
+                <!--android:id="@+id/banner_profilepicture"-->
+                <!--app:civ_border_color="#EEEEEE"-->
+                <!--app:civ_border_width="2dp"-->
+                <!--app:civ_shadow="true"-->
+                <!--app:civ_shadow_radius="0.5"-->
+                <!--app:civ_shadow_color="@color/greyish"-->
+                <!--/>-->
 
-            <TextView
-                android:id="@+id/banner_created_text"
-                android:text="Created by scottLaughlin, 29 y-o"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:paddingLeft="10dp"
-                android:textSize="12sp"
-                android:layout_alignBaseline="@+id/banner_points"
-                android:layout_alignBottom="@+id/banner_points"
-                android:layout_alignLeft="@+id/banner_activity_name"
-                android:layout_alignStart="@+id/banner_activity_name" />
+            <!--<TextView-->
+                <!--android:paddingTop="5dp"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:id="@+id/banner_created_text"-->
+                <!--android:layout_toRightOf="@+id/banner_profilepicture"-->
+                <!--android:text="Created by scottLaughlin, 29 y-o"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="@android:color/black"-->
+                <!--android:textSize="12sp"/>-->
 
-            <View
-                android:id="@+id/banner_separation_bar"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray"
-                android:layout_alignBottom="@+id/banner_profilepicture"
-                android:layout_marginBottom="-15dp" />
-
-            <ImageView
-                android:id="@+id/banner_activity_type"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignTop="@+id/banner_separation_bar"
-                android:layout_marginTop="11dp"
-                app:srcCompat="@drawable/cup" />
-
-            <TextView
-                android:id="@+id/banner_activity_time"
-                android:text="Fri 20, 10:15pm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:layout_below="@+id/banner_activity_name"
-                android:layout_toRightOf="@+id/banner_clock_image"
-                android:layout_toEndOf="@+id/banner_clock_image" />
-
-
-            <TextView
-                android:id="@+id/banner_status_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:paddingLeft="10dp"
-                android:text="Resident, "
-                android:textSize="12sp"
-                android:layout_alignBaseline="@+id/banner_dotText"
-                android:layout_alignBottom="@+id/banner_dotText"
-                android:layout_alignLeft="@+id/banner_created_text"
-                android:layout_alignStart="@+id/banner_created_text" />
-
-            <TextView
-                android:id="@+id/banner_home_city_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:text="Montreal"
-                android:textSize="12sp"
-                android:layout_alignBaseline="@+id/banner_status_text"
-                android:layout_alignBottom="@+id/banner_status_text"
-                android:layout_toRightOf="@+id/banner_status_text"
-                android:layout_toEndOf="@+id/banner_status_text" />
+            <!--<View-->
+                <!--android:id="@+id/banner_separation_bar"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="@android:color/darker_gray"-->
+                <!--android:layout_alignBottom="@+id/banner_profilepicture"-->
+                <!--android:layout_marginBottom="-15dp" />-->
 
             <!--<ImageView-->
-            <!--android:id="@+id/banner_country_flag"-->
-            <!--app:srcCompat="@drawable/canada"-->
-            <!--android:layout_width="15dp"-->
-            <!--android:layout_height="15dp"-->
-            <!--android:paddingBottom="5dp"-->
-            <!--android:layout_below="@+id/banner_created_text"-->
-            <!--android:layout_toRightOf="@+id/banner_dotText"-->
-            <!--android:layout_toEndOf="@+id/banner_dotText" />-->
+                <!--android:id="@+id/banner_activity_type"-->
+                <!--android:layout_width="40dp"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_alignTop="@+id/banner_separation_bar"-->
+                <!--android:layout_marginTop="11dp"-->
+                <!--app:srcCompat="@drawable/cup" />-->
 
-            <!--android:text="   ·   "-->
-            <TextView
-                android:id="@+id/banner_dotText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="     "
-                android:textSize="12sp"
-                android:textStyle="normal|bold"
-                android:layout_toRightOf="@+id/banner_home_city_text"
-                android:layout_toEndOf="@+id/banner_home_city_text"
-                android:layout_below="@+id/banner_created_text" />
+            <!--<TextView-->
+                <!--android:id="@+id/banner_activity_time"-->
+                <!--android:text="Fri 20, 10:15pm"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="12sp"-->
+                <!--android:layout_below="@+id/banner_activity_name"-->
+                <!--android:layout_toRightOf="@+id/banner_clock_image"-->
+                <!--android:layout_toEndOf="@+id/banner_clock_image" />-->
 
-            <TextView
-                android:id="@+id/banner_points"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/activity_list_point"
-                android:text="10pts"
-                android:textColor="@color/whiteish"
-                android:padding="5dp"
-                android:layout_marginBottom="10dp"
+            <!--<LinearLayout-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:layout_below="@+id/banner_created_text"-->
+                <!--android:layout_toRightOf="@id/banner_profilepicture"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+                <!--<TextView-->
+                    <!--android:id="@+id/banner_status_text"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingLeft="10dp"-->
+                    <!--android:text="Resident, "-->
+                    <!--android:textSize="12sp"/>-->
 
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                <!--<TextView-->
+                    <!--android:id="@+id/banner_home_city_text"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Montreal"-->
+                    <!--android:textSize="12sp"/>-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/banner_home_city_dot"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="   ·   "-->
+                    <!--android:textSize="12sp"/>-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/banner_country_flag_onw"-->
+                    <!--app:srcCompat="@drawable/canada"-->
+                    <!--android:layout_width="20dp"-->
+                    <!--android:layout_height="20dp"/>-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/banner_country_flag_two"-->
+                    <!--app:srcCompat="@drawable/canada"-->
+                    <!--android:layout_width="20dp"-->
+                    <!--android:layout_height="20dp"/>-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/banner_country_flag_three"-->
+                    <!--app:srcCompat="@drawable/canada"-->
+                    <!--android:layout_width="20dp"-->
+                    <!--android:layout_height="20dp"/>-->
+            <!--</LinearLayout>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/banner_dotText"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="     "-->
+                <!--android:textSize="12sp"-->
+                <!--android:textStyle="normal|bold"-->
+                <!--android:layout_toRightOf="@+id/banner_home_city_text"-->
+                <!--android:layout_toEndOf="@+id/banner_home_city_text"-->
+                <!--android:layout_below="@+id/banner_created_text" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/banner_points"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_marginBottom="5dp"-->
+                <!--android:background="@drawable/activity_list_point"-->
+                <!--android:padding="2dp"-->
+
+                <!--android:text="10pts"-->
+                <!--android:textColor="@color/whiteish" />-->
 
 
-            <TextView
-                android:id="@+id/banner_activity_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="8dp"
-                android:text="OctoberFest"
-                android:layout_alignTop="@+id/banner_activity_type"
-                android:layout_toRightOf="@+id/banner_activity_type"
-                android:layout_toEndOf="@+id/banner_activity_type"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp" />
+            <!--<TextView-->
+                <!--android:id="@+id/banner_activity_name"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="8dp"-->
+                <!--android:text="OctoberFest"-->
+                <!--android:layout_alignTop="@+id/banner_activity_type"-->
+                <!--android:layout_toRightOf="@+id/banner_activity_type"-->
+                <!--android:layout_toEndOf="@+id/banner_activity_type"-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:layout_marginStart="20dp" />-->
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:weightSum="1"
-                android:visibility="visible"
-                android:id="@+id/tableRow"
-                android:layout_marginTop="27dp"
-                android:layout_below="@+id/banner_activity_time"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
+            <!--<TableRow-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="60dp"-->
+                <!--android:weightSum="1"-->
+                <!--android:visibility="visible"-->
+                <!--android:id="@+id/tableRow"-->
+                <!--android:layout_marginTop="27dp"-->
+                <!--android:layout_below="@+id/banner_activity_time"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_alignParentStart="true">-->
 
-                <Button
-                    android:id="@+id/banner_activity_details"
-                    android:text="Activity details"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/activity_markup_activity_details_button"
-                    android:textColor="@color/whiteish"
-                    android:layout_weight="0.45"/>
+                <!--<Button-->
+                    <!--android:id="@+id/banner_activity_details"-->
+                    <!--android:text="Activity details"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="@drawable/activity_markup_activity_details_button"-->
+                    <!--android:textColor="@color/whiteish"-->
+                    <!--android:layout_weight="0.45"/>-->
 
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.10"
-                    android:background="#FFFFFF"/>
-                <Button
-                    android:id="@+id/banner_participate"
-                    android:textColor="@color/whiteish"
-                    android:layout_weight="0.45"
-                    android:text="Participate"
-                    android:background="@drawable/activity_markup_participate_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <!--<FrameLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="0.10"-->
+                    <!--android:background="#FFFFFF"/>-->
+                <!--<Button-->
+                    <!--android:id="@+id/banner_participate"-->
+                    <!--android:textColor="@color/whiteish"-->
+                    <!--android:layout_weight="0.45"-->
+                    <!--android:text="Participate"-->
+                    <!--android:background="@drawable/activity_markup_participate_button"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"/>-->
 
-            </TableRow>
-            <ImageView
-                android:id="@+id/banner_clock_image"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                app:srcCompat="@drawable/clock"
-                android:layout_below="@+id/banner_activity_name"
-                android:layout_alignLeft="@+id/banner_activity_name"
-                android:layout_alignStart="@+id/banner_activity_name" />
-        </RelativeLayout>
-    </FrameLayout>
+            <!--</TableRow>-->
+            <!--<ImageView-->
+                <!--android:id="@+id/banner_clock_image"-->
+                <!--android:layout_width="16dp"-->
+                <!--android:layout_height="16dp"-->
+                <!--app:srcCompat="@drawable/clock"-->
+                <!--android:layout_below="@+id/banner_activity_name"-->
+                <!--android:layout_alignLeft="@+id/banner_activity_name"-->
+                <!--android:layout_alignStart="@+id/banner_activity_name" />-->
+        <!--</RelativeLayout>-->
+    <!--</FrameLayout>-->
 
 </RelativeLayout>

@@ -408,31 +408,35 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     // Log.w("Language count",spokenLanguage.getText().toString());
                     String str = spokenLanguage.getText().toString();
                     List<String> elephantList = Arrays.asList(str.split(","));
-                    JSONArray languagesArray = new JSONArray();
-                    try{
+                    boolean languageCountCheck= false;
+                    if(elephantList.size()>3){
+                        languageCountCheck = false;
+                        errorMessage = "Cannot select more than three language";
+                    } else {
+                        JSONArray languagesArray = new JSONArray();
+                        try {
 
 
-                        for(int i =0; i < elephantList.size(); i++){
-                            JSONObject json_i = new JSONObject();
-                            if(elephantList.get(i).replaceAll("\\s+","").equals("")){
+                            for (int i = 0; i < elephantList.size(); i++) {
+                                JSONObject json_i = new JSONObject();
+                                if (elephantList.get(i).replaceAll("\\s+", "").equals("")) {
 
-                            }else {
-                                json_i.put("name", elephantList.get(i));
-                                // Log.w("Language count",elephantList.get(i));
-                                languagesArray.put(json_i);
-                                //  Log.w("Language count",languagesArray.toString());
+                                } else {
+                                    json_i.put("name", elephantList.get(i));
+                                    // Log.w("Language count",elephantList.get(i));
+                                    languagesArray.put(json_i);
+                                    //  Log.w("Language count",languagesArray.toString());
+                                }
+
+
                             }
-
-
+                         } catch (JSONException e) {
+                            Log.w("JSON Exception", e.toString());
                         }
-
-
-                    } catch (JSONException e){
-                        Log.w("JSON Exception", e.toString());
+                        params.put("languages", languagesArray);
+                        Log.d("Profile", checkAgeValidation + ":" + compareCountryName);
                     }
-                    params.put("languages",languagesArray);
-                    Log.d("Profile",checkAgeValidation+":"+compareCountryName);
-                    if(compareCountryName && checkAgeValidation) {
+                    if(compareCountryName && checkAgeValidation && languageCountCheck) {
 
                         client.post(MainActivity.base_host_url + "api/postProfile2/", params, new JsonHttpResponseHandler() {
 //                client.post("http://requestb.in/zzmhq6zz", params, new JsonHttpResponseHandler() {
