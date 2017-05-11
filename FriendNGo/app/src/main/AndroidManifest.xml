@@ -107,7 +107,8 @@
             android:name=".MyCity"
             android:label="@string/title_activity_my_city"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
             android:name=".AboutUsActivity"
             android:label="@string/title_activity_about_us"

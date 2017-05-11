@@ -4,6 +4,7 @@ package com.friendngo.friendngo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -69,6 +70,7 @@ public class ChatFragment extends Fragment {
             if (SignIn.static_token != null) {
                 client.addHeader("Authorization", "Token " + SignIn.static_token);
             }
+
             recyclerView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
             client.get(MainActivity.base_host_url + "api/getMessages/", new JsonHttpResponseHandler() {

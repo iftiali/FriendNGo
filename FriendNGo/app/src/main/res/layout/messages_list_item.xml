@@ -5,11 +5,14 @@
     android:id="@+id/messages_list_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp"
+    android:background="@color/whiteish">
 
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:id="@+id/relativeCLick">
     <ImageView
         android:id="@+id/paid_event_profile_picture"
