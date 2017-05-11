@@ -17,7 +17,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -47,6 +49,8 @@ import java.util.Random;
 import java.util.logging.ErrorManager;
 
 import cz.msebera.android.httpclient.Header;
+
+import static android.view.inputmethod.EditorInfo.*;
 
 public class MyProfileActivity extends AppCompatActivity {
 
@@ -95,6 +99,66 @@ public class MyProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MyProfileActivity.this.finish();
+            }
+        });
+        nameInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    submitApi();
+                    return true;
+                }
+                return false;
+            }
+        });
+        citizenAuto.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    submitApi();
+                    return true;
+                }
+                return false;
+            }
+        });
+        spokenLanguage.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    submitApi();
+                    return true;
+                }
+                return false;
+            }
+        });
+        ageInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    submitApi();
+                    return true;
+                }
+                return false;
+            }
+        });
+        bioField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    submitApi();
+                    return true;
+                }
+                return false;
+            }
+        });
+        phoneNumberEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    submitApi();
+                    return true;
+                }
+                return false;
             }
         });
         profile_logout_text_view.setOnClickListener(new View.OnClickListener() {
@@ -273,271 +337,275 @@ public class MyProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Create path for edit profile
-                SharedPreferences pref = getApplicationContext().getSharedPreferences("EditPath", 0); // 0 - for private mode
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putString("edit_path", "true");
-                editor.commit();
-                //POST Profile
-                AsyncHttpClient client = new AsyncHttpClient();
-                if (SignIn.static_token != null) {
-                    client.addHeader("Authorization", "Token " + SignIn.static_token);
-                }
 
-                RequestParams params = new RequestParams();
-                params.setUseJsonStreamer(true);
-                String name_input = nameInput.getText().toString();
-
-                if(name_input.equals("")){
-                    GradientDrawable gd = new GradientDrawable();
-                    gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255,117,0));
-                    nameInput.setBackground(gd);
-                } else {
-                    GradientDrawable gd = new GradientDrawable();
-                    gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255, 255, 255));
-                    nameInput.setBackground(gd);
-                }
-                if(ageInput.getText().toString().equals("")){
-                    GradientDrawable gd = new GradientDrawable();
-                    gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255,117,0));
-                    ageInput.setBackground(gd);
-                } else {
-                    GradientDrawable gd = new GradientDrawable();
-                    gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255, 255, 255));
-                    ageInput.setBackground(gd);
-                }
-                if(citizenAuto.getText().toString().equals("")){
-                    GradientDrawable gd = new GradientDrawable();
-                    gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255,117,0));
-                    citizenAuto.setBackground(gd);
-                } else {
-                    GradientDrawable gd = new GradientDrawable();
-                    gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255, 255, 255));
-                    citizenAuto.setBackground(gd);
-                }
-                if(spokenLanguage.getText().toString().equals("")){
-                    GradientDrawable gd = new GradientDrawable();
-                    gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255,117,0));
-                    spokenLanguage.setBackground(gd);
-                } else {
-                    GradientDrawable gd = new GradientDrawable();
-                    gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255, 255, 255));
-                    spokenLanguage.setBackground(gd);
-                }
-                if(bioField.getText().toString().equals("")){
-                    GradientDrawable gd = new GradientDrawable();
-                    gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255,117,0));
-                    bioField.setBackground(gd);
-                } else {
-                    GradientDrawable gd = new GradientDrawable();
-                    gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255, 255, 255));
-                    bioField.setBackground(gd);
-                }
-                if(phoneNumberEditText.getText().toString().equals("")){
-                    GradientDrawable gd = new GradientDrawable();
-                    gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255,117,0));
-                    phoneNumberEditText.setBackground(gd);
-                } else {
-                    GradientDrawable gd = new GradientDrawable();
-                    gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255, 255, 255));
-                    phoneNumberEditText.setBackground(gd);
-                }
-                if(name_input.equals("") || ageInput.getText().toString().equals("") || citizenAuto.getText().toString().equals("") || spokenLanguage.getText().toString().equals("") || bioField.getText().toString().equals("")||phoneNumberEditText.getText().toString().equals("")){
-                    Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_LONG).show();
-
-                }else{
-
-                   params.put("phone",phoneNumberEditText.getText().toString());
-                   params.put("first_name",name_input);
-                   params.put("bio",bioField.getText().toString());
-
-                    boolean checkAgeValidation;
-                    int age_input = 0;
-                    age_input = Integer.parseInt(ageInput.getText().toString());
-                    Log.d("Age",age_input+"");
-                    if( age_input <13 || age_input > 120){
-                        checkAgeValidation = false;
-                        errorMessage ="Age should be between 13 and 120 ";
-                    }else{
-                        checkAgeValidation= true;
-                        params.put("age", age_input);
-                    }
-
-
-                    nationality = citizenAuto.getText().toString();
-
-                    Log.d("county name",nationality);
-                     Locale[] nameCompare = Locale.getAvailableLocales();
-                      boolean compareCountryName = false;
-                      for(Locale locale:nameCompare){
-                        String cc = locale.getDisplayCountry();
-                        if(cc.equals(nationality)){
-                            compareCountryName = true;
-                            params.put("home_nationality",nationality);
-                            break;
-                        }else{
-                            //Log.d("Profile message",errorMessage);
-                            compareCountryName = false;
-                            errorMessage = "Country name in not valid";
-                        }
-                    }
-
-                    //params.put("home_nationality",nationality);
-
-                Log.w("Language count",spokenLanguage.getText().toString());
-                String str = spokenLanguage.getText().toString();
-                List<String> elephantList = Arrays.asList(str.split(","));
-                boolean languageCountCheck= false;
-                    Log.d("hello",elephantList.size()+"");
-                if(elephantList.size()>3){
-                    languageCountCheck = false;
-                    errorMessage = "Cannot select more than three language";
-                } else {
-                    JSONArray languagesArray = new JSONArray();
-                    try {
-
-                        languageCountCheck = true;
-                        for (int i = 0; i < elephantList.size(); i++) {
-                            JSONObject json_i = new JSONObject();
-                            if (elephantList.get(i).replaceAll("\\s+", "").equals("")) {
-
-                            } else {
-                                json_i.put("name", elephantList.get(i));
-                                // Log.w("Language count",elephantList.get(i));
-                                languagesArray.put(json_i);
-                                //  Log.w("Language count",languagesArray.toString());
-                            }
-                        }
-                    } catch (JSONException e) {
-                        Log.w("JSON Exception", e.toString());
-                    }
-                    params.put("languages", languagesArray);
-                    Log.d("languages123",languagesArray.toString());
-                }
-
-            Log.d("Profile",checkAgeValidation+":"+compareCountryName);
-               if(compareCountryName && checkAgeValidation && languageCountCheck) {
-                   client.post(MainActivity.base_host_url + "api/postProfile2/", params, new JsonHttpResponseHandler() {
-//                client.post("http://requestb.in/zzmhq6zz", params, new JsonHttpResponseHandler() {
-
-                       @Override
-                       public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                           Log.w("POST PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
-//                        NewWhoAreYouActivity.this.finish();
-                               finishProfileFlag = true;
-                               if (finishPictureFlag && finishProfileFlag) {
-
-                                   MyProfileActivity.this.finish();
-                               }
-                       }
-
-                       @Override
-                       public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                           Log.w("POST PROFILE SUCCESS2", statusCode + ": " + timeline.toString());
-                           // NewWhoAreYouActivity.this.finish();
-                       }
-
-                       @Override
-                       public void onRetry(int retryNo) {
-                           // called when request is retried
-                           Log.w("POST PROFILE RETRY", "" + retryNo);
-                       }
-
-                       @Override
-                       public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                           Log.w("POST PROFILE FAIL", "Error Code: " + error_code + "," + text);
-                       }
-
-                       @Override
-                       public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
-                           Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
-                       }
-                   });
-
-                   if (selectImageFlag) {
-                       String root = Environment.getExternalStorageDirectory().toString();
-                       File myDir = new File(root + "/FriendnGo");
-
-                       File file = new File(myDir, imageName);
-                       //Log.w("PICTURE PATH",myFile.toString());
-                       RequestParams paramsProfilePicture = new RequestParams();
-                       // paramsProfilePicture.setUseJsonStreamer(true);
-                       try {
-                           paramsProfilePicture.put("picture", file);
-
-                       } catch (FileNotFoundException e) {
-                       }
-                       client.post(MainActivity.base_host_url + "api/uploadProfilePicture/", paramsProfilePicture, new JsonHttpResponseHandler() {
-                           // client.post("http://requestb.in/zzmhq6zz", params, new JsonHttpResponseHandler() {
-
-                           @Override
-                           public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                               Log.w("POST PROFILE PICTURE", statusCode + ": " + "Response = " + response.toString());
-                               finishPictureFlag = true;
-                               if (finishPictureFlag && finishProfileFlag) {
-                                   MyProfileActivity.this.finish();
-                               }
-                           }
-
-                           @Override
-                           public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
-                               Log.w("POST PROFILE PICTURE2", statusCode + ": " + timeline.toString());
-                               //  NewWhoAreYouActivity.this.finish();
-                           }
-
-                           @Override
-                           public void onRetry(int retryNo) {
-                               // called when request is retried
-                               Log.w("POST PROFILE PICTURE", "" + retryNo);
-                           }
-
-                           @Override
-                           public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
-                               Log.w("POST PROFILE PICTURE", "Error Code: " + error_code + "," + text);
-                           }
-
-                           @Override
-                           public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
-                               Log.w("MY PROFILE PICTURE", "Error Code: " + error_code + ",  " + json.toString());
-                           }
-                       });
-                   } else {
-
-                       finishPictureFlag = true;
-                       if (finishPictureFlag && finishProfileFlag) {
-
-
-                       }
-                   }
-                   if(SettingFragment.settingsCheck==true){
-                       SettingFragment.settingsCheck = false;
-                       MyProfileActivity.this.finish();
-                   }else {
-                       Intent intent = new Intent(getApplicationContext(), NewCity.class);
-                       MyProfileActivity.this.startActivity(intent);
-                       MyProfileActivity.this.finish();
-                   }
-               }else {
-                   Log.d("Hello","2");
-                   Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_LONG).show();
-               }
-            }
-
+                submitApi();
             }
         });
 
 
+    }
+
+    private void submitApi(){
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("EditPath", 0); // 0 - for private mode
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("edit_path", "true");
+        editor.commit();
+        //POST Profile
+        AsyncHttpClient client = new AsyncHttpClient();
+        if (SignIn.static_token != null) {
+            client.addHeader("Authorization", "Token " + SignIn.static_token);
+        }
+
+        RequestParams params = new RequestParams();
+        params.setUseJsonStreamer(true);
+        String name_input = nameInput.getText().toString();
+
+        if(name_input.equals("")){
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(255,117,0));
+            nameInput.setBackground(gd);
+        } else {
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(255, 255, 255));
+            nameInput.setBackground(gd);
+        }
+        if(ageInput.getText().toString().equals("")){
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(255,117,0));
+            ageInput.setBackground(gd);
+        } else {
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(255, 255, 255));
+            ageInput.setBackground(gd);
+        }
+        if(citizenAuto.getText().toString().equals("")){
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(255,117,0));
+            citizenAuto.setBackground(gd);
+        } else {
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(255, 255, 255));
+            citizenAuto.setBackground(gd);
+        }
+        if(spokenLanguage.getText().toString().equals("")){
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(255,117,0));
+            spokenLanguage.setBackground(gd);
+        } else {
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(255, 255, 255));
+            spokenLanguage.setBackground(gd);
+        }
+        if(bioField.getText().toString().equals("")){
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(255,117,0));
+            bioField.setBackground(gd);
+        } else {
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(255, 255, 255));
+            bioField.setBackground(gd);
+        }
+        if(phoneNumberEditText.getText().toString().equals("")){
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(255,117,0));
+            phoneNumberEditText.setBackground(gd);
+        } else {
+            GradientDrawable gd = new GradientDrawable();
+            gd.setCornerRadius(10);
+            gd.setStroke(2, Color.rgb(255, 255, 255));
+            phoneNumberEditText.setBackground(gd);
+        }
+        if(name_input.equals("") || ageInput.getText().toString().equals("") || citizenAuto.getText().toString().equals("") || spokenLanguage.getText().toString().equals("") || bioField.getText().toString().equals("")||phoneNumberEditText.getText().toString().equals("")){
+            Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_LONG).show();
+
+        }else{
+
+            params.put("phone",phoneNumberEditText.getText().toString());
+            params.put("first_name",name_input);
+            params.put("bio",bioField.getText().toString());
+
+            boolean checkAgeValidation;
+            int age_input = 0;
+            age_input = Integer.parseInt(ageInput.getText().toString());
+            Log.d("Age",age_input+"");
+            if( age_input <13 || age_input > 120){
+                checkAgeValidation = false;
+                errorMessage ="Age should be between 13 and 120 ";
+            }else{
+                checkAgeValidation= true;
+                params.put("age", age_input);
+            }
+
+
+            nationality = citizenAuto.getText().toString();
+
+            Log.d("county name",nationality);
+            Locale[] nameCompare = Locale.getAvailableLocales();
+            boolean compareCountryName = false;
+            for(Locale locale:nameCompare){
+                String cc = locale.getDisplayCountry();
+                if(cc.equals(nationality)){
+                    compareCountryName = true;
+                    params.put("home_nationality",nationality);
+                    break;
+                }else{
+                    //Log.d("Profile message",errorMessage);
+                    compareCountryName = false;
+                    errorMessage = "Country name in not valid";
+                }
+            }
+
+            //params.put("home_nationality",nationality);
+
+            Log.w("Language count",spokenLanguage.getText().toString());
+            String str = spokenLanguage.getText().toString();
+            List<String> elephantList = Arrays.asList(str.split(","));
+            boolean languageCountCheck= false;
+            Log.d("hello",elephantList.size()+"");
+            if(elephantList.size()>3){
+                languageCountCheck = false;
+                errorMessage = "Cannot select more than three language";
+            } else {
+                JSONArray languagesArray = new JSONArray();
+                try {
+
+                    languageCountCheck = true;
+                    for (int i = 0; i < elephantList.size(); i++) {
+                        JSONObject json_i = new JSONObject();
+                        if (elephantList.get(i).replaceAll("\\s+", "").equals("")) {
+
+                        } else {
+                            json_i.put("name", elephantList.get(i));
+                            // Log.w("Language count",elephantList.get(i));
+                            languagesArray.put(json_i);
+                            //  Log.w("Language count",languagesArray.toString());
+                        }
+                    }
+                } catch (JSONException e) {
+                    Log.w("JSON Exception", e.toString());
+                }
+                params.put("languages", languagesArray);
+                Log.d("languages123",languagesArray.toString());
+            }
+
+            Log.d("Profile",checkAgeValidation+":"+compareCountryName);
+            if(compareCountryName && checkAgeValidation && languageCountCheck) {
+                client.post(MainActivity.base_host_url + "api/postProfile2/", params, new JsonHttpResponseHandler() {
+//                client.post("http://requestb.in/zzmhq6zz", params, new JsonHttpResponseHandler() {
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        Log.w("POST PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
+//                        NewWhoAreYouActivity.this.finish();
+                        finishProfileFlag = true;
+                        if (finishPictureFlag && finishProfileFlag) {
+
+                            MyProfileActivity.this.finish();
+                        }
+                    }
+
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                        Log.w("POST PROFILE SUCCESS2", statusCode + ": " + timeline.toString());
+                        // NewWhoAreYouActivity.this.finish();
+                    }
+
+                    @Override
+                    public void onRetry(int retryNo) {
+                        // called when request is retried
+                        Log.w("POST PROFILE RETRY", "" + retryNo);
+                    }
+
+                    @Override
+                    public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                        Log.w("POST PROFILE FAIL", "Error Code: " + error_code + "," + text);
+                    }
+
+                    @Override
+                    public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
+                        Log.w("MY PROFILE FAIL", "Error Code: " + error_code + ",  " + json.toString());
+                    }
+                });
+
+                if (selectImageFlag) {
+                    String root = Environment.getExternalStorageDirectory().toString();
+                    File myDir = new File(root + "/FriendnGo");
+
+                    File file = new File(myDir, imageName);
+                    //Log.w("PICTURE PATH",myFile.toString());
+                    RequestParams paramsProfilePicture = new RequestParams();
+                    // paramsProfilePicture.setUseJsonStreamer(true);
+                    try {
+                        paramsProfilePicture.put("picture", file);
+
+                    } catch (FileNotFoundException e) {
+                    }
+                    client.post(MainActivity.base_host_url + "api/uploadProfilePicture/", paramsProfilePicture, new JsonHttpResponseHandler() {
+                        // client.post("http://requestb.in/zzmhq6zz", params, new JsonHttpResponseHandler() {
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            Log.w("POST PROFILE PICTURE", statusCode + ": " + "Response = " + response.toString());
+                            finishPictureFlag = true;
+                            if (finishPictureFlag && finishProfileFlag) {
+                                MyProfileActivity.this.finish();
+                            }
+                        }
+
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
+                            Log.w("POST PROFILE PICTURE2", statusCode + ": " + timeline.toString());
+                            //  NewWhoAreYouActivity.this.finish();
+                        }
+
+                        @Override
+                        public void onRetry(int retryNo) {
+                            // called when request is retried
+                            Log.w("POST PROFILE PICTURE", "" + retryNo);
+                        }
+
+                        @Override
+                        public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                            Log.w("POST PROFILE PICTURE", "Error Code: " + error_code + "," + text);
+                        }
+
+                        @Override
+                        public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json) {
+                            Log.w("MY PROFILE PICTURE", "Error Code: " + error_code + ",  " + json.toString());
+                        }
+                    });
+                } else {
+
+                    finishPictureFlag = true;
+                    if (finishPictureFlag && finishProfileFlag) {
+
+
+                    }
+                }
+                if(SettingFragment.settingsCheck==true){
+                    SettingFragment.settingsCheck = false;
+                    MyProfileActivity.this.finish();
+                }else {
+                    Intent intent = new Intent(getApplicationContext(), NewCity.class);
+                    MyProfileActivity.this.startActivity(intent);
+                    MyProfileActivity.this.finish();
+                }
+            }else {
+                Log.d("Hello","2");
+                Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_LONG).show();
+            }
+        }
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
