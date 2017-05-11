@@ -72,41 +72,41 @@
     <string name="title_activity_report_issue">ReportIssue</string>
     <!--March 29 with backlog by Parth-->
     <!--General Toast Message-->
-    <string name="checkOnlineToast">Please turn on your wifi/data pack</string>
-    <string name="submit">SUBMIT</string>
+    <string name="checkOnlineToast">Allumez votre wifi/ensemble de données</string>
+    <string name="submit">Soumettre</string>
 
     <!--Report Issue Fragment-->
-    <string name="reportIssueEdit_title">Report Issue</string>
-    <string name="reportIssueToast">Report issue field is empty</string>
-    <string name="reportIssueSuccessToast">Report issue message submitted successfully</string>
-    <string name="reportIssueEditTextHint">Type Your Issue Here</string>
-    <string name="reportIssueEditTextEmptyToast">Report Issue field is empty</string>
+    <string name="reportIssueEdit_title">Rapport des problèmes</string>
+    <string name="reportIssueToast">Le champ du rapport des problèmes est vide</string>
+    <string name="reportIssueSuccessToast">Le message du rapport des problèmes a été soumis avec succès</string>
+    <string name="reportIssueEditTextHint">Taper votre problème ici</string>
+    <string name="reportIssueEditTextEmptyToast">Le champ du rapport des problèmes est vide</string>
 
     <!--Notification Fragment-->
-    <string name="notificationFragmentEmptyText">You will receive a notification when someone tries to join an activity you created</string>
+    <string name="notificationFragmentEmptyText">Vous recevrez une notification lorsqu\'une personne voudra se joindre à l\'actvité que vous avez crée</string>
 
     <!--Chat Fragment-->
-    <string name="chatFragmentEmptyText">Join an activity to send a message to participants</string>
-    <string name="title_activity_forgot_password">ForgotPassword</string>
+    <string name="chatFragmentEmptyText">Pour rejoindre une activité, envoyer un message aux participants</string>
+    <string name="title_activity_forgot_password">Mot de passe oublié</string>
 
     <!--Ready activity-->
-    <string name="title_activity_ready">ActivityReady</string>
-    <string name="title_ready">Ready!</string>
-    <string name="button_start">START!</string>
-    <string name="ready_text1">You are now ready to start exploring FriendNGo</string>
-    <string name="ready_text2">We already found events near you today.</string>
-    <string name="ready_text3">Remember that you can always change your preferences on your profile and in the settings.</string>
+    <string name="title_activity_ready">Activité prête</string>
+    <string name="title_ready">Prêt!</string>
+    <string name="button_start">Començons!</string>
+    <string name="ready_text1">Vous êtes maintenant prêt à commencer à explorer/découvrir FriendNGo</string>
+    <string name="ready_text2">Nous avons déjà trouvé des événements près de chez vous aujourd\'hui.</string>
+    <string name="ready_text3">N\'oubliez pas que vous pouvez toujours modifier vos préférences sur votre profil et dans les paramètres.</string>
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
+    <string name="prompt_email">E-mail</string>
+    <string name="prompt_password">Mot de passe (optionnel)</string>
+    <string name="action_sign_in">Se connecter ou s\'inscrire</string>
+    <string name="action_sign_in_short">Se connecter</string>
+    <string name="error_invalid_email">L\'adresse courriel/e-mail est invalide</string>
+    <string name="error_invalid_password">Ce mot de passe est trop court</string>
+    <string name="error_incorrect_password">Ce mot de passe est incorrect</string>
+    <string name="error_field_required">Ce champ est requis</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
@@ -135,214 +135,214 @@
     <string name="sign_up_submit">S\'inscrire</string>
     <string name="sign_up_account"> compte</string>
     <string name="sign_up_i_have_already">J\'ai déjà un</string>
-    <string name="sign_up_password_match_message">Passwords do not match, please try again</string>
-    <string name="email_reset_field_Toast">Email field is empty</string>
+    <string name="sign_up_password_match_message">Le mot de passe ne correspond pas, réessayer à nouveau</string>
+    <string name="email_reset_field_Toast">Le champ E-mail/courriel est vide</string>
     <!--Map-->
     <string name="tittle_map">FriendNGo</string>
 
     <!--Dialog verification part-1-->
-    <string name="dialog_verification_part_one_sub_text">You will need to verify your phone number to create a public activity. This helps us confirm your identify and secure your account.</string>
-    <string name="dialog_verification_part_one_tittle_text">Hello</string>
-    <string name="dialog_verification_next_button">NEXT</string>
+    <string name="dialog_verification_part_one_sub_text">Vous devrez vérifier votre numéro de téléphone pour créer une activité publique. Cela nous aide à confirmer votre identifiant et sécuriser votre compte.</string>
+    <string name="dialog_verification_part_one_tittle_text">Salut</string>
+    <string name="dialog_verification_next_button">Suivant</string>
 
     <!--Dialog verification part-2-->
-    <string name="dialog_verification_two_tittle_text">Enter Phone Number</string>
-    <string name="dialog_verification_two_text_me_button">Text Me</string>
-    <string name="dialog_verification_two_text_sub_header">We will send you a one-time verification code</string>
-    <string name="dialog_verification_two_phone_number_hint">Phone Number</string>
-    <string name="dialog_verification_two_phone_empty_message">Some number field is empty</string>
+    <string name="dialog_verification_two_tittle_text">Entrer le numéro de téléphone</string>
+    <string name="dialog_verification_two_text_me_button">Envoyer moi un message</string>
+    <string name="dialog_verification_two_text_sub_header">Nous vous enverrons un code de vérification</string>
+    <string name="dialog_verification_two_phone_number_hint">Numéro de téléphone</string>
+    <string name="dialog_verification_two_phone_empty_message">Le champ des nombres est vide</string>
 
     <!--Dialog verification part-3-->
-    <string name="dialog_verification_three_tittle_text">Enter Your Code</string>
-    <string name="dialog_verification_three_text_sub_header_one">We just sent a text message to</string>
-    <string name="dialog_verification_three_text_sub_header_two">with a code for you to enter here</string>
+    <string name="dialog_verification_three_tittle_text">Entrer votre code</string>
+    <string name="dialog_verification_three_text_sub_header_one">Nous venons d\'envoyer un message à</string>
+    <string name="dialog_verification_three_text_sub_header_two">avec un code pour que vous puissiez entrer ici</string>
     <string name="dialog_verification_three_code_hint">Code</string>
-    <string name="dialog_verification_three_submit_button">Submit</string>
-    <string name="dialog_verification_three_code_empty_message">Code number field is empty</string>
+    <string name="dialog_verification_three_submit_button">Soumettre</string>
+    <string name="dialog_verification_three_code_empty_message">Le champ numero de code est vide</string>
     <string name="dialog_verification_three_code_error_message">Entered code was incorrect</string>
 
     <!--Dialog verification part-4-->
-    <string name="dialog_verification_four_tittle_text">Enter Your Code</string>
-    <string name="dialog_verification_four_text_sub_header_one">We just sent a text message to</string>
-    <string name="dialog_verification_four_text_sub_header_two">with a code for you to enter here</string>
-    <string name="dialog_verification_four_code_hint">Code</string>
-    <string name="dialog_verification_four_submit_button">Submit</string>
-    <string name="dialog_verification_four_empty_message">Some field are empty</string>
-    <string name="dialog_verification_four_code_error_message">Entered code was incorrect</string>
-    <string name="dialog_verification_four_phone_error_message">Invalid phone number</string>
-    <string name="dialog_verification_four_hint_password">Password</string>
-    <string name="dialog_verification_four_hint_password_confirm">Confirm Password</string>
-    <string name="dialog_verification_four_password_match_message">Passwords do not match, please try again</string>
+<string name="dialog_verification_four_tittle_text">Entrer votre code</string>
+<string name="dialog_verification_four_text_sub_header_one">Nous venons d\'envoyer un message à</string>
+<string name="dialog_verification_four_text_sub_header_two">avec un code pour que vous puissiez entrer ici</string>
+<string name="dialog_verification_four_code_hint">Code</string>
+<string name="dialog_verification_four_submit_button">Soumettre</string>
+<string name="dialog_verification_four_empty_message">Les champs sont vides </string>
+<string name="dialog_verification_four_code_error_message">Le code saisie est incorrect	</string>
+<string name="dialog_verification_four_phone_error_message">Numéro de téléphone invalide</string>
+<string name="dialog_verification_four_hint_password">Mot de passe</string>
+<string name="dialog_verification_four_hint_password_confirm">Confirmer mot de passe</string>
+<string name="dialog_verification_four_password_match_message">Le mot de passe ne correspond pas, merci de réessayer</string>
 
     <!--about us-->
-    <string name="about_us_title">A propos de nous</string>
-    <string name="about_us_privacy_policy">Privacy Policy</string>
-    <string name="about_us_terms_and_conditions">Terms and Conditions</string>
+<string name="about_us_title">A propos de nous</string>
+<string name="about_us_privacy_policy">Politique de confidentialité</string>
+<string name="about_us_terms_and_conditions">Termes et conditions</string>
 
     <!--Chat room-->
-    <string name="chat_room_title">My Activity Name</string>
-    <string name="chat_room_cancel">Annulé</string>
-    <string name="chat_room_Type_a_new_message_hint">Type a new message</string>
+<string name="chat_room_title">Nom de mon activité</string>
+<string name="chat_room_cancel">Annuler</string>
+<string name="chat_room_Type_a_new_message_hint">Ecrire une nouveau message	</string>
 
     <!--Create new activity-->
-    <string name="create_activity_title">Create a new activity</string>
-    <string name="create_activity_cancel">Cancel</string>
-    <string name="create_activity_activity_name_title">Activity name</string>
-    <string name="create_activity_activity_name_hint">Example: Running</string>
-    <string name="create_activity_Category">Category</string>
-    <string name="create_activity_activity_type_title">Activity Type</string>
-    <string name="create_activity_date_title">Date</string>
-    <string name="create_activity_starting_time_title">Starting Time</string>
-    <string name="create_activity_estimated_end_time_title">Estimated end time</string>
-    <string name="create_activity_description_of_the_activity_title">Description of the activity</string>
-    <string name="create_activity_description_for_activity_hint">Description for activity</string>
-    <string name="create_activity_address_title">Address</string>
-    <string name="create_activity_address_type_address_here_hint">Type address here...</string>
-    <string name="create_activity_address_additional_notes_for_the_address_title">Additional notes for the address</string>
-    <string name="create_activity_address_ex_title">Ex: Suite 400</string>
-    <string name="create_activity_address_create_activity_title">Create Activity</string>
+<string name="create_activity_title">Créer une nouvelle activité</string>
+<string name="create_activity_cancel">Annuler</string>
+<string name="create_activity_activity_name_title">Nom de l\'activité</string>
+<string name="create_activity_activity_name_hint">Exemple : course</string>
+<string name="create_activity_Category">Catégories</string>
+<string name="create_activity_activity_type_title">Type d\'activités</string>
+<string name="create_activity_date_title">Date</string>
+<string name="create_activity_starting_time_title">Heure de départ</string>
+<string name="create_activity_estimated_end_time_title">Heure de fin estimée</string>
+<string name="create_activity_description_of_the_activity_title">Description de l\'activité</string>
+<string name="create_activity_description_for_activity_hint">Description pour l\'activité</string>
+<string name="create_activity_address_title">Adresse</string>
+<string name="create_activity_address_type_address_here_hint">Types d\'adresse ici…</string>
+<string name="create_activity_address_additional_notes_for_the_address_title">Notes supplémentaires pour l\'adresse</string>
+<string name="create_activity_address_ex_title">Ex : Suite 400</string>
+<string name="create_activity_address_create_activity_title">Créer une activité</string>
 
     <!--Event Details-->
-    <string name="event_details_title">Event Details</string>
-    <string name="event_details_description">Description</string>
-    <string name="event_details_place">Place</string>
-    <string name="event_details_participants">Participants</string>
-    <string name="event_details_request_to_join_activity">Participate</string>
-    <string name="event_details_request_no_provided">Not Provided</string>
+<string name="event_details_title">Détails de l\'évènement</string>
+<string name="event_details_description">Description</string>
+<string name="event_details_place">Lieu</string>
+<string name="event_details_participants">Participants</string>
+<string name="event_details_request_to_join_activity">Participer</string>
+<string name="event_details_request_no_provided">Non fourni</string>
 
     <!--Activity Detail-->
-    <string name="activity_detail_title">Activity Detail</string>
-    <string name="activity_details_created_by">Created by</string>
-    <string name="activity_details_description">Description</string>
-    <string name="activity_details_place">Place</string>
-    <string name="activity_details_participants">Participants</string>
-    <string name="activity_details_request_to_join_activity">Participate</string>
+<string name="activity_detail_title">Détails de l\'activité</string>
+<string name="activity_details_created_by">Créer par</string>
+<string name="activity_details_description">Description</string>
+<string name="activity_details_place">Lieu</string>
+<string name="activity_details_participants">Participants</string>
+<string name="activity_details_request_to_join_activity">Participer</string>
 
     <!--Who are you-->
-    <string name="my_who_are_you_title">Who are you?</string>
-    <string name="who_are_you_message">Your phone number will only be used to verify your account and improve security</string>
-    <string name="who_are_you_bio_hint">About Me</string>
-    <string name="who_are_you_button_save">Save</string>
-    <string name="who_are_you_phone_hint">Phone</string>
-    <string name="who_are_you_age_hint">Age</string>
-    <string name="who_are_you_spoken_languages_hint">Spoken languages</string>
-    <string name="who_are_you_citizenship_hint">Citizenship</string>
-    <string name="who_are_you_name_hint">Name</string>
+<string name="my_who_are_you_title">Qui es-tu?</string>
+<string name="who_are_you_message">Votre numéro de téléphone sera utilisé uniquement pour vérifier votre compte et améliorer la sécurité</string>
+<string name="who_are_you_bio_hint">A propos de moi</string>
+<string name="who_are_you_button_save">Sauvegarder</string>
+<string name="who_are_you_phone_hint">Numéro de téléphone</string>
+<string name="who_are_you_age_hint">Age</string>
+<string name="who_are_you_spoken_languages_hint">Langues parlées</string>
+<string name="who_are_you_citizenship_hint">Citoyenneté</string>
+<string name="who_are_you_name_hint">Nom</string>
 
     <!--Special Group-->
-    <string name="Special_Group_title">Special Group</string>
-    <string name="Special_Group_sub_title_one">You are already part of the following group</string>
-    <string name="Special_Group_sub_title_two">Do you have a code for a special group in the app?</string>
-    <string name="Special_Group_edit_text_hint">Type The Code Here</string>
-    <string name="Special_Group_button_save">Save</string>
-    <string name="Special_Group_cancel">Cancel</string>
-    <string name="Special_Group_Empty_Toast">Code filed field is empty</string>
-    <string name="Special_Group_code_accepted_Toast"> Code Accepted!</string>
-    <string name="Special_Group_code_accepted_invalid_Toast">Code Is Not Valid</string>
-    <string name="title_activity_special_group">SpecialGroup</string>
+<string name="Special_Group_title">Groupe spécial</string>
+<string name="Special_Group_sub_title_one">Vous faîtes déjà parti du groupe suivant</string>
+<string name="Special_Group_sub_title_two">Avez-vous un code pour un groupe spécial dans l\'application?</string>
+<string name="Special_Group_edit_text_hint">Tapez le code ici</string>
+<string name="Special_Group_button_save">Sauvegarder</string>
+<string name="Special_Group_cancel">Annuler</string>
+<string name="Special_Group_Empty_Toast">Le champ du code est vide</string>
+<string name="Special_Group_code_accepted_Toast">Le code est accepté</string>
+<string name="Special_Group_code_accepted_invalid_Toast">Le code est invalide/incorrect</string>
+<string name="title_activity_special_group">Groupe spécial</string>
 
     <!--Map-->
-    <string name="map_drawer_What_you_want_to_do">Change your current activities wish for today:</string>
-    <string name="map_drawer_user_profile">Modify your profile</string>
+<string name="map_drawer_What_you_want_to_do">Changer vos récentes activités souhaitées pour aujourd\'hui</string>
+<string name="map_drawer_user_profile">Modifier votre profil</string>
 
     <!--My city-->
-    <string name="my_city_title">My City</string>
-    <string name="my_city_button_next">Next</string>
-    <string name="my_city_where_are_you">Where are you from?</string>
-    <string name="my_city_city_country">City,Country</string>
+<string name="my_city_title">Ma ville</string>
+<string name="my_city_button_next">Suivant</string>
+<string name="my_city_where_are_you">D\'où viens-tu?</string>
+<string name="my_city_city_country">Ville, Pays</string>
 
     <!--My Profile-->
-    <string name="my_profile_title">My Profile</string>
-    <string name="my_profile_cancel">cancel</string>
-    <string name="my_profile_logout">logout</string>
-    <string name="my_profile_button_save">Save</string>
-    <string name="my_profile_phone_hint">Phone</string>
-    <string name="my_profile_age_hint">Age</string>
-    <string name="my_profile_spoken_languages_hint">Spoken languages</string>
-    <string name="my_profile_citizenship_hint">Citizenship</string>
-    <string name="my_profile_name_hint">Name</string>
+<string name="my_profile_title">Mon profil</string>
+<string name="my_profile_cancel">Annuler</string>
+<string name="my_profile_logout">Déconnecter</string>
+<string name="my_profile_button_save">Sauvegarder</string>
+<string name="my_profile_phone_hint">Numéro de téléphone</string>
+<string name="my_profile_age_hint">Age</string>
+<string name="my_profile_spoken_languages_hint">Langues parlées</string>
+<string name="my_profile_citizenship_hint">Citoyenneté</string>
+<string name="my_profile_name_hint">Nom</string>
 
     <!--My Special Group-->
-    <string name="my_special_group_title">My Special Group</string>
-    <string name="my_special_group_sub_title_two">Do you have a code for a special group in the app?</string>
-    <string name="my_special_group_edit_text_hint">Type The Code Here</string>
-    <string name="my_special_group_button_next">NEXT</string>
-    <string name="my_special_group_no_i_dont">No I don\'t</string>
+<string name="my_special_group_title">Groupe spécial</string>
+<string name="my_special_group_sub_title_two">Avez-vous un code pour un groupe spécial dans l\'application?</string>
+<string name="my_special_group_edit_text_hint">Tapez le code ici</string>
+<string name="my_special_group_button_next">Suivant</string>
+<string name="my_special_group_no_i_dont">Non, je ne suis pas</string>
 
     <!--My Status-->
-    <string name="my_status_title">My Status</string>
-    <string name="my_status_sub_title">What is your status in your current city?</string>
-    <string name="my_status_resident">Resident</string>
-    <string name="my_status_migrant">Migrant - New To City</string>
-    <string name="my_status_tourist">Tourist</string>
-    <string name="my_status_student">Student</string>
-    <string name="my_status_next">Next</string>
+<string name="my_status_title">Mon statut</string>
+<string name="my_status_sub_title">Quel est votre statut dans votre ville actuelle?</string>
+<string name="my_status_resident">Résident</string>
+<string name="my_status_migrant">Immigrant - Nouveau dans la ville</string>
+<string name="my_status_tourist">Touriste</string>
+<string name="my_status_student">Etudiant</string>
+<string name="my_status_next">Suivant</string>
 
     <!--New City-->
-    <string name="my_new_city_title">Change your status</string>
-    <string name="my_new_city_Resident">Resident</string>
-    <string name="my_new_city_Migrant">Migrant - New To City</string>
-    <string name="my_new_city_Tourist">Tourist</string>
-    <string name="my_new_city_Student">Student</string>
-    <string name="my_new_city_what_is_your_status_here">What is your status here?</string>
-    <string name="my_new_city_button_next"> Next</string>
+<string name="my_new_city_title">Change your status</string>
+<string name="my_new_city_Resident">Resident</string>
+<string name="my_new_city_Migrant">Migrant - New To City</string>
+<string name="my_new_city_Tourist">Touriste</string>
+<string name="my_new_city_Student">Etudiant</string>
+<string name="my_new_city_what_is_your_status_here">Quel est votre statut ici?</string>
+<string name="my_new_city_button_next">Suivant</string>
 
     <!--Points History-->
-    <string name="my_points_history_title">Points History</string>
-    <string name="my_points_button">How to get points, and why?</string>
+<string name="my_points_history_title">Système de points</string>
+<string name="my_points_button">Comment obtenir des points et pourquoi?</string>
     <!--Point System-->
-    <string name="my_points_system_title_sub">Points System</string>
-    <string name="my_points_system_got_it">Got it</string>
-    <string name="my_points_system_point_seven">You cancelled your participation in \'event name\' </string>
-    <string name="my_points_system_point_six">You participated in the event \'event name\' </string>
-    <string name="my_points_system_point_five">You cancelled your participation in activity \'activity name\'</string>
-    <string name="my_points_system_point_four">You participated in activity \'activity name\' </string>
-    <string name="my_points_system_point_three">User is participating in your activity \'activity name\'</string>
-    <string name="my_points_system_point_two">You cancelled your activity \'activity name\'</string>
-    <string name="my_points_system_point_one">You posted an activity \'activity name\'</string>
-    <string name="my_points_system_sub_point_two">Here is how you can win or lose points:</string>
-    <string name="my_points_system_sub_one">The number of points of a user is an indicator of the experience within the app. Don\'t judge too fast, 0 might mean that a user is new!</string>
+<string name="my_points_system_title_sub">Système de points</string>
+<string name="my_points_system_got_it">Ne le ratez pas!</string>
+<string name="my_points_system_point_seven">Vous avez annulé votre participation à l\'évènement - Nom de l\'évènement	</string>
+<string name="my_points_system_point_six">Vous avez participé à l\'évènement - Nom de l\'évènement</string>
+<string name="my_points_system_point_five">Vous avez annulé votre participation à une activité - Nom de l\'activité</string>
+<string name="my_points_system_point_four">Vous avez participé à l\'activité - Nom de l\'activité</string>
+<string name="my_points_system_point_three">L\'utilisateur participe à l\'activité - Nom de l\'activité</string>
+<string name="my_points_system_point_two">Vous avez annulé votre activité - Nom de l\'activité</string>
+<string name="my_points_system_point_one">Vous avez posté une activité - Nom de l\'activité</string>
+<string name="my_points_system_sub_point_two">Voici comment vous pouvez-vous gagner ou perdre des points</string>
+<string name="my_points_system_sub_one">Le nombre de points d\'un utilisateur est un indicateur de l\'expérience dans l\'application. Ne jugez pas trop vite, 0 peut signifier qu\'un utilisateur est nouveau!</string>
 
     <!--What's up around you?-->
-    <string name="my_popular_title">What\'s up around you?</string>
+<string name="my_popular_title">Qu\'est-ce qui se passe autour de vous?</string>
 
     <!--Request-->
-    <string name="requests_title">Requests</string>
-    <string name="requests_cancel">Cancel</string>
+<string name="requests_title">Demandes</string>
+<string name="requests_cancel">Annuler</string>
 
     <!--What do you want to do today?-->
-    <string name="what_do_you_want_to_do_today_title">What do you want to do today?</string>
-    <string name="what_do_you_want_to_do_today_sub_title">Pick your current interests to receive catered results</string>
-    <string name="what_do_you_want_to_do_today_button_next">Next</string>
+<string name="what_do_you_want_to_do_today_title">Que voulez-vous faire aujourd\'hui?</string>
+<string name="what_do_you_want_to_do_today_sub_title">Choisissez vos centres d\'intérêt pour recevoir des résultats/activités ciblés</string>
+<string name="what_do_you_want_to_do_today_button_next">Suivant</string>
 
     <!--App Bar-->
-    <string name="app_bar_title">FriendNGo</string>
+<string name="app_bar_title">FriendNGo</string>
 
     <!--Settings -->
-    <string name="settings_title">FriendNGo</string>
-    <string name="settings_contact_us">Contact us</string>
-    <string name="settings_about_us">About us</string>
-    <string name="settings_rate_the_app">Rate the app</string>
-    <string name="settings_share_the_app">Share the app</string>
-    <string name="settings_notifications_settings">Notifications Settings</string>
-    <string name="settings_special_groups">Special groups &amp; Codes</string>
-    <string name="settings_city_and_status">City and status</string>
-    <string name="settings_points">125 Points</string>
-    <string name="settings_see_profile">See profile</string>
-    <string name="settings_filter">Filter</string>
+<string name="settings_title">FriendNGo</string>
+<string name="settings_contact_us">Contactez-nous</string>
+<string name="settings_about_us">A propos de nous</string>
+<string name="settings_rate_the_app">Evaluer l\'application</string>
+<string name="settings_share_the_app">Partager l\'application</string>
+<string name="settings_notifications_settings">Paramètres de notifications</string>
+<string name="settings_special_groups">Groupe spécial &amp; codes	</string>
+<string name="settings_city_and_status">Ville et statut</string>
+<string name="settings_points">125 points</string>
+<string name="settings_see_profile">Voir Profil</string>
+<string name="settings_filter">Filtre</string>
 
     <!--Recommend-->
-    <string name="recommend_title">Recommend FriendNGo</string>
-    <string name="recommend_sub_title">How likely are you to recommend FriendNGo to a friend?</string>
+<string name="recommend_title">Recommander FriendNGo</string>
+<string name="recommend_sub_title">Quelle est la probabilité de recommander FriendNGo à un ami?</string>
 
     <!--Dialog five-->
-    <string name="dialog_five_submit_button">Submit</string>
-    <string name="dialog_five_subtitle">How do you like FrindNGo?</string>
-    <string name="dialog_five_toast_message">Thank you</string>
+<string name="dialog_five_submit_button">Soumettre</string>
+<string name="dialog_five_subtitle">Comment avez-vous trouvé FriendNGo?</string>
+<string name="dialog_five_toast_message">Merci</string>
 
     <!--Dialog five-->
-    <string name="dialog_six_button_no">No</string>
-    <string name="dialog_six_button_yes">Yes</string>
-    <string name="dialog_six_subtitle">Would you like to give us feedback in order to help us improve the app</string>
+<string name="dialog_six_button_no">Non</string>
+<string name="dialog_six_button_yes">Oui</string>
+<string name="dialog_six_subtitle">Souhaitez-vous nous apporter/donner vos commentaires afin d\'aider à améliorer l\'application?</string>
 
 </resources>
