@@ -77,7 +77,7 @@ public class MySpecialGroup extends AppCompatActivity {
                             SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
                             editor.putString("is_profile_created", "true");
                             editor.commit();
-                        }else {
+                        } else {
                             MySpecialGroup.this.finish();
                         }
                     }
@@ -112,33 +112,15 @@ public class MySpecialGroup extends AppCompatActivity {
                 //check edit profile path
                 SharedPreferences pref = getSharedPreferences("EditPath", MODE_PRIVATE); // 0 - for private mode
                 String editprofilePath = pref.getString("edit_path", null);
-                if (editprofilePath == null) {
 
-                        if (MainActivity.new_user = true) {
-                            Log.d("State", String.valueOf(MainActivity.new_user));
-                            Intent intent = new Intent(getApplicationContext(), ActivityReady.class);
-                            MySpecialGroup.this.startActivity(intent);
-                            MySpecialGroup.this.finish();
-                            SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
-                            editor.putString("is_profile_created", "true");
-                            editor.commit();
-                        }else {
-                        MySpecialGroup.this.finish();
-                        }
+                Log.d("State", String.valueOf(MainActivity.new_user));
+                Intent intent = new Intent(getApplicationContext(), ActivityReady.class);
+                MySpecialGroup.this.startActivity(intent);
+                MySpecialGroup.this.finish();
+                SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
+                editor.putString("is_profile_created", "true");
+                editor.commit();
 
-                    //remove edit profile path
-
-                } else {
-                    SharedPreferences editPofileSharedPreferences = getApplicationContext().getSharedPreferences("EditPath", 0);
-                    SharedPreferences.Editor editPofileEditor = editPofileSharedPreferences.edit();
-                    editPofileEditor.clear();
-                    editPofileEditor.commit();
-                    Log.d("True", editprofilePath);
-                    MySpecialGroup.this.finish();
-                    SharedPreferences.Editor editor = getSharedPreferences(PROFILE_CREATED_PREFERENCE, MODE_PRIVATE).edit();
-                    editor.putString("is_profile_created", "true");
-                    editor.commit();
-                }
 
                 return false;
             }
@@ -146,7 +128,6 @@ public class MySpecialGroup extends AppCompatActivity {
 
 
     }
-
 
 
 }

@@ -153,12 +153,21 @@ public class MyStatusActivity extends AppCompatActivity {
                         }
                     });
 //                MapActivity.other_user_location.setText(statusName+", "+ currentCity);
-                if(SettingFragment.settingsCheck==true){
-                    SettingFragment.settingsCheck = false;
-                    MyStatusActivity.this.finish();
-                }else {
+//                if(SettingFragment.settingsCheck==true){
+//                    SettingFragment.settingsCheck = false;
+//                    MyStatusActivity.this.finish();
+//                }else if(){
+//                    Intent intent = new Intent(MyStatusActivity.this, MySpecialGroup.class);
+//                    MyStatusActivity.this.startActivity(intent);
+//                    MyStatusActivity.this.finish();
+//                }
+                if(MainActivity.new_user == true)
+                {
                     Intent intent = new Intent(MyStatusActivity.this, MySpecialGroup.class);
                     MyStatusActivity.this.startActivity(intent);
+                    MyStatusActivity.this.finish();
+
+                }else{
                     MyStatusActivity.this.finish();
                 }
 

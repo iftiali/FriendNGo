@@ -12,13 +12,23 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def project = "release"
+                def version = variant.versionName
+                def newApkName = project + version + ".apk"
+                output.outputFile = new File(output.outputFile.parent, newApkName)
+            }
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
     }
     productFlavors {
     }
+
 }
 
 dependencies {

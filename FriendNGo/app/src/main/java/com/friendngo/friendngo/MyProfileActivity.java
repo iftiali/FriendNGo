@@ -398,7 +398,8 @@ public class MyProfileActivity extends AppCompatActivity {
                 Log.w("Language count",spokenLanguage.getText().toString());
                 String str = spokenLanguage.getText().toString();
                 List<String> elephantList = Arrays.asList(str.split(","));
-                    boolean languageCountCheck= false;
+                boolean languageCountCheck= false;
+                    Log.d("hello",elephantList.size()+"");
                 if(elephantList.size()>3){
                     languageCountCheck = false;
                     errorMessage = "Cannot select more than three language";

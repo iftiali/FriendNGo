@@ -36,6 +36,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -46,6 +47,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+
 import cz.msebera.android.httpclient.Header;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -53,51 +55,53 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 
     CircularImageView circularImageView;
     Button nextBtn;
-    Boolean finishProfileFlag=false;
-    Boolean finishPictureFlag=false;
+    Boolean finishProfileFlag = false;
+    Boolean finishPictureFlag = false;
     EditText nameInput;
     AutoCompleteTextView citizenAuto;
     MultiAutoCompleteTextView spokenLanguage;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     EditText ageInput;
-    Boolean selectImageFlag=false;
+    Boolean selectImageFlag = false;
     EditText bioField;
     String pictureURL = "";
-    Boolean checkValidation=true;
-    EditText codeEditText,phoneEditText;
+    Boolean checkValidation = true;
+    EditText codeEditText, phoneEditText;
     File downloadedImage;
     private String userChoosenTask;
     private String nationality;
     String imageName;
     String errorMessage = "Some fields are empty";
     Locale[] locales;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_who_are_you);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        citizenAuto = (AutoCompleteTextView)findViewById(R.id.citizen_spinner);
-        spokenLanguage = (MultiAutoCompleteTextView)findViewById(R.id.language_spinner);
+        citizenAuto = (AutoCompleteTextView) findViewById(R.id.citizen_spinner);
+        spokenLanguage = (MultiAutoCompleteTextView) findViewById(R.id.language_spinner);
         nameInput = (EditText) findViewById(R.id.name_edit_view);
         ageInput = (EditText) findViewById(R.id.age_edit_view);
         bioField = (EditText) findViewById(R.id.bio_edit_view);
         circularImageView = (CircularImageView) findViewById(R.id.profilepicture);
         nextBtn = (Button) findViewById(R.id.profile_continue_button);
-        codeEditText = (EditText)findViewById(R.id.code_phone_edit_view);
-        phoneEditText = (EditText)findViewById(R.id.phone_edit_view);
-        nationality="";
+        codeEditText = (EditText) findViewById(R.id.code_phone_edit_view);
+        phoneEditText = (EditText) findViewById(R.id.phone_edit_view);
+        nationality = "";
 
-        if(FacebookLogin.facebook_profile_pic != null) {
+        if (FacebookLogin.facebook_profile_pic != null) {
             circularImageView.setImageURI(FacebookLogin.facebook_profile_pic);
             //MapActivity.other_user_picture.setImageURI(FacebookLogin.facebook_profile_pic);
         }
 
-         locales = Locale.getAvailableLocales();
+        locales = Locale.getAvailableLocales();
         final ArrayList<String> languageList = new ArrayList<String>();
         for (Locale locale : locales) {
             String lang = locale.getDisplayLanguage();
@@ -118,11 +122,11 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
         }
 
         Collections.sort(countriesList);
-        ArrayAdapter<String> citizenAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countriesList);
+        ArrayAdapter<String> citizenAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countriesList);
 
         citizenAuto.setAdapter(citizenAdapter);
         citizenAuto.setThreshold(1);
-        ArrayAdapter<String> languageAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, languageList);
+        ArrayAdapter<String> languageAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, languageList);
         spokenLanguage.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
         spokenLanguage.setAdapter(languageAdapter);
         //Set OnClick Listener for the profile picture pressed
@@ -146,62 +150,60 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, final JSONObject response) {
                 Log.w("GET PROFILE SUCCESS", statusCode + ": " + "Response = " + response.toString());
-                Log.w("Response",response.toString());
+                Log.w("Response", response.toString());
                 String langName = null;
                 try {
                     String phoneNumber = response.getString("phone");
-                    if(phoneNumber.equals("555-555-5555")){
+                    if (phoneNumber.equals("555-555-5555")) {
                         phoneEditText.setText("");
-                    }else{
+                    } else {
                         MainActivity.new_user = false;
-                        Intent intent = new Intent(NewWhoAreYouActivity.this,MapActivity.class);
+                        Intent intent = new Intent(NewWhoAreYouActivity.this, MapActivity.class);
                         NewWhoAreYouActivity.this.startActivity(intent);
                         NewWhoAreYouActivity.this.finish();
                         phoneEditText.setText(phoneNumber);
                     }
                     String firstNameString = response.getString("first_name");
-                    if(firstNameString.equals("anonymous")) {
+                    if (firstNameString.equals("anonymous")) {
                         nameInput.setText("");
-                    }else{
+                    } else {
                         nameInput.setText(firstNameString);
 
                     }
 
                     int age = response.getInt("age");
-                    if(age > 0) {
-                        ageInput.setText(""+age);
-                    }else if (age == 0)
-                    {
+                    if (age > 0) {
+                        ageInput.setText("" + age);
+                    } else if (age == 0) {
                         ageInput.setText("");
                     }
 
                     String bio = response.getString("bio");
-                    if(bio.equals("Message Me To Find Out")) {
+                    if (bio.equals("Message Me To Find Out")) {
                         bioField.setText("");
-                    }else{
+                    } else {
                         bioField.setText(bio);
                     }
 
                     nationality = response.getString("home_nationality");
-                   if(nationality.equals("Choose Citizenship")){
-                       citizenAuto.setText("");
-                   }
-                    else{
-                       citizenAuto.setText(nationality);
-                   }
-                   // Log.w("Language",response.getString("languages"));
+                    if (nationality.equals("Choose Citizenship")) {
+                        citizenAuto.setText("");
+                    } else {
+                        citizenAuto.setText(nationality);
+                    }
+                    // Log.w("Language",response.getString("languages"));
                     JSONArray languagesArray = response.getJSONArray("languages");
-                    for(int x = 0;x<languagesArray.length();x++){
+                    for (int x = 0; x < languagesArray.length(); x++) {
                         JSONObject languageNames = languagesArray.getJSONObject(x);
-                        if(x == 0){
+                        if (x == 0) {
                             langName = languageNames.getString("name");
-                            if(langName.equals("mute")){
+                            if (langName.equals("mute")) {
                                 langName = "";
                             }
-                        }else{
-                        langName = langName +","+languageNames.getString("name");
+                        } else {
+                            langName = langName + "," + languageNames.getString("name");
                         }
-                      //  Log.w("langName",langName);
+                        //  Log.w("langName",langName);
                         spokenLanguage.setText(langName);
                     }
 
@@ -211,7 +213,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 
 
                 //GET Profile image from backend if not available from Facebook
-                if(FacebookLogin.facebook_profile_pic == null) {
+                if (FacebookLogin.facebook_profile_pic == null) {
                     //GET The image file at the pictureURL
                     AsyncHttpClient client = new AsyncHttpClient();
                     try {
@@ -242,8 +244,8 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 //                            Log.w("GET IMAGE FAIL", "Could not retrieve image");
 //                        }
 //                    });
-                }else{
-                    Log.d("HELLO","HELLO");
+                } else {
+                    Log.d("HELLO", "HELLO");
                     circularImageView.setImageURI(FacebookLogin.facebook_profile_pic);
                 }
             }
@@ -278,13 +280,12 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                 params.setUseJsonStreamer(true);
 
 
-
                 String name_input = nameInput.getText().toString();
 
-                if(name_input.equals("")){
+                if (name_input.equals("")) {
                     GradientDrawable gd = new GradientDrawable();
                     gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255,117,0));
+                    gd.setStroke(2, Color.rgb(255, 117, 0));
                     nameInput.setBackground(gd);
                 } else {
                     GradientDrawable gd = new GradientDrawable();
@@ -292,10 +293,10 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     gd.setStroke(2, Color.rgb(255, 255, 255));
                     nameInput.setBackground(gd);
                 }
-                if(ageInput.getText().toString().equals("")){
+                if (ageInput.getText().toString().equals("")) {
                     GradientDrawable gd = new GradientDrawable();
                     gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255,117,0));
+                    gd.setStroke(2, Color.rgb(255, 117, 0));
                     ageInput.setBackground(gd);
                 } else {
                     GradientDrawable gd = new GradientDrawable();
@@ -303,10 +304,10 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     gd.setStroke(2, Color.rgb(255, 255, 255));
                     ageInput.setBackground(gd);
                 }
-                if(citizenAuto.getText().toString().equals("")){
+                if (citizenAuto.getText().toString().equals("")) {
                     GradientDrawable gd = new GradientDrawable();
                     gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255,117,0));
+                    gd.setStroke(2, Color.rgb(255, 117, 0));
                     citizenAuto.setBackground(gd);
                 } else {
                     GradientDrawable gd = new GradientDrawable();
@@ -314,10 +315,10 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     gd.setStroke(2, Color.rgb(255, 255, 255));
                     citizenAuto.setBackground(gd);
                 }
-                if(spokenLanguage.getText().toString().equals("")){
+                if (spokenLanguage.getText().toString().equals("")) {
                     GradientDrawable gd = new GradientDrawable();
                     gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255,117,0));
+                    gd.setStroke(2, Color.rgb(255, 117, 0));
                     spokenLanguage.setBackground(gd);
                 } else {
                     GradientDrawable gd = new GradientDrawable();
@@ -325,10 +326,10 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     gd.setStroke(2, Color.rgb(255, 255, 255));
                     spokenLanguage.setBackground(gd);
                 }
-                if(bioField.getText().toString().equals("")){
+                if (bioField.getText().toString().equals("")) {
                     GradientDrawable gd = new GradientDrawable();
                     gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255,117,0));
+                    gd.setStroke(2, Color.rgb(255, 117, 0));
                     bioField.setBackground(gd);
                 } else {
                     GradientDrawable gd = new GradientDrawable();
@@ -336,10 +337,10 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     gd.setStroke(2, Color.rgb(255, 255, 255));
                     bioField.setBackground(gd);
                 }
-                if(phoneEditText.getText().toString().equals("")){
+                if (phoneEditText.getText().toString().equals("")) {
                     GradientDrawable gd = new GradientDrawable();
                     gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255,117,0));
+                    gd.setStroke(2, Color.rgb(255, 117, 0));
                     phoneEditText.setBackground(gd);
                 } else {
                     GradientDrawable gd = new GradientDrawable();
@@ -347,10 +348,10 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     gd.setStroke(2, Color.rgb(255, 255, 255));
                     phoneEditText.setBackground(gd);
                 }
-                if(codeEditText.getText().toString().equals("")){
+                if (codeEditText.getText().toString().equals("")) {
                     GradientDrawable gd = new GradientDrawable();
                     gd.setCornerRadius(10);
-                    gd.setStroke(2, Color.rgb(255,117,0));
+                    gd.setStroke(2, Color.rgb(255, 117, 0));
                     codeEditText.setBackground(gd);
                 } else {
                     GradientDrawable gd = new GradientDrawable();
@@ -358,65 +359,64 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                     gd.setStroke(2, Color.rgb(255, 255, 255));
                     codeEditText.setBackground(gd);
                 }
-                if(name_input.equals("") || ageInput.getText().toString().equals("") || citizenAuto.getText().toString().equals("") || spokenLanguage.getText().toString().equals("") || bioField.getText().toString().equals("")||codeEditText.getText().toString().equals("")||phoneEditText.getText().toString().equals("")){
-                    Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_LONG).show();
+                if (name_input.equals("") || ageInput.getText().toString().equals("") || citizenAuto.getText().toString().equals("") || spokenLanguage.getText().toString().equals("") || bioField.getText().toString().equals("") || codeEditText.getText().toString().equals("") || phoneEditText.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
                     errorMessage = "Some fields are empty";
-                }else{
+                } else {
 
-                    Log.d("Phone Number",codeEditText.getText().toString()+phoneEditText.getText().toString());
-                    String codePhone = codeEditText.getText().toString()+phoneEditText.getText().toString();
-                    params.put("phone",codePhone);
-                    params.put("first_name",name_input);
+                 //   Log.d("Phone Number", codeEditText.getText().toString() + phoneEditText.getText().toString());
+                    String codePhone = codeEditText.getText().toString() + phoneEditText.getText().toString();
+                    params.put("phone", codePhone);
+                    params.put("first_name", name_input);
                     //MapActivity.other_user_name.setText(name_input);
                     boolean checkAgeValidation = false;
 
                     String bio_input = bioField.getText().toString();
-                    params.put("bio",bio_input);
-                   // MapActivity.other_user_about.setText(bio_input);
+                    params.put("bio", bio_input);
+                    // MapActivity.other_user_about.setText(bio_input);
 
                     nationality = citizenAuto.getText().toString();
                     Locale[] nameCompare = Locale.getAvailableLocales();
                     boolean compareCountryName = false;
-                    for(Locale locale:nameCompare){
+                    for (Locale locale : nameCompare) {
                         String cc = locale.getDisplayCountry();
-                        if(cc.equals(nationality)){
+                        if (cc.equals(nationality)) {
                             compareCountryName = true;
-                            params.put("home_nationality",nationality);
-                       //     MapActivity.other_user_citizenship.setText(nationality);
+                            params.put("home_nationality", nationality);
+                            //     MapActivity.other_user_citizenship.setText(nationality);
                             break;
-                        }else{
-                           // Log.d("Profile message",errorMessage);
+                        } else {
+                            // Log.d("Profile message",errorMessage);
                             compareCountryName = false;
                             errorMessage = "Country name in not valid";
                         }
                     }
                     int age_input = 0;
                     age_input = Integer.parseInt(ageInput.getText().toString());
-                   // Log.d("Profile",age_input+"");
-                    if( age_input <13 || age_input > 120){
+                    // Log.d("Profile",age_input+"");
+                    if (age_input < 13 || age_input > 120) {
                         checkAgeValidation = false;
 
-                        errorMessage ="Age should be between 13 and 120 ";
-                    }else{
-                        checkAgeValidation= true;
+                        errorMessage = "Age should be between 13 and 120 ";
+                    } else {
+                        checkAgeValidation = true;
                         params.put("age", age_input);
                         //MapActivity.other_user_age.setText(age_input + "y-o");
                     }
-                    //params.put("home_nationality",nationality);
 
-
-                    // Log.w("Language count",spokenLanguage.getText().toString());
                     String str = spokenLanguage.getText().toString();
                     List<String> elephantList = Arrays.asList(str.split(","));
-                    boolean languageCountCheck= false;
-                    if(elephantList.size()>3){
+                    boolean languageCountCheck = false;
+                    Log.d("Hello", spokenLanguage.getText().toString());
+                    Log.d("hello", elephantList.size() + "");
+                    if (elephantList.size() > 4) {
                         languageCountCheck = false;
                         errorMessage = "Cannot select more than three language";
                     } else {
                         JSONArray languagesArray = new JSONArray();
                         try {
 
-
+                            languageCountCheck = true;
                             for (int i = 0; i < elephantList.size(); i++) {
                                 JSONObject json_i = new JSONObject();
                                 if (elephantList.get(i).replaceAll("\\s+", "").equals("")) {
@@ -427,16 +427,15 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                                     languagesArray.put(json_i);
                                     //  Log.w("Language count",languagesArray.toString());
                                 }
-
-
                             }
-                         } catch (JSONException e) {
+                        } catch (JSONException e) {
                             Log.w("JSON Exception", e.toString());
                         }
                         params.put("languages", languagesArray);
-                        Log.d("Profile", checkAgeValidation + ":" + compareCountryName);
+                        // Log.d("languages123",languagesArray.toString());
                     }
-                    if(compareCountryName && checkAgeValidation && languageCountCheck) {
+                    Log.d("Profile", checkAgeValidation + ":" + compareCountryName + ":" + languageCountCheck);
+                    if (compareCountryName && checkAgeValidation && languageCountCheck) {
 
                         client.post(MainActivity.base_host_url + "api/postProfile2/", params, new JsonHttpResponseHandler() {
 //                client.post("http://requestb.in/zzmhq6zz", params, new JsonHttpResponseHandler() {
@@ -496,7 +495,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                                     Log.w("POST PROFILE PICTURE", statusCode + ": " + "Response = " + response.toString());
                                     finishPictureFlag = true;
                                     if (finishPictureFlag && finishProfileFlag) {
-                                       NewWhoAreYouActivity.this.finish();
+                                        NewWhoAreYouActivity.this.finish();
                                     }
                                 }
 
@@ -533,8 +532,8 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), MyCity.class);
                         NewWhoAreYouActivity.this.startActivity(intent);
                         NewWhoAreYouActivity.this.finish();
-                    }else {
-                        Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -543,6 +542,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 
 
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
@@ -642,6 +642,7 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
 //                matrix, true);
         circularImageView.setImageBitmap(bm);
     }
+
     private void SaveImage(Bitmap finalBitmap) {
         //MapActivity.other_user_picture.setImageBitmap(finalBitmap);
         selectImageFlag = true;
@@ -651,11 +652,11 @@ public class NewWhoAreYouActivity extends AppCompatActivity {
         Random generator = new Random();
         int n = 10000;
         n = generator.nextInt(n);
-        imageName = "Image-"+ n +".jpg";
-        File file = new File (myDir, imageName);
-        Log.d("path",file.toString());
+        imageName = "Image-" + n + ".jpg";
+        File file = new File(myDir, imageName);
+        Log.d("path", file.toString());
 
-        if (file.exists ()) file.delete ();
+        if (file.exists()) file.delete();
         try {
             FileOutputStream out = new FileOutputStream(file);
             finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);

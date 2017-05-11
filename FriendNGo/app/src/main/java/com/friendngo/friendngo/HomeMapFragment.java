@@ -81,6 +81,9 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback, Goo
     private ImageView category;
     private ImageView clock;
     private TextView dateTime;
+    private ImageView flagImageOne;
+    private ImageView flagImageTwo;
+    private ImageView flagImageThree;
     public HomeMapFragment() {
         // Required empty public constructor
     }
@@ -200,7 +203,9 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback, Goo
             creator = (TextView) markup_layout.findViewById(R.id.banner_created_text);
             status = (TextView) markup_layout.findViewById(R.id.banner_status_text);
             homeCity = (TextView) markup_layout.findViewById(R.id.banner_home_city_text);
-           // nationality = (ImageView) markup_layout.findViewById(R.id.banner_country_flag);
+            flagImageOne = (ImageView)markup_layout.findViewById(R.id.banner_country_flag_one);
+            flagImageTwo = (ImageView)markup_layout.findViewById(R.id.banner_country_flag_two);
+            flagImageThree = (ImageView)markup_layout.findViewById(R.id.banner_country_flag_three);
             points = (TextView) markup_layout.findViewById(R.id.banner_points);
             category = (ImageView) markup_layout.findViewById(R.id.banner_activity_type);
             name = (TextView) markup_layout.findViewById(R.id.banner_activity_name);
@@ -240,7 +245,7 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback, Goo
             SimpleDateFormat dateFormat = new SimpleDateFormat("EEE dd, HH:mma");
             dateTime.setText(dateFormat.format(act.getActivityTime()));
             dateTime.setTextColor(Color.GRAY);
-
+           // flagImageSelection(act.get)
 
             switch(act.getCategory()){
                 case "Art & Culture":
