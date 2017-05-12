@@ -1,9 +1,13 @@
 package com.friendngo.friendngo;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -31,13 +35,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 1410,
                     intent, PendingIntent.FLAG_ONE_SHOT);
-
+            Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             NotificationCompat.Builder notificationBuilder = new
                     NotificationCompat.Builder(this)
+//                    .setSound(alarmSound)
                     .setSmallIcon(R.drawable.icon_mapa)
                     .setContentTitle("Message")
                     .setContentText(remoteMessage.getNotification().getBody())
                     .setAutoCancel(true)
+//                    .setLights(Color.RED,300,300)
+                    .setDefaults(
+                            Notification.DEFAULT_SOUND
+                                    | Notification.DEFAULT_VIBRATE
+                                    | Notification.DEFAULT_LIGHTS
+                    )
                     .setContentIntent(pendingIntent);
 
             NotificationManager notificationManager =

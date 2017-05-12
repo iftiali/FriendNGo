@@ -118,18 +118,21 @@
             android:textSize="12sp"/>
 
             <ImageView
+            android:visibility="gone"
             android:id="@+id/banner_country_flag_one"
             app:srcCompat="@drawable/canada"
             android:layout_width="20dp"
             android:layout_height="20dp"/>
 
             <ImageView
+            android:visibility="gone"
             android:id="@+id/banner_country_flag_two"
             app:srcCompat="@drawable/canada"
             android:layout_width="20dp"
             android:layout_height="20dp"/>
 
             <ImageView
+            android:visibility="gone"
             android:id="@+id/banner_country_flag_three"
             app:srcCompat="@drawable/canada"
             android:layout_width="20dp"

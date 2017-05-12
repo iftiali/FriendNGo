@@ -224,8 +224,13 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback, Goo
                         .placeholder(R.drawable.empty_profile)
                         .error(R.drawable.empty_profile)
                         .into(profilePicture);
-
-            }else {
+                flagImageOne.setVisibility(View.GONE);
+                flagImageTwo.setVisibility(View.GONE);
+                flagImageThree.setVisibility(View.GONE);
+             }else {
+                flagImageOne.setVisibility(View.VISIBLE);
+                flagImageTwo.setVisibility(View.VISIBLE);
+                flagImageThree.setVisibility(View.VISIBLE);
                creator.setText("Created by " + act.getCreator());
                 creator.setTextColor(Color.BLACK);
                 Picasso.with(getApplicationContext())
