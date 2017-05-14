@@ -15,7 +15,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.FileAsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -59,6 +64,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         ImageView imageFlagTwo;
         ImageView imageFlagThree;
         RelativeLayout freeEvent,paidEventRelativeLayout;
+        ;
     }
 
     //Process a click on a row item
@@ -216,9 +222,10 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder.freeEvent.setVisibility(View.VISIBLE);
             viewHolder.paidEventRelativeLayout.setVisibility(View.GONE);
             //Here is where we map our model data to our View instance
-            viewHolder.imageFlagOne.setImageResource(R.drawable.canada);
-            viewHolder.imageFlagTwo.setImageResource(R.drawable.canada);
-            viewHolder.imageFlagThree.setImageResource(R.drawable.canada);
+            viewHolder.imageFlagOne.setVisibility(View.GONE);
+            viewHolder.imageFlagTwo.setVisibility(View.GONE);
+            viewHolder.imageFlagThree.setVisibility(View.GONE);
+            getLanguages(userActivity.getcreator_PK(),viewHolder);
             viewHolder.name.setText(userActivity.getName());
             viewHolder.name.setTextColor(Color.GRAY);
             Log.w("CREATED BY",userActivity.getCreator());
@@ -327,6 +334,142 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             }
         }
         return convertView;
+    }
+    private void getLanguages(long creator_pk, final ViewHolder viewHolderlanguage) {
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        if(SignIn.static_token != null) {
+
+            client.addHeader("Authorization","Token "+SignIn.static_token);
+        }else{
+
+        }
+        client.get(MainActivity.base_host_url + "api/getProfilePK/"+creator_pk, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.w("GET Profile PK", statusCode + ": " + "Response = " + response.toString());
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray categoryJSONArray) {
+                Log.w("JSON Profile PK", statusCode + ": " + categoryJSONArray.toString());
+
+                try {
+                    JSONObject languagesObject = categoryJSONArray.getJSONObject(0);
+                    JSONArray languagesArray = languagesObject.getJSONArray("languages");
+                    Log.d("Langiage-3",languagesArray.toString());
+                    for(int x = 0;x<languagesArray.length();x++){
+                        JSONObject languageNames = languagesArray.getJSONObject(x);
+                        String languageString = languageNames.getString("name");
+                        Log.d("language",languageString);
+                        if(x==0){
+                            Log.d("language-1",languageString);
+                            viewHolderlanguage.imageFlagOne.setVisibility(View.VISIBLE);
+                            if(languageString.equals("French") || languageString.equals("français")){
+                                viewHolderlanguage.imageFlagOne.setImageResource(R.drawable.fr);
+                            }else if(languageString.equals("English") || languageString.equals("anglais")){
+                                viewHolderlanguage.imageFlagOne.setImageResource(R.drawable.gb);
+                            }else if(languageString.equals("Spanish") || languageString.equals("espagnol")){
+                                viewHolderlanguage.imageFlagOne.setImageResource(R.drawable.spain);
+                            }else if(languageString.equals("Chinese") || languageString.equals("chinois")){
+                                viewHolderlanguage.imageFlagOne.setImageResource(R.drawable.cn);
+                            }else if(languageString.equals("German") || languageString.equals("allemand")){
+                                viewHolderlanguage.imageFlagOne.setImageResource(R.drawable.de);
+                            }else if(languageString.equals("Russian") || languageString.equals("russe")){
+                                viewHolderlanguage.imageFlagOne.setImageResource(R.drawable.ru);
+                            }else if(languageString.equals("Portuguese") || languageString.equals("portugais")){
+                                viewHolderlanguage.imageFlagOne.setImageResource(R.drawable.pr);
+                            }else if(languageString.equals("Arabic") || languageString.equals("arabe")){
+                                viewHolderlanguage.imageFlagOne.setImageResource(R.drawable.ae);
+                            }else if(languageString.equals("Korean") || languageString.equals("coréen")){
+                                viewHolderlanguage.imageFlagOne.setImageResource(R.drawable.kr);
+                            }else if(languageString.equals("Vietnamese") || languageString.equals("vietnamien")){
+                                viewHolderlanguage.imageFlagOne.setImageResource(R.drawable.vn);
+                            }else if(languageString.equals("Italian") || languageString.equals("italien")) {
+                                viewHolderlanguage.imageFlagOne.setImageResource(R.drawable.it);
+                            }else{
+                                viewHolderlanguage.imageFlagOne.setVisibility(View.GONE);
+                            }
+                        }if(x==1){
+                            viewHolderlanguage.imageFlagTwo.setVisibility(View.VISIBLE);
+                            if(languageString.equals("French") || languageString.equals("français")){
+                                viewHolderlanguage.imageFlagTwo.setImageResource(R.drawable.fr);
+                            }else if(languageString.equals("English") || languageString.equals("anglais")){
+                                viewHolderlanguage.imageFlagTwo.setImageResource(R.drawable.gb);
+                            }else if(languageString.equals("Spanish") || languageString.equals("espagnol")){
+                                viewHolderlanguage.imageFlagTwo.setImageResource(R.drawable.spain);
+                            }else if(languageString.equals("Chinese") || languageString.equals("chinois")){
+                                viewHolderlanguage.imageFlagTwo.setImageResource(R.drawable.cn);
+                            }else if(languageString.equals("German") || languageString.equals("allemand")){
+                                viewHolderlanguage.imageFlagTwo.setImageResource(R.drawable.de);
+                            }else if(languageString.equals("Russian") || languageString.equals("russe")){
+                                viewHolderlanguage.imageFlagTwo.setImageResource(R.drawable.ru);
+                            }else if(languageString.equals("Portuguese") || languageString.equals("portugais")){
+                                viewHolderlanguage.imageFlagTwo.setImageResource(R.drawable.pr);
+                            }else if(languageString.equals("Arabic") || languageString.equals("arabe")){
+                                viewHolderlanguage.imageFlagTwo.setImageResource(R.drawable.ae);
+                            }else if(languageString.equals("Korean") || languageString.equals("coréen")){
+                                viewHolderlanguage.imageFlagTwo.setImageResource(R.drawable.kr);
+                            }else if(languageString.equals("Vietnamese") || languageString.equals("vietnamien")){
+                                viewHolderlanguage.imageFlagTwo.setImageResource(R.drawable.vn);
+                            }else if(languageString.equals("Italian") || languageString.equals("italien")) {
+                                viewHolderlanguage.imageFlagTwo.setImageResource(R.drawable.it);
+                            }else{
+                                viewHolderlanguage.imageFlagTwo.setVisibility(View.GONE);
+                            }
+                        }if(x==2){
+                            viewHolderlanguage.imageFlagThree.setVisibility(View.VISIBLE);
+                            if(languageString.equals("French") || languageString.equals("français")){
+                                viewHolderlanguage.imageFlagThree.setImageResource(R.drawable.fr);
+                            }else if(languageString.equals("English") || languageString.equals("anglais")){
+                                viewHolderlanguage.imageFlagThree.setImageResource(R.drawable.gb);
+                            }else if(languageString.equals("Spanish") || languageString.equals("espagnol")){
+                                viewHolderlanguage.imageFlagThree.setImageResource(R.drawable.spain);
+                            }else if(languageString.equals("Chinese") || languageString.equals("chinois")){
+                                viewHolderlanguage.imageFlagThree.setImageResource(R.drawable.cn);
+                            }else if(languageString.equals("German") || languageString.equals("allemand")){
+                                viewHolderlanguage.imageFlagThree.setImageResource(R.drawable.de);
+                            }else if(languageString.equals("Russian") || languageString.equals("russe")){
+                                viewHolderlanguage.imageFlagThree.setImageResource(R.drawable.ru);
+                            }else if(languageString.equals("Portuguese") || languageString.equals("portugais")){
+                                viewHolderlanguage.imageFlagThree.setImageResource(R.drawable.pr);
+                            }else if(languageString.equals("Arabic") || languageString.equals("arabe")){
+                                viewHolderlanguage.imageFlagThree.setImageResource(R.drawable.ae);
+                            }else if(languageString.equals("Korean") || languageString.equals("coréen")){
+                                viewHolderlanguage.imageFlagThree.setImageResource(R.drawable.kr);
+                            }else if(languageString.equals("Vietnamese") || languageString.equals("vietnamien")){
+                                viewHolderlanguage.imageFlagThree.setImageResource(R.drawable.vn);
+                            }else if(languageString.equals("Italian") || languageString.equals("italien")) {
+                                viewHolderlanguage.imageFlagThree.setImageResource(R.drawable.it);
+                            }else{
+                                viewHolderlanguage.imageFlagThree.setVisibility(View.GONE);
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                Log.w("GET Profile PK", "Error Code: " + error_code + "," + text);
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
+
+                Log.w("GET Profile PK", "Error Code: " + error_code + ",  " + json.toString());
+            }
+        });
+
     }
 }
 
