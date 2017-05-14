@@ -220,7 +220,7 @@ public class MyProfileActivity extends AppCompatActivity {
         AsyncHttpClient client = new AsyncHttpClient();
         if (SignIn.static_token != null) {
             client.addHeader("Authorization", "Token " + SignIn.static_token);
-            Log.d("Hello","Hello scott 3");
+          //  Log.d("Hello","Hello scott 3");
         }
 
         //GET user profile
@@ -472,8 +472,8 @@ public class MyProfileActivity extends AppCompatActivity {
             String str = spokenLanguage.getText().toString();
             List<String> elephantList = Arrays.asList(str.split(","));
             boolean languageCountCheck= false;
-            Log.d("hello",elephantList.size()+"");
-            if(elephantList.size()>3){
+           // Log.d("hello",elephantList.size()+"");
+            if(elephantList.size()>4){
                 languageCountCheck = false;
                 errorMessage = "Cannot select more than three language";
             } else {
@@ -496,7 +496,7 @@ public class MyProfileActivity extends AppCompatActivity {
                     Log.w("JSON Exception", e.toString());
                 }
                 params.put("languages", languagesArray);
-                Log.d("languages123",languagesArray.toString());
+             //   Log.d("languages123",languagesArray.toString());
             }
 
             Log.d("Profile",checkAgeValidation+":"+compareCountryName);
@@ -602,7 +602,7 @@ public class MyProfileActivity extends AppCompatActivity {
                     MyProfileActivity.this.finish();
                 }
             }else {
-                Log.d("Hello","2");
+               // Log.d("Hello","2");
                 Toast.makeText(getApplicationContext(),errorMessage,Toast.LENGTH_LONG).show();
             }
         }

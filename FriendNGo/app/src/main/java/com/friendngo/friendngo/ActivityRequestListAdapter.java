@@ -33,11 +33,14 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
         TextView name;
         TextView years;
         TextView homeCity;
-        ImageView nationality;
         TextView request_point;
         TextView points;
         TextView activityName;
         TextView resident;
+        ImageView imageFlagOne;
+        ImageView imageFlagTwo;
+        ImageView imageFlagThree;
+        TextView dot_text;
         CircularImageView notImageButton,yesImageButton;
         long sender_id;
         long request_id;
@@ -75,12 +78,16 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
             viewHolder.name = (TextView) convertView.findViewById(R.id.request_person_name);
             viewHolder.request_point = (TextView)convertView.findViewById(R.id.request_point);
             viewHolder.activityName = (TextView)convertView.findViewById(R.id.request_activity_name);
-            viewHolder.homeCity = (TextView) convertView.findViewById(R.id.reqiest_city_name);
+            viewHolder.homeCity = (TextView) convertView.findViewById(R.id.request_city_name);
             viewHolder.years = (TextView)convertView.findViewById(R.id.request_years);
-            viewHolder.nationality = (ImageView) convertView.findViewById(R.id.request_flag);
             viewHolder.points = (TextView) convertView.findViewById(R.id.request_point);
             viewHolder.notImageButton =(CircularImageView)convertView.findViewById(R.id.request_delete_image);
             viewHolder.yesImageButton = (CircularImageView)convertView.findViewById(R.id.request_success_image);
+            viewHolder.dot_text = (TextView)convertView.findViewById(R.id.request_home_city_dot);
+            viewHolder.imageFlagOne = (ImageView)convertView.findViewById(R.id.request_country_flag_one);
+            viewHolder.imageFlagTwo = (ImageView)convertView.findViewById(R.id.request_country_flag_two);
+            viewHolder.imageFlagThree = (ImageView)convertView.findViewById(R.id.request_country_flag_three);
+
             //viewHolder.nationality.setImageResource(R.drawable.canada);
             viewHolder.resident = (TextView)convertView.findViewById(R.id.request_resident);
             result=convertView;
@@ -102,6 +109,8 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
         viewHolder.notImageButton.setImageResource(R.drawable.not);
         viewHolder.yesImageButton.setImageResource(R.drawable.yes);
         viewHolder.request_point.setText(dataModel.getPoints()+"pts");
+        viewHolder.dot_text.setText("  ·  ");
+        viewHolder.dot_text.setTextColor(Color.GRAY);
         viewHolder.name.setText(dataModel.getName()+",");
         viewHolder.name.setTextColor(Color.GRAY);
         viewHolder.years.setText(dataModel.getYear()+" y-o");
@@ -111,6 +120,9 @@ public class ActivityRequestListAdapter extends ArrayAdapter<RequestModel> imple
         viewHolder.resident.setTextColor(Color.GRAY);
         viewHolder.activityName.setText(dataModel.getActiivityName().toString());
         viewHolder.activityName.setTextColor(Color.GRAY);
+        viewHolder.imageFlagOne.setImageResource(R.drawable.canada);
+        viewHolder.imageFlagTwo.setImageResource(R.drawable.canada);
+        viewHolder.imageFlagThree.setImageResource(R.drawable.canada);
         if(dataModel.request_state == 0){
             //Do nothing!
         } else if (dataModel.request_state == 1){

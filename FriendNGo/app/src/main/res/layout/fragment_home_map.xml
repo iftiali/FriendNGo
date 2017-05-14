@@ -41,174 +41,175 @@
             android:layout_height="match_parent">
 
             <com.mikhaellopez.circularimageview.CircularImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/empty_profile"
-            android:id="@+id/banner_profilepicture"
-            app:civ_border_color="#EEEEEE"
-            app:civ_border_width="2dp"
-            app:civ_shadow="true"
-            app:civ_shadow_radius="0.5"
-            app:civ_shadow_color="@color/greyish"
-            />
+                android:id="@+id/banner_profilepicture"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/empty_profile"
+                app:civ_border_color="#EEEEEE"
+                app:civ_border_width="2dp"
+                app:civ_shadow="true"
+                app:civ_shadow_color="@color/greyish"
+                app:civ_shadow_radius="0.5" />
 
             <TextView
-            android:paddingTop="5dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/banner_created_text"
-            android:layout_toRightOf="@+id/banner_profilepicture"
-            android:text="Created by scottLaughlin, 29 y-o"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:textSize="12sp"/>
+                android:id="@+id/banner_created_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/banner_profilepicture"
+                android:paddingTop="5dp"
+                android:text="Created by scottLaughlin, 29 y-o"
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
 
             <View
-            android:id="@+id/banner_separation_bar"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
-            android:layout_alignBottom="@+id/banner_profilepicture"
-            android:layout_marginBottom="-15dp" />
+                android:id="@+id/banner_separation_bar"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignBottom="@+id/banner_profilepicture"
+                android:layout_marginBottom="-15dp"
+                android:background="@android:color/darker_gray" />
 
             <ImageView
-            android:id="@+id/banner_activity_type"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignTop="@+id/banner_separation_bar"
-            android:layout_marginTop="11dp"
-            app:srcCompat="@drawable/cup" />
+                android:id="@+id/banner_activity_type"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignTop="@+id/banner_separation_bar"
+                android:layout_marginTop="11dp"
+                app:srcCompat="@drawable/cup" />
 
             <TextView
-            android:id="@+id/banner_activity_time"
-            android:text="Fri 20, 10:15pm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:layout_below="@+id/banner_activity_name"
-            android:layout_toRightOf="@+id/banner_clock_image"
-            android:layout_toEndOf="@+id/banner_clock_image" />
+                android:id="@+id/banner_activity_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/banner_activity_name"
+                android:layout_toEndOf="@+id/banner_clock_image"
+                android:layout_toRightOf="@+id/banner_clock_image"
+                android:text="Fri 20, 10:15pm"
+                android:textSize="12sp" />
 
             <LinearLayout
-            android:gravity="center_vertical"
-            android:layout_below="@+id/banner_created_text"
-            android:layout_toRightOf="@id/banner_profilepicture"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-            android:id="@+id/banner_status_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="Resident, "
-            android:textSize="12sp"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/banner_created_text"
+                android:layout_toRightOf="@id/banner_profilepicture"
+                android:gravity="center_vertical">
 
-            <TextView
-            android:id="@+id/banner_home_city_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Montreal"
-            android:textSize="12sp"/>
+                <TextView
+                    android:id="@+id/banner_status_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="Resident, "
+                    android:textSize="12sp" />
 
-            <TextView
-            android:id="@+id/banner_home_city_dot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="   ·   "
-            android:textSize="12sp"/>
+                <TextView
+                    android:id="@+id/banner_home_city_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Montreal"
+                    android:textSize="12sp" />
 
-            <ImageView
-            android:visibility="gone"
-            android:id="@+id/banner_country_flag_one"
-            app:srcCompat="@drawable/canada"
-            android:layout_width="20dp"
-            android:layout_height="20dp"/>
+                <TextView
+                    android:id="@+id/banner_home_city_dot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="   ·   "
+                    android:textSize="12sp" />
 
-            <ImageView
-            android:visibility="gone"
-            android:id="@+id/banner_country_flag_two"
-            app:srcCompat="@drawable/canada"
-            android:layout_width="20dp"
-            android:layout_height="20dp"/>
+                <ImageView
+                    android:id="@+id/banner_country_flag_one"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/canada" />
 
-            <ImageView
-            android:visibility="gone"
-            android:id="@+id/banner_country_flag_three"
-            app:srcCompat="@drawable/canada"
-            android:layout_width="20dp"
-            android:layout_height="20dp"/>
+                <ImageView
+                    android:id="@+id/banner_country_flag_two"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/canada" />
+
+                <ImageView
+                    android:id="@+id/banner_country_flag_three"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/canada" />
             </LinearLayout>
 
 
+            <TextView
+                android:id="@+id/banner_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/activity_list_point"
+                android:padding="2dp"
+                android:text="10pts"
+                android:textColor="@color/whiteish" />
+
 
             <TextView
-            android:id="@+id/banner_points"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="5dp"
-            android:background="@drawable/activity_list_point"
-            android:padding="2dp"
-            android:text="10pts"
-            android:textColor="@color/whiteish" />
-
-
-            <TextView
-            android:id="@+id/banner_activity_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:text="OctoberFest"
-            android:layout_alignTop="@+id/banner_activity_type"
-            android:layout_toRightOf="@+id/banner_activity_type"
-            android:layout_toEndOf="@+id/banner_activity_type"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp" />
+                android:id="@+id/banner_activity_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/banner_activity_type"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@+id/banner_activity_type"
+                android:layout_toRightOf="@+id/banner_activity_type"
+                android:paddingLeft="8dp"
+                android:text="OctoberFest" />
 
             <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:weightSum="1"
-            android:visibility="visible"
-            android:id="@+id/tableRow"
-            android:layout_marginTop="27dp"
-            android:layout_below="@+id/banner_activity_time"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+                android:id="@+id/tableRow"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/banner_activity_time"
+                android:layout_marginTop="27dp"
+                android:visibility="visible"
+                android:weightSum="1">
 
-            <Button
-            android:id="@+id/banner_activity_details"
-            android:text="Activity details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/activity_markup_activity_details_button"
-            android:textColor="@color/whiteish"
-            android:layout_weight="0.45"/>
+                <Button
+                    android:id="@+id/banner_activity_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.45"
+                    android:background="@drawable/activity_markup_activity_details_button"
+                    android:text="Activity details"
+                    android:textColor="@color/whiteish" />
 
-            <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.10"
-            android:background="#FFFFFF"/>
-            <Button
-            android:id="@+id/banner_participate"
-            android:textColor="@color/whiteish"
-            android:layout_weight="0.45"
-            android:text="Participate"
-            android:background="@drawable/activity_markup_participate_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.10"
+                    android:background="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/banner_participate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.45"
+                    android:background="@drawable/activity_markup_participate_button"
+                    android:text="Participate"
+                    android:textColor="@color/whiteish" />
 
             </TableRow>
+
             <ImageView
-            android:id="@+id/banner_clock_image"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            app:srcCompat="@drawable/clock"
-            android:layout_below="@+id/banner_activity_name"
-            android:layout_alignLeft="@+id/banner_activity_name"
-            android:layout_alignStart="@+id/banner_activity_name" />
+                android:id="@+id/banner_clock_image"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignLeft="@+id/banner_activity_name"
+                android:layout_alignStart="@+id/banner_activity_name"
+                android:layout_below="@+id/banner_activity_name"
+                app:srcCompat="@drawable/clock" />
         </RelativeLayout>
     </FrameLayout>
 </FrameLayout>

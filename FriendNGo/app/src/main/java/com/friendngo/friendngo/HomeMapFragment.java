@@ -228,9 +228,10 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback, Goo
                 flagImageTwo.setVisibility(View.GONE);
                 flagImageThree.setVisibility(View.GONE);
              }else {
-                flagImageOne.setVisibility(View.VISIBLE);
-                flagImageTwo.setVisibility(View.VISIBLE);
-                flagImageThree.setVisibility(View.VISIBLE);
+
+                flagImageOne.setVisibility(View.GONE);
+                flagImageTwo.setVisibility(View.GONE);
+                flagImageThree.setVisibility(View.GONE);
                creator.setText("Created by " + act.getCreator());
                 creator.setTextColor(Color.BLACK);
                 Picasso.with(getApplicationContext())
@@ -238,6 +239,7 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback, Goo
                         .placeholder(R.drawable.empty_profile)
                         .error(R.drawable.empty_profile)
                         .into(profilePicture);
+                getLanguages(act.getcreator_PK());
 
             }
             status.setText( act.getuserStatus()+ ", ");
@@ -293,6 +295,143 @@ public class HomeMapFragment extends Fragment implements OnMapReadyCallback, Goo
 
         }
         return false;
+    }
+
+    private void getLanguages(long creator_pk) {
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        if(SignIn.static_token != null) {
+
+            client.addHeader("Authorization","Token "+SignIn.static_token);
+        }else{
+
+        }
+        client.get(MainActivity.base_host_url + "api/getProfilePK/"+creator_pk, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.w("GET Profile PK", statusCode + ": " + "Response = " + response.toString());
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray categoryJSONArray) {
+                Log.w("JSON Profile PK", statusCode + ": " + categoryJSONArray.toString());
+
+                try {
+                    JSONObject languagesObject = categoryJSONArray.getJSONObject(0);
+                    JSONArray languagesArray = languagesObject.getJSONArray("languages");
+                    Log.d("Langiage-3",languagesArray.toString());
+                    for(int x = 0;x<languagesArray.length();x++){
+                        JSONObject languageNames = languagesArray.getJSONObject(x);
+                        String languageString = languageNames.getString("name");
+                        Log.d("language",languageString);
+                        if(x==0){
+                            Log.d("language-1",languageString);
+                            flagImageOne.setVisibility(View.VISIBLE);
+                            if(languageString.equals("French") || languageString.equals("français")){
+                                flagImageOne.setImageResource(R.drawable.fr);
+                            }else if(languageString.equals("English") || languageString.equals("anglais")){
+                                flagImageOne.setImageResource(R.drawable.gb);
+                            }else if(languageString.equals("Spanish") || languageString.equals("espagnol")){
+                                flagImageOne.setImageResource(R.drawable.spain);
+                            }else if(languageString.equals("Chinese") || languageString.equals("chinois")){
+                                flagImageOne.setImageResource(R.drawable.cn);
+                            }else if(languageString.equals("German") || languageString.equals("allemand")){
+                                flagImageOne.setImageResource(R.drawable.de);
+                            }else if(languageString.equals("Russian") || languageString.equals("russe")){
+                                flagImageOne.setImageResource(R.drawable.ru);
+                            }else if(languageString.equals("Portuguese") || languageString.equals("portugais")){
+                                flagImageOne.setImageResource(R.drawable.pr);
+                            }else if(languageString.equals("Arabic") || languageString.equals("arabe")){
+                                flagImageOne.setImageResource(R.drawable.ae);
+                            }else if(languageString.equals("Korean") || languageString.equals("coréen")){
+                                flagImageOne.setImageResource(R.drawable.kr);
+                            }else if(languageString.equals("Vietnamese") || languageString.equals("vietnamien")){
+                                flagImageOne.setImageResource(R.drawable.vn);
+                            }else if(languageString.equals("Italian") || languageString.equals("italien")) {
+                                flagImageThree.setImageResource(R.drawable.it);
+                            }else{
+                                flagImageOne.setVisibility(View.GONE);
+                            }
+                        }if(x==1){
+                            flagImageTwo.setVisibility(View.VISIBLE);
+                            if(languageString.equals("French") || languageString.equals("français")){
+                                flagImageTwo.setImageResource(R.drawable.fr);
+                            }else if(languageString.equals("English") || languageString.equals("anglais")){
+                                flagImageTwo.setImageResource(R.drawable.gb);
+                            }else if(languageString.equals("Spanish") || languageString.equals("espagnol")){
+                                flagImageTwo.setImageResource(R.drawable.spain);
+                            }else if(languageString.equals("Chinese") || languageString.equals("chinois")){
+                                flagImageTwo.setImageResource(R.drawable.cn);
+                            }else if(languageString.equals("German") || languageString.equals("allemand")){
+                                flagImageTwo.setImageResource(R.drawable.de);
+                            }else if(languageString.equals("Russian") || languageString.equals("russe")){
+                                flagImageTwo.setImageResource(R.drawable.ru);
+                            }else if(languageString.equals("Portuguese") || languageString.equals("portugais")){
+                                flagImageTwo.setImageResource(R.drawable.pr);
+                            }else if(languageString.equals("Arabic") || languageString.equals("arabe")){
+                                flagImageTwo.setImageResource(R.drawable.ae);
+                            }else if(languageString.equals("Korean") || languageString.equals("coréen")){
+                                flagImageTwo.setImageResource(R.drawable.kr);
+                            }else if(languageString.equals("Vietnamese") || languageString.equals("vietnamien")){
+                                flagImageTwo.setImageResource(R.drawable.vn);
+                            }else if(languageString.equals("Italian") || languageString.equals("italien")) {
+                                flagImageThree.setImageResource(R.drawable.it);
+                            }else{
+                                flagImageTwo.setVisibility(View.GONE);
+                            }
+                        }if(x==2){
+                            flagImageThree.setVisibility(View.VISIBLE);
+                            if(languageString.equals("French") || languageString.equals("français")){
+                                flagImageThree.setImageResource(R.drawable.fr);
+                            }else if(languageString.equals("English") || languageString.equals("anglais")){
+                                flagImageThree.setImageResource(R.drawable.gb);
+                            }else if(languageString.equals("Spanish") || languageString.equals("espagnol")){
+                                flagImageThree.setImageResource(R.drawable.spain);
+                            }else if(languageString.equals("Chinese") || languageString.equals("chinois")){
+                                flagImageThree.setImageResource(R.drawable.cn);
+                            }else if(languageString.equals("German") || languageString.equals("allemand")){
+                                flagImageThree.setImageResource(R.drawable.de);
+                            }else if(languageString.equals("Russian") || languageString.equals("russe")){
+                                flagImageThree.setImageResource(R.drawable.ru);
+                            }else if(languageString.equals("Portuguese") || languageString.equals("portugais")){
+                                flagImageThree.setImageResource(R.drawable.pr);
+                            }else if(languageString.equals("Arabic") || languageString.equals("arabe")){
+                                flagImageThree.setImageResource(R.drawable.ae);
+                            }else if(languageString.equals("Korean") || languageString.equals("coréen")){
+                                flagImageThree.setImageResource(R.drawable.kr);
+                            }else if(languageString.equals("Vietnamese") || languageString.equals("vietnamien")){
+                                flagImageThree.setImageResource(R.drawable.vn);
+                            }else if(languageString.equals("Italian") || languageString.equals("italien")) {
+                                flagImageThree.setImageResource(R.drawable.it);
+                            }else{
+                                flagImageThree.setVisibility(View.GONE);
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, String text, Throwable throwable) {
+                Log.w("GET Profile PK", "Error Code: " + error_code + "," + text);
+            }
+
+            @Override
+            public void onFailure(int error_code, Header[] headers, Throwable throwable, JSONObject json){
+
+                Log.w("GET Profile PK", "Error Code: " + error_code + ",  " + json.toString());
+            }
+        });
+
     }
 
     private void initXmlView(View view){

@@ -873,25 +873,26 @@ public class MapActivity extends AppCompatActivity
         }else{
             Log.i(My_TAG,"token null"+"Map");
         }
+        client.get(MainActivity.base_host_url + "api/getCities/", new JsonHttpResponseHandler() {
 
-        client.get(MainActivity.base_host_url + "api/getVersionStatus/"+versionNumber, new JsonHttpResponseHandler() {
+//        client.get(MainActivity.base_host_url + "api/getVersionStatus/"+versionNumber, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.w("GET NEW UPDATE READY", statusCode + ": " + "Response = " + response.toString());
-                try{
-
-                    //versionNumber = response.getDouble("must_update");
-
-                    if(response.getBoolean("is_deprecated")){
-                        /*Keys for version_code
-                        created_at_timestamp,is_deprecated,application_notes*/
-                       // Log.w("VERSION NUMBER",response.getString("application_notes"));
-                        Toast.makeText(getApplicationContext(),response.getString("application_notes"),Toast.LENGTH_LONG).show();
-                    }
-                }catch (JSONException e){
-                    Log.w("GET NEW UPDATE READY",e.getMessage().toString());
-                }
+//                try{
+//
+//                    //versionNumber = response.getDouble("must_update");
+//
+//                    if(response.getBoolean("is_deprecated")){
+//                        /*Keys for version_code
+//                        created_at_timestamp,is_deprecated,application_notes*/
+//                       // Log.w("VERSION NUMBER",response.getString("application_notes"));
+//                        Toast.makeText(getApplicationContext(),response.getString("application_notes"),Toast.LENGTH_LONG).show();
+//                    }
+//                }catch (JSONException e){
+//                    Log.w("GET NEW UPDATE READY",e.getMessage().toString());
+//                }
             }
 
             @Override

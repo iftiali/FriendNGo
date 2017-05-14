@@ -55,6 +55,9 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
         RelativeLayout info;
         Button addActivityButton;
         Button paidAddActivityButton;
+        ImageView imageFlagOne;
+        ImageView imageFlagTwo;
+        ImageView imageFlagThree;
         RelativeLayout freeEvent,paidEventRelativeLayout;
     }
 
@@ -84,7 +87,7 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder.freeEvent = (RelativeLayout) convertView.findViewById(R.id.freeEventRelativeLayout);
             viewHolder.creator = (TextView) convertView.findViewById(R.id.created_text);
             viewHolder.status = (TextView) convertView.findViewById(R.id.status_text);
-            viewHolder.homeCity = (TextView) convertView.findViewById(R.id.home_city_text);
+            viewHolder.homeCity = (TextView) convertView.findViewById(R.id.list_city_text);
 //            viewHolder.nationality = (ImageView) convertView.findViewById(R.id.country_flag);
             viewHolder.points = (TextView) convertView.findViewById(R.id.points);
             viewHolder.category = (ImageView) convertView.findViewById(R.id.activity_type);
@@ -96,6 +99,9 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
             viewHolder.info = (RelativeLayout) convertView.findViewById(R.id.row_item);
             viewHolder.addActivityButton = (Button) convertView.findViewById(R.id.add_activity_button);
             viewHolder.paidAddActivityButton = (Button) convertView.findViewById(R.id.add_activity_button_paid);
+            viewHolder.imageFlagOne = (ImageView)convertView.findViewById(R.id.list_country_flag_one);
+            viewHolder.imageFlagTwo = (ImageView)convertView.findViewById(R.id.list_country_flag_two);
+            viewHolder.imageFlagThree = (ImageView)convertView.findViewById(R.id.list_country_flag_three);
 
             //paid event
             viewHolder.paidEventRelativeLayout = (RelativeLayout)convertView.findViewById(R.id.paidEventRelativeLayout);
@@ -206,9 +212,13 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
                 }
             });
         }else {
+
             viewHolder.freeEvent.setVisibility(View.VISIBLE);
             viewHolder.paidEventRelativeLayout.setVisibility(View.GONE);
             //Here is where we map our model data to our View instance
+            viewHolder.imageFlagOne.setImageResource(R.drawable.canada);
+            viewHolder.imageFlagTwo.setImageResource(R.drawable.canada);
+            viewHolder.imageFlagThree.setImageResource(R.drawable.canada);
             viewHolder.name.setText(userActivity.getName());
             viewHolder.name.setTextColor(Color.GRAY);
             Log.w("CREATED BY",userActivity.getCreator());
@@ -217,7 +227,12 @@ public class ActivityListAdapter extends ArrayAdapter<UserActivity> implements V
 //        viewHolder.profilePicture.setImageResource(R.drawable.scott);
             viewHolder.status.setText("Resident" + ", ");
             viewHolder.status.setTextColor(Color.GRAY);
-            viewHolder.homeCity.setText(userActivity.getHomeCity());
+            if(userActivity.getHomeCity() == null){
+                Log.d("Hello",userActivity.getHomeCity().toString());
+            }else {
+                Log.d("Hello",userActivity.getHomeCity().toString());
+                viewHolder.homeCity.setText(userActivity.getHomeCity());
+            }
             viewHolder.homeCity.setTextColor(Color.GRAY);
 //            viewHolder.nationality.setImageResource(R.drawable.canada); //TODO: Get flag from nationalities
             viewHolder.points.setText(userActivity.getPoints() + "pts");
