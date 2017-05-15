@@ -181,16 +181,15 @@
         <!--android:layout_toRightOf="@+id/dotText"-->
         <!--android:layout_toEndOf="@+id/dotText" />-->
 
-        <TextView
-            android:id="@+id/dotText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/created_text"
-            android:layout_toEndOf="@+id/home_city_text"
-            android:layout_toRightOf="@+id/home_city_text"
-            android:text="   ·   "
-            android:textSize="8sp"
-            android:textStyle="normal|bold" />
+        <!--<TextView-->
+            <!--android:id="@+id/dotText"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/created_text"-->
+           <!---->
+            <!--android:text="   ·   "-->
+            <!--android:textSize="8sp"-->
+            <!--android:textStyle="normal|bold" />-->
 
         <TextView
             android:id="@+id/points"

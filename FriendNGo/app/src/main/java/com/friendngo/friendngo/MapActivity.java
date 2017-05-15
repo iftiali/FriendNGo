@@ -68,7 +68,7 @@ public class MapActivity extends AppCompatActivity
    //public static TextView other_user_name,other_user_age,other_user_about,other_user_location,other_user_citizenship,other_user_points;
 
     public static String selfIdentify=null;
-    public static int versionNumber = 10;
+    public static int versionNumber = 11;
     public static String selfName=null;
     public static boolean checkStateMapOrList = false;
     TextView user_account;
