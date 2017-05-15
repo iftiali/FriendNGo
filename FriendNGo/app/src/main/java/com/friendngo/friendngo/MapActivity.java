@@ -599,12 +599,14 @@ public class MapActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+
+       // moveTaskToBack(true);
+        HomeMapFragment homeMapFragment1 = new HomeMapFragment();
+        manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.fragmentView, homeMapFragment1, homeMapFragment1.getTag()).commit();
+        bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.home_grey);
+        bottomNavigationView.getMenu().getItem(0).setTitle(R.string.home_icon_text);
+
     }
 
     @Override
@@ -1035,7 +1037,8 @@ public class MapActivity extends AppCompatActivity
             }
         });
     }
+
 }
-//
+
 
 
