@@ -70,7 +70,7 @@ public class MapActivity extends AppCompatActivity
     public static String selfIdentify=null;
     public static int versionNumber = 11;
     public static String selfName=null;
-    public static boolean checkStateMapOrList = false;
+    public static boolean checkOnMapActivity= true;
     TextView user_account;
     private static final int POLLING_PERIOD = 5;
 
@@ -219,21 +219,24 @@ public class MapActivity extends AppCompatActivity
                                 HomeMapFragment homeMapFragment1 = new HomeMapFragment();
                                 manager = getSupportFragmentManager();
                                 manager.beginTransaction().replace(R.id.fragmentView, homeMapFragment1, homeMapFragment1.getTag()).commit();
-
+                                checkOnMapActivity= true;
                                 break;
                             case R.id.calendar_icon:
                               //  Log.w("BOTTOM NAV","Calendar Icon Pressed");
                                 Toast.makeText(getApplicationContext(), "Calendar Not Available in Beta", Toast.LENGTH_LONG).show();
+                                checkOnMapActivity= false;
                                 break;
                             case R.id.notification_icon:
                                 NotificationFragment notificationFragment = new NotificationFragment();
                                 manager = getSupportFragmentManager();
                                 manager.beginTransaction().replace(R.id.fragmentView,notificationFragment,notificationFragment.getTag()).commit();
+                                checkOnMapActivity= false;
                                 break;
                             case R.id.message_icon:
                                 ChatFragment chatFragment = new ChatFragment();
                                 manager = getSupportFragmentManager();
                                 manager.beginTransaction().replace(R.id.fragmentView,chatFragment,chatFragment.getTag()).commit();
+                                checkOnMapActivity= false;
                                 break;
                             case R.id.settings_icon:
                                 //Toast.makeText(getApplicationContext(), "Settings Not Available in Beta", Toast.LENGTH_LONG).show();
@@ -242,7 +245,8 @@ public class MapActivity extends AppCompatActivity
                                 SettingFragment settingFragment = new SettingFragment();
                                 manager = getSupportFragmentManager();
                                 manager.beginTransaction().replace(R.id.fragmentView,settingFragment,settingFragment.getTag()).commit();
-//                              break;
+                                checkOnMapActivity= false;
+                                break;
                             default:
                                 //Log.w("NAV DEBUG", "Default called on nav switch... what on earth are you doing???");
                                 break;
@@ -600,13 +604,12 @@ public class MapActivity extends AppCompatActivity
     @Override
     public void onBackPressed() {
 
-       // moveTaskToBack(true);
-        HomeMapFragment homeMapFragment1 = new HomeMapFragment();
-        manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.fragmentView, homeMapFragment1, homeMapFragment1.getTag()).commit();
-        bottomNavigationView.getMenu().getItem(0).setIcon(R.drawable.home_grey);
-        bottomNavigationView.getMenu().getItem(0).setTitle(R.string.home_icon_text);
-
+       if(!checkOnMapActivity) {
+           HomeMapFragment homeMapFragment1 = new HomeMapFragment();
+           manager = getSupportFragmentManager();
+           manager.beginTransaction().replace(R.id.fragmentView, homeMapFragment1, homeMapFragment1.getTag()).commit();
+           bottomNavigationView.getMenu().getItem(0).setChecked(true);
+       }
     }
 
     @Override
